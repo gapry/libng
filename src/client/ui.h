@@ -5,7 +5,6 @@
 #include <fmt/core.h>
 
 #include "client/player.h"
-#include "client/render.h"
 #include "pch.h"
 
 namespace gnet {

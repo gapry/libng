@@ -1,3 +1,4 @@
+#include "client/render.h"
 #include "client/ui.h"
 
 int main(int, char**) {
