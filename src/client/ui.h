@@ -4,31 +4,32 @@
 #include <cstdio>
 #include <fmt/core.h>
 
-#include "client/player.h"
 #include "noncopyable.h"
 #include "pch.h"
+
+#include "client/game.h"
+#include "client/player.h"
 
 namespace gnet {
 
 class ui : public gnet::noncopyable {
-  SDL_GLContext gl_context;
-  char* glsl_version;
-  SDL_Window* window;
+  char const* glsl_version = nullptr;
+  SDL_Window* window       = nullptr;
+  SDL_GLContext gl_context = nullptr;
+  gnet::game* m_owner      = nullptr;
+  bool m_is_executed       = true;
+  ImVec4 clear_color       = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
 public:
-  ui(ImGuiIO& io,                                              //
-     SDL_Window* window,                                       //
-     gnet::player& player,                                     //
-     void (*game_loop)(SDL_Window*, ImGuiIO&, gnet::player&)); //
+  ui(gnet::game* owner);
 
   ~ui();
 
-private:
-  void init_imgui(ImGuiIO& io);
+  void on_update(void);
 
-  int init_opengl_loader(void);
+  void on_render(void);
 
-  int init_sdl(void);
+  void execute(void);
 };
 
 } // namespace gnet

@@ -1,60 +1,64 @@
 #include "client/ui.h"
 
-void gnet::ui::init_imgui(ImGuiIO& io) {
-  IMGUI_CHECKVERSION();
+void gnet::ui::on_update(void) {
+  SDL_Event event;
 
-  ImGui::CreateContext();
-
-  io = ImGui::GetIO();
-
-  (void)io;
-
-  io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-
-  ImGui::StyleColorsDark();
-}
-
-int gnet::ui::init_opengl_loader(void) {
-#if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
-  bool err = gl3wInit() != 0;
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
-  bool err = glewInit() != GLEW_OK;
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
-  bool err = gladLoadGL() == 0;
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD2)
-  bool err = gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress) == 0;
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING2)
-  bool err = false;
-  glbinding::Binding::initialize();
-#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING3)
-  bool err = false;
-  glbinding::initialize([](const char* name) {
-    return (glbinding::ProcAddress)SDL_GL_GetProcAddress(name); //
-  });
-#else
-  bool err = false;
-
-#endif
-  if (err) {
-    fprintf(stderr, "Failed to initialize OpenGL loader!\n");
-    return 1;
+  while (SDL_PollEvent(&event)) {
+    ImGui_ImplSDL2_ProcessEvent(&event);
+    if (event.type == SDL_QUIT) {
+      m_is_executed = false;
+    }
+    if (event.type == SDL_WINDOWEVENT && event.window.event == SDL_WINDOWEVENT_CLOSE &&
+        event.window.windowID == SDL_GetWindowID(window)) {
+      m_is_executed = false;
+    }
+    m_owner->on_event(event);
   }
-  return 0;
+
+  ImGui_ImplOpenGL3_NewFrame();
+
+  ImGui_ImplSDL2_NewFrame(window);
+
+  ImGui::NewFrame();
+
+  m_owner->on_update(ImGui::GetIO().DeltaTime);
 }
 
-int gnet::ui::init_sdl(void) {
-  if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER) != 0) {
+void gnet::ui::on_render(void) {
+  ImGui::Render();
+
+  ImGuiIO& io = ImGui::GetIO();
+
+  glViewport(0,                      //
+             0,                      //
+             (int)io.DisplaySize.x,  //
+             (int)io.DisplaySize.y); //
+
+  glClearColor(clear_color.x * clear_color.w, //
+               clear_color.y * clear_color.w, //
+               clear_color.z * clear_color.w, //
+               clear_color.w);                //
+
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+  SDL_GL_SwapWindow(window);
+}
+
+void gnet::ui::execute(void) {
+  while (m_is_executed) {
+    on_update();
+    on_render();
+  }
+}
+
+gnet::ui::ui(gnet::game* owner)
+  : m_owner(owner) {
+  int error = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER | SDL_INIT_GAMECONTROLLER);
+  if (error != 0) {
     fmt::print("Error: {}\n", SDL_GetError());
-    return -1;
   }
-  return 0;
-}
-
-gnet::ui::ui(ImGuiIO& io,                                               //
-             SDL_Window* window,                                        //
-             gnet::player& player,                                      //
-             void (*game_loop)(SDL_Window*, ImGuiIO&, gnet::player&)) { //
-  init_sdl();
 
 #ifdef __APPLE__
   // GL 3.2 Core + GLSL 150
@@ -95,15 +99,38 @@ gnet::ui::ui(ImGuiIO& io,                                               //
 
   SDL_GL_SetSwapInterval(1);
 
-  init_opengl_loader();
+#if defined(IMGUI_IMPL_OPENGL_LOADER_GL3W)
+  bool err = gl3wInit() != 0;
+#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLEW)
+  bool err = glewInit() != GLEW_OK;
+#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
+  bool err = gladLoadGL() == 0;
+#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD2)
+  bool err = gladLoadGL((GLADloadfunc)SDL_GL_GetProcAddress) == 0;
+#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING2)
+  bool err = false;
+  glbinding::Binding::initialize();
+#elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING3)
+  bool err = false;
+  glbinding::initialize([](const char* name) {
+    return (glbinding::ProcAddress)SDL_GL_GetProcAddress(name); //
+  });
+#else
+  bool err = false;
+#endif
+  if (err) {
+    fprintf(stderr, "Failed to initialize OpenGL loader!\n");
+  }
 
-  init_imgui(io);
+  IMGUI_CHECKVERSION();
+
+  ImGui::CreateContext();
+
+  ImGui::StyleColorsDark();
 
   ImGui_ImplSDL2_InitForOpenGL(window, gl_context);
 
   ImGui_ImplOpenGL3_Init(glsl_version);
-
-  game_loop(window, io, player);
 }
 
 gnet::ui::~ui() {
