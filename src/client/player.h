@@ -1,5 +1,5 @@
-#ifndef __GNET_CLIENT_H__
-#define __GNET_CLIENT_H__
+#ifndef __GNET_PLAYER_H__
+#define __GNET_PLAYER_H__
 
 #include "noncopyable.h"
 #include "pch.h"
@@ -13,8 +13,8 @@ class player : public gnet::noncopyable {
 
 public:
   explicit player(float x, float y)
-    : offset_x{x}
-    , offset_y{y} {
+    : offset_x(x)
+    , offset_y(y) {
   }
 
   ~player() = default;
@@ -28,8 +28,6 @@ public:
   void set_offset_x(float k);
 
   void set_offset_y(float k);
-
-  void render(void);
 };
 
 } // namespace gnet
