@@ -45,6 +45,11 @@ add_executable(${server}   ${server_files})
 add_executable(${unittest} ${test_files})
 add_executable(${profiler} ${profiler_files})
 
+target_precompile_headers(${client}   PRIVATE ${dir_inc}/pch.h)
+# target_precompile_headers(${server}   PRIVATE ${dir_inc}/pch.h)
+# target_precompile_headers(${unittest} PRIVATE ${dir_inc}/pch.h)
+# target_precompile_headers(${profiler} PRIVATE ${dir_inc}/pch.h)
+
 target_link_libraries(${client} fmt::fmt Threads::Threads imgui::imgui)
 target_link_libraries(${server} fmt::fmt Threads::Threads)
 target_link_libraries(${unittest} fmt::fmt Threads::Threads imgui::imgui)
