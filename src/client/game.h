@@ -7,9 +7,17 @@
 
 namespace gnet {
 
-class render : public gnet::noncopyable {
+class game : public gnet::noncopyable {
 public:
-  static void game_loop(SDL_Window* window, ImGuiIO& io, gnet::player& player);
+  game();
+
+  virtual ~game();
+
+  void execute(void);
+
+  virtual void on_update(float delta_time);
+
+  virtual void on_event(SDL_Event& event);
 };
 
 } // namespace gnet
