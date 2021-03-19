@@ -5,11 +5,12 @@
 #include <fmt/core.h>
 
 #include "client/player.h"
+#include "noncopyable.h"
 #include "pch.h"
 
 namespace gnet {
 
-class ui {
+class ui : public gnet::noncopyable {
   SDL_GLContext gl_context;
   char* glsl_version;
   SDL_Window* window;
