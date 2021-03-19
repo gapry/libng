@@ -45,4 +45,10 @@
 #include <unistd.h>     // sleep()
 #endif
 
+#ifdef _MSC_VER
+#define __GNET_PRETTY_FUNCION__ (__FUNCSIG__)
+#else
+#define __GNET_PRETTY_FUNCION__ (__PRETTY_FUNCTION__)
+#endif
+
 #endif
