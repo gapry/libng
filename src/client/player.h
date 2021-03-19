@@ -1,11 +1,12 @@
 #ifndef __GNET_CLIENT_H__
 #define __GNET_CLIENT_H__
 
+#include "noncopyable.h"
 #include "pch.h"
 
 namespace gnet {
 
-class player {
+class player : public gnet::noncopyable {
   float offset_x = 0.0f;
   float offset_y = 0.0f;
   float delta    = 0.15f;
