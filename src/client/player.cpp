@@ -3,18 +3,18 @@
 #include "client/player.h"
 #include "pch.h"
 
-float gnet::player::get_offset_x(void) const {
-  return offset_x;
+float gnet::player::get_x(void) const {
+  return x;
 }
 
-float gnet::player::get_offset_y(void) const {
-  return offset_y;
+float gnet::player::get_y(void) const {
+  return y;
 }
 
-void gnet::player::set_offset_x(float k) {
-  offset_x = offset_x + k;
+void gnet::player::set_x(float new_x) {
+  x = new_x;
 }
 
-void gnet::player::set_offset_y(float k) {
-  offset_y = offset_y + k;
+void gnet::player::set_y(float new_y) {
+  y = new_y;
 }
