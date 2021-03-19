@@ -9,9 +9,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(dir_vcpkg "~/bin/vcpkg/vcpkg") # TODO: support cross platform
+set(dir_vcpkg "externals/vcpkg")
 
 set(CMAKE_TOOLCHAIN_FILE "${dir_vcpkg}/scripts/buildsystems/vcpkg.cmake")
+
 set(client   "${project_name}_client.out")
 set(server   "${project_name}_server.out")
 set(unittest "${project_name}_unittest.out")

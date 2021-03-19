@@ -12,6 +12,12 @@ declare -r unittest=${proj}_unittest.out
 declare -r profiler=${proj}_profiler.out
 declare -r workspace=ws-${proj}
 declare -r is_running=`ps aux | grep tmux | grep -v grep`
+declare -r dir_vcpkg=`pwd`/externals/vcpkg
+declare -r cmd_vcpkg=$dir_vcpkg/vcpkg
+
+if ! [ -d "$dir_vcpkg" ]; then
+  bash -x $dir_scripts/install/linux.sh
+fi
 
 rm -rf $dir_build; 
 
