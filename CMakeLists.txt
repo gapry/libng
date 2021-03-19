@@ -47,5 +47,5 @@ add_executable(${profiler} ${profiler_files})
 
 target_link_libraries(${client} fmt::fmt Threads::Threads imgui::imgui)
 target_link_libraries(${server} fmt::fmt Threads::Threads)
-target_link_libraries(${unittest} fmt::fmt Threads::Threads)
+target_link_libraries(${unittest} fmt::fmt Threads::Threads imgui::imgui)
 target_link_libraries(${profiler} fmt::fmt Threads::Threads)
