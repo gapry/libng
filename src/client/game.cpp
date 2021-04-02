@@ -1,9 +1,9 @@
 #include <memory>
 
-#include "client/game.h"
-#include "client/ui.h"
+#include "client/game.hpp"
+#include "client/ui.hpp"
 
-#include "pch.h"
+#include "pch.hpp"
 
 gnet::game::game(void) {
 }

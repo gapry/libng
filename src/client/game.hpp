@@ -1,18 +1,17 @@
-#ifndef __GNET_GAME_H__
-#define __GNET_GAME_H__
+#pragma once
 
-#include "client/player.h"
-#include "noncopyable.h"
-#include "pch.h"
+#include "client/player.hpp"
+#include "noncopyable.hpp"
+#include "pch.hpp"
 
 namespace gnet {
 
-class game : public gnet::noncopyable {
+class game : public gnet::noncopyable<game> {
   ImVec2 m_dir  = ImVec2(0, 0);
   float m_speed = 200.0f;
 
 protected:
-  bool get_input_key(SDL_Keycode key);
+  auto get_input_key(SDL_Keycode key) -> bool;
 
 public:
   game();
@@ -21,19 +20,19 @@ public:
 
   void execute(void);
 
-  virtual void on_update(float delta_time);
+  virtual auto on_update(float delta_time) -> void;
 
-  virtual void on_event(SDL_Event& event);
+  virtual auto on_event(SDL_Event& event) -> void;
 
-  float get_speed(void) const {
+  auto get_speed(void) const {
     return m_speed;
   }
 
-  void set_dir_x(int k) {
+  auto set_dir_x(int k) {
     m_dir.x += k;
   }
 
-  void set_dir_y(int k) {
+  auto set_dir_y(int k) {
     m_dir.y += k;
   }
 
@@ -47,5 +46,3 @@ public:
 };
 
 } // namespace gnet
-
-#endif

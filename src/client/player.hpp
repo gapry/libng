@@ -1,12 +1,11 @@
-#ifndef __GNET_PLAYER_H__
-#define __GNET_PLAYER_H__
+#pragma once
 
-#include "noncopyable.h"
-#include "pch.h"
+#include "noncopyable.hpp"
+#include "pch.hpp"
 
 namespace gnet {
 
-class player : public gnet::noncopyable {
+class player : public gnet::noncopyable<player> {
   float x = 0.0f;
   float y = 0.0f;
 
@@ -18,15 +17,13 @@ public:
 
   ~player() = default;
 
-  float get_x(void) const;
+  auto get_x(void) const -> float;
 
-  float get_y(void) const;
+  auto get_y(void) const -> float;
 
-  void set_x(float k);
+  auto set_x(float k) -> void;
 
-  void set_y(float k);
+  auto set_y(float k) -> void;
 };
 
 } // namespace gnet
-
-#endif

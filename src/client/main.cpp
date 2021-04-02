@@ -1,4 +1,4 @@
-#include "client/client.h"
+#include "client/client.hpp"
 
 int main(int, char**) {
   gnet::client app;

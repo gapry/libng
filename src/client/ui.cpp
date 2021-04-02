@@ -1,4 +1,4 @@
-#include "client/ui.h"
+#include "client/ui.hpp"
 
 void gnet::ui::on_update(void) {
   SDL_Event event;

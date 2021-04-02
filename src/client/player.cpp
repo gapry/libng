@@ -1,7 +1,7 @@
 #include <fmt/core.h>
 
-#include "client/player.h"
-#include "pch.h"
+#include "client/player.hpp"
+#include "pch.hpp"
 
 float gnet::player::get_x(void) const {
   return x;

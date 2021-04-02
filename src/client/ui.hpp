@@ -1,18 +1,17 @@
-#ifndef __GNET_UI_H__
-#define __GNET_UI_H__
+#pragma once
 
 #include <cstdio>
 #include <fmt/core.h>
 
-#include "noncopyable.h"
-#include "pch.h"
+#include "noncopyable.hpp"
+#include "pch.hpp"
 
-#include "client/game.h"
-#include "client/player.h"
+#include "client/game.hpp"
+#include "client/player.hpp"
 
 namespace gnet {
 
-class ui : public gnet::noncopyable {
+class ui : public gnet::noncopyable<ui> {
   char const* glsl_version = nullptr;
   SDL_Window* window       = nullptr;
   SDL_GLContext gl_context = nullptr;
@@ -25,13 +24,11 @@ public:
 
   ~ui();
 
-  void on_update(void);
+  auto on_update(void) -> void;
 
-  void on_render(void);
+  auto on_render(void) -> void;
 
-  void execute(void);
+  auto execute(void) -> void;
 };
 
 } // namespace gnet
-
-#endif
