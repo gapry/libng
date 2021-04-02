@@ -1,21 +1,9 @@
 #pragma once
 
-#ifdef _WIN32
-// clang-format off
-#include <Winsock2.h> // must include before window.h
-#include <Windows.h>  //
-// clang-format on                 //
-#include <conio.h>                 //
-#include <ws2tcpip.h>              // getaddrinfo
-#pragma comment(lib, "Ws2_32.lib") //
-#else
-#include <sys/ioctl.h> // ioctl
-#include <unistd.h>    // close
-#endif
-
 #include "error_handler.hpp"
-#include "noncopyable.hpp"
 #include "net/socket_addr.hpp"
+#include "noncopyable.hpp"
+#include "pch.hpp"
 
 #include <vector>
 
