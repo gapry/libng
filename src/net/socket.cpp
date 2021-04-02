@@ -113,7 +113,7 @@ auto socket::send(char const* const data,           //
   }
 }
 
-auto socket::recv(std::vector<char>& buff,               //
+auto socket::recv(gnet::vector<char>& buff,              //
                   size_t const recv_byte_size) -> void { //
   buff.clear();
   if (recv_byte_size > std::numeric_limits<int32_t>::max()) {

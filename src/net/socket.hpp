@@ -1,11 +1,10 @@
 #pragma once
 
 #include "error_handler.hpp"
+#include "gvector.hpp"
 #include "net/socket_addr.hpp"
 #include "noncopyable.hpp"
 #include "pch.hpp"
-
-#include <vector>
 
 namespace gnet {
 
@@ -62,10 +61,10 @@ public:
   }
 
   auto recvfrom(socket_addr& addr,                    //
-                std::vector<char>& buff,              //
+                gnet::vector<char>& buff,             //
                 size_t const recv_byte_size) -> void; //
 
-  auto recv(std::vector<char>& buff,              //
+  auto recv(gnet::vector<char>& buff,             //
             size_t const recv_byte_size) -> void; //
 
   auto recv(char* buff,                           //
