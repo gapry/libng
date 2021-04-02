@@ -3,6 +3,7 @@
 #include "guptr.hpp"
 #include "gvector.hpp"
 #include "net/connection.hpp"
+#include "net/io_mux.hpp"
 #include "noncopyable.hpp"
 #include "platform/type.hpp"
 
