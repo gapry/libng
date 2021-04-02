@@ -1,7 +1,7 @@
 #pragma once
 
 #include "platform/compiler.hpp"
-#include "platform/type.hpp"
+#include "platform/types.hpp"
 
 namespace gnet {
 
