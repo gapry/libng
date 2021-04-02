@@ -1,4 +1,4 @@
-#include "timer/timer.h"
+#include "timer/timer.hpp"
 
 void gnet::timer::sleep(int sec) {
 #ifdef _WIN32
