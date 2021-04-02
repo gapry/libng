@@ -1,5 +1,4 @@
-#ifndef __GNET_ALLOCATOR_H__
-#define __GNET_ALLOCATOR_H__
+#pragma once
 
 #include <cstdlib> // std::malloc, std::free
 
@@ -48,5 +47,3 @@ public:
 };
 
 } // namespace gnet
-
-#endif
