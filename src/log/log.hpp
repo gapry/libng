@@ -1,13 +1,12 @@
-#ifndef __GNET_LOG_H__
-#define __GNET_LOG_H__
+#pragma once
 
-#include "io/io.h"
-#include "noncopyable.h"
-#include "string.h"
+#include "io/io.hpp"
+#include "noncopyable.hpp"
+#include "string.hpp"
 
 namespace gnet {
 
-class log : public gnet::noncopyable, gnet::io {
+class log : public gnet::noncopyable<log>, gnet::io {
 public:
   enum class level {
     unknown,
@@ -20,9 +19,7 @@ public:
 
   ~log() = default;
 
-  void write(gnet::log::level lv, const gnet::string& msg);
+  auto write(gnet::log::level lv, const gnet::string& msg) -> void;
 };
 
 } // namespace gnet
-
-#endif
