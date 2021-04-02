@@ -1,7 +1,6 @@
-#ifndef __GNET_SCHEDULER_H__
-#define __GNET_SCHEDULER_H__
+#pragma once
 
-#include "pch.h"
+#include "scheduler/scheduler.hpp"
 
 namespace gnet {
 
@@ -11,5 +10,3 @@ public:
 };
 
 } // namespace gnet
-
-#endif
