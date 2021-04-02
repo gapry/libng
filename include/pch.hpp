@@ -1,5 +1,4 @@
-#ifndef __GNET_PCH__
-#define __GNET_PCH__
+#pragma once
 
 #include "imgui.h"
 #include "imgui_impl_opengl3.h"
@@ -43,12 +42,4 @@
 #include <sys/ioctl.h>  //
 #include <sys/socket.h> //
 #include <unistd.h>     // sleep()
-#endif
-
-#ifdef _MSC_VER
-#define __GNET_PRETTY_FUNCION__ (__FUNCSIG__)
-#else
-#define __GNET_PRETTY_FUNCION__ (__PRETTY_FUNCTION__)
-#endif
-
 #endif
