@@ -12,5 +12,5 @@ public:
     : m_data(data.data()) {
   }
 
-  ~explicit() = default;
+  ~deserializer() = default;
 }
