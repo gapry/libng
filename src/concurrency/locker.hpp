@@ -1,29 +1,26 @@
-#ifndef __GNET_CONCURRENCY_H__
-#define __GNET_CONCURRENCY_H__
+#pragma once
 
-#include "noncopyable.h"
+#include "noncopyable.hpp"
 
 #include <mutex>
 
 namespace gnet {
 
-class locker : public gnet::noncopyable {
+class locker : public gnet::noncopyable<locker> {
   using mutex_t = std::mutex;
 
   constexpr locker() noexcept;
 
   ~locker();
 
-  void lock();
+  auto lock() -> void;
 
-  bool try_lock();
+  auto try_lock() -> bool;
 
-  void unlock();
+  auto unlock() -> void;
 
 private:
   mutex_t m_mutex;
 };
 
 } // namespace gnet
-
-#endif
