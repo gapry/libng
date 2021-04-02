@@ -1,12 +1,12 @@
-#ifndef __GNET_THREAD_H__
-#define __GNET_THREAD_H__
+#pragma once
 
-#include <noncopyable.h>
+#include "noncopyable.hpp"
+
 #include <thread>
 
 namespace gnet {
 
-class thread : public gnet::noncopyable {
+class thread : public gnet::noncopyable<thread> {
   using thread_t = std::thread;
 
 public:
@@ -26,5 +26,3 @@ private:
 };
 
 } // namespace gnet
-
-#endif
