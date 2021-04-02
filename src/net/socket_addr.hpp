@@ -1,27 +1,36 @@
-#ifndef __GNET_SOCKET_ADDR_H__
-#define __GNET_SOCKET_ADDR_H__
+#pragma once
 
-#include "noncopyable.h"
-#include "pch.h"
+#include "dbg.hpp"
+#include "error_handler.hpp"
+#include "noncopyable.hpp"
+
+#include <arpa/inet.h>  // htonl
+#include <sys/socket.h> // struct sockaddr
 
 namespace gnet {
 
-class socket_addr : public gnet::noncopyable {
-  using addr_t = struct sockaddr;
+class socket_addr : public noncopyable<socket_addr> {
+  using addr_t      = struct sockaddr;
+  using addr_size_t = socklen_t;
+
+  addr_t m_addr;
+  addr_size_t m_length = sizeof m_addr;
 
 public:
-  void set_port(uint16_t port);
+  socket_addr();
 
-  uint16_t get_port(void) const;
+  ~socket_addr() = default;
 
-  void set_ipv4(uint8_t part1, uint8_t part2, uint8_t part3, uint8_t part4);
+  auto set_port(uint16_t const port) -> void;
 
-  void set_ipv4(const char* const hostname, const char* const service = nullptr);
+  auto set_ipv4(uint8_t const a,          //
+                uint8_t const b,          //
+                uint8_t const c,          //
+                uint8_t const d) -> void; //
 
-private:
-  addr_t m_addr;
-}
+  auto size(void) const -> addr_size_t;
+
+  auto operator&(void) const -> addr_t const*;
+};
 
 } // namespace gnet
-
-#endif
