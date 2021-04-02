@@ -1,5 +1,4 @@
-#ifndef __GNET_PROFILER_H__
-#define __GNET_PROFILER_H__
+#pragma once
 
 namespace gnet {
 
@@ -11,5 +10,3 @@ public:
 };
 
 } // namespace gnet
-
-#endif
