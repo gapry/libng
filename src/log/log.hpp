@@ -1,25 +1,47 @@
 #pragma once
 
-#include "io/io.hpp"
+#include "gstring.hpp"
 #include "noncopyable.hpp"
-#include "string.hpp"
+
+#define GNET_LOG_INFO(...)                                                                                             \
+  do {                                                                                                                 \
+    gnet::g_logger.do_write(gnet::logger::level::info, __VA_ARGS__);                                                   \
+  } while (false)
+
+#define GNET_LOG_WARNING(...)                                                                                          \
+  do {                                                                                                                 \
+    gnet::g_logger.do_write(gnet::logger::level::warning, __VA_ARGS__);                                                \
+  } while (false)
+
+#define GNET_LOG_ERROR(...)                                                                                            \
+  do {                                                                                                                 \
+    gnet::g_logger.do_write(gnet::logger::level::error, __VA_ARGS__);                                                  \
+  } while (false)
 
 namespace gnet {
 
-class log : public gnet::noncopyable<log>, gnet::io {
+class logger : public gnet::noncopyable<log> {
 public:
   enum class level {
-    unknown,
     info,
     warning,
     error,
+    unknown,
   };
 
-  log() = default;
+  logger() = default;
 
-  ~log() = default;
+  ~logger() = default;
 
-  auto write(gnet::log::level lv, const gnet::string& msg) -> void;
+  auto on_write(gnet::logger::level level_type,   //
+                gnet::string const& msg) -> void; //
+
+  template <class... Args>
+  auto do_write(gnet::logger::level level_type, //
+                Args&&... args) -> void {       //
+  }
 };
+
+extern logger g_logger;
 
 } // namespace gnet
