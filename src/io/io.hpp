@@ -1,5 +1,4 @@
-#ifndef __GNET_IO_H__
-#define __GNET_IO_H__
+#pragma once
 
 namespace gnet {
 
@@ -9,11 +8,9 @@ public:
 
   ~io();
 
-  void read(void);
+  auto read(void) -> void;
 
-  void write(void);
+  auto write(void) -> void;
 };
 
 } // namespace gnet
-
-#endif
