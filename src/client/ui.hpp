@@ -3,6 +3,7 @@
 #include <cstdio>
 #include <fmt/core.h>
 
+#include "gui.hpp"
 #include "noncopyable.hpp"
 #include "pch.hpp"
 

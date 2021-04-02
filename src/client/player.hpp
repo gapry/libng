@@ -1,5 +1,6 @@
 #pragma once
 
+#include "gui.hpp"
 #include "noncopyable.hpp"
 #include "pch.hpp"
 
