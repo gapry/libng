@@ -1,22 +1,20 @@
-#ifndef __GNET_STRING_H__
-#define __GNET_STRING_H__
+#pragma once
 
-#include "pch.h"
 #include <fmt/core.h>
 
-namespace gnet::beta {
+#include "dbg.hpp"
+
+namespace gnet::libcxx {
 
 class string {
 public:
   string() {
-    fmt::print("{}\n", __GNET_PRETTY_FUNCION__);
+    fmt::print("{}\n", __GNET_PRETTY_FUNCTION__);
   }
 
   ~string() {
-    fmt::print("{}\n", __GNET_PRETTY_FUNCION__);
+    fmt::print("{}\n", __GNET_PRETTY_FUNCTION__);
   }
 };
 
-} // namespace gnet::beta
-
-#endif
+} // namespace gnet::libcxx

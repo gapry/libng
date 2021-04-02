@@ -1,24 +1,21 @@
-#ifndef __GNET_VERCTOR_H__
-#define __GNET_VERCTOR_H__
+#pragma once
 
 #include <fmt/core.h>
 
-#include "pch.h"
+#include "dbg.hpp"
 
-namespace gnet::beta {
+namespace gnet::libcxx {
 
 template <typename T>
 class vector {
 public:
   vector() {
-    fmt::print("{}\n", __GNET_PRETTY_FUNCION__);
+    fmt::print("{}\n", __GNET_PRETTY_FUNCTION__);
   }
 
   ~vector() {
-    fmt::print("{}\n", __GNET_PRETTY_FUNCION__);
+    fmt::print("{}\n", __GNET_PRETTY_FUNCTION__);
   }
 };
 
-} // namespace gnet::beta
-
-#endif
+} // namespace gnet::libcxx
