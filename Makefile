@@ -9,22 +9,22 @@ endif
 
 vcpkg:
 ifeq ($(current_os), Linux)
-	@sh -x $(dir_scripts)/install/linux.sh
+	@sh -x $(dir_scripts)/install/vcpkg_on_linux.sh
 endif
 
 fmt:
 ifeq ($(current_os), Linux)        
-	@sh -x $(dir_scripts)/fmt.sh
+	@sh -x $(dir_scripts)/fmt/format_on_linux.sh
 endif          
 
 build:
 ifeq ($(current_os), Linux)        
-	@sh -x $(dir_scripts)/build.sh
+	@sh -x $(dir_scripts)/build/build_on_linux.sh
 endif          
 
 execute:
 ifeq ($(current_os), Linux)        
-	@sh -x $(dir_scripts)/run.sh
+	@sh -x $(dir_scripts)/execute/execute_on_linux.sh
 endif          
 
 clean: 
