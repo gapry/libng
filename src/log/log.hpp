@@ -20,7 +20,7 @@
 
 namespace gnet {
 
-class logger : public gnet::noncopyable<log> {
+class logger : public gnet::noncopyable<logger> {
 public:
   enum class level {
     info,
