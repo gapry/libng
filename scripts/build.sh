@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-declare -r dir_build=`pwd`/build
+export dir_build=`pwd`/build
 
 rm -rf $dir_build; 
 

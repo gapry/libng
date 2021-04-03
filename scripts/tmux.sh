@@ -1,13 +1,13 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-declare -r dir_build=`pwd`/build
-declare -r proj=GNet
-declare -r workspace=ws-${proj}
-declare -r is_running=`ps aux | grep tmux | grep -v grep`
-declare -r client=${proj}_client.out
-declare -r server=${proj}_server.out
-declare -r unittest=${proj}_unittest.out
-declare -r profiler=${proj}_profiler.out
+export dir_build=`pwd`/build
+export proj=GNet
+export workspace=ws-${proj}
+export is_running=`ps aux | grep tmux | grep -v grep`
+export client=${proj}_client.out
+export server=${proj}_server.out
+export unittest=${proj}_unittest.out
+export profiler=${proj}_profiler.out
 
 # make sure the workspace is new one
 if [ -z "$is_running" ]; then

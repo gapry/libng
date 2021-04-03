@@ -1,6 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
-declare -r dir_list=( include libcxx src test benchmark )
+export dir_list=( include libcxx src test benchmark )
 
 for dir in ${dir_list[@]}; do
   find `pwd`/$dir -type f -iname "*.cpp" -o -iname "*.hpp" -o -iname "*.h"  | 

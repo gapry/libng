@@ -7,19 +7,24 @@ else
 	current_os := $(shell uname)
 endif
 
+vcpkg:
+ifeq ($(current_os), Linux)
+	@sh -x $(dir_scripts)/install/linux.sh
+endif
+
 fmt:
 ifeq ($(current_os), Linux)        
-	@bash -x $(dir_scripts)/fmt.sh
+	@sh -x $(dir_scripts)/fmt.sh
 endif          
 
 build:
 ifeq ($(current_os), Linux)        
-	@bash -x $(dir_scripts)/build.sh
+	@sh -x $(dir_scripts)/build.sh
 endif          
 
 execute:
 ifeq ($(current_os), Linux)        
-	@bash -x $(dir_scripts)/run.sh
+	@sh -x $(dir_scripts)/run.sh
 endif          
 
 clean: 
@@ -27,4 +32,4 @@ ifeq ($(current_os), Linux)
 	rm -rf $(dir_build)
 endif          
 
-.PHONY: fmt build execute clean
+.PHONY: vcpkg fmt build execute clean

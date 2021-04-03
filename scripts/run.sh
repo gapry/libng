@@ -1,18 +1,15 @@
-#!/usr/bin/env bash
-#
-# usage: bash -x ./run.sh
-#
+#!/bin/sh
 
-declare -r dir_scripts=`pwd`/scripts
-declare -r dir_vcpkg=`pwd`/externals/vcpkg
-declare -r cmd_vcpkg=$dir_vcpkg/vcpkg
+export dir_scripts=`pwd`/scripts
+export dir_vcpkg=`pwd`/externals/vcpkg
+export cmd_vcpkg=$dir_vcpkg/vcpkg
 
 if ! [ -d "$dir_vcpkg" ]; then
-  bash -x $dir_scripts/install/linux.sh
+  sh -x $dir_scripts/install/linux.sh
 fi
 
-bash -x $dir_scripts/fmt.sh
+sh -x $dir_scripts/fmt.sh
 
-bash -x $dir_scripts/build.sh
+sh -x $dir_scripts/build.sh
 
-bash -x $dir_scripts/tmux.sh
+sh -x $dir_scripts/tmux.sh
