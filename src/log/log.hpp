@@ -1,6 +1,6 @@
 #pragma once
 
-#include "gstring.hpp"
+#include "config.hpp"
 #include "noncopyable.hpp"
 
 #define GNET_LOG_INFO(...)                                                                                             \

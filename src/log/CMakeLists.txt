@@ -10,4 +10,4 @@ add_library(${project_name} ${src_files})
 
 target_include_directories(${project_name} PUBLIC include)
 
-target_link_libraries(${project_name} PUBLIC imgui)
+target_link_libraries(${project_name} PUBLIC EASTL)

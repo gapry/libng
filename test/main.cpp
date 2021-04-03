@@ -3,8 +3,7 @@
 #include "gnet/string.hpp"
 #include "gnet/vector.hpp"
 
-#include "gstring.hpp"
-#include "gvector.hpp"
+#include "config.hpp"
 
 #include "thread/thread.hpp"
 
