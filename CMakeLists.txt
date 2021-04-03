@@ -35,6 +35,7 @@ set(dir_inc      "include")
 set(dir_libcxx   "libcxx")
 set(dir_src      "src")
 set(dir_client   "${dir_src}/client")
+set(dir_imgui    "${dir_client}/imgui")
 set(dir_server   "${dir_src}/server")
 set(dir_net      "${dir_src}/net")
 set(dir_log      "${dir_src}/log")
@@ -50,10 +51,12 @@ file(GLOB_RECURSE server_files   "${dir_server}/*.*")
 file(GLOB_RECURSE test_files     "${dir_test}/*.*")
 file(GLOB_RECURSE profiler_files "${dir_profiler}/*.*")
 
+add_subdirectory(${dir_imgui})
 add_subdirectory(${dir_net})
 add_subdirectory(${dir_log})
 
-add_executable(${client}   ${client_files})
+add_executable(${client}   ${client_files}
+                           ${dir_imgui})
 add_executable(${server}   ${server_files}
                            ${dir_net}
                            ${dir_log})
