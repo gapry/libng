@@ -34,24 +34,29 @@ set(profiler     "${project_name}_profiler.out")
 set(dir_inc      "include")
 set(dir_libcxx   "libcxx")
 set(dir_src      "src")
-set(dir_client   "client")
-set(dir_server   "server")
-set(dir_net      "net")
+set(dir_client   "${dir_src}/client")
+set(dir_server   "${dir_src}/server")
+set(dir_net      "${dir_src}/net")
+set(dir_log      "${dir_src}/log")
 set(dir_test     "test")
 set(dir_profiler "benchmark")
 
-include_directories(${dir_inc})
 include_directories(${dir_libcxx})
+include_directories(${dir_inc})
 include_directories(${dir_src})
 
-file(GLOB_RECURSE client_files   "${dir_src}/${dir_client}/*.*")
-file(GLOB_RECURSE server_files   "${dir_src}/${dir_server}/*.*" 
-                                 "${dir_src}/${dir_net}/*.*")
+file(GLOB_RECURSE client_files   "${dir_client}/*.*")
+file(GLOB_RECURSE server_files   "${dir_server}/*.*")
 file(GLOB_RECURSE test_files     "${dir_test}/*.*")
 file(GLOB_RECURSE profiler_files "${dir_profiler}/*.*")
 
+add_subdirectory(${dir_net})
+add_subdirectory(${dir_log})
+
 add_executable(${client}   ${client_files})
-add_executable(${server}   ${server_files})
+add_executable(${server}   ${server_files}
+                           ${dir_net}
+                           ${dir_log})
 add_executable(${unittest} ${test_files})
 add_executable(${profiler} ${profiler_files})
 
