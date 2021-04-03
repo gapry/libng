@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(lib_log "log")
-project(${lib_log})
+set(project_name "GNet_log")
+
+project(${project_name})
 
 file(GLOB_RECURSE src_files "*.hpp" "*.cpp")
 
-add_library(${lib_log} ${src_files})
+add_library(${project_name} ${src_files})
 
-target_include_directories(${lib_log} PUBLIC include)
+target_include_directories(${project_name} PUBLIC include)
+
+target_link_libraries(${project_name} PUBLIC imgui)

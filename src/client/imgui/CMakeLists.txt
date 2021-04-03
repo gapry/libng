@@ -1,10 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(lib_imgui "imgui")
-project(${lib_imgui})
+set(project_name "GNet_imgui")
+
+project(${project_name})
 
 file(GLOB_RECURSE src_files "*.hpp" "*.cpp")
 
-add_library(${lib_imgui} ${src_files})
+add_library(${project_name} ${src_files})
 
-target_include_directories(${lib_imgui} PUBLIC include)
+target_include_directories(${project_name} PUBLIC include)
+
+target_link_libraries(${project_name} PUBLIC fmt::fmt imgui::imgui)
