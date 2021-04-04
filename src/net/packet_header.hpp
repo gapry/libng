@@ -2,7 +2,7 @@
 
 #include "net/packet.hpp"
 
-namespace gapry {
+namespace gnet {
 
 class packet_header {
   pkt_cmd_t m_cmd       = 0;
@@ -18,4 +18,4 @@ public:
   ~packet_header() = default;
 };
 
-} // namespace gapry
+} // namespace gnet
