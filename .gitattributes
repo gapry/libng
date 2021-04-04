@@ -1,0 +1,18 @@
+* text=auto
+
+*.cpp text
+*.hpp text
+*.txt text
+*.cmake text
+*.sh text
+*.py text
+*.md text
+*.rst text
+
+*.out binary
+*.elf binary
+*.bin binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
