@@ -16,3 +16,12 @@
 #include <unistd.h>     // sleep()
 #include <poll.h>       //
 #endif
+
+namespace gnet {
+
+class ui;
+class game;
+class client;
+class player;
+
+} // namespace gnet
