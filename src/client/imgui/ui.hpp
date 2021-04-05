@@ -3,9 +3,10 @@
 #include <cstdio>
 #include <fmt/core.h>
 
-#include "gui.hpp"
 #include "noncopyable.hpp"
 #include "pch.hpp"
+
+#include "imgui/ui.hpp"
 
 #include "client/game.hpp"
 #include "client/player.hpp"

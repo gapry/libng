@@ -1,7 +1,7 @@
 #pragma once
 
 #include "client/player.hpp"
-#include "gui.hpp"
+#include "imgui/ui.hpp"
 #include "noncopyable.hpp"
 #include "pch.hpp"
 
