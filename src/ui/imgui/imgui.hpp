@@ -6,7 +6,7 @@
 #include "noncopyable.hpp"
 #include "pch.hpp"
 
-#include "imgui/ui.hpp"
+#include "ui/config.hpp"
 
 #include "client/game.hpp"
 #include "client/player.hpp"

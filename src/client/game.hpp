@@ -1,9 +1,10 @@
 #pragma once
 
-#include "client/player.hpp"
-#include "imgui/ui.hpp"
 #include "noncopyable.hpp"
 #include "pch.hpp"
+
+#include "client/player.hpp"
+#include "ui/imgui/imgui.hpp"
 
 namespace gnet {
 

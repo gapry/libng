@@ -1,9 +1,6 @@
 #include <memory>
 
 #include "client/game.hpp"
-#include "client/imgui/ui.hpp"
-
-#include "pch.hpp"
 
 gnet::game::game(void) {
 }

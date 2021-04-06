@@ -1,5 +1,4 @@
 #include "client/client.hpp"
-#include "client/player.hpp"
 
 void gnet::client::on_update(float delta_time) {
   auto* drawList = ImGui::GetBackgroundDrawList();

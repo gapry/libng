@@ -1,4 +1,4 @@
-#include "client/imgui/ui.hpp"
+#include "ui/imgui/imgui.hpp"
 
 void gnet::ui::on_update(void) {
   SDL_Event event;

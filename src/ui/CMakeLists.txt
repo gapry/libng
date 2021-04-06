@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(project_name "GNet_imgui")
+set(project_name "GNet_ui")
 
 project(${project_name})
 
