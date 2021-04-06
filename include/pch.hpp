@@ -15,6 +15,15 @@
 #include <sys/socket.h> //
 #include <unistd.h>     // sleep()
 #include <poll.h>       //
+#include <fcntl.h>      //
+#include <fmt/core.h>   //
+#include <iostream>     //
+#include <signal.h>     //
+#include <cstdio>       //
+#include <cstring>      //
+#include <sys/stat.h>   //
+#include <sys/wait.h>   // wait
+#include <syslog.h>     //
 #endif
 
 namespace gnet {

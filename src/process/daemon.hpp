@@ -1,0 +1,21 @@
+#pragma once
+
+#include "process/process.hpp"
+
+namespace gnet {
+
+class daemon : public process {
+public:
+  daemon();
+
+  ~daemon() = default;
+
+  virtual auto execute(void) -> void override;
+
+  virtual auto job(void) -> void = 0;
+
+private:
+  pid_t m_pid = -1;
+};
+
+} // namespace gnet
