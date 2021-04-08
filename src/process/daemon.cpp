@@ -2,9 +2,13 @@
 
 namespace gnet {
 
-daemon::daemon() {
 #ifdef GNET_OS_WINDOWS
-#else
+daemon::daemon() {
+}
+#endif
+
+#if defined(GNET_OS_LINUX) || defined(GNET_OS_FREEBSD)
+daemon::daemon() {
   umask(0);
   if (m_pid = spawn_process(); //
       m_pid != 0) {            //
@@ -12,8 +16,8 @@ daemon::daemon() {
   }
   setsid();
   this->redirect();
-#endif
 }
+#endif
 
 auto daemon::execute(void) -> void {
   this->job();
