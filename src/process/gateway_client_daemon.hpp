@@ -4,11 +4,11 @@
 
 namespace gnet {
 
-class gateway_daemon : public daemon {
+class gateway_client_daemon : public daemon {
 public:
-  gateway_daemon() = default;
+  gateway_client_daemon() = default;
 
-  ~gateway_daemon() = default;
+  ~gateway_client_daemon() = default;
 
   virtual auto job(void) -> void override;
 
