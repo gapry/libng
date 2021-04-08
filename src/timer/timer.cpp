@@ -1,6 +1,6 @@
 #include "timer/timer.hpp"
 
-void gnet::timer::sleep(int sec) {
+auto gnet::timer::sleep(int sec) -> void {
 #ifdef GNET_OS_WINDOWS
   Sleep(sec * 1000);
 #else

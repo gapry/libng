@@ -1,5 +1,4 @@
-#ifndef __GNET_TIMER_H__
-#define __GNET_TIMER_H__
+#pragma once
 
 #include "pch.hpp"
 #include "platform/os.hpp"
@@ -12,9 +11,7 @@ public:
 
   ~timer() = default;
 
-  sleep(int);
+  auto sleep(int) -> void;
 };
 
 } // namespace gnet
-
-#endif
