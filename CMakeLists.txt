@@ -39,6 +39,7 @@ set(dir_ui       "${dir_src}/ui")
 set(dir_server   "${dir_src}/server")
 set(dir_net      "${dir_src}/net")
 set(dir_process  "${dir_src}/process")
+set(dir_fs       "${dir_src}/fs")
 set(dir_log      "${dir_src}/log")
 set(dir_test     "test")
 set(dir_profiler "benchmark")
@@ -56,6 +57,7 @@ file(GLOB_RECURSE profiler_files "${dir_profiler}/*.*")
 add_subdirectory(${dir_ui})
 add_subdirectory(${dir_net})
 add_subdirectory(${dir_log})
+add_subdirectory(${dir_fs})
 add_subdirectory(${dir_process})
 
 add_executable(${client}   ${client_files}
@@ -63,6 +65,7 @@ add_executable(${client}   ${client_files}
 add_executable(${server}   ${server_files}
                            ${dir_net}
                            ${dir_log}
+                           ${dir_fs}
                            ${dir_process})
 add_executable(${unittest} ${test_files})
 add_executable(${profiler} ${profiler_files})

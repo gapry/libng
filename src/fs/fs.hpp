@@ -2,15 +2,19 @@
 
 namespace gnet {
 
-class io {
+class fs {
 public:
-  io();
+  fs() = default;
 
-  ~io();
+  ~fs();
+
+  auto open(char const* const file_name) -> void;
 
   auto read(void) -> void;
 
   auto write(void) -> void;
+
+  auto close(void) -> void;
 };
 
 } // namespace gnet
