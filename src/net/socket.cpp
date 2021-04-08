@@ -3,10 +3,11 @@
 
 #include "dbg.hpp"
 #include "net/socket.hpp"
+#include "platform/os.hpp"
 
 namespace gnet {
 
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
 socket::startup_socket::startup_socket() {
   WSADATA data;
   if (int ret = WSAStartup(MAKEWORD(2, 2), &data); //
@@ -21,7 +22,7 @@ socket::startup_socket::~startup_socket() {
 #endif
 
 auto socket::startup_socket::init(void) -> void {
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
   static startup_socket s_winsock;
 #else
 #endif
@@ -42,7 +43,7 @@ auto socket::init_tcp(void) -> void {
 
 auto socket::close(void) -> void {
   if (m_sockfd != INVALID_SOCKET) {
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
     ::closesocket(m_sockfd);
 #else
     ::close(m_sockfd);
@@ -68,7 +69,7 @@ auto socket::connect(socket_addr const& addr) -> bool {
   if (int const ret = ::connect(m_sockfd, &addr, addr.size()); //
       ret < 0) {                                               //
     int const last_error_status = get_socket_error();
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
     if (last_error_status == WSAEWOULDBLOCK) {
       return false;
     }
@@ -138,7 +139,7 @@ auto socket::recv(char* buff,                            //
 }
 
 auto socket::fetch_available_buffer_size(void) -> size_t {
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
   u_long sizes = 0;
   int ret      = ::ioctlsocket(m_sockfd, FIONREAD, &sizes);
 #else
@@ -152,7 +153,7 @@ auto socket::fetch_available_buffer_size(void) -> size_t {
 }
 
 auto socket::set_nonblocking(bool is_enable) -> void {
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
   u_long flag = is_enable ? 1 : 0;
   int ret     = ::ioctlsocket(m_sockfd, FIONBIO, &flag);
 #else
@@ -173,7 +174,7 @@ auto socket::is_valid(void) -> bool {
 }
 
 auto socket::get_socket_error(void) -> int {
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
   int ret = ::WSAGetLastError();
 #else
   int ret = errno;

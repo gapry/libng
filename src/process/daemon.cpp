@@ -3,7 +3,7 @@
 namespace gnet {
 
 daemon::daemon() {
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
 #else
   umask(0);
   if (m_pid = spawn_process(); //

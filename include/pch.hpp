@@ -1,6 +1,8 @@
 #pragma once
 
-#ifdef _WIN32
+#include "platform/os.hpp"
+
+#ifdef GNET_OS_WINDOWS
 // clang-format off
 #include <Winsock2.h> 
 #include <Windows.h>

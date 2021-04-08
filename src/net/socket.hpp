@@ -2,16 +2,18 @@
 
 #include "config.hpp"
 #include "error_handler.hpp"
-#include "net/socket_addr.hpp"
 #include "noncopyable.hpp"
 #include "pch.hpp"
+
+#include "net/socket_addr.hpp"
+#include "platform/os.hpp"
 
 namespace gnet {
 
 class socket : public noncopyable<socket> {
   struct startup_socket {
   public:
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
     startup_socket();
 
     ~startup_socket();
@@ -19,7 +21,7 @@ class socket : public noncopyable<socket> {
     static void init(void);
   };
 
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
   using socklen_t = int;
 #else
   using SOCKET = int;

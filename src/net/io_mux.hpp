@@ -1,9 +1,11 @@
 #pragma once
 
-#include "gspan.hpp"
+#include "config.hpp"
 #include "pch.hpp"
+
 #include "platform/compiler.hpp"
 #include "platform/macro.hpp"
+#include "platform/os.hpp"
 #include "platform/types.hpp"
 
 namespace gapry::io_mux {
@@ -21,7 +23,7 @@ enum class poll_flags : i16 {
 
 GNET_ENUM_BITWISE_OPERATOR(poll_flags);
 
-#if _WIN32
+#if GNET_OS_WINDOWS
 using pollfd_t = ::WSAPOLLFD;
 #else
 using pollfd_t = ::pollfd;
@@ -29,7 +31,7 @@ using pollfd_t = ::pollfd;
 
 GNET_INLINE auto poll(gapry::span<pollfd_t> fd_set, //
                       int timeout_ms) -> int {      //
-#if _WIN32
+#if GNET_OS_WINDOWS
   int ret = ::WSAPoll(fd_set.data(), //
                       fd_set.size(), //
                       timeout_ms);   //

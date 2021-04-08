@@ -3,7 +3,7 @@
 namespace gnet {
 
 auto process::spawn_process(void) -> pid_t {
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
 #else
   if ((m_pid = fork()) < 0) {
     throw error_handler("[error] %s.\n", "The system can't create the process");
@@ -13,7 +13,7 @@ auto process::spawn_process(void) -> pid_t {
 }
 
 auto process::wait_child(void) -> pid_t {
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
 #else
   pid_t wait_child_pid = waitpid(m_pid,           //
                                  &m_child_status, //
@@ -26,7 +26,7 @@ auto process::wait_child(void) -> pid_t {
 }
 
 auto redirect(void) -> void {
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
 #else
   int null_fd = ::open("/dev/null", O_RDWR);
   if (null_fd < 0) {

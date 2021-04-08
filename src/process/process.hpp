@@ -3,6 +3,7 @@
 #include "error_handler.hpp"
 #include "noncopyable.hpp"
 #include "pch.hpp"
+#include "platform/os.hpp"
 
 namespace gnet {
 
@@ -13,7 +14,7 @@ public:
   ~process() = default;
 
 protected:
-#ifdef _WIN32
+#ifdef GNET_OS_WINDOWS
   using pid_t = int;
 #endif
 
