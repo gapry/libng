@@ -1,5 +1,3 @@
 #include "app_server.hpp"
 
-namespace gnet {
-
-}
+namespace gnet {}

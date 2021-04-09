@@ -4,11 +4,11 @@
 
 namespace gnet {
 
-  class cache: public gnet::noncopyable<cache> {
-    public:
-      cache() = default;
+class cache : public gnet::noncopyable<cache> {
+public:
+  cache() = default;
 
-      ~cache() = default;
-  }
-
+  ~cache() = default;
 }
+
+} // namespace gnet

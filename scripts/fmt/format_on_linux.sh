@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export dir_list=( include libcxx src test benchmark )
+export dir_list=( libcxx gnet sample test benchmark )
 
 for dir in ${dir_list[@]}; do
   find `pwd`/$dir -type f -iname "*.cpp" -o -iname "*.hpp" -o -iname "*.h"  | 

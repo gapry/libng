@@ -9,4 +9,4 @@ public:
   ~app_server() = default;
 };
 
-}
+} // namespace gnet

@@ -1,5 +1,3 @@
 #include "concurrency/cache.hpp"
 
-namespace gnet {
-
-}
+namespace gnet {}
