@@ -33,7 +33,7 @@ set(profiler        "${project_name}_profiler.out")
 
 set(dir_inc         "include")
 set(dir_libcxx      "libcxx")
-set(dir_src         "src")
+set(dir_src         "gnet")
 set(dir_client      "${dir_src}/client")
 set(dir_ui          "${dir_src}/ui")
 set(dir_server      "${dir_src}/server")
