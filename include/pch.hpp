@@ -18,15 +18,18 @@
 #include <unistd.h>     // sleep()
 #include <poll.h>       //
 #include <fcntl.h>      //
-#include <fmt/core.h>   //
-#include <iostream>     //
 #include <signal.h>     //
-#include <cstdio>       //
-#include <cstring>      //
 #include <sys/stat.h>   //
 #include <sys/wait.h>   // wait
 #include <syslog.h>     //
 #endif
+
+#include <fmt/core.h>
+#include <utility>
+#include <iostream>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 namespace gnet {
 

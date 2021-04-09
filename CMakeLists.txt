@@ -7,10 +7,10 @@ set(project_name "GNet")
 project(${project_name})
 
 find_package(Threads)
-find_package(fmt     CONFIG REQUIRED)
-find_package(imgui   CONFIG REQUIRED)
-find_package(EABase  CONFIG REQUIRED)
-find_package(EASTL   CONFIG REQUIRED) 
+find_package(fmt    CONFIG REQUIRED)
+find_package(imgui  CONFIG REQUIRED)
+find_package(EABase CONFIG REQUIRED)
+find_package(EASTL  CONFIG REQUIRED) 
 
 if(LINUX)
 set(CMAKE_C_COMPILER   "clang")
@@ -26,28 +26,30 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-set(client       "${project_name}_client.out")
-set(server       "${project_name}_server.out")
-set(unittest     "${project_name}_unittest.out")
-set(profiler     "${project_name}_profiler.out")
+set(client          "${project_name}_client.out")
+set(server          "${project_name}_server.out")
+set(unittest        "${project_name}_unittest.out")
+set(profiler        "${project_name}_profiler.out")
 
-set(dir_inc      "include")
-set(dir_libcxx   "libcxx")
-set(dir_src      "src")
-set(dir_client   "${dir_src}/client")
-set(dir_ui       "${dir_src}/ui")
-set(dir_server   "${dir_src}/server")
-set(dir_net      "${dir_src}/net")
-set(dir_process  "${dir_src}/process")
-set(dir_fs       "${dir_src}/fs")
-set(dir_log      "${dir_src}/log")
-set(dir_timer    "${dir_src}/timer")
-set(dir_test     "test")
-set(dir_profiler "benchmark")
+set(dir_inc         "include")
+set(dir_libcxx      "libcxx")
+set(dir_src         "src")
+set(dir_client      "${dir_src}/client")
+set(dir_ui          "${dir_src}/ui")
+set(dir_server      "${dir_src}/server")
+set(dir_net         "${dir_src}/net")
+set(dir_process     "${dir_src}/process")
+set(dir_mm          "${dir_src}/mm")
+set(dir_scheduler   "${dir_src}/scheduler")
+set(dir_concurrency "${dir_src}/concurrency")
+set(dir_fs          "${dir_src}/fs")
+set(dir_log         "${dir_src}/log")
+set(dir_timer       "${dir_src}/timer")
+set(dir_test        "test")
+set(dir_profiler    "benchmark")
 
 include_directories(${dir_libcxx})
 include_directories(${dir_inc})
-include_directories(${dir_src})
 
 file(GLOB_RECURSE client_files   "${dir_client}/*.*" 
                                  "${dir_ui}/*.*")
@@ -61,6 +63,9 @@ add_subdirectory(${dir_timer})
 add_subdirectory(${dir_log})
 add_subdirectory(${dir_fs})
 add_subdirectory(${dir_process})
+add_subdirectory(${dir_mm})
+add_subdirectory(${dir_scheduler})
+add_subdirectory(${dir_concurrency})
 
 add_executable(${client}   ${client_files}
                            ${dir_timer}
@@ -70,7 +75,10 @@ add_executable(${server}   ${server_files}
                            ${dir_timer}
                            ${dir_log}
                            ${dir_fs}
-                           ${dir_process})
+                           ${dir_process}
+                           ${dir_scheduler}
+                           ${dir_concurrency}
+                           ${dir_mm})
 add_executable(${unittest} ${test_files})
 add_executable(${profiler} ${profiler_files}
                            ${dir_timer})
