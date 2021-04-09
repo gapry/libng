@@ -1,9 +1,8 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(project_name "GNet")
-set(dir_vcpkg    "externals/vcpkg")
-set(dir_cmake    "cmake")
-
+set(project_name         "GNet")
+set(dir_vcpkg            "externals/vcpkg")
+set(dir_cmake            "cmake")
 set(CMAKE_TOOLCHAIN_FILE "${dir_vcpkg}/scripts/buildsystems/vcpkg.cmake")
 
 project(${project_name})
