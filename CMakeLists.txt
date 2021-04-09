@@ -1,30 +1,15 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(dir_vcpkg "externals/vcpkg")
+set(project_name "GNet")
+set(dir_vcpkg    "externals/vcpkg")
+set(dir_cmake    "cmake")
+
 set(CMAKE_TOOLCHAIN_FILE "${dir_vcpkg}/scripts/buildsystems/vcpkg.cmake")
 
-set(project_name "GNet")
 project(${project_name})
 
-find_package(Threads)
-find_package(fmt    CONFIG REQUIRED)
-find_package(imgui  CONFIG REQUIRED)
-find_package(EABase CONFIG REQUIRED)
-find_package(EASTL  CONFIG REQUIRED) 
-
-if(LINUX)
-set(CMAKE_C_COMPILER   "clang")
-set(CMAKE_CXX_COMPILER "clang++")
-endif(LINUX)
-
-if(MSVC)
-set(CMAKE_C_COMPILER   "cl")
-set(CMAKE_CXX_COMPILER "cl")
-endif(MSVC)
-
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+include(${dir_cmake}/compiler.cmake)
+include(${dir_cmake}/vcpkg.cmake)
 
 set(sample          "${project_name}_sample.out")
 set(server          "${project_name}_server.out")
