@@ -4,7 +4,7 @@ export dir_build=`pwd`/build
 export proj=GNet
 export workspace=ws-${proj}
 export is_running=`ps aux | grep tmux | grep -v grep`
-export client=${proj}_client.out
+export sample=${proj}_sample.out
 export server=${proj}_server.out
 export unittest=${proj}_unittest.out
 export profiler=${proj}_profiler.out
@@ -32,9 +32,9 @@ tmux resize-pane -D 16
 tmux send-keys -t 1 'clear' 'C-m'
 tmux send-keys -t 1 "$dir_build/$server" 'C-m'
 
-# client task pane
+# sample task pane
 tmux send-keys -t right 'clear; sleep 1' 'C-m'
-tmux send-keys -t right "$dir_build/$client" 'C-m'
+tmux send-keys -t right "$dir_build/$sample" 'C-m'
 
 # cmd control pane
 tmux send-keys -t 3 'clear; sleep 2' 'C-m'

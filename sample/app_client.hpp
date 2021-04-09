@@ -5,7 +5,7 @@
 
 namespace gnet {
 
-class client : public gnet::game {
+class app_client : public gnet::game {
   gnet::player player = gnet::player(400.0f, 300.0f);
 
 public:
