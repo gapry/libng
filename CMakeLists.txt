@@ -27,6 +27,7 @@ set(dir_process         "${dir_src}/process")
 set(dir_mm              "${dir_src}/mm")
 set(dir_scheduler       "${dir_src}/scheduler")
 set(dir_synchronization "${dir_src}/synchronization")
+set(dir_concurrency     "${dir_src}/concurrency")
 set(dir_fs              "${dir_src}/fs")
 set(dir_log             "${dir_src}/log")
 set(dir_timer           "${dir_src}/timer")
@@ -54,6 +55,7 @@ add_subdirectory(${dir_process})
 add_subdirectory(${dir_mm})
 add_subdirectory(${dir_scheduler})
 add_subdirectory(${dir_synchronization})
+add_subdirectory(${dir_concurrency})
 add_subdirectory(${dir_sample})
 
 add_executable(${sample}   ${sample_files}
@@ -67,6 +69,7 @@ add_executable(${server}   ${server_files}
                            ${dir_process}
                            ${dir_scheduler}
                            ${dir_synchronization}
+                           ${dir_concurrency}
                            ${dir_mm})
 add_executable(${unittest} ${test_files})
 add_executable(${profiler} ${profiler_files}
