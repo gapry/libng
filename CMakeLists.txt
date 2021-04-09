@@ -10,6 +10,7 @@ project(${project_name})
 
 include(${dir_cmake}/compiler.cmake)
 include(${dir_cmake}/vcpkg.cmake)
+include(${dir_cmake}/helper.cmake)
 
 set(sample          "${project_name}_sample.out")
 set(server          "${project_name}_server.out")
