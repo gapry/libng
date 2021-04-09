@@ -7,6 +7,8 @@ else
 	current_os := $(shell uname)
 endif
 
+default: clean build
+
 vcpkg:
 ifeq ($(current_os), Linux)
 	@sh -x $(dir_scripts)/install/vcpkg_on_linux.sh
@@ -32,4 +34,4 @@ ifeq ($(current_os), Linux)
 	rm -rf $(dir_build)
 endif          
 
-.PHONY: vcpkg fmt build execute clean
+.PHONY: default vcpkg fmt build execute clean
