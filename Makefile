@@ -47,7 +47,7 @@ ifeq ($(current_os), Linux)
 	@sh -x $(dir_scripts)/build/build_on_linux.sh -DBUILD_BENCHMARK=ON
 endif          
 
-execute:
+execute: clean fmt build
 ifeq ($(current_os), Linux)        
 	@sh -x $(dir_scripts)/execute/execute_on_linux.sh
 endif          
