@@ -7,7 +7,7 @@ else
 	current_os := $(shell uname)
 endif
 
-default: clean build
+default: rebuild
 
 vcpkg:
 ifeq ($(current_os), Linux)
@@ -19,9 +19,32 @@ ifeq ($(current_os), Linux)
 	@sh -x $(dir_scripts)/fmt/format_on_linux.sh
 endif          
 
-build:
+build: sample server test benchmark
 ifeq ($(current_os), Linux)        
-	@sh -x $(dir_scripts)/build/build_on_linux.sh
+endif          
+
+rebuild: clean build 
+ifeq ($(current_os), Linux)        
+endif          
+
+sample:
+ifeq ($(current_os), Linux)        
+	@sh -x $(dir_scripts)/build/build_on_linux.sh -DBUILD_SAMPLE=ON
+endif          
+
+server:
+ifeq ($(current_os), Linux)        
+	@sh -x $(dir_scripts)/build/build_on_linux.sh -DBUILD_SERVER=ON
+endif          
+
+test:
+ifeq ($(current_os), Linux)        
+	@sh -x $(dir_scripts)/build/build_on_linux.sh -DBUILD_TEST=ON
+endif          
+
+benchmark:
+ifeq ($(current_os), Linux)        
+	@sh -x $(dir_scripts)/build/build_on_linux.sh -DBUILD_BENCHMARK=ON
 endif          
 
 execute:
@@ -34,4 +57,4 @@ ifeq ($(current_os), Linux)
 	rm -rf $(dir_build)
 endif          
 
-.PHONY: default vcpkg fmt build execute clean
+.PHONY: default vcpkg fmt build sample server test benchmark execute clean
