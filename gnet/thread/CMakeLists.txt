@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 set(major        "gnet")
-set(minor        "timer")
+set(minor        "thread")
 set(project_name ${major}_${minor})
 
 project(${project_name})

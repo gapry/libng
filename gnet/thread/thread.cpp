@@ -1,4 +1,4 @@
-#include "thread.hpp"
+#include "thread/thread.hpp"
 
 template <class func_t, class... arg_t>
 gnet::thread::thread(func_t&& f, arg_t&&... args) {

@@ -1,13 +1,12 @@
 #!/bin/sh
 
 export dir_build=`pwd`/build
-export proj=GNet
+export proj=gnet
 export workspace=ws-${proj}
 export is_running=`ps aux | grep tmux | grep -v grep`
-export sample=${proj}_sample.out
-export server=${proj}_server.out
-export unittest=${proj}_unittest.out
-export profiler=${proj}_profiler.out
+export sample=sample/gnet_sample
+export unittest=test/gnet_test
+export profiler=benchmark/gnet_benchmark
 
 # make sure the workspace is new one
 if [ -z "$is_running" ]; then
@@ -30,7 +29,7 @@ tmux resize-pane -D 16
 
 # server task pane
 tmux send-keys -t 1 'clear' 'C-m'
-tmux send-keys -t 1 "$dir_build/$server" 'C-m'
+tmux send-keys -t 1 "ls -al $dir_build" 'C-m'
 
 # sample task pane
 tmux send-keys -t right 'clear; sleep 1' 'C-m'

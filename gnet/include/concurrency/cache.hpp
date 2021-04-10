@@ -9,6 +9,6 @@ public:
   cache() = default;
 
   ~cache() = default;
-}
+};
 
 } // namespace gnet

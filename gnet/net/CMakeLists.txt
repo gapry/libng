@@ -1,13 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(project_name "GNet_net")
+set(major        "gnet")
+set(minor        "net")
+set(project_name ${major}_${minor})
 
 project(${project_name})
 
-file(GLOB_RECURSE src_files "*.hpp" "*.cpp")
+gnet_add_library(${project_name} ${CMAKE_CURRENT_SOURCE_DIR})
 
-add_library(${project_name} ${src_files})
+set_target_properties(${project_name} PROPERTIES FOLDER ${major}/${minor})
 
-target_include_directories(${project_name} PUBLIC include)
-
-target_link_libraries(${project_name} PUBLIC EASTL)
+target_link_libraries(${project_name} PUBLIC EASTL fmt::fmt)
