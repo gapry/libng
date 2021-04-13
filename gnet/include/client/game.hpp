@@ -3,6 +3,7 @@
 #include "noncopyable.hpp"
 #include "pch.hpp"
 
+#include "client/config.hpp"
 #include "client/player.hpp"
 #include "ui/imgui/imgui.hpp"
 

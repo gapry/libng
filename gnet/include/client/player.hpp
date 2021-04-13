@@ -3,6 +3,7 @@
 #include "noncopyable.hpp"
 #include "pch.hpp"
 
+#include "client/config.hpp"
 #include "ui/imgui/imgui.hpp"
 
 namespace gnet {
