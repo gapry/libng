@@ -1,4 +1,4 @@
-#include "process/gateway_client_daemon.hpp"
+#include "process/daemon/gateway_client_daemon.hpp"
 
 namespace gnet {
 
