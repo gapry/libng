@@ -7,7 +7,10 @@ else
 	current_os := $(shell uname)
 endif
 
-default: rebuild
+default:
+ifeq ($(current_os), Linux)
+	@sh -x $(dir_scripts)/test/server.sh
+endif
 
 vcpkg:
 ifeq ($(current_os), Linux)

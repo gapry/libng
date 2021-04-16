@@ -28,6 +28,10 @@ ENDIF(BUILD_SAMPLE)
 
 IF(BUILD_TEST)
   add_subdirectory(test)
+  add_subdirectory("${dir_src}/log")
+  add_subdirectory("${dir_src}/net")
+  add_subdirectory("${dir_src}/process")
+  add_subdirectory("${dir_src}/server")
 ENDIF(BUILD_TEST)
 
 IF(BUILD_BENCHMARK)
