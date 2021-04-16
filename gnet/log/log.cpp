@@ -2,9 +2,13 @@
 
 #include "log/log.hpp"
 
-gnet::logger g_logger;
+namespace gnet {
 
-auto gnet::logger::on_write(gnet::logger::level level_type,    //
-                            gnet::string const& msg) -> void { //
-  fmt::print("{}\n", msg);
+logger g_logger;
+
+auto logger::on_write(gnet::logger::level level_type,      //
+                      gnet::string_view log_msg) -> void { //
+  // fmt::print("{}\n", log_msg);
 }
+
+} // namespace gnet
