@@ -4,43 +4,34 @@
 #include "pch.hpp"
 
 #include "platform/compiler.hpp"
-#include "platform/macro.hpp"
+#include "platform/macros.hpp"
 #include "platform/os.hpp"
 #include "platform/types.hpp"
 
-namespace gapry::io_mux {
+namespace gnet {
 
 enum class poll_flags : i16 {
-  none    = 0,
-  in      = POLLIN,
-  out     = POLLOUT,
-  inOut   = POLLIN | POLLOUT,
-  error   = POLLERR,
-  pRI     = POLLPRI,
-  hup     = POLLHUP,
-  invalid = POLLNVAL,
+  none      = 0,
+  in        = POLLIN,
+  out       = POLLOUT,
+  in_or_out = POLLIN | POLLOUT,
+  error     = POLLERR,
+  pri       = POLLPRI,
+  hup       = POLLHUP,
+  invalid   = POLLNVAL,
 };
 
 GNET_ENUM_BITWISE_OPERATOR(poll_flags);
 
 #if GNET_OS_WINDOWS
 using pollfd_t = ::WSAPOLLFD;
-#else
+#endif
+
+#if defined(GNET_OS_LINUX) || defined(GNET_OS_FREEBSD)
 using pollfd_t = ::pollfd;
 #endif
 
-GNET_INLINE auto poll(gapry::span<pollfd_t> fd_set, //
-                      int timeout_ms) -> int {      //
-#if GNET_OS_WINDOWS
-  int ret = ::WSAPoll(fd_set.data(), //
-                      fd_set.size(), //
-                      timeout_ms);   //
-#else
-  int ret = ::poll(fd_set.data(), //
-                   fd_set.size(), //
-                   timeout_ms);   //
-#endif
-  return ret;
-}
+GNET_INLINE auto poll(gnet::span<pollfd_t> fd_set, //
+                      int timeout_ms) -> int;      //
 
-} // namespace gapry::io_mux
+} // namespace gnet

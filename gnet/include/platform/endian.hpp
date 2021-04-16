@@ -3,6 +3,8 @@
 #include "platform/byte_order.hpp"
 #include "platform/machine.hpp"
 
+namespace gnet {
+
 class little_endian {
 public:
 #if GNET_ENDIAN_LITTLE
@@ -24,3 +26,5 @@ public:
   using from_host = byte_order::identity;
 #endif
 };
+
+} // namespace gnet

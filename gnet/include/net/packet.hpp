@@ -12,9 +12,6 @@
 
 namespace gnet {
 
-using pkt_cmd_t    = u32;
-using pkt_length_t = u16;
-
 class packet_header;
 
 class packet : public gnet::noncopyable<packet> {
@@ -25,13 +22,13 @@ public:
     : m_header(cmd) {
   }
 
-  auto write_to_buffer(gnet::vector<u8>& buff, pkt_length_t const pkt_size) -> void;
+  auto write_to_buffer(gnet::vector<u8>& buff) -> void;
 
   auto read_from_buffer(gnet::span<u8 const> buff) -> void;
 
   virtual auto on_write(serializer& writer) -> void = 0;
 
   virtual auto on_read(deserializer& reader) -> void = 0;
-}
+};
 
 } // namespace gnet
