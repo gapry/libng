@@ -10,7 +10,7 @@ class thread : public gnet::noncopyable<thread> {
   using thread_t = std::thread;
 
 public:
-  template <class func_t, class... arg_t>
+  template<class func_t, class... arg_t>
   thread(func_t&& f, arg_t&&... args);
 
   ~thread();

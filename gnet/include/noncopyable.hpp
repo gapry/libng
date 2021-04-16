@@ -2,7 +2,7 @@
 
 namespace gnet {
 
-template <class T>
+template<class T>
 class noncopyable {
 protected:
   noncopyable() = default;

@@ -2,7 +2,7 @@
 
 #include "platform/compiler.hpp"
 
-template <class T>
+template<class T>
 GNET_INLINE constexpr auto enum_to_int(T value) -> typename std::underlying_type<T>::type {
   return static_cast<typename std::underlying_type<T>::type>(value);
 }

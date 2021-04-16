@@ -6,7 +6,7 @@
 
 namespace gnet::libcxx {
 
-template <typename T>
+template<typename T>
 class vector {
 public:
   vector() {

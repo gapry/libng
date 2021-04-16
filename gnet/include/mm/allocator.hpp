@@ -4,7 +4,7 @@
 
 namespace gnet {
 
-template <class T>
+template<class T>
 class allocator {
 public:
   using value_type = T;
@@ -36,7 +36,7 @@ public:
     new ((void*)ptr) T(value);
   }
 
-  template <class... Args>
+  template<class... Args>
   void construct(T* ptr, Args&&... args) {
     new (ptr) T(std::forward<Args>(args)...);
   }

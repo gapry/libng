@@ -55,7 +55,7 @@ public:
   auto send(char const* const data,          //
             size_t const data_size) -> void; //
 
-  template <size_t N>
+  template<size_t N>
   auto send(char const (&data)[N]) -> void {
     if (N) {
       send(data, N - 1);

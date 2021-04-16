@@ -36,7 +36,7 @@ public:
   auto on_write(gnet::logger::level level_type,   //
                 gnet::string const& msg) -> void; //
 
-  template <class... Args>
+  template<class... Args>
   auto do_write(gnet::logger::level level_type, //
                 Args&&... args) -> void {       //
   }
