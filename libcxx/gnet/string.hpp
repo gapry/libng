@@ -1,16 +1,6 @@
 #pragma once
 
-#include <iostream>
-#include <iterator>
-#include <string_view>
-
 #include <fmt/core.h>
-#include <fmt/format.h>
-
-#include "config.hpp"
-#include "dbg.hpp"
-#include "platform/compiler.hpp"
-#include "platform/macros.hpp"
 
 namespace gnet::libcxx {
 
@@ -26,26 +16,3 @@ public:
 };
 
 } // namespace gnet::libcxx
-
-namespace gnet {
-
-template<class... ARGS>
-GNET_INLINE auto fmt_to(log_string& out_str,      //
-                        ARGS&&... args) -> void { //
-  fmt::format_to(std::back_inserter(out_str), GNET_FORWARD(args)...);
-}
-
-} // namespace gnet
-
-template<>
-struct fmt::formatter<gnet::string_view> {
-  auto parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
-  }
-
-  auto format(gnet::string_view const& msg, //
-              fmt::format_context& ctx) {   //
-    std::string_view str_view(msg.data(), msg.size());
-    return fmt::format_to(ctx.out(), "{}", str_view);
-  }
-};
