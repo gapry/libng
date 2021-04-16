@@ -7,6 +7,35 @@
 #include <EASTL/unique_ptr.h>
 #include <EASTL/vector.h>
 
+#include "platform/compiler.hpp"
+#include "platform/os.hpp"
+
+#if !EASTL_DLL
+GNET_INLINE auto operator new[](size_t size,          //
+                                const char* p_name,   //
+                                int flags,            //
+                                unsigned debug_flags, //
+                                const char* file,     //
+                                int line) -> void* {  //
+  return malloc(size);
+}
+
+GNET_INLINE auto operator new[](size_t size,             //
+                                size_t alignment,        //
+                                size_t alignment_offset, //
+                                const char* p_name,      //
+                                int flags,               //
+                                unsigned debug_flags,    //
+                                const char* file,        //
+                                int line) -> void* {     //
+#if GNET_OS_WINDOWS
+  return _aligned_malloc(size, alignment);
+#else
+  return std::aligned_alloc(alignment, size);
+#endif
+}
+#endif
+
 namespace gnet {
 
 template<typename T>

@@ -1,9 +1,11 @@
 #pragma once
 
+#include <iostream>
+#include <iterator>
+#include <string_view>
+
 #include <fmt/core.h>
 #include <fmt/format.h>
-
-#include <iterator>
 
 #include "config.hpp"
 #include "dbg.hpp"
@@ -34,3 +36,16 @@ GNET_INLINE auto fmt_to(log_string& out_str,      //
 }
 
 } // namespace gnet
+
+template<>
+struct fmt::formatter<gnet::string_view> {
+  auto parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+
+  auto format(gnet::string_view const& msg, //
+              fmt::format_context& ctx) {   //
+    std::string_view str_view(msg.data(), msg.size());
+    return fmt::format_to(ctx.out(), "{}", str_view);
+  }
+};

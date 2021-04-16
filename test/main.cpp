@@ -3,7 +3,7 @@
 #include "net/engine.hpp"
 #include "net/packet.hpp"
 
-auto main(void) -> int {
-  // GNET_LOG_INFO("main");
+auto main(int, char**) -> int {
+  GNET_LOG_INFO(__GNET_PRETTY_FUNCTION__);
   return 0;
 }
