@@ -3,7 +3,7 @@
 namespace gnet {
 
 #ifdef GNET_OS_WINDOWS
-auto process::spawn_process(void) -> pid_t {
+auto process::create_process(void) -> pid_t {
 }
 
 auto process::wait_child(void) -> pid_t {
@@ -14,7 +14,7 @@ auto redirect(void) -> void {
 #endif
 
 #if defined(GNET_OS_LINUX) || defined(GNET_OS_FREEBSD)
-auto process::spawn_process(void) -> pid_t {
+auto process::create_process(void) -> pid_t {
   if ((m_pid = fork()) < 0) {
     throw error_handler("[error] %s.\n", "The system can't create the process");
   }

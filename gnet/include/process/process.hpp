@@ -18,7 +18,7 @@ protected:
   using pid_t = int;
 #endif
 
-  auto spawn_process(void) -> pid_t;
+  auto create_process(void) -> pid_t;
 
   auto wait_child(void) -> pid_t;
 

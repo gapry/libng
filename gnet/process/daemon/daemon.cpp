@@ -10,8 +10,8 @@ daemon::daemon() {
 #if defined(GNET_OS_LINUX) || defined(GNET_OS_FREEBSD)
 daemon::daemon() {
   umask(0);
-  if (m_pid = spawn_process(); //
-      m_pid != 0) {            //
+  if (m_pid = create_process(); //
+      m_pid != 0) {             //
     this->wait_child();
   }
   setsid();
