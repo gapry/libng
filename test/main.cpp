@@ -4,6 +4,6 @@
 #include "net/packet.hpp"
 
 auto main(int, char**) -> int {
-  GNET_LOG_INFO(__GNET_PRETTY_FUNCTION__);
+  LIBNG_LOG_INFO(__LIBNG_PRETTY_FUNCTION__);
   return 0;
 }

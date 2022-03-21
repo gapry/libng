@@ -1,6 +1,6 @@
 #pragma once
 
-namespace gnet {
+namespace libng {
 
 class profiler {
 public:
@@ -9,4 +9,4 @@ public:
   ~profiler() = default;
 };
 
-} // namespace gnet
+} // namespace libng

@@ -1,6 +1,6 @@
 #pragma once
 
-namespace gnet {
+namespace libng {
 
 class app_server {
 public:
@@ -9,4 +9,4 @@ public:
   ~app_server() = default;
 };
 
-} // namespace gnet
+} // namespace libng

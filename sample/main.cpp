@@ -2,7 +2,7 @@
 #include "app_server.hpp"
 
 auto main(int, char**) -> int {
-  gnet::app_client app;
+  libng::app_client app;
   app.execute();
   return 0;
 }

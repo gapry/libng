@@ -1,6 +1,6 @@
 #include "app_client.hpp"
 
-void gnet::app_client::on_update(float delta_time) {
+void libng::app_client::on_update(float delta_time) {
   auto* drawList = ImGui::GetBackgroundDrawList();
 
   player.set_x(player.get_x() + get_dir_x() * get_speed() * delta_time);
@@ -16,7 +16,7 @@ void gnet::app_client::on_update(float delta_time) {
                               ImColor(123, 231, 312));        //
 }
 
-void gnet::app_client::on_event(SDL_Event& event) {
+void libng::app_client::on_event(SDL_Event& event) {
   switch (event.type) {
     case SDL_KEYDOWN: {
       auto key = event.key.keysym.sym;

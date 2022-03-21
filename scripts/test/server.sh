@@ -4,4 +4,4 @@ clea;
 make clean;
 make fmt; 
 make test;
-./build/test/gnet_test;
+./build/test/libng_test;

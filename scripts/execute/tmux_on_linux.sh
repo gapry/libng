@@ -1,12 +1,12 @@
 #!/bin/sh
 
 export dir_build=`pwd`/build
-export proj=gnet
+export proj=libng
 export workspace=ws-${proj}
 export is_running=`ps aux | grep tmux | grep -v grep`
-export sample=sample/gnet_sample
-export unittest=test/gnet_test
-export profiler=benchmark/gnet_benchmark
+export sample=sample/libng_sample
+export unittest=test/libng_test
+export profiler=benchmark/libng_benchmark
 
 # make sure the workspace is new one
 if [ -z "$is_running" ]; then

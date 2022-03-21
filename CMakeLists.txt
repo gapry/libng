@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-set(project_name         "gnet")
+set(project_name         "libng")
 set(dir_src              ${project_name})
 set(dir_vcpkg            "externals/vcpkg")
 set(dir_cmake            "cmake")

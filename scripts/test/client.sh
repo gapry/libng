@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-declare -r proj=GNet
+declare -r proj=libng
 declare -r dir_build=build
 declare -r dir_scripts=scripts
 declare -r client=${proj}_client.out
