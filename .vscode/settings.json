@@ -2,6 +2,10 @@
   "editor.tabSize": 2,
   "editor.insertSpaces": true,
   "editor.detectIndentation": false,
+  
+  "terminal.integrated.commandsToSkipShell": [
+    "-workbench.action.terminal.focusFind"
+  ],
 
   "terminal.integrated.profiles.linux": {
     "fish": {
