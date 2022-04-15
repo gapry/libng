@@ -22,8 +22,8 @@ OPTION(BUILD_SERVER    "Build Server"    OFF)
 
 IF(BUILD_SAMPLE)
   add_subdirectory(sample)
-  add_subdirectory("${dir_src}/client")
-  add_subdirectory("${dir_src}/ui")
+  # add_subdirectory("${dir_src}/client")
+  # add_subdirectory("${dir_src}/ui")
 ENDIF(BUILD_SAMPLE)
 
 IF(BUILD_TEST)
