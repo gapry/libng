@@ -1,63 +1,28 @@
-dir_scripts = 'scripts'
-dir_build   = 'build'
+target = libng_sample
 
-ifeq ($(OS), Windows_NT)
-	current_os := Windows
-else
-	current_os := $(shell uname)
-endif
+default: clean fmt build execute
 
-default:
-ifeq ($(current_os), Linux)
-	@sh -x $(dir_scripts)/test/server.sh
-endif
+execute:
+	.\build\sample\$(target).exe
 
-vcpkg:
-ifeq ($(current_os), Linux)
-	@sh -x $(dir_scripts)/install/vcpkg_on_linux.sh
-endif
+build:
+	mkdir build\sample\shader
+	fxc.exe /Od /Zi /T ps_5_0 /Fo .\build\sample\shader\pixel.cso .\libng\shader\hlsl\pixel.hlsl
+	fxc.exe /Od /Zi /T vs_5_0 /Fo .\build\sample\shader\vertex.cso .\libng\shader\hlsl\vertex.hlsl
+	cd build
+	cmake -DBUILD_SAMPLE=ON -G "NMake Makefiles" ..
+	nmake 
+	cd ..
+
+clean:
+	IF EXIST build rmdir build /q /s
+	IF EXIST *.cso DEL *.cso
+	IF EXIST *.obj DEL *.obj
+	IF EXIST *.exe DEL *.exe
+	IF EXIST *.ilk DEL *.ilk
+	IF EXIST *.pdb DEL *.pdb
 
 fmt:
-ifeq ($(current_os), Linux)        
-	@sh -x $(dir_scripts)/fmt/format_on_linux.sh
-endif          
+	FOR %f IN (*.cpp *.hpp) do @clang-format -style=file -i %f
 
-build: sample server test benchmark
-ifeq ($(current_os), Linux)        
-endif          
-
-rebuild: clean build 
-ifeq ($(current_os), Linux)        
-endif          
-
-sample:
-ifeq ($(current_os), Linux)        
-	@sh -x $(dir_scripts)/build/build_on_linux.sh -DBUILD_SAMPLE=ON
-endif          
-
-server:
-ifeq ($(current_os), Linux)        
-	@sh -x $(dir_scripts)/build/build_on_linux.sh -DBUILD_SERVER=ON
-endif          
-
-test:
-ifeq ($(current_os), Linux)        
-	@sh -x $(dir_scripts)/build/build_on_linux.sh -DBUILD_TEST=ON
-endif          
-
-benchmark:
-ifeq ($(current_os), Linux)        
-	@sh -x $(dir_scripts)/build/build_on_linux.sh -DBUILD_BENCHMARK=ON
-endif          
-
-execute: clean fmt build
-ifeq ($(current_os), Linux)        
-	@sh -x $(dir_scripts)/execute/execute_on_linux.sh
-endif          
-
-clean: 
-ifeq ($(current_os), Linux)        
-	rm -rf $(dir_build)
-endif          
-
-.PHONY: default vcpkg fmt build sample server test benchmark execute clean
+.PHONY: default execute build clean fmt 
