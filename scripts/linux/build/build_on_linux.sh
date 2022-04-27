@@ -8,8 +8,8 @@ mkdir $dir_build
 
 cd $dir_build
 
-cmake -DBUILD_SAMPLE=ON ..
+cmake -DBUILD_GAME=ON ..
 
 make -j$(nproc)
 
-./sample/libng_sample
+./game/libng_game

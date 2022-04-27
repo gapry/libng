@@ -4,8 +4,7 @@
       "name": "Win32",
       "includePath": [
         "${workspaceFolder}/**",
-        "./libng/include/client/**",
-        "./sample/**"
+        "./externals/vcpkg/packages/fmt_x64-linux/include"
       ],
       "defines": [
         "_DEBUG",
