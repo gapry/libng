@@ -36,3 +36,6 @@ build/
 *.exe
 *.out
 *.app
+
+# Exceptions
+!scripts/linux/build/*.sh

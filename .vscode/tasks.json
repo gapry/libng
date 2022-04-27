@@ -11,7 +11,7 @@
         "command": "${cwd}\\scripts\\win32\\run.bat" 
       },
       "linux": {
-        "command": "${cwd}\\scripts\\linux\\build_on_linux.sh"
+        "command": "sh -x ${cwd}/scripts/linux/build/build_on_linux.sh"
       },
       "group": "build",
       "presentation": {

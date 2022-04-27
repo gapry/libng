@@ -2,6 +2,14 @@
 
 export dir_build=`pwd`/build
 
-cmake -B $dir_build $1 .
+rm -rf $dir_build
 
-make -C $dir_build; 
+mkdir $dir_build
+
+cd $dir_build
+
+cmake -DBUILD_SAMPLE=ON ..
+
+make -j$(nproc)
+
+./sample/libng_sample
