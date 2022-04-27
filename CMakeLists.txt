@@ -12,10 +12,10 @@ include(${dir_cmake}/compiler.cmake)
 include(${dir_cmake}/vcpkg.cmake)
 include(${dir_cmake}/helper.cmake)
 
-include_directories("${dir_src}/include")
-include_directories(libcxx)
+# include_directories("${dir_src}/include")
+# include_directories(libcxx)
 
-OPTION(BUILD_GAME    "Build Game"    OFF)
+OPTION(BUILD_GAME      "Build Game"      OFF)
 OPTION(BUILD_TEST      "Build Test"      OFF)
 OPTION(BUILD_BENCHMARK "Build Benchmark" OFF)
 OPTION(BUILD_SERVER    "Build Server"    OFF)
