@@ -14,7 +14,8 @@ namespace libng {
 
 class logger : public libng::noncopyable<logger> {
 public:
-  enum class level {
+  enum class level
+  {
     info,
     warning,
     error,

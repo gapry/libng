@@ -10,7 +10,8 @@
 
 namespace libng {
 
-enum class poll_flags : i16 {
+enum class poll_flags : i16
+{
   none      = 0,
   in        = POLLIN,
   out       = POLLOUT,

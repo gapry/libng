@@ -13,7 +13,8 @@ class connection : public noncopyable<connection> {
   friend class engine;
 
 public:
-  enum class status {
+  enum class status
+  {
     none,
     listening,
     connecting,

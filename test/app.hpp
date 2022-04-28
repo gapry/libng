@@ -290,7 +290,7 @@ public:
   }
 
   void destory(void) {
-    #if _WIN32
+#if _WIN32
     if (m_rc) {
       wglDeleteContext(m_rc);
       m_rc = nullptr;
@@ -300,7 +300,7 @@ public:
       ReleaseDC(m_hwnd, m_dc);
       m_dc = nullptr;
     }
-    #endif
+#endif
   }
 
 #if WIN32_DX11
@@ -536,7 +536,7 @@ public:
     m_dx11_device_context->ClearRenderTargetView(m_dx11_render_target_view.Get(), // render target
                                                  color);                          // 4-dim array
 #endif
-}
+  }
 
   void SetTriangle(void) {
 #if WIN32_OPENGL
@@ -553,9 +553,9 @@ public:
       {+0.5f, -0.5f, 1.0f, 1.0f, 0.0f},
       {-0.5f, -0.5f, 0.0f, 0.0f, 1.0f},
     };
-    onRender(vertices, //
-             L"build\\sample\\shader\\pixel.cso", //
-             L"build\\sample\\shader\\vertex.cso", //
+    onRender(vertices,                               //
+             L"build\\sample\\shader\\pixel.cso",    //
+             L"build\\sample\\shader\\vertex.cso",   //
              D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST); //
 #endif
   }
@@ -698,12 +698,12 @@ public:
   void destroy() {
     m_renderer.destory();
 
-    #if _WIN32
+#if _WIN32
     if (m_hwnd) {
       DestroyWindow(m_hwnd);
       m_hwnd = nullptr;
     }
-    #endif
+#endif
   }
 
   virtual bool onShouldClose() {
@@ -743,7 +743,7 @@ protected:
   Renderer m_renderer;
 
 private:
-  #if _WIN32
+#if _WIN32
   static LRESULT WINAPI WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam) {
     switch (msg) {
       case WM_CREATE: {
@@ -781,9 +781,9 @@ private:
     }
     return DefWindowProc(hwnd, msg, wParam, lParam);
   }
-  #endif
+#endif
 
-  #if _WIN32
+#if _WIN32
   static MSWindow* getThis(HWND hwnd) {
     auto data     = GetWindowLongPtr(hwnd, GWLP_USERDATA);
     auto* thisObj = reinterpret_cast<MSWindow*>(data);
@@ -791,12 +791,12 @@ private:
       throw error_handler("getThis()");
     return thisObj;
   }
-  #endif
+#endif
 
-  #if _WIN32
-  HWND m_hwnd        = nullptr;
-  #endif
-  
+#if _WIN32
+  HWND m_hwnd = nullptr;
+#endif
+
   int m_canvasWidth  = 0;
   int m_canvasHeight = 0;
   int m_width        = 0;
@@ -812,9 +812,9 @@ public:
   }
 
   virtual void onDestroy() override {
-    #if _WIN32
+#if _WIN32
     PostQuitMessage(0);
-    #endif
+#endif
   }
 
   virtual void onPaint() override {
@@ -823,7 +823,7 @@ public:
     swapBuffers();
   }
 };
-    
+
 class App : public noncopyable {
 public:
   explicit App(const int width, const int height, const wchar_t* const title) {
@@ -833,7 +833,7 @@ public:
   ~App() = default;
 
   int execute(void) {
-    #if _WIN32
+#if _WIN32
     MSG msg;
 
     while (GetMessage(&msg, nullptr, 0, 0)) {
@@ -841,11 +841,11 @@ public:
       DispatchMessage(&msg);
     }
     return msg.wParam;
-    #endif
+#endif
 
-    #if __linux__
+#if __linux__
     return 0;
-    #endif
+#endif
   }
 
 private:
