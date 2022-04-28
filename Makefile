@@ -1,16 +1,16 @@
-target = libng_sample
+target = libng_game
 
 default: clean fmt build execute
 
 execute:
-	.\build\sample\$(target).exe
+	.\build\game\$(target).exe
 
 build:
-	mkdir build\sample\shader
-	fxc.exe /Od /Zi /T ps_5_0 /Fo .\build\sample\shader\pixel.cso .\libng\shader\hlsl\pixel.hlsl
-	fxc.exe /Od /Zi /T vs_5_0 /Fo .\build\sample\shader\vertex.cso .\libng\shader\hlsl\vertex.hlsl
+	mkdir build\game\shader
+	fxc.exe /Od /Zi /T ps_5_0 /Fo .\build\game\shader\pixel.cso .\libng\shader\hlsl\pixel.hlsl
+	fxc.exe /Od /Zi /T vs_5_0 /Fo .\build\game\shader\vertex.cso .\libng\shader\hlsl\vertex.hlsl
 	cd build
-	cmake -DBUILD_SAMPLE=ON -G "NMake Makefiles" ..
+	cmake -DBUILD_GAME=ON -G "NMake Makefiles" ..
 	nmake 
 	cd ..
 
