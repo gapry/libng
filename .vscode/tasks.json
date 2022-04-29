@@ -37,7 +37,7 @@
         "cwd": "${workspaceFolder}"
       },
       "windows": {
-        "command": "nmake clean; nmake tests" 
+        "command": "nmake fmt; nmake clean; nmake tests" 
       },
       "group": "build",
       "presentation": {

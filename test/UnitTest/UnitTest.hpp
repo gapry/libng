@@ -11,8 +11,8 @@
     testObj.TestFunc;                                               \
   } while (false)
 
-#define LIBNG_TEST_CHECK(a)			    LIBNG_TEST_CHECK_IMPL(LIBNG_SRC_LOC, true,  bool(a), #a)
-#define LIBNG_TEST_CHECK_SLIENT(a)	LIBNG_TEST_CHECK_IMPL(LIBNG_SRC_LOC, false, bool(a), #a)
+#define LIBNG_TEST_CHECK(a)        LIBNG_TEST_CHECK_IMPL(LIBNG_SRC_LOC, true, bool(a), #a)
+#define LIBNG_TEST_CHECK_SLIENT(a) LIBNG_TEST_CHECK_IMPL(LIBNG_SRC_LOC, false, bool(a), #a)
 
 namespace libng {
 
@@ -22,4 +22,4 @@ class UnitTestBase : public NonCopyable {
 public:
 };
 
-}
+} // namespace libng
