@@ -1,6 +1,6 @@
 #pragma once
 
-#include <math/Vec2.hpp>
+#include <math/Vector/Vec2.hpp>
 
 namespace libng {
 

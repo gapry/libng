@@ -4,8 +4,8 @@
 #include <types/number.hpp>
 #include <third_party/eastl/eastl.hpp>
 #include <math/Color.hpp>
-#include <math/Tuple2.hpp>
-#include <math/Tuple3.hpp>
+#include <math/Tuple/Tuple2.hpp>
+#include <math/Tuple/Tuple3.hpp>
 
 namespace libng {
 

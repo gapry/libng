@@ -1,7 +1,7 @@
 #pragma once
 
-#include <math/Tuple2.hpp>
-#include <math/Tuple3.hpp>
+#include <math/Tuple/Tuple2.hpp>
+#include <math/Tuple/Tuple3.hpp>
 #include <third_party/eastl/eastl.hpp>
 #include <mesh/EditMesh.hpp>
 
