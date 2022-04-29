@@ -5,7 +5,7 @@
 namespace libng {
 
 template<class T>
-LIBNG_INLINE void libng_delete(T* p) {
+LIBNG_INLINE void libng_delete(T* p) noexcept {
   delete p;
 }
 
@@ -16,7 +16,7 @@ struct _Helper {
   static constexpr T alignTo_uint(T n, T a) {
     static_assert(std::is_unsigned<T>::value, "");
     T r = n % a;
-    return r ? (n + a - r) : n;
+    return r ? (n + a - r) : n; // Issue: (n + a - 1) / a * a;
   }
 };
 
