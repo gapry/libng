@@ -1,6 +1,6 @@
 #pragma once
 
-#include <renderer/backend/dx11/types.hpp>
+#include <renderer/backend/dx11/TypeDX11.hpp>
 
 namespace libng {
 
