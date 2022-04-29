@@ -26,6 +26,7 @@
 #include <EASTL/weak_ptr.h>
 
 #include <types/function.hpp>
+#include <types/utility.hpp>
 #include <platform/os.hpp>
 
 #if !EASTL_DLL
@@ -106,7 +107,7 @@ public:
 
   template<class R>
   void operator=(R&& r) {
-    Base::operator=(SGE_FORWARD(r));
+    Base::operator=(LIBNG_FORWARD(r));
   }
 };
 

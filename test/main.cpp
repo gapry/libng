@@ -2,7 +2,7 @@
 #include <test/mm/SPtr.hpp>
 
 int main(int, char**) {
-  test_eastl_vector_push();
+  test_eastl();
   test_sptr();
   return 0;
 }

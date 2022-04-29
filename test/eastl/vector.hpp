@@ -23,3 +23,7 @@ void test_eastl_vector_push(void) {
   init_vector(vec, 8 << 1);
   show_vector(vec);
 }
+
+void test_eastl(void) {
+  test_eastl_vector_push();
+}
