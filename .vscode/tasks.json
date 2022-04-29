@@ -29,6 +29,21 @@
         "reveal": "always",
         "panel": "new"
       }
-    }
+    },
+    {
+      "type": "shell",
+      "label": "Tests",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "windows": {
+        "command": "nmake clean; nmake tests" 
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
   ]
 }

@@ -1,9 +1,6 @@
-// #include "dbg.hpp"
-// #include "log/log.hpp"
-// #include "net/engine.hpp"
-// #include "net/packet.hpp"
+#include <test/eastl/vector.hpp>
 
 int main(int, char**) {
-  // LIBNG_LOG_INFO(__LIBNG_PRETTY_FUNCTION__);
+  test_eastl_vector_push();
   return 0;
 }

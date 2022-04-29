@@ -14,6 +14,14 @@ build:
 	nmake 
 	cd ..
 
+tests:
+	mkdir build
+	cd build
+	cmake -DBUILD_TEST=ON -G "NMake Makefiles" ..
+	nmake 
+	cd ..
+	.\build\test\libng_test.exe
+
 clean:
 	IF EXIST build rmdir build /q /s
 	IF EXIST *.cso DEL *.cso
@@ -29,4 +37,4 @@ fmt:
 	cd test        & FOR /r %f IN (*.cpp *.hpp) do @clang-format -style=file -i %f & cd ..
 	cd third_party & FOR /r %f IN (*.cpp *.hpp) do @clang-format -style=file -i %f & cd ..
 
-.PHONY: default execute build clean fmt 
+.PHONY: default execute build clean fmt tests
