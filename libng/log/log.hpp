@@ -1,43 +1,39 @@
 #pragma once
 
-#include "config.hpp"
-#include "libng/string.hpp"
-#include "noncopyable.hpp"
+#include <third_party/eastl/eastl.hpp>
+#include <types/utility.hpp>
+#include <libcxx/fmt.hpp>
+#include <libcxx/string.hpp>
+#include <types/noncopyable.hpp>
 
 // clang-format off
-#define LIBNG_LOG_INFO(...)    do { libng::g_logger.do_write(libng::logger::level::info,    __VA_ARGS__); } while (false)
-#define LIBNG_LOG_WARNING(...) do { libng::g_logger.do_write(libng::logger::level::warning, __VA_ARGS__); } while (false)
-#define LIBNG_LOG_ERROR(...)   do { libng::g_logger.do_write(libng::logger::level::error,   __VA_ARGS__); } while (false)
+#define LIBNG_LOG(...)       do{ libng::g_log.write(libng::Log::Level::Info,    __VA_ARGS__); } while(false)
+#define LIBNG_LOG_WARN(...)  do{ libng::g_log.write(libng::Log::Level::Warning, __VA_ARGS__); } while(false)
+#define LIBNG_LOG_ERROR(...) do{ libng::g_log.write(libng::Log::Level::Error,   __VA_ARGS__); } while(false)
 // clang-format on
 
 namespace libng {
 
-class logger : public libng::noncopyable<logger> {
+class Log : public NonCopyable {
 public:
-  enum class level
+  enum class Level
   {
-    info,
-    warning,
-    error,
-    unknown,
+    Unknown,
+    Info,
+    Warning,
+    Error,
   };
 
-  logger() = default;
-
-  ~logger() = default;
-
-  auto on_write(libng::logger::level level_type, //
-                libng::string_view msg) -> void; //
-
   template<class... Args>
-  auto do_write(libng::logger::level level_type, //
-                Args&&... args) -> void {        //
-    log_string log_msg;
-    fmt_to(log_msg, LIBNG_FORWARD(args)...);
-    on_write(level_type, log_msg);
+  void write(Level lv, Args&&... args) {
+    TempString tmp;
+    FmtTo(tmp, LIBNG_FORWARD(args)...);
+    onWrite(lv, tmp);
   }
+
+  void onWrite(Level lv, StrView str);
 };
 
-extern logger g_logger;
+extern Log g_log;
 
 } // namespace libng

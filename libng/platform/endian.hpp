@@ -1,7 +1,7 @@
 #pragma once
 
-#include "platform/byte_order.hpp"
-#include "platform/machine.hpp"
+#include <platform/byte_order.hpp>
+#include <platform/machine.hpp>
 
 namespace libng {
 

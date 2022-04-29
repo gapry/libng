@@ -7,18 +7,26 @@
 #include <fmt/core.h>
 #include <fmt/format.h>
 
-#include <EASTL/fixed_string.h>
-#include <EASTL/fixed_vector.h>
-#include <EASTL/span.h>
-#include <EASTL/string.h>
-#include <EASTL/unique_ptr.h>
 #include <EASTL/vector.h>
+#include <EASTL/fixed_vector.h>
+#include <EASTL/string.h>
+#include <EASTL/fixed_string.h>
+#include <EASTL/string_view.h>
+#include <EASTL/span.h>
 
-#include "dbg.hpp"
+#include <EASTL/optional.h>
 
-#include "platform/compiler.hpp"
-#include "platform/macros.hpp"
-#include "platform/os.hpp"
+#include <EASTL/map.h>
+#include <EASTL/hash_map.h>
+#include <EASTL/vector_map.h>
+#include <EASTL/string_map.h>
+
+#include <EASTL/unique_ptr.h>
+#include <EASTL/shared_ptr.h>
+#include <EASTL/weak_ptr.h>
+
+#include <types/function.hpp>
+#include <platform/os.hpp>
 
 #if !EASTL_DLL
 LIBNG_INLINE auto operator new[](size_t size,          //
@@ -48,70 +56,101 @@ LIBNG_INLINE auto operator new[](size_t size,             //
 
 namespace libng {
 
-template<typename T>
-using vector = eastl::vector<T>;
+template<class T>
+using UPtr = eastl::unique_ptr<T>;
 
 template<class T>
-using span = eastl::span<T>;
+using Span = eastl::span<T>;
+
+template<class T, size_t N, bool bEnableOverflow = true>
+using Vector_ = eastl::fixed_vector<T, N, bEnableOverflow>;
 
 template<class T>
-using uptr = eastl::unique_ptr<T>;
+using Vector = eastl::vector<T>;
 
-template<class T, size_t N, bool is_enable_overflow = true>
-using fixed_vector = eastl::fixed_vector<T, N, is_enable_overflow>;
+template<class KEY, class VALUE>
+using Map = eastl::map<KEY, VALUE>;
+
+template<class KEY, class VALUE>
+using VectorMap = eastl::vector_map<KEY, VALUE>;
 
 template<class T>
-using basic_string_view = eastl::basic_string_view<T>;
+using Opt = eastl::optional<T>;
 
-using string_view = basic_string_view<char>;
+template<class T>
+using StrViewT = eastl::basic_string_view<T>;
 
-template<class T, size_t N, bool is_enable_overflow = true>
-class fixed_string : public eastl::fixed_string<T, N, is_enable_overflow> {
-  using base = eastl::fixed_string<T, N, is_enable_overflow>;
+using StrViewA = StrViewT<char>;
+using StrViewW = StrViewT<wchar_t>;
+
+template<class T, size_t N, bool bEnableOverflow = true>
+class StringT : public eastl::fixed_string<T, N, bEnableOverflow> {
+  using Base = eastl::fixed_string<T, N, bEnableOverflow>;
 
 public:
-  fixed_string() = default;
+  StringT() = default;
 
-  ~fixed_string() = default;
-
-  fixed_string(basic_string_view<T> msg)
-    : base(msg.data(), msg.size()) {
+  StringT(StrViewT<T> view)
+    : Base(view.data(), view.size()) {
   }
-
-  fixed_string(fixed_string&& str)
-    : base(std::move(str)) {
+  StringT(StringT&& str)
+    : Base(std::move(str)) {
   }
 
   template<class R>
-  auto operator=(R&& r) -> void {
-    base::operator=(LIBNG_FORWARD(r));
+  void operator=(R&& r) {
+    Base::operator=(SGE_FORWARD(r));
   }
 };
 
-using string = eastl::string;
+using StringA = eastl::basic_string<char>;
+using StringW = eastl::basic_string<wchar_t>;
 
-template<size_t N, bool is_enable_overflow = true>
-using payload_string = fixed_string<char, N, is_enable_overflow>;
+template<size_t N, bool bEnableOverflow = true>
+using StringA_ = StringT<char, N, bEnableOverflow>;
 
-using log_string = payload_string<(128 << 1) - (32 >> 1)>;
+template<size_t N, bool bEnableOverflow = true>
+using StringW_ = StringT<wchar_t, N, bEnableOverflow>;
 
-template<class... ARGS>
-LIBNG_INLINE auto fmt_to(log_string& out_str,      //
-                         ARGS&&... args) -> void { //
-  fmt::format_to(std::back_inserter(out_str), LIBNG_FORWARD(args)...);
-}
+using TempStringA = StringA_<220>;
+using TempStringW = StringW_<220>;
 
-} // namespace libng
+using StrView = StrViewA;
+using String  = StringA;
+
+template<size_t N>
+using String_ = StringA_<N>;
+
+using TempString = TempStringA;
+
+template<size_t N>
+struct CharBySize;
 
 template<>
-struct fmt::formatter<libng::string_view> {
-  auto parse(fmt::format_parse_context& ctx) {
-    return ctx.begin();
+struct CharBySize<1> {
+  using Type = char;
+};
+
+template<>
+struct CharBySize<2> {
+  using Type = char16_t;
+};
+
+template<>
+struct CharBySize<4> {
+  using Type = char32_t;
+};
+
+struct WCharUtil {
+  using Char = typename CharBySize<sizeof(wchar_t)>::Type;
+
+  Char toChar(wchar_t c) {
+    return static_cast<Char>(c);
   }
 
-  auto format(libng::string_view const& msg, //
-              fmt::format_context& ctx) {    //
-    std::string_view str_view(msg.data(), msg.size());
-    return fmt::format_to(ctx.out(), "{}", str_view);
+  wchar_t toWChar(Char c) {
+    return static_cast<wchar_t>(c);
   }
 };
+
+} // namespace libng

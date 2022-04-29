@@ -1,7 +1,8 @@
 #pragma once
 
-#include "platform/compiler.hpp"
-#include "platform/types.hpp"
+#include <platform/compiler.hpp>
+#include <types/number.hpp>
+#include <types/function.hpp>
 
 namespace libng {
 

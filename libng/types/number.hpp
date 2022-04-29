@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 namespace libng {
 
 using u8  = uint8_t;

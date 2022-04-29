@@ -6,7 +6,7 @@ class LinearAllocator {
 public:
   LinearAllocator();
 
-  LinearAllocator();
+  ~LinearAllocator();
 };
 
 } // namespace libng

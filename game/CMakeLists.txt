@@ -12,4 +12,7 @@ libng_add_executable(${project_name} ${CMAKE_CURRENT_SOURCE_DIR})
 
 set_target_properties(${project_name} PROPERTIES FOLDER ${minor})
 
-target_link_libraries(${project_name} PUBLIC fmt::fmt ${major}_ui)
+target_link_libraries(${project_name} PUBLIC fmt::fmt ${major}_ui 
+                                                      ${major}_log 
+                                                      ${major}_exception
+                                                      ${major}_mm)

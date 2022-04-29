@@ -1,14 +1,12 @@
+#include <log/log.hpp>
 #include <fmt/core.h>
-
-#include "log/log.hpp"
 
 namespace libng {
 
-logger g_logger;
+Log g_log;
 
-auto logger::on_write(libng::logger::level level_type,      //
-                      libng::string_view log_msg) -> void { //
-  fmt::print("{}\n", log_msg);
+void Log::onWrite(Level lv, StrView str) {
+  fmt::print("{}\n", str);
 }
 
 } // namespace libng

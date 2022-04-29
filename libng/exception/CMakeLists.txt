@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 set(major        "libng")
-set(minor        "ui")
+set(minor        "exception")
 set(project_name ${major}_${minor})
 
 project(${project_name})

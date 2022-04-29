@@ -2,17 +2,16 @@
 
 namespace libng {
 
-template<class T>
-class noncopyable {
-protected:
-  noncopyable() = default;
-
-  ~noncopyable() noexcept = default;
+class NonCopyable {
+public:
+  NonCopyable() = default;
 
 private:
-  noncopyable(noncopyable const&) = delete;
+  // NonCopyable(NonCopyable&&) = delete;
 
-  auto operator=(T const&) -> void = delete;
+  NonCopyable(const NonCopyable&) = delete;
+
+  void operator=(const NonCopyable&) = delete;
 };
 
 } // namespace libng

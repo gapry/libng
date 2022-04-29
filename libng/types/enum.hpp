@@ -1,8 +1,6 @@
 #pragma once
 
-#include <platform/compiler.hpp>
-
-#include <utility> // std::forward
+#include <types/function.hpp>
 
 template<class T>
 LIBNG_INLINE constexpr auto enum_to_int(T value) -> typename std::underlying_type<T>::type {
@@ -19,5 +17,3 @@ LIBNG_INLINE constexpr auto enum_to_int(T value) -> typename std::underlying_typ
   LIBNG_INLINE auto operator&=(T& one, T other) -> void { one = static_cast<T>(enum_to_int(one) & enum_to_int(other));  } \
   LIBNG_INLINE auto operator^=(T& one, T other) -> void { one = static_cast<T>(enum_to_int(one) ^ enum_to_int(other));  } \
 // clang-format on
-
-#define LIBNG_FORWARD(T) (std::forward<decltype(T)>(T))
