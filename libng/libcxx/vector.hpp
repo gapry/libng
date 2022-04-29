@@ -11,9 +11,10 @@ namespace libng {
 
 namespace libcxx {
 
+using size_type = int;
+
 template<typename T>
 class Vector : public NonCopyable {
-  using size_type = int;
 
 public:
   Vector() = default;
@@ -101,7 +102,7 @@ void Vector<T>::reserve(size_type n) {
 }
 
 template<typename T>
-Vector<T>::size_type Vector<T>::size(void) const {
+size_type Vector<T>::size(void) const {
   return m_size;
 }
 
