@@ -29,6 +29,10 @@
 #include <platform/os.hpp>
 
 #if !EASTL_DLL
+
+#pragma warning(push)
+#pragma warning(disable : 4100)
+
 LIBNG_INLINE auto operator new[](size_t size,          //
                                  char const* p_name,   //
                                  int flags,            //
@@ -52,6 +56,9 @@ LIBNG_INLINE auto operator new[](size_t size,             //
   return std::aligned_alloc(alignment, size);
 #endif
 }
+
+#pragma warning(pop)
+
 #endif
 
 namespace libng {
