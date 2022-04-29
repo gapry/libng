@@ -1,6 +1,6 @@
 #pragma once
 
-#include "platform/os.hpp"
+#include <platform/os.hpp>
 
 #ifdef LIBNG_OS_WINDOWS
 // clang-format off
@@ -23,10 +23,3 @@
 #include <syslog.h>     //
 #include <unistd.h>     // sleep()
 #endif
-
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <fmt/core.h>
-#include <iostream>
-#include <utility>
