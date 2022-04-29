@@ -26,6 +26,7 @@ IF(BUILD_GAME)
   add_subdirectory("${dir_src}/log")
   add_subdirectory("${dir_src}/exception")
   add_subdirectory("${dir_src}/mm")
+  add_subdirectory("${dir_src}/renderer")
 ENDIF(BUILD_GAME)
 
 IF(BUILD_TEST)

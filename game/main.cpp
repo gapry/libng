@@ -1,11 +1,10 @@
-#include <third_party/eastl/eastl.hpp>
-#include <test/eastl/vector.hpp>
 #include <log/log.hpp>
 #include <log/variable.hpp>
 #include <types/function.hpp>
 #include <exception/error.hpp>
 #include <ui/UIApp.hpp>
 #include <ui/UIWindow.hpp>
+#include <third_party/eastl/eastl.hpp>
 
 namespace libng {
 
@@ -33,6 +32,7 @@ class GameApp : public UIApp {
 public:
   virtual void onCreate(CreateDesc& desc) override {
     Base::onCreate(desc);
+
     UIWindow::CreateDesc winDesc;
     winDesc.isMainWindow = true;
     _mainWin.create(winDesc);
