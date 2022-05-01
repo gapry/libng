@@ -1,6 +1,6 @@
 #!/bin/sh
 
-export dir_list=( libcxx libng sample test benchmark )
+export dir_list=( benchmark game test third_party )
 
 for dir in ${dir_list[@]}; do
   find `pwd`/$dir -type f -iname "*.cpp" -o -iname "*.hpp" -o -iname "*.h"  | 

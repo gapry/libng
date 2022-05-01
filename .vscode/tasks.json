@@ -39,6 +39,9 @@
       "windows": {
         "command": "nmake fmt; nmake clean; nmake tests" 
       },
+      "linux": {
+        "command": "make tests"
+      },
       "group": "build",
       "presentation": {
         "reveal": "always",

@@ -1,18 +1,16 @@
 #!/usr/bin/env bash
 
 declare -r proj=libng
-declare -r dir_build=build
-declare -r dir_scripts=scripts
-declare -r unnittest=${proj}_unittest.out
+declare -r dir_build=build 
+declare -r dir_test=${dir_build}/test
+declare -r unnittest=${proj}_test
 
 rm -rf $dir_build; 
 
-bash -x $dir_scripts/fmt.sh
-
 mkdir $dir_build; 
 
-cmake -B $dir_build .
+cmake -DBUILD_TEST=ON -B $dir_build .
 
-make -C $dir_build; 
+make -j$(nproc) -C $dir_build; 
 
-$dir_build/$unnittest
+$dir_test/$unnittest
