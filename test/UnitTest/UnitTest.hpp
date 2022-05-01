@@ -6,7 +6,7 @@
 
 #define LIBNG_TEST_CASE(TestClass, TestFunc)                        \
   do {                                                              \
-    LIBNG_LOG("\n [--TEST_CASE--] " #TestClass "." #TestFunc "\n"); \
+    LIBNG_LOG("\n [TEST_CASE] " #TestClass "." #TestFunc "\n"); \
     TestClass testObj;                                              \
     testObj.TestFunc;                                               \
   } while (false)

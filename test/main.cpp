@@ -4,9 +4,8 @@
 #include <fmt/core.h>
 
 int main(int, char**) {
-  test_eastl();
-  test_sptr();
-  test_libcxx();
-  fmt::print("{}\n", __LIBNG_PRETTY_FUNCTION__);
+  LIBNG_TEST_CASE(libng::TestLibcxx, test_libcxx_vector());
+  LIBNG_TEST_CASE(libng::TestSPrt, test_sptr());
+  LIBNG_TEST_CASE(libng::TestEASTL, test_eastl_vector_push());
   return 0;
 }
