@@ -6,13 +6,12 @@
 #include <fmt/core.h>
 #include <test/UnitTest/UnitTest.hpp>
 
-namespace libng
-{
-  
+namespace libng {
+
 class TestSPrt : public UnitTestBase {
 public:
   void test_sptr(void) {
   }
 };
 
-} // namespace 
+} // namespace libng

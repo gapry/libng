@@ -15,7 +15,7 @@ private:
     }
     fmt::print("\n");
   }
-  
+
   template<typename T>
   void init_vector(libng::Vector<T>& vec, const int elem_size) {
     for (int i = 1; i <= elem_size; ++i) {
@@ -31,4 +31,4 @@ public:
   }
 };
 
-}
+} // namespace libng

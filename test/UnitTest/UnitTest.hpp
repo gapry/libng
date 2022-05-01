@@ -4,11 +4,11 @@
 #include <types/noncopyable.hpp>
 #include <exception/error.hpp>
 
-#define LIBNG_TEST_CASE(TestClass, TestFunc)                        \
-  do {                                                              \
+#define LIBNG_TEST_CASE(TestClass, TestFunc)                    \
+  do {                                                          \
     LIBNG_LOG("\n [TEST_CASE] " #TestClass "." #TestFunc "\n"); \
-    TestClass testObj;                                              \
-    testObj.TestFunc;                                               \
+    TestClass testObj;                                          \
+    testObj.TestFunc;                                           \
   } while (false)
 
 #define LIBNG_TEST_CHECK(a)        LIBNG_TEST_CHECK_IMPL(LIBNG_SRC_LOC, true, bool(a), #a)
