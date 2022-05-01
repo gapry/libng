@@ -4,17 +4,21 @@
 
 ## [Vulkan](https://www.vulkan.org/)
 - [One stop solution for all Vulkan samples](https://github.com/khronosGroup/Vulkan-samples)
+- [SPIR Overview](https://www.khronos.org/spir/)
+- [SPIR-V Tools](https://github.com/KhronosGroup/SPIRV-Tools)
 
 ## [OpenGL](https://www.opengl.org/)
 - [Getting Started](https://www.khronos.org/opengl/wiki/Getting_Started)
 - [Category:Example Code](https://www.khronos.org/opengl/wiki/Category:Example_Code)
 - [Common Mistakes](https://www.khronos.org/opengl/wiki/Common_Mistakes)
 - [MSDN OpenGL](https://docs.microsoft.com/en-us/windows/win32/opengl/opengl?redirectedfrom=MSDN)
+- [Shader Compilation](https://www.khronos.org/opengl/wiki/Shader_Compilation)
 
 ## [Direct3D 11](https://docs.microsoft.com/en-us/windows/win32/directx)
 - [Programming guide for Direct3D 11](https://docs.microsoft.com/en-us/windows/win32/direct3d11/dx-graphics-overviews)
 - [Direct3D game sample](https://docs.microsoft.com/en-us/samples/microsoft/windows-universal-samples/simple3dgamedx/)
 - [DirectX and XAML game sample](https://docs.microsoft.com/en-us/samples/microsoft/windows-universal-samples/simple3dgamexaml/)
+- [D3DCompiler Reference](https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-d3dcompiler-reference)
 
 ## [DirectX 12](https://docs.microsoft.com/en-us/windows/win32/directx)
 - [DirectX Graphics Samples](https://github.com/microsoft/DirectX-Graphics-Samples)
