@@ -11,7 +11,7 @@ public:
 
 protected:
   template<class T> // Issue: typename T, class IMPL
-  void _dispatch(T* imple, RenderCommandBuffer& cmdBuff);
+  void _dispatch(T* impl, RenderCommandBuffer& cmdBuff);
 };
 
 /**
@@ -20,11 +20,11 @@ protected:
  * Utilize the type of Render Command Buffer to execute the DrawCall
  *
  * @tparam T
- * @param imple
+ * @param impl
  * @param cmdBuff
  */
 template<class T>
-void RenderContext::_dispatch(T* imple, RenderCommandBuffer& cmdBuff) {
+void RenderContext::_dispatch(T* impl, RenderCommandBuffer& cmdBuff) {
   using CmdType = RenderCommandType;
 
 #define CMD_CASE(CMD_NAME)                                   \
