@@ -8,10 +8,12 @@
         "cwd": "${workspaceFolder}"
       },
       "windows": {
-        "command": "${cwd}\\scripts\\win32\\run.bat" 
+        // "command": "${cwd}\\scripts\\win32\\run.bat" 
+        "command": "nmake default" 
       },
       "linux": {
-        "command": "sh -x ${cwd}/scripts/linux/build/build_on_linux.sh"
+        // "command": "sh -x ${cwd}/scripts/linux/build/build_on_linux.sh"
+        "command": "make default" 
       },
       "group": "build",
       "presentation": {

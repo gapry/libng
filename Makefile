@@ -1,4 +1,25 @@
-target = libng_game
+# Ref: https://stackoverflow.com/questions/8270391/use-the-same-makefile-for-make-linux-and-NMAKE.exe-windows
+
+ifdef MAKEDIR: # GNU Make is false,        NMAKE.exe.exe is unused target.
+!ifdef MAKEDIR # GNU Make doesn't seen it, NMAKE.exe.exe is true.
+
+clean:
+	call .\scripts\win32\clean.bat
+
+fmt:
+	call .\scripts\win32\fmt.bat
+
+build:
+	call .\scripts\win32\build.bat
+
+tests:
+	call .\scripts\win32\unit_test.bat
+
+execute:
+	call .\scripts\win32\execute.bat
+
+!else 
+else
 
 ifeq ($(OS),Windows_NT)
 	OS = Windows
@@ -12,16 +33,9 @@ else
 	endif
 endif
 
-default: clean fmt build execute
-
 clean:
 ifeq ($(OS),Windows)
-	IF EXIST build rmdir build /q /s
-	IF EXIST *.cso DEL *.cso
-	IF EXIST *.obj DEL *.obj
-	IF EXIST *.exe DEL *.exe
-	IF EXIST *.ilk DEL *.ilk
-	IF EXIST *.pdb DEL *.pdb
+	call .\scripts\win32\clean.bat
 else ifeq ($(OS),Linux)
 	rm -rf build
 else ifeq ($(OS),macOS)
@@ -31,11 +45,7 @@ endif
 
 fmt:
 ifeq ($(OS),Windows)
-	cd benchmark   & FOR /r %f IN (*.cpp *.hpp) do @clang-format -style=file -i %f & cd ..
-	cd game        & FOR /r %f IN (*.cpp *.hpp) do @clang-format -style=file -i %f & cd ..
-	cd libng       & FOR /r %f IN (*.cpp *.hpp) do @clang-format -style=file -i %f & cd ..
-	cd test        & FOR /r %f IN (*.cpp *.hpp) do @clang-format -style=file -i %f & cd ..
-	cd third_party & FOR /r %f IN (*.cpp *.hpp) do @clang-format -style=file -i %f & cd ..
+	call .\scripts\win32\fmt.bat
 else ifeq ($(OS),Linux)
 	sh ./scripts/linux/fmt/format_on_linux.sh
 else ifeq ($(OS),macOS)
@@ -45,13 +55,7 @@ endif
 
 build:
 ifeq ($(OS),Windows)
-	mkdir build\game\shader
-	fxc.exe /Od /Zi /T ps_5_0 /Fo .\build\game\shader\pixel.cso .\libng\shader\hlsl\pixel.hlsl
-	fxc.exe /Od /Zi /T vs_5_0 /Fo .\build\game\shader\vertex.cso .\libng\shader\hlsl\vertex.hlsl
-	cd build
-	cmake -DBUILD_GAME=ON -G "NMake Makefiles" ..
-	nmake 
-	cd ..
+	call .\scripts\win32\build.bat
 else ifeq ($(OS),Linux)
 	sh ./scripts/linux/build/build_on_linux.sh
 else ifeq ($(OS),macOS)
@@ -61,12 +65,7 @@ endif
 
 tests:
 ifeq ($(OS),Windows)
-	mkdir build
-	cd build
-	cmake -DBUILD_TEST=ON -G "NMake Makefiles" ..
-	nmake 
-	cd ..
-	.\build\test\libng_test.exe
+	call .\scripts\win32\unit_test.bat
 else ifeq ($(OS),Linux)
 	sh ./scripts/linux/test/unittest.sh
 else ifeq ($(OS),macOS)
@@ -76,12 +75,17 @@ endif
 
 execute:
 ifeq ($(OS),Windows)
-	.\build\game\$(target).exe
+	call .\scripts\win32\execute.bat
 else ifeq ($(OS),Linux)
 	sh ./scripts/linux/execute/execute_on_linux.sh
 else ifeq ($(OS),macOS)
 	@echo "execute"
 else
 endif
+
+endif    # GNU Make is the close condition, NMAKE.exe doesn't seen it.
+!endif : # GNU Make is the unused target,   NMAKE.exe is the close conditional.
+
+default: clean fmt build execute
 
 .PHONY: default clean fmt build tests execute
