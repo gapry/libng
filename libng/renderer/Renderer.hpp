@@ -13,7 +13,7 @@ struct GPUBufferCreateDesc;
 
 class Renderer : public NonCopyable {
 public:
-  enum class ApiType
+  enum class APIType
   {
     None,
     DX11,
@@ -23,7 +23,10 @@ public:
   struct CreateDesc {
     CreateDesc();
 
-    ApiType apiType;
+    ~CreateDesc();
+
+    APIType apiType;
+
     bool multithread : 1;
   };
 
@@ -41,16 +44,17 @@ public:
 
   RenderContext* createContext(RenderContextCreateDesc& desc);
 
-  GPUBuffer* createGpuBuffer(GPUBufferCreateDesc& desc);
+  GPUBuffer* createGPUBuffer(GPUBufferCreateDesc& desc);
 
 protected:
   virtual RenderContext* onCreateContext(RenderContextCreateDesc& desc) = 0;
 
   virtual GPUBuffer* onCreateGPUBuffer(GPUBufferCreateDesc& desc) = 0;
 
-  static Renderer* _current;
+  static Renderer* _s_current;
 
   AdapterInfo _adapterInfo;
+
   bool _vsync : 1;
 };
 
