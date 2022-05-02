@@ -12,6 +12,8 @@ class RenderCommandBuffer : public NonCopyable {
 public:
   void drawMesh(RenderMesh& mesh);
 
+  void commands();
+
 private:
   Vector_<RenderCommand*, 64> _commands;
   LinearAllocator _allocator;
