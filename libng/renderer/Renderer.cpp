@@ -7,11 +7,10 @@ namespace libng {
 Renderer* Renderer::_s_current = nullptr; // Issue: redundant assignment: ctor & global
 
 /**
- * @brief The public inner class constructor
+ * @brief Public inner class constructor
  * 
- * 1. select the graphic api in runtime
- * 2. determine the renderer support the multi-thread or not in compile-time
- * 
+ * 1. select the graphic api in runtime.
+ * 2. determine the renderer support the multi-thread or not in compile-time.
  */
 Renderer::CreateDesc::CreateDesc()
   : multithread(false) {
@@ -25,6 +24,11 @@ Renderer::CreateDesc::CreateDesc()
 Renderer::CreateDesc::~CreateDesc() {
 }
 
+/**
+ * @brief public static member function 
+ * 
+ * @return Renderer* 
+ */
 Renderer* Renderer::current() {
   return _s_current;
 }
@@ -32,7 +36,7 @@ Renderer* Renderer::current() {
 /**
  * @brief public static member function
  * 
- * create the instance of the renderer which the graphic API is selected in ctor
+ * create the instance of the renderer which the graphic API is selected in ctor.
  *
  * @param desc 
  * @return Renderer* 
@@ -47,11 +51,11 @@ Renderer* Renderer::create(CreateDesc& desc) {
 }
 
 /**
- * @brief Construct a new Renderer:: Renderer object
+ * @brief Construct a new Renderer object
  * 
- * use the protected static raw pointer to hold the instance object in runtime
- * enable vsync or not
- * 
+ * 1. use the protected static raw pointer to hold the instance object in runtime.
+ * 2. enable vsync or not.
+ * 3. since it's critical, it prohibit to utilize the execption/if as `_s_current` is `nullptr`
  */
 Renderer::Renderer() {
   LIBNG_ASSERT(_s_current == nullptr);
@@ -75,7 +79,7 @@ bool Renderer::vsync() const {
 /**
  * @brief public member function
  *
- * call the pure virtual protected function `onCreateContext(RenderContextCreateDesc&)`
+ * call the pure virtual protected function `onCreateContext(RenderContextCreateDesc&)`.
  *
  * @param desc
  * @return RenderContext*
@@ -87,7 +91,7 @@ RenderContext* Renderer::createContext(RenderContextCreateDesc& desc) {
 /**
  * @brief public member function
  *
- * call the pure virtual protected function `onCreateGPUBuffer(GPUBufferCreateDesc&)`
+ * call the pure virtual protected function `onCreateGPUBuffer(GPUBufferCreateDesc&)`.
  *
  * @param desc
  * @return GPUBuffer*
