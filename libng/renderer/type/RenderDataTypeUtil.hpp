@@ -1,14 +1,15 @@
 #pragma once
 
-#include <renderer/type/RenderDataType.hpp>
 #include <math/Color.hpp>
-#include <math/Tuple2.hpp>
-#include <math/Tuple3.hpp>
-#include <math/Tuple4.hpp>
+#include <math/Tuple/Tuple2.hpp>
+#include <math/Tuple/Tuple3.hpp>
+#include <math/Tuple/Tuple4.hpp>
 
-namespace libng {
+#include <renderer/type/RenderDataType.hpp>
 
 // clang-format off
+namespace libng {
+
 struct RendereDataTypeUtil {
   using Type = RenderDataType;
 
