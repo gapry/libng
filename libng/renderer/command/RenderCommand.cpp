@@ -6,7 +6,13 @@ RenderCommand::RenderCommand(Type type)
   : _type(type) {
 }
 
-RenderCommand::~RenderCommand() {
+/**
+ * @brief public member method
+ * 
+ * @return RenderCommand::Type 
+ */
+RenderCommand::Type RenderCommand::getType() const {
+  return _type;
 }
 
 } // namespace libng

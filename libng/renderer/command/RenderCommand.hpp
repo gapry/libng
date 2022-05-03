@@ -1,5 +1,9 @@
-#include <renderer/command/RenderCommandType.hpp>
 #include <types/noncopyable.hpp>
+
+#include <debug/SourceLocation.hpp>
+#include <debug/Util.hpp>
+
+#include <renderer/command/RenderCommandType.hpp>
 
 namespace libng {
 
@@ -9,7 +13,13 @@ public:
 
   RenderCommand(Type type);
 
-  virtual ~RenderCommand();
+  virtual ~RenderCommand() = 0; 
+
+  Type getType() const;
+
+#if LIBNG_DEBUG
+  SrcLoc debugLoc;
+#endif
 
 private:
   Type _type = Type::None;
