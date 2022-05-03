@@ -6,7 +6,7 @@ namespace libng {
 
 class Object : public RefCountBase {
 public:
-  virtual ~Object() = default;
+  virtual ~Object() = default; // Issue: virtual dtor, virtual ctor
 };
 
 } // namespace libng

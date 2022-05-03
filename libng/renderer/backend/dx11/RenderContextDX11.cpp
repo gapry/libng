@@ -4,7 +4,8 @@
 
 namespace libng {
 
-RenderContextDX11::RenderContextDX11() {
+RenderContextDX11::RenderContextDX11(CreateDesc& desc)
+  : Base(desc) {
 }
 
 } // namespace libng

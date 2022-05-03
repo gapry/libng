@@ -1,17 +1,44 @@
 #pragma once
 
 #include <types/Object.hpp>
+
+#include <math/Vector/Vec2.hpp>
+
+#include <renderer/RenderContextCreateDesc.hpp>
+#include <renderer/command/RenderCommandType.hpp>
 #include <renderer/command/RenderCommandBuffer.hpp>
 
 namespace libng {
 
 class RenderContext : public Object {
 public:
-  RenderContext();
+  using CreateDesc = RenderContextCreateDesc;
+
+  RenderContext(CreateDesc& desc);
+
+  virtual ~RenderContext() = default;
+
+  void beginRender();
+
+  void endRender();
+
+  void commit(RenderCommandBuffer& cmdBuff);
+
+  void setFrameBufferSize(Vec2f newSize);
 
 protected:
+  virtual void onBeginRender() = 0;
+
+  virtual void onEndRender() = 0;
+
+  virtual void onCommit(RenderCommandBuffer& cmdBuff) = 0;
+
+  virtual void onSetFrameBufferSize(Vec2f newSize) = 0;
+
   template<class T> // Issue: typename T, class IMPL
-  void _dispatch(T* impl, RenderCommandBuffer& cmdBuff);
+  void _dispatch(T* impl, const RenderCommandBuffer& cmdBuff);
+
+  Vec2f _frameBuffSize{0.0f, 0.0f}; /**< Issue: Vec2f, x, y, Operator+-  */
 };
 
 /**
@@ -24,7 +51,7 @@ protected:
  * @param cmdBuff
  */
 template<class T>
-void RenderContext::_dispatch(T* impl, RenderCommandBuffer& cmdBuff) {
+void RenderContext::_dispatch(T* const impl, const RenderCommandBuffer& cmdBuff) {
   using CmdType = RenderCommandType;
 
 #define CMD_CASE(CMD_NAME)                                   \

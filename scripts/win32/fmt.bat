@@ -5,9 +5,6 @@
 :: cd test         & FOR /r %f IN (*.cpp *.hpp) do @clang-format -style=file -i %f & cd ..
 :: cd third_party  & FOR /r %f IN (*.cpp *.hpp) do @clang-format -style=file -i %f & cd ..
 
-@echo off
-cls
-
 cd benchmark 
 FOR /r %%f IN (*.cpp *.hpp) do @clang-format -style=file -i %%f 
 cd ..
