@@ -6,7 +6,7 @@
 
 #include <renderer/RenderContextCreateDesc.hpp>
 #include <renderer/command/RenderCommandType.hpp>
-#include <renderer/command/RenderCommandBuffer.hpp>
+#include <renderer/buffer/RenderCommandBuffer.hpp>
 
 namespace libng {
 

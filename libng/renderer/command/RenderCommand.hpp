@@ -1,3 +1,5 @@
+#pragma once
+
 #include <types/noncopyable.hpp>
 
 #include <debug/SourceLocation.hpp>
