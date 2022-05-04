@@ -4,6 +4,5 @@ namespace libng {
 
 void RenderSubMesh::create(const EditMesh& srcMesh) {
 }
-  
 
-}
+} // namespace libng

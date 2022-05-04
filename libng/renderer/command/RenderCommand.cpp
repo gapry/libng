@@ -8,8 +8,8 @@ RenderCommand::RenderCommand(Type type)
 
 /**
  * @brief public member method
- * 
- * @return RenderCommand::Type 
+ *
+ * @return RenderCommand::Type
  */
 RenderCommand::Type RenderCommand::getType() const {
   return _type;

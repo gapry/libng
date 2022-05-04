@@ -9,4 +9,4 @@ public:
   void create(const EditMesh& srcMesh);
 };
 
-}
+} // namespace libng

@@ -13,7 +13,7 @@ public:
 
   RenderCommand(Type type);
 
-  virtual ~RenderCommand() = 0; 
+  virtual ~RenderCommand() = 0;
 
   Type getType() const;
 
