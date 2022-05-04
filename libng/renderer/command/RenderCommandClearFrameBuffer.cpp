@@ -2,7 +2,8 @@
 
 namespace libng {
 
-RenderCommandClearFrameBuffer::RenderCommandClearFrameBuffer(): Base(Type::ClearFrameBuffers) {
+RenderCommandClearFrameBuffer::RenderCommandClearFrameBuffer()
+  : Base(Type::ClearFrameBuffers) {
 }
 
 RenderCommandClearFrameBuffer::~RenderCommandClearFrameBuffer() {
@@ -20,7 +21,7 @@ RenderCommandClearFrameBuffer& RenderCommandClearFrameBuffer::setDepth(const flo
 
 RenderCommandClearFrameBuffer& RenderCommandClearFrameBuffer::dontClearColor() {
   color.reset();
-  return *this; 
+  return *this;
 }
 
 RenderCommandClearFrameBuffer& RenderCommandClearFrameBuffer::dontClearDepth() {
@@ -28,4 +29,4 @@ RenderCommandClearFrameBuffer& RenderCommandClearFrameBuffer::dontClearDepth() {
   return *this;
 }
 
-}
+} // namespace libng
