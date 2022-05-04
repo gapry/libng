@@ -4,7 +4,7 @@
 
 namespace libng {
 
-struct GpuBufferCreateDesc {
+struct GPUBufferCreateDesc {
   using Type = GPUBufferType;
 
   Type type         = Type::None;
