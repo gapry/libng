@@ -9,7 +9,7 @@ function(libng_add_source_group src_path src_files)
 endfunction()
 
 function(libng_add_library target_name src_path)
-  file(GLOB_RECURSE src_files "${src_path}/*.cpp")
+  file(GLOB_RECURSE src_files "${src_path}/*.*")
   libng_add_source_group(${src_path} "${src_files}")
   add_library(${target_name} "${src_files}")
   target_precompile_headers(${target_name} PUBLIC "${CMAKE_SOURCE_DIR}/libng/pch.hpp")
