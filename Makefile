@@ -18,6 +18,9 @@ tests:
 execute:
 	call .\scripts\win32\execute.bat
 
+vcpkg:
+	call .\scripts\win32\vcpkg.bat
+
 !else 
 else
 
