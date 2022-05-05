@@ -7,6 +7,9 @@ build/
 # vcpkg
 vcpkg/
 
+# Visual Studio
+.vs/
+
 # Prerequisites
 *.d
 
