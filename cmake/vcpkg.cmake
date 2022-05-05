@@ -1,5 +1,5 @@
 find_package(Threads)
 find_package(fmt    CONFIG REQUIRED)
-find_package(imgui  CONFIG REQUIRED)
 find_package(EABase CONFIG REQUIRED)
 find_package(EASTL  CONFIG REQUIRED) 
+# find_package(imgui  CONFIG REQUIRED)
