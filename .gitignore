@@ -4,6 +4,9 @@ imgui.ini
 # CMake
 build/
 
+# vcpkg
+vcpkg/
+
 # Prerequisites
 *.d
 
