@@ -2,8 +2,7 @@
 
 #include <types/Object.hpp>
 #include <types/number.hpp>
-
-#include <third_party/eastl/eastl.hpp>
+#include <libcxx/util.hpp>
 
 #include <renderer/buffer/GPUBufferType.hpp>
 #include <renderer/buffer/GPUBufferCreateDesc.hpp>

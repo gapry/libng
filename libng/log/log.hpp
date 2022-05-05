@@ -1,10 +1,11 @@
 #pragma once
 
-#include <third_party/eastl/eastl.hpp>
 #include <types/utility.hpp>
+#include <types/noncopyable.hpp>
+
 #include <libcxx/fmt.hpp>
 #include <libcxx/string.hpp>
-#include <types/noncopyable.hpp>
+#include <libcxx/util.hpp>
 
 // clang-format off
 #define LIBNG_LOG(...)       do{ libng::g_log.write(libng::Log::Level::Info,    __VA_ARGS__); } while(false)

@@ -4,8 +4,9 @@
 #include <exception>
 
 #include <libcxx/fmt.hpp>
+#include <libcxx/util.hpp>
+
 #include <types/function.hpp>
-#include <third_party/eastl/eastl.hpp>
 #include <debug/SourceLocation.hpp>
 
 #define LIBNG_ASSERT(...) assert(__VA_ARGS__)

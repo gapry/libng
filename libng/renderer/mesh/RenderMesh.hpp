@@ -1,6 +1,6 @@
 #pragma once
 
-#include <third_party/eastl/eastl.hpp>
+#include <libcxx/util.hpp>
 
 #include <renderer/vertex/VertexLayout.hpp>
 #include <renderer/type/RenderPrimitiveType.hpp>

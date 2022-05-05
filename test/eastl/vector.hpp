@@ -1,7 +1,8 @@
 #pragma once
 
-#include <third_party/eastl/eastl.hpp>
 #include <fmt/core.h>
+#include <libcxx/util.hpp>
+
 #include <test/UnitTest/UnitTest.hpp>
 
 namespace libng {

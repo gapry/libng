@@ -2,7 +2,7 @@
 
 #include <math/Color.hpp>
 
-#include <third_party/eastl/eastl.hpp>
+#include <libcxx/util.hpp>
 
 #include <renderer/command/RenderCommand.hpp>
 #include <renderer/command/RenderCommandClearFrameBuffer.hpp>

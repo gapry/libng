@@ -2,7 +2,9 @@
 
 #include <types/noncopyable.hpp>
 #include <types/number.hpp>
-#include <third_party/eastl/eastl.hpp>
+
+#include <libcxx/util.hpp>
+
 #include <math/Color.hpp>
 #include <math/Tuple/Tuple2.hpp>
 #include <math/Tuple/Tuple3.hpp>

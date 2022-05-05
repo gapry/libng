@@ -41,7 +41,7 @@ LIBNG_INLINE constexpr typename std::underlying_type<T>::type enumToInt(T value)
 	constexpr void operator*=(T& a, int b) { a = static_cast<T>(enumInt(a) * b); }    \
 	constexpr void operator/=(T& a, int b) { a = static_cast<T>(enumInt(a) / b); }    \
 
-  #define LIBNG_ENUM_ALL_OPERATOR(T)      \
-	  LIBNG_ENUM_BITWISE_OPERATOR(T)        \
-	  LIBNG_ENUM_ARITHMETIC_OPERATOR(T)     \
-	  LIBNG_ENUM_ARITHMETIC_OPERATOR_INT(T) \
+#define LIBNG_ENUM_ALL_OPERATOR(T)      \
+  LIBNG_ENUM_BITWISE_OPERATOR(T)        \
+  LIBNG_ENUM_ARITHMETIC_OPERATOR(T)     \
+  LIBNG_ENUM_ARITHMETIC_OPERATOR_INT(T) \

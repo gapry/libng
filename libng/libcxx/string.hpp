@@ -1,9 +1,12 @@
 #pragma once
 
-#include <third_party/eastl/eastl.hpp>
-#include <libcxx/fmt.hpp>
-#include <types/function.hpp>
+// std
 #include <ostream>
+
+// libng
+#include <libcxx/fmt.hpp>
+#include <libcxx/string.hpp>
+#include <types/function.hpp>
 
 LIBNG_INLINE
 std::ostream& operator<<(std::ostream& s, const libng::StrView& v) {

@@ -4,7 +4,7 @@
 #include <exception/error.hpp>
 #include <ui/UIApp.hpp>
 #include <ui/UIWindow.hpp>
-#include <third_party/eastl/eastl.hpp>
+#include <libcxx/util.hpp>
 
 namespace libng {
 

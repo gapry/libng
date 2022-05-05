@@ -1,7 +1,7 @@
 #pragma once
 
 #include <types/number.hpp>
-#include <third_party/eastl/eastl.hpp>
+#include <libcxx/util.hpp>
 
 namespace libng {
 
