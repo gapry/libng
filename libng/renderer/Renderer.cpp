@@ -1,6 +1,8 @@
-#include <renderer/Renderer.hpp>
 #include <exception/error.hpp>
 #include <platform/os.hpp>
+
+#include <renderer/Renderer.hpp>
+#include <renderer/backend/dx11/RendererDX11.hpp>
 
 namespace libng {
 
@@ -44,7 +46,7 @@ Renderer* Renderer::current() {
 Renderer* Renderer::create(CreateDesc& desc) {
   Renderer* p = nullptr;
   switch (desc.apiType) {
-    case APIType::DX11: break;
+    case APIType::DX11: p = new RendererDX11(desc); break;
     case APIType::OpenGL: break;
     default: throw LIBNG_ERROR("[ERROR] doesn't find the supported Graphic API"); break;
   }

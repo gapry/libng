@@ -2,9 +2,15 @@
 #include <log/variable.hpp>
 #include <types/function.hpp>
 #include <exception/error.hpp>
+
 #include <ui/UIApp.hpp>
 #include <ui/UIWindow.hpp>
+
 #include <libcxx/util.hpp>
+
+#include <platform/graphics.hpp>
+#include <renderer/Renderer.hpp>
+#include <renderer/vertex/VertexCommon.hpp>
 
 namespace libng {
 
@@ -13,7 +19,12 @@ class MainWin : public UIWindow {
 
 public:
   void onCreate(CreateDesc& desc) {
+    LIBNG_DUMP_VAR(sizeof(VertexPos3f));
+    LIBNG_DUMP_VAR(sizeof(VertexPos3fColor4b));
+
     Base::onCreate(desc);
+
+    auto* renderer = Renderer::current();
   }
 
   virtual void onCloseButton() override {

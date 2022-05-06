@@ -3,6 +3,9 @@
 #include <renderer/vertex/VertexType.hpp>
 #include <renderer/vertex/VertexBase.hpp>
 #include <renderer/vertex/VertexTypeUtil.hpp>
+#include <renderer/vertex/VertexLayout.hpp>
+#include <renderer/vertex/VertexLayoutManager.hpp>
+
 #include <renderer/type/RenderDataType.hpp>
 #include <renderer/type/RenderDataTypeUtil.hpp>
 
