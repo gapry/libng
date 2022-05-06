@@ -1,6 +1,7 @@
 #pragma once
 
 #include <types/noncopyable.hpp>
+#include <libcxx/util.hpp>
 
 namespace libng {
 
@@ -16,7 +17,25 @@ public:
 
   virtual void willQuit();
 
+  void setCurrentDir(StrView dir) {
+    onSetCurrentDir(dir);
+  }
+
+  String getCurrentDir() {
+    return onGetCurrentDir();
+  }
+
+  String getExecutableFilename() {
+    return onGetExecutableFilename();
+  }
+
 protected:
+  virtual String onGetExecutableFilename() = 0;
+
+  virtual String onGetCurrentDir() = 0;
+
+  virtual void onSetCurrentDir(StrView dir) = 0;
+
   virtual void onCreate(CreateDesc& desc);
 
   virtual void onRun();

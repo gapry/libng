@@ -189,7 +189,7 @@ void RenderContextDX11::onEndRender() {
 
 void RenderContextDX11::_setTestShaders() {
   HRESULT hr;
-  const wchar_t* shaderFile = L"";
+  const wchar_t* shaderFile = L"..\\..\\Assets\\Shaders\\hlsl\\test.hlsl";
 
   auto* dev = _renderer->d3dDevice();
   auto* ctx = _renderer->d3dDeviceContext();

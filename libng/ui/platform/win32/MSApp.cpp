@@ -1,4 +1,7 @@
 #include <ui/platform/win32/MSApp.hpp>
+#include <libcxx/util.hpp>
+#include <libcxx/UtfUtil.hpp>
+#include <exception/error.hpp>
 
 #if LIBNG_OS_WINDOWS
 
@@ -26,6 +29,32 @@ void MSApp::onRun() {
 void MSApp::onQuit() {
   Base::onQuit();
   ::PostQuitMessage(_exitCode);
+}
+
+String MSApp::onGetExecutableFilename() {
+  wchar_t tmp[MAX_PATH + 1];
+  if (!::GetModuleFileName(nullptr, tmp, MAX_PATH)) {
+    throw LIBNG_ERROR("");
+  }
+
+  String o = UtfUtil::toString(tmp);
+  return o;
+}
+
+String MSApp::onGetCurrentDir() {
+  wchar_t tmp[MAX_PATH + 1];
+
+  if (!::GetCurrentDirectory(MAX_PATH, tmp)) {
+    throw LIBNG_ERROR("getCurrentDir");
+  }
+
+  String o = UtfUtil::toString(tmp);
+  return o;
+}
+
+void MSApp::onSetCurrentDir(StrView dir) {
+  TempStringW tmp = UtfUtil::toStringW(dir);
+  ::SetCurrentDirectory(tmp.c_str());
 }
 
 } // namespace libng

@@ -1,5 +1,6 @@
 #include <libcxx/UtfUtil.hpp>
 #include <log/log.hpp>
+#include <math/Maths.hpp>
 
 #include <renderer/backend/dx11/GPUBufferDX11.hpp>
 #include <renderer/backend/dx11/RenderContextDX11.hpp>
@@ -84,8 +85,7 @@ RendererDX11::RendererDX11(CreateDesc& desc) {
     _adapterInfo.adapterName = UtfUtil::toString(ad.Description);
     _adapterInfo.memorySize  = ad.DedicatedVideoMemory;
 
-    // LIBNG_LOG("Render Adapter\n  name={}\n  mem={}G", _adapterInfo.adapterName,
-    // Math::byteToG(_adapterInfo.memorySize));
+    LIBNG_LOG("Render Adapter\n  name={}\n  mem={}G", _adapterInfo.adapterName, Math::byteToG(_adapterInfo.memorySize));
   }
 
   hr = _dxgiAdapter->GetParent(IID_PPV_ARGS(_dxgiFactory.ptrForInit()));
