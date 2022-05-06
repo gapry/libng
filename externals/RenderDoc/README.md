@@ -1,5 +1,5 @@
 ## Issues
-- CMake Integration 
 - Cross-platform
-- Relative path
+- CMake Integration 
 - JSON Comments
+- API

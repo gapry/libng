@@ -5,7 +5,7 @@
         "commandLine": "",
         "environment": [
         ],
-        "executable": "build\\game\\libng_game.exe",
+        "executable": "..\\..\\build\\game\\libng_game.exe",
         "inject": false,
         "numQueuedFrames": 0,
         "options": {
