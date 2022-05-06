@@ -15,7 +15,8 @@ public:
 
   RenderCommand(Type type);
 
-  virtual ~RenderCommand() = 0;
+  virtual ~RenderCommand() {
+  }
 
   Type getType() const;
 
