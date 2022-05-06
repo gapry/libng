@@ -44,4 +44,4 @@ vcpkg/
 *.app
 
 # Exceptions
-!scripts/linux/build/*.sh
+!Assets/Mesh/*.obj
