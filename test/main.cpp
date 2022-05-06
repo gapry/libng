@@ -1,5 +1,5 @@
 #include <test/eastl/vector.hpp>
-#include <test/mm/SPtr.hpp>
+#include <test/memory/SPtr.hpp>
 #include <test/libcxx/vector.hpp>
 #include <fmt/core.h>
 

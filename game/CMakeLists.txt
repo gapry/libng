@@ -15,5 +15,5 @@ set_target_properties(${project_name} PROPERTIES FOLDER ${minor})
 target_link_libraries(${project_name} PUBLIC fmt::fmt ${major}_ui 
                                                       ${major}_log 
                                                       ${major}_exception
-                                                      ${major}_mm
+                                                      ${major}_memory
                                                       ${major}_renderer)

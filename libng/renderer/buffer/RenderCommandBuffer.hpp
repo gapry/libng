@@ -1,10 +1,9 @@
 #pragma once
 
 #include <types/noncopyable.hpp>
-#include <mm/LinearAllocator.hpp>
+#include <memory/LinearAllocator.hpp>
+#include <memory/utility.hpp>
 #include <debug/SourceLocation.hpp>
-
-#include <third_party/eastl/eastl.hpp>
 
 #include <renderer/command/RenderCommand.hpp>
 #include <renderer/command/RenderCommandClearFrameBuffer.hpp>

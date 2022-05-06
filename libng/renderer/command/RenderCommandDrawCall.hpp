@@ -1,6 +1,6 @@
 #pragma once
 
-#include <mm/SPtr.hpp>
+#include <memory/SPtr.hpp>
 
 #include <renderer/vertex/VertexLayout.hpp>
 #include <renderer/buffer/GPUBuffer.hpp>

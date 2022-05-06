@@ -1,6 +1,6 @@
 #pragma once
 
-#include <mm/SPtr.hpp>
+#include <memory/SPtr.hpp>
 #include <types/function.hpp>
 #include <types/utility.hpp>
 
