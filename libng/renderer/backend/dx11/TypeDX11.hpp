@@ -41,6 +41,10 @@ using DX11_ID3DVertexShader = ID3D11VertexShader;
 using DX11_ID3DPixelShader  = ID3D11PixelShader;
 using DX11_ID3DInputLayout  = ID3D11InputLayout;
 
+using DX11_ID3DRasterizerState   = ID3D11RasterizerState;
+using DX11_ID3DDepthStencilState = ID3D11DepthStencilState;
+using DX11_ID3DBlendState        = ID3D11BlendState;
+
 } // namespace libng
 
 #endif

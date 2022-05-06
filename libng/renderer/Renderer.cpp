@@ -4,7 +4,7 @@
 
 namespace libng {
 
-Renderer* Renderer::_s_current = nullptr; // Issue: redundant assignment: ctor & global
+Renderer* Renderer::_current = nullptr; // Issue: redundant assignment: ctor & global
 
 /**
  * @brief Public inner class constructor
@@ -30,7 +30,7 @@ Renderer::CreateDesc::~CreateDesc() {
  * @return Renderer*
  */
 Renderer* Renderer::current() {
-  return _s_current;
+  return _current;
 }
 
 /**
@@ -55,17 +55,17 @@ Renderer* Renderer::create(CreateDesc& desc) {
  *
  * 1. use the protected static raw pointer to hold the instance object in runtime.
  * 2. enable vsync or not.
- * 3. since it's critical, it prohibit to utilize the execption/if as `_s_current` is `nullptr`
+ * 3. since it's critical, it prohibit to utilize the execption/if as `_current` is `nullptr`
  */
 Renderer::Renderer() {
-  LIBNG_ASSERT(_s_current == nullptr);
-  _s_current = this;
-  _vsync     = true;
+  LIBNG_ASSERT(_current == nullptr);
+  _current = this;
+  _vsync   = true;
 }
 
 Renderer::~Renderer() {
-  LIBNG_ASSERT(_s_current == this);
-  _s_current = nullptr;
+  LIBNG_ASSERT(_current == this);
+  _current = nullptr;
 }
 
 const AdapterInfo& Renderer::adapterInfo() const {

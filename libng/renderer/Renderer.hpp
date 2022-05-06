@@ -51,7 +51,7 @@ protected:
 
   virtual GPUBuffer* onCreateGPUBuffer(GPUBufferCreateDesc& desc) = 0;
 
-  static Renderer* _s_current;
+  static Renderer* _current;
 
   AdapterInfo _adapterInfo;
 
