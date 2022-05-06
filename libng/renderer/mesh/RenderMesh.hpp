@@ -15,7 +15,7 @@ public:
 
   void clear();
 
-  RenderPrimitiveType primitiveType() const;
+  RenderPrimitiveType primitive() const;
 
   const VertexLayout* vertexLayout() const;
 

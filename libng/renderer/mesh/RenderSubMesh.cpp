@@ -125,11 +125,11 @@ RenderDataType RenderSubMesh::indexType() const {
   return _indexType;
 }
 
-LIBNG_INLINE RenderPrimitiveType RenderSubMesh::primitiveType() const {
-  return _mesh->primitiveType();
+RenderPrimitiveType RenderSubMesh::primitive() const {
+  return _mesh->primitive();
 }
 
-LIBNG_INLINE const VertexLayout* RenderSubMesh::vertexLayout() const {
+const VertexLayout* RenderSubMesh::vertexLayout() const {
   return _mesh->vertexLayout();
 }
 

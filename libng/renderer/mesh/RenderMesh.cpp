@@ -75,7 +75,7 @@ Span<const RenderSubMesh> RenderMesh::subMeshes() const {
   return _subMeshes;
 }
 
-RenderPrimitiveType RenderMesh::primitiveType() const {
+RenderPrimitiveType RenderMesh::primitive() const {
   return _primitive;
 }
 
