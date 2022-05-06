@@ -10,6 +10,15 @@
 #define LIBNG_OS_WINDOWS 1
 #endif
 
+#if LIBNG_OS_WINDOWS
+#define NOMINMAX 1
+#include <WinSock2.h> // WinSock2.h must include before windows.h to avoid winsock1 define
+#include <ws2tcpip.h> // struct sockaddr_in6
+#pragma comment(lib, "Ws2_32.lib")
+#include <Windows.h>
+#include <intsafe.h>
+#endif
+
 #if __linux
 #define LIBNG_OS_LINUX 1
 #endif

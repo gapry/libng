@@ -13,6 +13,8 @@ class RenderMesh {
 public:
   void create(const EditMesh& src);
 
+  void clear();
+
   RenderPrimitiveType primitiveType() const;
 
   const VertexLayout* vertexLayout() const;
@@ -21,9 +23,11 @@ public:
 
   Span<const RenderSubMesh> subMeshes() const;
 
+  void setSubMeshCount(size_t newSize);
+
 private:
-  RenderPrimitiveType _primitiveType = RenderPrimitiveType::Triangles;
-  const VertexLayout* _vertexLayout  = nullptr;
+  RenderPrimitiveType _primitive    = RenderPrimitiveType::Triangles;
+  const VertexLayout* _vertexLayout = nullptr;
   Vector_<RenderSubMesh, 1> _subMeshes;
 };
 
