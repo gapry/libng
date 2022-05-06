@@ -42,7 +42,7 @@ public:
     EditMesh editMesh;
 
 #if 1
-    WavefrontObjLoader::loadFile(editMesh, "Assets/Mesh/test.obj");
+    WavefrontObjLoader::loadFile(editMesh, "../../Assets/Mesh/test.obj"); // Issue
     // the current shader need color
     for (size_t i = editMesh.color.size(); i < editMesh.pos.size(); i++) {
       editMesh.color.emplace_back(255, 255, 255, 255);
@@ -103,11 +103,11 @@ public:
     {
       String file = getExecutableFilename();
       String path = FilePath::getDir(file);
-      path.append("Asserts/");
+      // path.append("../../../"); // Issue
       setCurrentDir(path);
 
       auto dir = getCurrentDir();
-      LIBNG_LOG("dir = {}", dir);
+      LIBNG_LOG("[log] dir = {}", dir);
     }
 
     Base::onCreate(desc);
