@@ -3,7 +3,7 @@
 namespace libng {
 
 RenderCommandClearFrameBuffer::RenderCommandClearFrameBuffer()
-  : Base(Type::ClearFrameBuffers) {
+  : Base(Type::ClearFrameBuffer) {
 }
 
 RenderCommandClearFrameBuffer::~RenderCommandClearFrameBuffer() {

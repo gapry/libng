@@ -2,6 +2,7 @@
 
 #include <ui/platform/win32/MSWindow.hpp>
 #include <exception/error.hpp>
+#include <math/Maths.hpp>
 
 #include <renderer/backend/dx11/RenderContextDX11.hpp>
 
@@ -37,7 +38,7 @@ RenderContextDX11::RenderContextDX11(CreateDesc& desc)
   }
 }
 
-void RenderContextDX11::onCmd_ClearFrameBuffers(RenderCommandClearFrameBuffer& cmd) {
+void RenderContextDX11::onCmd_ClearFrameBuffer(RenderCommandClearFrameBuffer& cmd) {
   auto* ctx = _renderer->d3dDeviceContext();
   if (_renderTargetView && cmd.color.has_value()) {
     ctx->ClearRenderTargetView(_renderTargetView, cmd.color->data);
@@ -108,7 +109,7 @@ void RenderContextDX11::onCmd_DrawCall(RenderCommandDrawCall& cmd) {
   }
 }
 
-void RenderContextDX11::onCmd_SwapBuffers(RenderCommandSwapBuffer& cmd) {
+void RenderContextDX11::onCmd_SwapBuffer(RenderCommandSwapBuffer& cmd) {
   auto hr = _swapChain->Present(_renderer->vsync() ? 1 : 0, 0);
   Util::throwIfError(hr);
 }

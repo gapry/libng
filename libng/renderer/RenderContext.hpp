@@ -36,9 +36,9 @@ protected:
   virtual void onSetFrameBufferSize(Vec2f newSize) = 0;
 
   template<class T> // Issue: typename T, class IMPL
-  void _dispatch(T* impl, const RenderCommandBuffer& cmdBuff);
+  void _dispatch(T* impl, RenderCommandBuffer& cmdBuff);
 
-  Vec2f _frameBuffSize{0.0f, 0.0f}; /**< Issue: Vec2f, x, y, Operator+-  */
+  Vec2f _frameBufferSize{0.0f, 0.0f}; /**< Issue: Vec2f, x, y, Operator+-  */
 };
 
 /**
@@ -51,19 +51,19 @@ protected:
  * @param cmdBuff
  */
 template<class T>
-void RenderContext::_dispatch(T* const impl, const RenderCommandBuffer& cmdBuff) {
+void RenderContext::_dispatch(T* impl, RenderCommandBuffer& cmdBuff) {
   using CmdType = RenderCommandType;
 
 #define CMD_CASE(CMD_NAME)                                   \
   case CmdType::CMD_NAME: {                                  \
     auto* pCmd = static_cast<RenderCommand##CMD_NAME*>(cmd); \
-    impl->onCmd##CMD_NAME(*pCmd);                            \
+    impl->onCmd_##CMD_NAME(*pCmd);                           \
   } break;
 
   for (auto* cmd : cmdBuff.commands()) {
-    switch (cmd->type()) {
-      CMD_CASE(ClearFrameBuffers)
-      CMD_CASE(SwapBuffers)
+    switch (cmd->getType()) {
+      CMD_CASE(ClearFrameBuffer)
+      CMD_CASE(SwapBuffer)
       CMD_CASE(DrawCall)
       default: throw LIBNG_ERROR("Error: Undefined Render Command"); break;
     }

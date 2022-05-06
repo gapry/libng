@@ -5,8 +5,8 @@ namespace libng {
 enum class RenderCommandType
 {
   None,
-  ClearFrameBuffers,
-  SwapBuffers,
+  ClearFrameBuffer,
+  SwapBuffer,
   DrawCall,
 };
 

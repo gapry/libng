@@ -20,8 +20,8 @@ class RenderContextDX11 : public RenderContext {
 public:
   RenderContextDX11(CreateDesc& desc);
 
-  void onCmd_ClearFrameBuffers(RenderCommandClearFrameBuffer& cmd);
-  void onCmd_SwapBuffers(RenderCommandSwapBuffer& cmd);
+  void onCmd_ClearFrameBuffer(RenderCommandClearFrameBuffer& cmd);
+  void onCmd_SwapBuffer(RenderCommandSwapBuffer& cmd);
   void onCmd_DrawCall(RenderCommandDrawCall& cmd);
 
 protected:

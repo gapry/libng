@@ -49,10 +49,10 @@ void RenderContext::commit(RenderCommandBuffer& cmdBuff) {
  * 2. call the protected virtual function
  */
 void RenderContext::setFrameBufferSize(Vec2f newSize) {
-  if (_frameBuffSize == newSize) {
+  if (_frameBufferSize == newSize) {
     return;
   }
-  _frameBuffSize = newSize;
+  _frameBufferSize = newSize;
   onSetFrameBufferSize(newSize);
 }
 

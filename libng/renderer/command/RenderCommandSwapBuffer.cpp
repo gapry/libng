@@ -3,7 +3,7 @@
 namespace libng {
 
 RenderCommandSwapBuffer::RenderCommandSwapBuffer()
-  : Base(Type::SwapBuffers) {
+  : Base(Type::SwapBuffer) {
 }
 
 RenderCommandSwapBuffer::~RenderCommandSwapBuffer() {

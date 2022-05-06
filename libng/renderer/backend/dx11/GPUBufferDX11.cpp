@@ -2,7 +2,7 @@
 #include <memory/utility.hpp>
 
 #include <renderer/backend/dx11/GPUBufferDX11.hpp>
-#include <renderer/backend/dx11/RenderDX11.hpp>
+#include <renderer/backend/dx11/RendererDX11.hpp>
 
 namespace libng {
 

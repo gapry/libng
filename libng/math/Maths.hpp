@@ -55,4 +55,14 @@ LIBNG_INLINE float DegToRad(const float v) {
   return v * (thePI / 180.0f);
 }
 
+// clang-format off
+namespace Math {
+  template<class T> constexpr T max(const T& a, const T& b) { return a > b ? a : b; }
+	template<class T> constexpr T min(const T& a, const T& b) { return a < b ? a : b; }
+
+	template<class T> constexpr T byteToK(const T& v) { return v / 1024; }
+	template<class T> constexpr T byteToM(const T& v) { return v / (1024 * 1024); }
+	template<class T> constexpr T byteToG(const T& v) { return v / (1024 * 1024 * 1024); }
+}
+
 } // namespace libng

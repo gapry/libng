@@ -5,7 +5,7 @@
 namespace libng {
 
 struct RenderContextCreateDesc {
-  UIWindow* winodw = nullptr;
+  UIWindow* window = nullptr;
 };
 
 } // namespace libng
