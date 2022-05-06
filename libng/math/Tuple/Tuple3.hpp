@@ -4,6 +4,8 @@ namespace libng {
 
 template<class T>
 struct Tuple3 {
+  using ElementType = T; // Issue
+
   static const size_t kElement = 3;
 
   union {

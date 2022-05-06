@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+
 #include <types/function.hpp>
 
 namespace libng {
@@ -7,6 +9,13 @@ namespace libng {
 template<class T>
 LIBNG_INLINE void libng_delete(T* p) noexcept {
   delete p;
+}
+
+template<class Obj, class Member>
+constexpr intptr_t memberOffset(Member Obj::*ptrToMember) {
+  Obj* c    = nullptr;
+  Member* m = &(c->*ptrToMember);
+  return reinterpret_cast<intptr_t>(m);
 }
 
 namespace allocator {

@@ -10,7 +10,7 @@
 // clang-format off
 namespace libng {
 
-struct RendereDataTypeUtil {
+struct RenderDataTypeUtil {
   using Type = RenderDataType;
 
   template<class T> constexpr Type get();
