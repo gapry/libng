@@ -103,7 +103,9 @@ public:
     {
       String file = getExecutableFilename();
       String path = FilePath::getDir(file);
-      // path.append("../../../"); // Issue
+      LIBNG_LOG("[log] path = {}", path);
+
+      // path.append("/../../"); // Issue: vscode don't work
       setCurrentDir(path);
 
       auto dir = getCurrentDir();
