@@ -42,7 +42,7 @@ public:
     EditMesh editMesh;
 
 #if 1
-    WavefrontObjLoader::loadFile(editMesh, "../../Assets/Mesh/test.obj"); // Issue
+    WavefrontObjLoader::loadFile(editMesh, "Mesh/test.obj"); // Issue
     // the current shader need color
     for (size_t i = editMesh.color.size(); i < editMesh.pos.size(); i++) {
       editMesh.color.emplace_back(255, 255, 255, 255);
@@ -103,9 +103,13 @@ public:
     {
       String file = getExecutableFilename();
       String path = FilePath::getDir(file);
-      LIBNG_LOG("[log] path = {}", path);
 
-      // path.append("/../../"); // Issue: vscode don't work
+#if 1
+      path.append("/../../Assets"); 
+#else
+      path.append("/../../../../Assets");
+#endif
+
       setCurrentDir(path);
 
       auto dir = getCurrentDir();
