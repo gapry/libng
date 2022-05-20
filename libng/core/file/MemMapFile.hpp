@@ -3,7 +3,7 @@
 #include <file/FileStream.hpp>
 #include <platform/os.hpp>
 #include <types/noncopyable.hpp>
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
 #include <libcxx/string.hpp>
 
 namespace libng {

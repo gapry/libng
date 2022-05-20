@@ -2,7 +2,7 @@
 
 #include <types/noncopyable.hpp>
 #include <math/Rect2.hpp>
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
 
 namespace libng {
 

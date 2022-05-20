@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
 
 #include <renderer/vertex/VertexLayout.hpp>
 #include <renderer/vertex/VertexType.hpp>

@@ -109,3 +109,9 @@ struct WCharUtil {
 };
 
 } // namespace libng
+
+LIBNG_INLINE
+std::ostream& operator<<(std::ostream& s, const libng::StrView& v) {
+  s.write(v.data(), v.size());
+  return s;
+}

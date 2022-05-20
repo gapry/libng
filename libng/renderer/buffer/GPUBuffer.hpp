@@ -2,7 +2,7 @@
 
 #include <types/Object.hpp>
 #include <types/number.hpp>
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
 
 #include <renderer/buffer/GPUBufferType.hpp>
 #include <renderer/buffer/GPUBufferCreateDesc.hpp>

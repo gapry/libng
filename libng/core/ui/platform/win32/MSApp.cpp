@@ -1,6 +1,6 @@
 #include <ui/platform/win32/MSApp.hpp>
-#include <libcxx/util.hpp>
-#include <libcxx/UtfUtil.hpp>
+#include <libcxx/util/util.hpp>
+#include <libcxx/util/UtfUtil.hpp>
 #include <exception/error.hpp>
 
 #if LIBNG_OS_WINDOWS

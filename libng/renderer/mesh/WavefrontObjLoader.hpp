@@ -5,9 +5,9 @@
 
 #include <exception/error.hpp>
 
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
+#include <libcxx/util/fmt.hpp>
 #include <libcxx/string.hpp>
-#include <libcxx/fmt.hpp>
 
 #include <mesh/EditMesh.hpp>
 

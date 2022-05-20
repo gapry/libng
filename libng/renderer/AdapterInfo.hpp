@@ -1,7 +1,7 @@
 #pragma once
 
 #include <types/number.hpp>
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
 
 namespace libng {
 

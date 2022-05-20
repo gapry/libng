@@ -9,7 +9,7 @@
 
 #include <memory/utility.hpp>
 
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
 
 #include <renderer/type/RenderDataType.hpp>
 #include <renderer/type/RenderDataTypeUtil.hpp>

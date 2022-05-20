@@ -4,7 +4,7 @@
 #include <exception/error.hpp>
 #include <platform/os.hpp>
 #include <file/File.hpp>
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
 
 namespace libng {
 

@@ -8,7 +8,7 @@
 #include <renderer/vertex/VertexSemantic.hpp>
 #include <renderer/vertex/VertexSemanticType.hpp>
 
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
 
 namespace libng {
 

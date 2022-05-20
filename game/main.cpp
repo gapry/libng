@@ -8,7 +8,7 @@
 #include <ui/UIApp.hpp>
 #include <ui/UIWindow.hpp>
 
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
 
 #include <platform/graphics.hpp>
 
@@ -105,7 +105,7 @@ public:
       String path = FilePath::getDir(file);
 
 #if 1
-      path.append("/../../Assets"); 
+      path.append("/../../Assets");
 #else
       path.append("/../../../../Assets");
 #endif

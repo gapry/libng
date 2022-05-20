@@ -1,6 +1,6 @@
 #include <renderer/mesh/WavefrontObjLoader.hpp>
 #include <file/MemMapFile.hpp>
-#include <libcxx/StringUtil.hpp>
+#include <libcxx/util/StringUtil.hpp>
 #include <math/Tuple/Tuple4.hpp>
 
 namespace libng {

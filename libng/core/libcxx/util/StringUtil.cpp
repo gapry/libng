@@ -1,4 +1,4 @@
-#include <libcxx/StringUtil.hpp>
+#include <libcxx/util/StringUtil.hpp>
 
 namespace libng {
 

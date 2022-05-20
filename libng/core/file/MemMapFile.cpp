@@ -1,7 +1,7 @@
 #include <platform/os.hpp>
 #include <file/FileStream.hpp>
 #include <exception/error.hpp>
-#include <libcxx/util.hpp>
+#include <libcxx/util/util.hpp>
 #include <file/MemMapFile.hpp>
 
 namespace libng {

@@ -3,9 +3,9 @@
 #include <types/utility.hpp>
 #include <types/noncopyable.hpp>
 
-#include <libcxx/fmt.hpp>
+#include <libcxx/util/fmt.hpp>
+#include <libcxx/util/util.hpp>
 #include <libcxx/string.hpp>
-#include <libcxx/util.hpp>
 
 // clang-format off
 #define LIBNG_LOG(...)       do{ libng::g_log.write(libng::Log::Level::Info,    __VA_ARGS__); } while(false)
