@@ -24,6 +24,7 @@ OPTION(BUILD_SERVER    "Build Server"    OFF)
 add_subdirectory("${dir_src}/core")
 add_subdirectory("${dir_src}/renderer")
 add_subdirectory("${dir_src}/shader")
+add_subdirectory("${dir_src}/shader/compiler")
 
 IF(BUILD_GAME)
   add_subdirectory(game)
