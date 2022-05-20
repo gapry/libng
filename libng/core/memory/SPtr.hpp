@@ -2,7 +2,7 @@
 
 #include <types/noncopyable.hpp>
 #include <types/RefCountBase.hpp>
-#include <memory/utility.hpp>
+#include <memory/util.hpp>
 
 namespace libng {
 

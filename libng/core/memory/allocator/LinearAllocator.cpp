@@ -1,5 +1,5 @@
-#include <memory/LinearAllocator.hpp>
-#include <memory/utility.hpp>
+#include <memory/allocator/LinearAllocator.hpp>
+#include <memory/util.hpp>
 
 namespace libng {
 
