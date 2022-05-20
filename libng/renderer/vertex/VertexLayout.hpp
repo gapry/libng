@@ -7,7 +7,7 @@
 #include <types/noncopyable.hpp>
 #include <types/number.hpp>
 
-#include <memory/utility.hpp>
+#include <memory/util.hpp>
 
 #include <libcxx/util/util.hpp>
 

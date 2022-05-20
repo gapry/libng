@@ -1,5 +1,5 @@
 #include <exception/error.hpp>
-#include <memory/utility.hpp>
+#include <memory/util.hpp>
 
 #include <renderer/backend/dx11/GPUBufferDX11.hpp>
 #include <renderer/backend/dx11/RendererDX11.hpp>

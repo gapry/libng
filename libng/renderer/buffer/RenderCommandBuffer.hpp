@@ -1,8 +1,8 @@
 #pragma once
 
 #include <types/noncopyable.hpp>
-#include <memory/LinearAllocator.hpp>
-#include <memory/utility.hpp>
+#include <memory/allocator/LinearAllocator.hpp>
+#include <memory/util.hpp>
 #include <debug/SourceLocation.hpp>
 
 #include <renderer/command/RenderCommand.hpp>
