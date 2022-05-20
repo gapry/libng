@@ -50,6 +50,7 @@ Renderer* Renderer::create(CreateDesc& desc) {
     case APIType::OpenGL: break;
     default: throw LIBNG_ERROR("[ERROR] doesn't find the supported Graphic API"); break;
   }
+  return p;
 }
 
 /**

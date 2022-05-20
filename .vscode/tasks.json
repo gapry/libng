@@ -24,6 +24,7 @@
     {
       "type": "shell",
       "label": "Build",
+      "group": "build",
       "windows": {
         "command": "nmake clean; nmake build" 
       },

@@ -11,7 +11,7 @@ class TestEASTL : public UnitTestBase {
 private:
   template<typename T>
   void show_vector(const libng::Vector<T>& vec) {
-    for (int i = 0; i < vec.size(); ++i) {
+    for (int i = 0; i < static_cast<int>(vec.size()); ++i) {
       fmt::print("{} ", vec[i]);
     }
     fmt::print("\n");

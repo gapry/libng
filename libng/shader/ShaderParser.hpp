@@ -2,7 +2,7 @@
 
 namespace libng {
 
-class socket {
+class ShaderParser {
 public:
 };
 

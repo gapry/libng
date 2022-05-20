@@ -48,7 +48,7 @@ struct StringUtil_ParseHelper {
     static_assert(std::is_signed<T>::value, "");
     String_<256> tmp = view;
     i64 v;
-    auto ret = ::sscanf(tmp.c_str(), "%lld", &v);
+    auto ret = ::sscanf_s(tmp.c_str(), "%lld", &v);
     if (ret != 1)
       return false;
     if (v < std::numeric_limits<T>::min())
@@ -64,7 +64,7 @@ struct StringUtil_ParseHelper {
     static_assert(std::is_unsigned<T>::value, "");
     String_<256> tmp = view;
     u64 v;
-    auto ret = ::sscanf(tmp.c_str(), "%llu", &v);
+    auto ret = ::sscanf_s(tmp.c_str(), "%llu", &v);
     if (ret != 1)
       return false;
     if (v < std::numeric_limits<T>::min())
@@ -77,7 +77,7 @@ struct StringUtil_ParseHelper {
 
   static bool tryParseFloat(StrView view, f32& outValue) {
     String_<256> tmp = view;
-    auto ret         = ::sscanf(tmp.c_str(), "%f", &outValue);
+    auto ret         = ::sscanf_s(tmp.c_str(), "%f", &outValue);
     if (ret != 1)
       return false;
     return true;
@@ -85,7 +85,7 @@ struct StringUtil_ParseHelper {
 
   static bool tryParseFloat(StrView view, f64& outValue) {
     String_<256> tmp = view;
-    auto ret         = ::sscanf(tmp.c_str(), "%lf", &outValue);
+    auto ret         = ::sscanf_s(tmp.c_str(), "%lf", &outValue);
     if (ret != 1)
       return false;
     return true;

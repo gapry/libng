@@ -7,7 +7,7 @@
 
 namespace libng {
 
-const float thePI = 3.1415926535897;
+const float thePI = 3.1415926535897f;
 
 LIBNG_INLINE float getRad(float deg) {
   return deg / 360.f * 2 * 3.14159f;

@@ -181,23 +181,23 @@ void WavefrontObjLoader::_parseLine_f() {
 	eastl::reverse(face_vn.begin(), face_vn.end());
 #endif
 
-  for (int i = 0; i < face_vi.size(); i++) {
+  for (int i = 0; i < static_cast<int>(face_vi.size()); i++) {
     auto vi = face_vi[i];
 
-    if (vi >= _tmpPos.size())
+    if (static_cast<int>(vi) >= static_cast<int>(_tmpPos.size()))
       _error("face vi out of range");
     _outMesh->pos.emplace_back(_tmpPos[vi]);
 
     if (face_vt.size() >= face_vi.size()) {
       auto vt = face_vt[i];
-      if (vt >= _tmpUv.size())
+      if (static_cast<int>(vt) >= static_cast<int>(_tmpUv.size()))
         _error("face vt out of range");
       _outMesh->uv[0].emplace_back(_tmpUv[vt]);
     }
 
     if (face_vn.size() >= face_vn.size()) {
       auto vn = face_vn[i];
-      if (vn >= _tmpNormal.size())
+      if (static_cast<int>(vn) >= static_cast<int>(_tmpNormal.size()))
         _error("face vn out of range");
       _outMesh->normal.emplace_back(_tmpNormal[vn]);
     }
