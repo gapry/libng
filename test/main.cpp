@@ -1,11 +1,16 @@
-#include <test/eastl/vector.hpp>
-#include <test/memory/SPtr.hpp>
-#include <test/libcxx/vector.hpp>
-#include <fmt/core.h>
+#include <test/core/memory/SPtr.hpp>
+#include <test/core/memory/LinearAllocator.hpp>
+#include <test/core/libcxx/vector.hpp>
+
+#include <test/third_party/eastl/vector.hpp>
+#include <test/third_party/imgui/app.hpp>
 
 int main(int, char**) {
-  LIBNG_TEST_CASE(libng::TestLibcxx, test_libcxx_vector());
-  LIBNG_TEST_CASE(libng::TestSPrt, test_sptr());
-  LIBNG_TEST_CASE(libng::TestEASTL, test_eastl_vector_push());
+  LIBNG_VERIFY(libng::TestLibcxx);
+  LIBNG_VERIFY(libng::TestSPrt);
+  LIBNG_VERIFY(libng::TestLinearAllocator);
+
+  LIBNG_TEST_CASE(libng::TestEASTL, onVerify());
+  LIBNG_TEST_CASE(libng::TestImGui, onVerify());
   return 0;
 }

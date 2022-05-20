@@ -3,7 +3,7 @@
 #include <fmt/core.h>
 #include <libcxx/util/util.hpp>
 
-#include <test/UnitTest/UnitTest.hpp>
+#include <test/unit_test/base.hpp>
 
 namespace libng {
 
@@ -24,11 +24,15 @@ private:
     }
   }
 
-public:
   void test_eastl_vector_push(void) {
     libng::Vector<int> vec;
     init_vector(vec, 8 << 1);
     show_vector(vec);
+  }
+
+public:
+  void onVerify(void) {
+    test_eastl_vector_push();
   }
 };
 

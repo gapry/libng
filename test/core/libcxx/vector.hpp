@@ -2,7 +2,7 @@
 
 #include <libcxx/vector.hpp>
 #include <fmt/core.h>
-#include <test/UnitTest/UnitTest.hpp>
+#include <test/unit_test/base.hpp>
 
 namespace libng {
 
@@ -17,7 +17,7 @@ private:
   }
 
 public:
-  void test_libcxx_vector() {
+  void onVerify() {
     libng::libcxx::Vector<int> v;
     v.resize(11);
     for (int i = 0; i < v.size(); ++i) {
