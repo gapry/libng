@@ -2,7 +2,7 @@
 
 namespace libng {
 
-class ShaderCompiler {
+class ShaderSemantic {
 public:
 };
 
