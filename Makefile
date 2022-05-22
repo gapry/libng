@@ -50,7 +50,7 @@ fmt:
 ifeq ($(OS),Windows)
 	call .\scripts\win32\fmt.bat
 else ifeq ($(OS),Linux)
-	sh ./scripts/linux/fmt/format_on_linux.sh
+	sh ./scripts/linux/format_on_linux.sh
 else ifeq ($(OS),macOS)
 	@echo "fmt"
 else
@@ -60,7 +60,7 @@ build:
 ifeq ($(OS),Windows)
 	call .\scripts\win32\build.bat
 else ifeq ($(OS),Linux)
-	sh ./scripts/linux/build/build_on_linux.sh
+	sh ./scripts/linux/build_on_linux.sh
 else ifeq ($(OS),macOS)
 	@echo "build"
 else
@@ -70,7 +70,7 @@ tests:
 ifeq ($(OS),Windows)
 	call .\scripts\win32\unit_test.bat
 else ifeq ($(OS),Linux)
-	sh ./scripts/linux/test/unittest.sh
+	sh ./scripts/linux/unittest.sh
 else ifeq ($(OS),macOS)
 	@echo "tests"
 else
@@ -80,7 +80,7 @@ execute:
 ifeq ($(OS),Windows)
 	call .\scripts\win32\execute.bat
 else ifeq ($(OS),Linux)
-	sh ./scripts/linux/execute/execute_on_linux.sh
+	sh ./scripts/linux/execute_on_linux.sh
 else ifeq ($(OS),macOS)
 	@echo "execute"
 else

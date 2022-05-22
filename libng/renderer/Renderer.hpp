@@ -13,8 +13,7 @@ struct GPUBufferCreateDesc;
 
 class Renderer : public NonCopyable {
 public:
-  enum class APIType
-  {
+  enum class APIType {
     None,
     DX11,
     OpenGL,

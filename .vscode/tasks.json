@@ -12,7 +12,7 @@
         "command": "nmake default" 
       },
       "linux": {
-        // "command": "sh -x ${cwd}/scripts/linux/build/build_on_linux.sh"
+        // "command": "sh -x ${cwd}/scripts/linux/build_on_linux.sh"
         "command": "make default" 
       },
       "group": "build",

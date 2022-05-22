@@ -17,8 +17,7 @@ namespace libng {
 
 class Log : public NonCopyable {
 public:
-  enum class Level
-  {
+  enum class Level {
     Unknown,
     Info,
     Warning,

@@ -4,8 +4,7 @@
 
 namespace libng {
 
-enum class VertexType : u64
-{
+enum class VertexType : u64 {
   None
   // posType			  : 8 bit // Issue: Type and Count
   // colorType		  : 8 bit
