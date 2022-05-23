@@ -1,4 +1,4 @@
-#include <renderer/shader/Shader.hpp>
+#include <renderer/material/Shader.hpp>
 
 namespace libng {
 
