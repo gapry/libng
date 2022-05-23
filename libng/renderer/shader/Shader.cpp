@@ -1,3 +1,8 @@
 #include <renderer/shader/Shader.hpp>
 
-namespace libng {}
+namespace libng {
+
+void Shader::Find(const String& ShaderName) {
+}
+
+} // namespace libng
