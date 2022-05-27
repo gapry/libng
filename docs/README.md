@@ -123,8 +123,7 @@
 
 ## [ACM SIGGRAPH](https://www.siggraph.org/)
 - [SIGGRAPH 2022](http://kesen.realtimerendering.com/sig2022.html)
-- [SIGGRAPH 2021](http://kesen.realtimerendering.com/sig2021.html)
-- [SIGGRAPH 2020](http://kesen.realtimerendering.com/sig2020.html)
+- [SIGGRAPH 2005](http://kesen.realtimerendering.com/sig2005.html)
 - [Advances in Real-Time Rendering in 3D Graphics and Games](https://advances.realtimerendering.com/)
 - [Physics and Math of Shading](https://www.youtube.com/watch?v=j-A0mwsJRmk)
 - [Moving Mobile Graphics](https://www.youtube.com/watch?v=wOBCWZJq6zs)
@@ -133,6 +132,7 @@
 - [A Study Path for Game Programmer](https://github.com/miloyip/game-programmer)
 - [Graphics Programming Weekly](https://www.jendrikillner.com/tags/weekly/)
 - [Graphics Studies Compilation](https://www.adriancourreges.com/blog/)
+- [bitsquid: development blog](https://bitsquid.blogspot.com/)
 - [Towards sockets and networking in WebAssembly and WASI](https://radu-matei.com/blog/towards-sockets-networking-wasi/)
 - [Porting lwIP](https://docs.aws.amazon.com/freertos/latest/portingguide/porting-lwip.html)
 - [Boost.Process Design overview](http://www.highscore.de/boost/process/process/design.html#process.design.steps)
