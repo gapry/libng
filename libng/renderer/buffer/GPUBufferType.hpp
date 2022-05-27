@@ -2,7 +2,8 @@
 
 namespace libng {
 
-enum class GPUBufferType {
+enum class GPUBufferType
+{
   None,
   Vertex,
   Index,

@@ -7,6 +7,13 @@
 
 namespace libng {
 
+enum class ShaderStage
+{
+  None,
+  Vertex,
+  Pixel,
+};
+
 struct ShaderCompilerUtil {
   ShaderCompilerUtil() = delete;
 
@@ -19,10 +26,18 @@ struct ShaderCompilerUtil {
     if (!::GetCurrentDirectory(MAX_PATH, wDir)) {
       throw LIBNG_ERROR("getCurrentDir");
     }
-    String utfPath = UtfUtil::toString(wDir);
+    utfPath = UtfUtil::toString(wDir);
 #endif
 
     return utfPath;
+  }
+
+  static const char* getDxStageProfile(ShaderStage s) {
+    switch (s) {
+      case ShaderStage::Vertex: return "vs_5_0";
+      case ShaderStage::Pixel: return "ps_5_0";
+      default: return "";
+    }
   }
 };
 

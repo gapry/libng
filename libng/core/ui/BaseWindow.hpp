@@ -9,7 +9,8 @@ namespace libng {
 class BaseWindow : public NonCopyable {
 public:
   struct CreateDesc {
-    enum class Type {
+    enum class Type
+    {
       None,
       NormalWindow,
       ToolWindow,

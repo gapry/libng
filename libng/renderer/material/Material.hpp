@@ -2,8 +2,8 @@
 
 #include <libcxx/util/util.hpp>
 
-#include <renderer/shader/Shader.hpp>
-#include <renderer/shader/ShaderParam.hpp>
+#include <renderer/material/Shader.hpp>
+#include <renderer/material/ShaderParam.hpp>
 
 namespace libng {
 

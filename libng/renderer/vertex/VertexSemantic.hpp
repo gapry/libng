@@ -33,7 +33,8 @@ struct VertexSemanticUtil {
   }
 };
 
-enum class VertexSemantic : u16 {
+enum class VertexSemantic : u16
+{
   None = 0,
   //
   Pos = VertexSemanticUtil::_make(VertexSemanticType::Pos, 0),

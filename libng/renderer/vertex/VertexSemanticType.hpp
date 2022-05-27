@@ -4,7 +4,8 @@
 
 namespace libng {
 
-enum class VertexSemanticType : u8 {
+enum class VertexSemanticType : u8
+{
   None,
   Pos,
   Color,

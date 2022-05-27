@@ -2,7 +2,8 @@
 
 namespace libng {
 
-enum class RenderPrimitiveType {
+enum class RenderPrimitiveType
+{
   None,
   Points,
   Lines,
