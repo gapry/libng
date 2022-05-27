@@ -4,12 +4,12 @@ namespace libng {
 
 enum TokenType
 {
-  None,
-  Identifier,
-  Number,
-  String,
-  Operator,
-  Newline,
+  ShaderNone,
+  ShaderIdentifier,
+  ShaderNumber,
+  ShaderString,
+  ShaderOperator,
+  ShaderNewline,
 };
 
 class ShaderLexer {

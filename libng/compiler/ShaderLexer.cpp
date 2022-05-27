@@ -26,11 +26,11 @@ int ShaderLexer::skip(void) {
 void ShaderLexer::execute(TokenType tokenType) {
   int chr = skip();
   switch (chr) {
-    case TokenType::Identifier: break;
-    case TokenType::Number: break;
-    case TokenType::String: break;
-    case TokenType::Operator: break;
-    case TokenType::Newline: break;
+    case TokenType::ShaderIdentifier: break;
+    case TokenType::ShaderNumber: break;
+    case TokenType::ShaderString: break;
+    case TokenType::ShaderOperator: break;
+    case TokenType::ShaderNewline: break;
     default: break;
   }
 }
