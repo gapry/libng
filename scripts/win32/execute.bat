@@ -2,8 +2,8 @@
 :: cls
 :: nmake /S /NOLOGO default
 
-set compiler=libng_shader_compiler
+set compiler=libng_compiler
 set target=libng_game
 
-.\build\libng\shader\compiler\%compiler%.exe
+.\build\libng\compiler\%compiler%.exe
 .\build\game\%target%.exe

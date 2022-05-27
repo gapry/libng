@@ -12,10 +12,10 @@ public:
   void execute(const String& filename);
 
 private:
-  ShaderLexer* lexer;
-  ShaderParser* parser;
-  ShaderSemantic* typeChecker;
-  ShaderCodeGen* codeGen;
+  ShaderLexer* lexer          = nullptr;
+  ShaderParser* parser        = nullptr;
+  ShaderSemantic* typeChecker = nullptr;
+  ShaderCodeGen* codeGer      = nullptr;
 };
 
 } // namespace libng

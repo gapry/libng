@@ -33,6 +33,9 @@ CompilerDX11::CompilerDX11(CreateDesc& desc) {
                         0,                         //
                         byteCode.ptrForInit(),     //
                         errorMsg.ptrForInit());    //
+  if (FAILED(hr)) {
+    LIBNG_ERROR("{}\n", "Shader Code Gen");
+  }
 }
 
 } // namespace libng

@@ -2,18 +2,20 @@
 
 namespace libng {
 
-enum TokenType
+enum class ShaderLexerTokenType
 {
-  ShaderNone,
-  ShaderIdentifier,
-  ShaderNumber,
-  ShaderString,
-  ShaderOperator,
-  ShaderNewline,
+  None,
+  Identifier,
+  Number,
+  String,
+  Operator,
+  Newline,
 };
 
 class ShaderLexer {
 public:
+  using TokenType = ShaderLexerTokenType;
+
   int lookahead(void);
 
   int skip(void);
