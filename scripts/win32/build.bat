@@ -4,6 +4,12 @@
 
 mkdir build
 cd build
-cmake -DBUILD_GAME=ON -G "NMake Makefiles" ..
-nmake 
+
+:: cmake -DBUILD_GAME=ON -G "NMake Makefiles" ..
+:: nmake 
+
+cmake -DBUILD_GAME=ON -G "Unix Makefiles" ..
+:: make -j$(nproc)
+make -j16 
+
 cd ..
