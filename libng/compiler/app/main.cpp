@@ -6,6 +6,8 @@
 #include <libcxx/util/fmt.hpp>
 #include <libcxx/util/util.hpp>
 
+#include <compiler/json/JSONLexer.hpp>
+
 #include <compiler/shader/ShaderCompilerUtil.hpp>
 #include <compiler/shader/ShaderCompiler.hpp>
 
@@ -26,6 +28,9 @@ int main(void) {
 
   auto dir = libng::Directory::getCurrent();
   LIBNG_LOG("[compiler] dir = {}", dir);
+
+  libng::JSONLexer jsonLexer;
+  jsonLexer.nextChar();
 
   libng::ShaderCompiler shaderCompiler;
   shaderCompiler.run();
