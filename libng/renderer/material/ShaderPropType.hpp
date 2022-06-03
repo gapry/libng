@@ -2,7 +2,8 @@
 
 namespace libng {
 
-enum class ShaderPropType {
+enum class ShaderPropType
+{
   None,
   Int,
   Float,
@@ -12,4 +13,4 @@ enum class ShaderPropType {
   Color4f,
 };
 
-}
+} // namespace libng

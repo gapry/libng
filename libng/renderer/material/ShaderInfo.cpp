@@ -3,8 +3,8 @@
 namespace libng {
 
 void ShaderInfo::clear() {
-  props.clear();  
+  props.clear();
   passes.clear();
 }
 
-}
+} // namespace libng

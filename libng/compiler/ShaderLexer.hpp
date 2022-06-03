@@ -43,6 +43,30 @@ public:
 
     void onFormat(fmt::format_context& ctx) const;
   };
+
+  // clang-format off
+  bool isDigit(char c)     { return c >= '0' && c <= '9';             }
+  bool isLowerCase(char c) { return c >= 'a' && c <= 'z';             }
+  bool isUpperCase(char c) { return c >= 'A' && c <= 'Z';             }
+  bool isAlpha(char c)     { return isLowerCase(c) || isUpperCase(c); }
+  // clang-format on
+
+  // clang-format off
+  const char* cur() const { return _cur;    } 
+  StrView source()  const { return _source; }
+  size_t line()     const { return _line;   }
+  size_t col()      const { return _col;    }
+  // clang-format on
+
+private:
+  Token _token;
+  String _filename;
+  StrView _source;
+
+  const char* _cur = nullptr;
+  char _ch         = 0;
+  size_t _col      = 0;
+  size_t _line     = 0;
 };
 
 } // namespace libng
