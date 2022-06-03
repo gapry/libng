@@ -1,4 +1,4 @@
-#include <compiler/backend/opengl/CompilerOpenGL.hpp>
+#include <compiler/shader/backend/opengl/CompilerOpenGL.hpp>
 
 namespace libng {
 

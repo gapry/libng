@@ -2,10 +2,12 @@
 #include <file/File.hpp>
 #include <file/FilePath.hpp>
 #include <file/Directory.hpp>
+
 #include <libcxx/util/fmt.hpp>
 #include <libcxx/util/util.hpp>
-#include <compiler/ShaderCompilerUtil.hpp>
-#include <compiler/ShaderCompiler.hpp>
+
+#include <compiler/shader/ShaderCompilerUtil.hpp>
+#include <compiler/shader/ShaderCompiler.hpp>
 
 int main(void) {
   LIBNG_LOG("{}{}\n", "[log] ", libng::ShaderCompilerUtil::onGetCurrentDir());

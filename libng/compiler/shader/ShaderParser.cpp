@@ -1,4 +1,4 @@
-#include <compiler/ShaderParser.hpp>
+#include <compiler/shader/ShaderParser.hpp>
 
 namespace libng {
 

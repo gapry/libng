@@ -1,8 +1,9 @@
 #pragma once
 
+#include <compiler/shader/ShaderCodeGen.hpp>
+
 #include <platform/os.hpp>
 #include <file/MemMapFile.hpp>
-#include <compiler/ShaderCodeGen.hpp>
 
 #include <d3dcompiler.h>
 

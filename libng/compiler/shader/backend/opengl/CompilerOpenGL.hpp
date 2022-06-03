@@ -1,6 +1,6 @@
 #pragma once
 
-#include <compiler/ShaderCodeGen.hpp>
+#include <compiler/shader/ShaderCodeGen.hpp>
 
 namespace libng {
 

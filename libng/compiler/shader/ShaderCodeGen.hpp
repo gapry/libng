@@ -1,7 +1,8 @@
 #pragma once
 
+#include <compiler/shader/ShaderCompilerUtil.hpp>
+
 #include <libcxx/util/util.hpp>
-#include <compiler/ShaderCompilerUtil.hpp>
 
 namespace libng {
 

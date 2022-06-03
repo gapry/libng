@@ -2,6 +2,8 @@
 #include <test/core/memory/LinearAllocator.hpp>
 #include <test/core/libcxx/vector.hpp>
 
+#include <test/compiler/ShaderParser.hpp>
+
 #include <test/third_party/eastl/vector.hpp>
 #include <test/third_party/imgui/app.hpp>
 
@@ -12,5 +14,6 @@ int main(int, char**) {
 
   LIBNG_TEST_CASE(libng::TestEASTL, onVerify());
   LIBNG_TEST_CASE(libng::TestImGui, onVerify());
+  LIBNG_TEST_CASE(libng::TestShaderParser, onVerify());
   return 0;
 }

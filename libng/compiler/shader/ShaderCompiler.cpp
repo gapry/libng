@@ -1,4 +1,5 @@
-#include <compiler/ShaderCompiler.hpp>
+#include <compiler/shader/ShaderCompiler.hpp>
+
 #include <log/log.hpp>
 #include <file/FilePath.hpp>
 #include <file/Directory.hpp>

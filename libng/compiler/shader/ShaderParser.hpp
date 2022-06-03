@@ -1,14 +1,15 @@
 #pragma once
 
 #include <libcxx/util/util.hpp>
-#include <renderer/material/ShaderInfo.hpp>
 #include <file/MemMapFile.hpp>
+
+#include <renderer/material/ShaderInfo.hpp>
 
 namespace libng {
 
 class ShaderParser {
 public:
-private:
+protected:
   bool _parseIdentifier();
   bool _parseNumber();
   bool _parseString();

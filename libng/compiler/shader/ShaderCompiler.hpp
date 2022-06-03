@@ -3,10 +3,10 @@
 #include <app/ConsoleApp.hpp>
 #include <app/ProjectSetting.hpp>
 
-#include <compiler/ShaderLexer.hpp>
-#include <compiler/ShaderParser.hpp>
-#include <compiler/ShaderSemantic.hpp>
-#include <compiler/ShaderCodeGen.hpp>
+#include <compiler/shader/ShaderLexer.hpp>
+#include <compiler/shader/ShaderParser.hpp>
+#include <compiler/shader/ShaderSemantic.hpp>
+#include <compiler/shader/ShaderCodeGen.hpp>
 
 namespace libng {
 

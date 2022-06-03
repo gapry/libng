@@ -1,8 +1,9 @@
+#include <compiler/shader/ShaderCodeGen.hpp>
+#include <compiler/shader/backend/dx11/CompilerDX11.hpp>
+#include <compiler/shader/backend/opengl/CompilerOpenGL.hpp>
+
 #include <platform/os.hpp>
 #include <exception/error.hpp>
-#include <compiler/ShaderCodeGen.hpp>
-#include <compiler/backend/dx11/CompilerDX11.hpp>
-#include <compiler/backend/opengl/CompilerOpenGL.hpp>
 
 namespace libng {
 
