@@ -8,7 +8,7 @@ void ShaderLexer::Token::setNone() {
 }
 
 void ShaderLexer::Token::onFormat(fmt::format_context& ctx) const {
-  // fmt::format_to(ctx.out(), "({}, {})", type, str); // Issue: need to fix
+  fmt::format_to(ctx.out(), "({}, {})", type, str);
 }
 
 } // namespace libng
