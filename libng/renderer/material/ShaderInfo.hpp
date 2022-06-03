@@ -1,9 +1,13 @@
 #pragma once
 
+#include <renderer/material/ShaderPropType.hpp>
+
 namespace libng {
 
-class ShaderInfo {
-public:
+struct ShaderInfo {
+  struct Prop {
+    ShaderPropType propType = ShaderPropType::None;
+  };
 };
 
 } // namespace libng
