@@ -2,7 +2,7 @@
 
 namespace libng {
 
-void ShaderCompiler::execute(const String& filename) {
+void ShaderCompiler::onRun() {
 }
 
 } // namespace libng

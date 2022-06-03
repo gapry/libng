@@ -25,7 +25,7 @@ int main(void) {
   auto dir = libng::Directory::getCurrent();
   LIBNG_LOG("[compiler] dir = {}", dir);
 
-  libng::ShaderCompiler compiler;
-  compiler.execute(file);
+  libng::ShaderCompiler shaderCompiler;
+  shaderCompiler.run();
   return 0;
 }

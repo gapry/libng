@@ -1,5 +1,7 @@
 #pragma once
 
+#include <app/ConsoleApp.hpp>
+
 #include <compiler/ShaderLexer.hpp>
 #include <compiler/ShaderParser.hpp>
 #include <compiler/ShaderSemantic.hpp>
@@ -7,9 +9,9 @@
 
 namespace libng {
 
-class ShaderCompiler {
+class ShaderCompiler : public ConsoleApp {
 public:
-  void execute(const String& filename);
+  virtual void onRun() override;
 
 private:
   ShaderLexer* lexer          = nullptr;
