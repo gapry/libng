@@ -5,6 +5,9 @@
 
 #include <file/MemMapFile.hpp>
 
+#include <libcxx/string_view.hpp>
+#include <libcxx/span.hpp>
+
 #include <renderer/material/ShaderInfo.hpp>
 
 #include <compiler/shader/ShaderLexer.hpp>
@@ -19,6 +22,10 @@ public:
   ShaderCompiler();
 
   ~ShaderCompiler();
+
+  void readFile(ShaderInfo& outInfo, StrView filename);
+
+  void readMem(ShaderInfo& outInfo, ByteSpan data, StrView filename);
 
   virtual void onRun() override;
 

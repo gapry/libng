@@ -35,4 +35,10 @@ ShaderCompiler::~ShaderCompiler() {
 void ShaderCompiler::onRun() {
 }
 
+void ShaderCompiler::readFile(ShaderInfo& outInfo, StrView filename) {
+}
+
+void ShaderCompiler::readMem(ShaderInfo& outInfo, ByteSpan data, StrView filename) {
+}
+
 } // namespace libng
