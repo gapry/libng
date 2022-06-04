@@ -1,6 +1,7 @@
 #pragma once
 
-#include <libcxx/util/util.hpp>
+#include <libcxx/string.hpp>
+#include <libcxx/fixed_vector.hpp>
 
 #include <renderer/material/Shader.hpp>
 #include <renderer/material/ShaderParam.hpp>

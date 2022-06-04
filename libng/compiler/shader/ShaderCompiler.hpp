@@ -3,6 +3,10 @@
 #include <app/ConsoleApp.hpp>
 #include <app/ProjectSetting.hpp>
 
+#include <file/MemMapFile.hpp>
+
+#include <renderer/material/ShaderInfo.hpp>
+
 #include <compiler/shader/ShaderLexer.hpp>
 #include <compiler/shader/ShaderParser.hpp>
 #include <compiler/shader/ShaderSemantic.hpp>
@@ -23,6 +27,9 @@ private:
   ShaderParser* parser        = nullptr;
   ShaderSemantic* typeChecker = nullptr;
   ShaderCodeGen* codeGer      = nullptr;
+
+  MemMapFile _memMapfile;
+  ShaderInfo* _outInfo = nullptr;
 
   String _file;
   String _path;

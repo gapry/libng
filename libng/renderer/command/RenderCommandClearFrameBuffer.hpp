@@ -2,7 +2,7 @@
 
 #include <math/Color.hpp>
 
-#include <libcxx/util/util.hpp>
+#include <libcxx/optional.hpp>
 
 #include <renderer/command/RenderCommand.hpp>
 #include <renderer/command/RenderCommandClearFrameBuffer.hpp>

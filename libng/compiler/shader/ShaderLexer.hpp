@@ -3,8 +3,8 @@
 #include <types/noncopyable.hpp>
 #include <types/function.hpp>
 
-#include <libcxx/util/util.hpp>
-#include <libcxx/util/fmt.hpp>
+#include <libcxx/fmt.hpp>
+#include <libcxx/span.hpp>
 
 #include <exception/error.hpp>
 

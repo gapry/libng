@@ -3,8 +3,8 @@
 #include <cassert>
 #include <exception>
 
-#include <libcxx/util/fmt.hpp>
-#include <libcxx/util/util.hpp>
+#include <libcxx/fmt.hpp>
+#include <libcxx/string_view.hpp>
 
 #include <types/function.hpp>
 #include <debug/SourceLocation.hpp>

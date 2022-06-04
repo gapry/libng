@@ -1,7 +1,9 @@
 #pragma once
 
+#include <libcxx/string.hpp>
+#include <libcxx/fixed_vector.hpp>
+
 #include <renderer/material/ShaderPropType.hpp>
-#include <libcxx/util/util.hpp>
 
 namespace libng {
 

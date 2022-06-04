@@ -1,9 +1,11 @@
 #pragma once
 
 #include <exception/error.hpp>
-#include <libcxx/util/util.hpp>
-#include <libcxx/string.hpp>
 #include <types/function.hpp>
+
+#include <libcxx/string_view.hpp>
+#include <libcxx/string.hpp>
+#include <libcxx/char.hpp>
 
 namespace libng {
 

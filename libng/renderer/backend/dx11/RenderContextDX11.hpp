@@ -1,5 +1,7 @@
 #pragma once
 
+#include <libcxx/vector_map.hpp>
+
 #include <renderer/Renderer.hpp>
 #include <renderer/RenderContext.hpp>
 #include <renderer/backend/dx11/TypeDX11.hpp>

@@ -9,7 +9,7 @@
 
 #include <memory/util.hpp>
 
-#include <libcxx/util/util.hpp>
+#include <libcxx/fixed_vector.hpp>
 
 #include <renderer/type/RenderDataType.hpp>
 #include <renderer/type/RenderDataTypeUtil.hpp>

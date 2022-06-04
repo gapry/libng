@@ -1,6 +1,7 @@
 #pragma once
 
-#include <libcxx/util/util.hpp>
+#include <libcxx/string.hpp>
+#include <libcxx/string_view.hpp>
 #include <types/noncopyable.hpp>
 
 namespace libng {

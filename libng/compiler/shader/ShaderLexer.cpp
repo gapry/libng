@@ -1,3 +1,4 @@
+#include <libcxx/util/util.hpp>
 #include <compiler/shader/ShaderLexer.hpp>
 
 namespace libng {

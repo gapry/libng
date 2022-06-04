@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libcxx/util/util.hpp>
+#include <libcxx/string.hpp>
 
 namespace libng {
 

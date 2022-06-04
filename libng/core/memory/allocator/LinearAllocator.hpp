@@ -2,7 +2,8 @@
 
 #include <types/noncopyable.hpp>
 #include <types/number.hpp>
-#include <libcxx/util/util.hpp>
+#include <libcxx/vector.hpp>
+#include <libcxx/unique_ptr.hpp>
 
 namespace libng {
 

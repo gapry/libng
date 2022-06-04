@@ -1,8 +1,11 @@
 #pragma once
 
-#include <libcxx/util/util.hpp>
 #include <types/number.hpp>
 #include <types/function.hpp>
+
+#include <libcxx/string_view.hpp>
+#include <libcxx/string.hpp>
+#include <libcxx/span.hpp>
 
 namespace libng {
 

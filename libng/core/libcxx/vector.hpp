@@ -4,12 +4,12 @@
 #include <new>
 #include <utility>
 #include <fmt/core.h>
+
 #include <types/noncopyable.hpp>
 #include <exception/error.hpp>
+#include <third_party/eastl/eastl.hpp>
 
-namespace libng {
-
-namespace libcxx {
+namespace libng::libcxx {
 
 using size_type = int;
 
@@ -106,6 +106,11 @@ size_type Vector<T>::size(void) const {
   return m_size;
 }
 
-} // namespace libcxx
+} // namespace libng::libcxx
 
-} // namespace libng
+namespace libng {
+
+template<class T>
+using Vector = eastl::vector<T>;
+
+}

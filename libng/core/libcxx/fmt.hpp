@@ -2,7 +2,7 @@
 
 #include <platform/compiler.hpp>
 #include <types/utility.hpp>
-#include <libcxx/util/util.hpp>
+#include <libcxx/string.hpp>
 
 #include <iterator>
 #include <fmt/format.h>

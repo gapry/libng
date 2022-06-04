@@ -1,5 +1,6 @@
 #include <renderer/mesh/WavefrontObjLoader.hpp>
 #include <file/MemMapFile.hpp>
+#include <libcxx/fixed_vector.hpp>
 #include <libcxx/util/StringUtil.hpp>
 #include <math/Tuple/Tuple4.hpp>
 

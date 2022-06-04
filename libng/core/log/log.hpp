@@ -3,8 +3,7 @@
 #include <types/utility.hpp>
 #include <types/noncopyable.hpp>
 
-#include <libcxx/util/fmt.hpp>
-#include <libcxx/util/util.hpp>
+#include <libcxx/fmt.hpp>
 #include <libcxx/string.hpp>
 
 // clang-format off

@@ -3,7 +3,7 @@
 #include <types/noncopyable.hpp>
 #include <types/number.hpp>
 
-#include <libcxx/util/util.hpp>
+#include <libcxx/vector.hpp>
 
 #include <math/Color.hpp>
 #include <math/Tuple/Tuple2.hpp>
