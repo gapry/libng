@@ -2,6 +2,14 @@
 
 namespace libng {
 
+ShaderLexer::Token::Token() {
+  this->setNone();
+}
+
+ShaderLexer::Token::~Token() {
+  this->setNone();
+}
+
 void ShaderLexer::Token::setNone() {
   type = TokenType::None;
   str.clear();

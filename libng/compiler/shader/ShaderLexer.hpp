@@ -24,21 +24,25 @@ public:
     TokenType type = TokenType::None;
     String str;
 
+    Token();
+
+    ~Token();
+
     // clang-format off
-    bool isNone()                const { return TokenType::None == type; }
+    bool isNone()                      const { return TokenType::None == type; }
 
-    bool isIdentifier()          const { return TokenType::Identifier == type; }
-    bool isIdentifier(StrView s) const { return TokenType::Identifier == type && s == str; }
+    bool isIdentifier()                const { return TokenType::Identifier == type; }
+    bool isIdentifier(const StrView s) const { return TokenType::Identifier == type && s == str; }
 
-    bool isNumber()              const { return TokenType::Number == type; }
+    bool isNumber()                    const { return TokenType::Number == type; }
 
-    bool isString()              const { return TokenType::String == type; }
-    bool isString(StrView s)     const { return TokenType::String == type && s == str; }
+    bool isString()                    const { return TokenType::String == type; }
+    bool isString(const StrView s)     const { return TokenType::String == type && s == str; }
 
-    bool isOperator()            const { return TokenType::Operator == type;}
-    bool isOperator(StrView s)   const { return TokenType::String == type && s == str; }
+    bool isOperator()                  const { return TokenType::Operator == type;}
+    bool isOperator(const StrView s)   const { return TokenType::String == type && s == str; }
     
-    bool isNewLine()             const { return TokenType::Newline == type;}
+    bool isNewLine()                   const { return TokenType::Newline == type;}
     // clang-format on
 
     void setNone();
@@ -47,10 +51,10 @@ public:
   };
 
   // clang-format off
-  bool isDigit(char c)     { return c >= '0' && c <= '9';             }
-  bool isLowerCase(char c) { return c >= 'a' && c <= 'z';             }
-  bool isUpperCase(char c) { return c >= 'A' && c <= 'Z';             }
-  bool isAlpha(char c)     { return isLowerCase(c) || isUpperCase(c); }
+  bool isDigit(const char c)     const { return c >= '0' && c <= '9';             }
+  bool isLowerCase(const char c) const { return c >= 'a' && c <= 'z';             }
+  bool isUpperCase(const char c) const { return c >= 'A' && c <= 'Z';             }
+  bool isAlpha(const char c)     const { return isLowerCase(c) || isUpperCase(c); }
   // clang-format on
 
   // clang-format off
@@ -72,7 +76,7 @@ private:
 };
 
 LIBNG_INLINE
-const char* enumStr(ShaderLexer::TokenType type) {
+String enumStr(ShaderLexer::TokenType type) {
   using E = ShaderLexer::TokenType;
   switch (type) {
     // clang-format off
