@@ -1,7 +1,7 @@
 #include <ui/platform/win32/MSApp.hpp>
-#include <libcxx/util/util.hpp>
-#include <libcxx/util/UtfUtil.hpp>
+#include <encoding/UtfUtil.hpp>
 #include <exception/error.hpp>
+#include <libcxx/string.hpp>
 
 #if LIBNG_OS_WINDOWS
 

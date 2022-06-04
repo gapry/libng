@@ -1,5 +1,5 @@
 #include <file/FileStream.hpp>
-#include <libcxx/util/UtfUtil.hpp>
+#include <encoding/UtfUtil.hpp>
 
 namespace libng {
 

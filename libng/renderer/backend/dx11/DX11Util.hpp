@@ -1,7 +1,8 @@
 #pragma once
 
-#include <libcxx/util/util.hpp>
-#include <libcxx/util/UtfUtil.hpp>
+#include <encoding/UtfUtil.hpp>
+
+#include <libcxx/string.hpp>
 
 #include <platform/os.hpp>
 #include <platform/graphics.hpp>

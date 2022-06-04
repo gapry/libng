@@ -2,7 +2,7 @@
 #include <platform/os.hpp>
 #include <types/function.hpp>
 #include <exception/error.hpp>
-#include <libcxx/util/UtfUtil.hpp>
+#include <encoding/UtfUtil.hpp>
 
 namespace libng {
 
