@@ -9,6 +9,7 @@
   - [CMake](https://cmake.org/download/)
   - [git](https://git-scm.com/downloads)
   - [Visual Studio Community 2022](https://visualstudio.microsoft.com/)
+  - [Make for Windows - GnuWin32](http://gnuwin32.sourceforge.net/packages/make.htm)
 - [vcpkg](https://vcpkg.io/en/index.html)
   ```
   .\scripts\win32\vcpkg.bat 
