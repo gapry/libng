@@ -2,8 +2,10 @@
 
 #include <types/noncopyable.hpp>
 #include <types/function.hpp>
+
 #include <libcxx/util/util.hpp>
 #include <libcxx/util/fmt.hpp>
+
 #include <exception/error.hpp>
 
 namespace libng {
@@ -49,6 +51,18 @@ public:
 
     void onFormat(fmt::format_context& ctx) const;
   };
+
+  ShaderLexer();
+
+  ~ShaderLexer();
+
+  void reset();
+  void reset(ByteSpan source, StrView filename);
+  void reset(StrView source, StrView filename);
+
+  bool nextChar();
+
+  bool nextToken();
 
   // clang-format off
   bool isDigit(const char c)     const { return c >= '0' && c <= '9';             }
