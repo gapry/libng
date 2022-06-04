@@ -19,6 +19,10 @@
 #include <intsafe.h>
 #endif
 
+#if __APPLE__ && __MACH__
+#define LIBNG_OS_MACOS 1
+#endif
+
 #if __linux
 #define LIBNG_OS_LINUX 1
 #endif
@@ -27,6 +31,7 @@
 #define LIBNG_OS_FREEBSD 1
 #endif
 
-#if LIBNG_OS_WINDOWS + LIBNG_OS_LINUX + LIBNG_OS_FREEBSD != 1
+#if LIBNG_OS_WINDOWS + LIBNG_OS_MACOS + LIBNG_OS_LINUX + LIBNG_OS_FREEBSD != 1
+#define LIBNG_OS_UNSUPPORTED 1
 #error "[ERROR] libng cloud not detect the OS."
 #endif

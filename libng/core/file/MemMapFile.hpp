@@ -1,9 +1,11 @@
 #pragma once
 
 #include <file/FileStream.hpp>
+#include <exception/error.hpp>
 #include <platform/os.hpp>
+#include <types/number.hpp>
 #include <types/noncopyable.hpp>
-#include <libcxx/util/util.hpp>
+#include <libcxx/span.hpp>
 #include <libcxx/string.hpp>
 
 namespace libng {
@@ -26,25 +28,26 @@ public:
     return _span.size();
   }
 
-  Span<const u8> span() const {
+  ByteSpan span() const {
     return _span;
   }
 
-  operator Span<const u8>() {
+  operator ByteSpan() {
     return _span;
   }
 
   const String& filename() const {
-    return _fs.filename();
+    return _filestream.filename();
   }
 
 private:
-  FileStream _fs;
+  FileStream _filestream;
 
 #if LIBNG_OS_WINDOWS
   ::HANDLE _mapping = nullptr; // Issue: Warning it's null, not INVALID_HANDLE_VALUE for memory mapping
 #endif
-  Span<const u8> _span;
+
+  ByteSpan _span;
 };
 
 } // namespace libng
