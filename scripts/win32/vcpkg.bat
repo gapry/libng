@@ -6,7 +6,8 @@ cd %~dp0
 
 set dir_vcpkg=..\..\externals\vcpkg
 
-git clone https://github.com/microsoft/vcpkg.git %dir_vcpkg%
+:: git clone https://github.com/microsoft/vcpkg.git %dir_vcpkg%
+git submodule update --remote
 
 call %dir_vcpkg%\bootstrap-vcpkg.bat
 
