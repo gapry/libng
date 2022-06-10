@@ -22,6 +22,10 @@ bool ShaderParser::_parseCommentString() {
   return false;
 }
 
+bool ShaderParser::_parseToken() {
+  return false;
+}
+
 void ShaderParser::_readShader() {
 }
 

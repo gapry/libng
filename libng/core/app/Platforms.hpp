@@ -5,7 +5,7 @@
 
 namespace libng {
 
-class BaseApp : public NonCopyable {
+class Platforms : public NonCopyable {
 public:
   String getExecutableFilename();
 };

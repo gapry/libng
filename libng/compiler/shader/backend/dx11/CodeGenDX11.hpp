@@ -1,20 +1,43 @@
 #pragma once
 
 #include <compiler/shader/ShaderCodeGen.hpp>
-
-#include <platform/os.hpp>
+#include <libcxx/string_view.hpp>
+#include <libcxx/span.hpp>
 #include <file/MemMapFile.hpp>
-
-#include <d3dcompiler.h>
-
-#pragma comment(lib, "d3d11.lib")
-#pragma comment(lib, "d3dcompiler.lib")
+#include <platform/graphics.hpp>
+#include <renderer/material/ShaderStageMask.hpp>
+#include <renderer/material/ShaderStageInfo.hpp>
+#include <renderer/type/RenderDataType.hpp>
+#include <renderer/backend/dx11/DX11Util.hpp>
+#include <renderer/backend/dx11/TypeDX11.hpp>
 
 namespace libng {
 
-class CompilerDX11 : public ShaderCodeGen {
+class CodeGenDX11 : public ShaderCodeGen {
+  using Util     = DX11Util;
+  using DataType = RenderDataType;
+
 public:
-  CompilerDX11(CreateDesc& desc);
+  CodeGenDX11(CreateDesc& desc);
+
+private:
+  struct Reflect {
+    void execute();
+
+  private:
+    void _inputs();
+    void _constBuffers();
+    void _textures();
+    void _samplers();
+  };
+
+  StrView _outFilename;
+  ByteSpan _ByteToChar;
+  ShaderStageMask _stage;
+  StrView _profile;
+  // ShaderStageInfo& outInfo; // Issue: references must be initialized
+  ID3D11ShaderReflection* _refect;
+  // D3D11_SHADER_DESC& desc;
 };
 
 } // namespace libng

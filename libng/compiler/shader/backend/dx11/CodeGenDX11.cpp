@@ -1,10 +1,10 @@
-#include <compiler/shader/backend/dx11/CompilerDX11.hpp>
+#include <compiler/shader/backend/dx11/CodeGenDX11.hpp>
 
 #include <memory/ComPtr.hpp>
 
 namespace libng {
 
-CompilerDX11::CompilerDX11(CreateDesc& desc) {
+CodeGenDX11::CodeGenDX11(CreateDesc& desc) {
   TempStringA entryPoint = desc.entryFunc;
 
   MemMapFile memmap;
@@ -15,7 +15,7 @@ CompilerDX11::CompilerDX11(CreateDesc& desc) {
 
   auto hlsl = memmap.span();
 
-  auto profile = ShaderCompilerUtil::getDxStageProfile(desc.shaderStage);
+  auto profile = ShaderUtil::getDxStageProfile(desc.shaderStage);
 
   ComPtr<ID3DBlob> byteCode;
   ComPtr<ID3DBlob> errorMsg;
@@ -37,6 +37,25 @@ CompilerDX11::CompilerDX11(CreateDesc& desc) {
   if (FAILED(hr)) {
     LIBNG_ERROR("{}\n", "Shader Code Gen");
   }
+}
+
+void CodeGenDX11::Reflect::execute() {
+  _inputs();
+  _constBuffers();
+  _textures();
+  _samplers();
+}
+
+void CodeGenDX11::Reflect::_inputs() {
+}
+
+void CodeGenDX11::Reflect::_constBuffers() {
+}
+
+void CodeGenDX11::Reflect::_textures() {
+}
+
+void CodeGenDX11::Reflect::_samplers() {
 }
 
 } // namespace libng

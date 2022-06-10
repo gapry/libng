@@ -9,12 +9,13 @@ namespace libng {
 
 class ShaderParser {
 public:
-protected:
+  // protected: // Issue
   bool _parseIdentifier();
   bool _parseNumber();
   bool _parseString();
   bool _parseCommentBlock();
   bool _parseCommentString();
+  bool _parseToken();
 
   void _readShader();
   void _readProperties();

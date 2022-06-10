@@ -2,9 +2,7 @@
 
 #include <libcxx/string.hpp>
 #include <libcxx/fixed_vector.hpp>
-
 #include <renderer/material/Shader.hpp>
-#include <renderer/material/ShaderParam.hpp>
 
 namespace libng {
 
@@ -15,7 +13,6 @@ public:
 
 private:
   Shader* shader;
-  ShaderParam* param;
   Vector_<uint8_t, 32> dirtiedCBuff;
 };
 

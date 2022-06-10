@@ -1,6 +1,7 @@
 #pragma once
 
-#include <compiler/shader/ShaderCompilerUtil.hpp>
+#include <renderer/material/ShaderStage.hpp>
+#include <renderer/material/ShaderUtil.hpp>
 #include <libcxx/string_view.hpp>
 
 namespace libng {

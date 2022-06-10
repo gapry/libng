@@ -1,6 +1,6 @@
 #include <compiler/shader/ShaderCodeGen.hpp>
-#include <compiler/shader/backend/dx11/CompilerDX11.hpp>
-#include <compiler/shader/backend/opengl/CompilerOpenGL.hpp>
+#include <compiler/shader/backend/dx11/CodeGenDX11.hpp>
+#include <compiler/shader/backend/opengl/CodeGenOpenGL.hpp>
 
 #include <platform/os.hpp>
 #include <exception/error.hpp>
@@ -24,11 +24,13 @@ ShaderCodeGen::CreateDesc::CreateDesc(StrView filename, ShaderStage stage, StrVi
 
 ShaderCodeGen* ShaderCodeGen::create(CreateDesc& desc) {
   ShaderCodeGen* codeGen = nullptr;
+  // clang-format off
   switch (desc.apiType) {
-    case ApiType::DX11: codeGen = new CompilerDX11(desc); break;
-    case ApiType::OpenGL: codeGen = new CompilerOpenGL(desc); break;
+    case ApiType::DX11:   codeGen = new CodeGenDX11(desc);   break;
+    case ApiType::OpenGL: codeGen = new CodeGenOpenGL(desc); break;
     default: LIBNG_ERROR("{}\n", "Unsupported Shader Format");
   }
+  // clang-format on
   return codeGen;
 }
 

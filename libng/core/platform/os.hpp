@@ -12,11 +12,12 @@
 
 #if LIBNG_OS_WINDOWS
 #define NOMINMAX 1
-#include <WinSock2.h> // WinSock2.h must include before windows.h to avoid winsock1 define
-#include <ws2tcpip.h> // struct sockaddr_in6
-#pragma comment(lib, "Ws2_32.lib")
-#include <Windows.h>
-#include <intsafe.h>
+#include <WinSock2.h>              // WinSock2.h must include before windows.h to avoid winsock1 define
+#include <ws2tcpip.h>              // struct sockaddr_in6
+#pragma comment(lib, "Ws2_32.lib") //
+#include <Windows.h>               //
+#include <Windowsx.h>              //
+#include <intsafe.h>               //
 #endif
 
 #if __APPLE__ && __MACH__

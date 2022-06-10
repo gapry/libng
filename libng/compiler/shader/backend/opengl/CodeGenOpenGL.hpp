@@ -4,9 +4,9 @@
 
 namespace libng {
 
-class CompilerOpenGL : public ShaderCodeGen {
+class CodeGenOpenGL : public ShaderCodeGen {
 public:
-  CompilerOpenGL(CreateDesc& desc);
+  CodeGenOpenGL(CreateDesc& desc);
 };
 
 } // namespace libng

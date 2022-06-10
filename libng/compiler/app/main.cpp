@@ -1,21 +1,17 @@
 #include <log/log.hpp>
-
+#include <types/function.hpp>
 #include <file/File.hpp>
 #include <file/FilePath.hpp>
 #include <file/Directory.hpp>
-
 #include <libcxx/fmt.hpp>
 #include <libcxx/string.hpp>
-
 #include <compiler/json/JSONLexer.hpp>
-
-#include <compiler/shader/ShaderCompilerUtil.hpp>
 #include <compiler/shader/ShaderCompiler.hpp>
 
 int main(void) {
-  LIBNG_LOG("{}{}\n", "[log] ", libng::ShaderCompilerUtil::onGetCurrentDir());
+  LIBNG_LOG("{} {}\n", __LIBNG_PRETTY_FUNCTION__, libng::Directory::getCurrent());
 
-  libng::String file = libng::ShaderCompilerUtil::onGetCurrentDir();
+  libng::String file = libng::Directory::getCurrent();
   libng::String path = libng::FilePath::dirname(file);
 
 #if 1
@@ -25,10 +21,10 @@ int main(void) {
 #endif
 
   libng::Directory::setCurrent(path);
-  LIBNG_LOG("[compiler] path = {}", path);
+  LIBNG_LOG("{} path = {}", __LIBNG_PRETTY_FUNCTION__, path);
 
   auto dir = libng::Directory::getCurrent();
-  LIBNG_LOG("[compiler] dir = {}", dir);
+  LIBNG_LOG("{} dir = {}", __LIBNG_PRETTY_FUNCTION__, dir);
 
   libng::JSONLexer jsonLexer;
   jsonLexer.nextChar();

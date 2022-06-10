@@ -9,9 +9,6 @@
 
 #if LIBNG_RENDER_DX11
 
-#include <Windows.h>
-#include <Windowsx.h>
-
 #include <d3d11.h>
 #include <d3d11_4.h>
 #include <dxgi1_4.h>

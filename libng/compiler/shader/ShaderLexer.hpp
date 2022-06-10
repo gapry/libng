@@ -78,7 +78,8 @@ public:
   size_t col()      const { return _col;    }
   // clang-format on
 
-private:
+  // private: // Issue
+
   Token _token;
   String _filename;
   StrView _source;

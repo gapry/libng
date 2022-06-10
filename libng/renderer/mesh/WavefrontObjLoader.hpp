@@ -9,7 +9,7 @@
 #include <libcxx/string.hpp>
 #include <libcxx/span.hpp>
 
-#include <mesh/EditMesh.hpp>
+#include <renderer/mesh/EditMesh.hpp>
 
 namespace libng {
 

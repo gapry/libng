@@ -2,7 +2,8 @@
 
 #include <types/utility.hpp>
 #include <types/noncopyable.hpp>
-
+#include <types/function.hpp>
+#include <exception/error.hpp>
 #include <libcxx/fmt.hpp>
 #include <libcxx/string.hpp>
 
@@ -32,7 +33,26 @@ public:
   }
 
   void onWrite(Level lv, StrView str);
+
+  String enumStr(Log::Level level);
 };
+
+LIBNG_INLINE
+String Log::enumStr(Log::Level level) {
+  using E = Log::Level;
+  switch (level) {
+    // clang-format off
+    case E::Unknown:  return "Unknown";
+    case E::Info:     return "Info";
+    case E::Warning:  return "Warning";
+    case E::Error:    return "Error";
+    // clang-format on
+    default: {
+      LIBNG_ASSERT(false);
+      return "";
+    }
+  }
+}
 
 extern Log g_log;
 

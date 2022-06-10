@@ -1,10 +1,10 @@
 #pragma once
 
-#include <app/BaseApp.hpp>
+#include <app/Platforms.hpp>
 
 namespace libng {
 
-class ConsoleApp : public BaseApp {
+class ConsoleApp : public Platforms {
 public:
   void run();
 

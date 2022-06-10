@@ -33,7 +33,7 @@ private:
   ShaderLexer* lexer          = nullptr;
   ShaderParser* parser        = nullptr;
   ShaderSemantic* typeChecker = nullptr;
-  ShaderCodeGen* codeGer      = nullptr;
+  ShaderCodeGen* codeGen      = nullptr;
 
   MemMapFile _memMapfile;
   ShaderInfo* _outInfo = nullptr;

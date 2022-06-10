@@ -2,8 +2,23 @@
 
 namespace libng {
 
-class ShaderParam {
+class ShaderStageInfo {
 public:
+  class Param {
+  public:
+  };
+
+  class Input {
+  public:
+  };
+
+  class Variable {
+  public:
+  };
+
+  class ConstBuffer {
+  public:
+  };
 };
 
 } // namespace libng

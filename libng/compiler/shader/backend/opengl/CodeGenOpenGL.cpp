@@ -1,8 +1,8 @@
-#include <compiler/shader/backend/opengl/CompilerOpenGL.hpp>
+#include <compiler/shader/backend/opengl/CodeGenOpenGL.hpp>
 
 namespace libng {
 
-CompilerOpenGL::CompilerOpenGL(CreateDesc& desc) {
+CodeGenOpenGL::CodeGenOpenGL(CreateDesc& desc) {
   // glUseProgram(_program);
   // shader = glCreateShader(type);
   // glShaderSource(shader, 1, &srcData, &srcLen);
