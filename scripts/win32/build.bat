@@ -8,8 +8,11 @@ cd build
 :: cmake -DBUILD_GAME=ON -G "NMake Makefiles" ..
 :: nmake 
 
-cmake -DBUILD_GAME=ON -G "Unix Makefiles" ..
+:: cmake -DBUILD_GAME=ON -G "Unix Makefiles" ..
 :: make -j$(nproc)
-make -j16 
+:: make -j16 
+
+cmake -DBUILD_GAME=ON -GNinja ..
+ninja
 
 cd ..

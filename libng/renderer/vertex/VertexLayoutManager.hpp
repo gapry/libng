@@ -19,7 +19,7 @@ public:
   template<class VERTEX>
   void registerLayout(void) {
     VertexLayout* layout = _createLayout(VERTEX::kType);
-    layout->stride       = sizeof(VERTEX);
+    layout->stride       = sizeof(VERTEX); // Issue
     layout->type         = VERTEX::kType;
     VERTEX::onRegister(layout);
   }

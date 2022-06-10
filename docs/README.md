@@ -108,7 +108,6 @@
 - [5 ways to draw an outline](https://alexanderameye.github.io/notes/rendering-outlines/)
 
 ## Tools
-- [Make for Windows](http://gnuwin32.sourceforge.net/packages/make.htm)
 - [Wireshark](https://wiki.wireshark.org/Home)
 - [RenderDoc](https://renderdoc.org/docs/index.html)
 

@@ -7,8 +7,9 @@
 #### Windows
 - Install the following tools
   - [CMake](https://cmake.org/download/)
+  - [Ninja](https://ninja-build.org/)
   - [git](https://git-scm.com/downloads)
-  - [Visual Studio Community 2022](https://visualstudio.microsoft.com/)
+  - [Visual Studio Community](https://visualstudio.microsoft.com/)
   - [Make for Windows - GnuWin32](http://gnuwin32.sourceforge.net/packages/make.htm)
 - [vcpkg](https://vcpkg.io/en/index.html)
   ```

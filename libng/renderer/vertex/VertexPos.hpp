@@ -20,6 +20,9 @@ struct VertexPos : public VertexBase {
   static const RenderDataType kPosType = RenderDataTypeUtil::get<PosType>();
   static const VertexType kType        = VertexTypeUtil::addPos(VertexType::None, kPosType);
 
+  /**
+   * In C++, we can't assign the value directly, static const T* v = x;
+   */
   static const VertexLayout* layout() {
     static const VertexLayout* s = VertexLayoutManager::current()->getLayout(VertexPosColorUv::kType);
     return s;

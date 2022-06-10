@@ -16,6 +16,8 @@ set build_dir=build\%build_project%-%build_arch%-%build_os%
 
 set build_components=-DBUILD_GAME=ON
 
+call .\scripts\win32\clean.bat
+
 cmake %build_components% -G %editor% -B %build_dir% .
 
 @pause
