@@ -14,11 +14,13 @@ int main(void) {
   libng::String file = libng::Directory::getCurrent();
   libng::String path = libng::FilePath::dirname(file);
 
-#if 1
-  path.append("/../../Assets");
-#else
-  path.append("/../../../../Assets");
+  libng::String configPath;
+#if LIBNG_IDE_VSC
+  configPath = "\\..\\..\\Assets"; 
+#elif LIBNG_IDE_VS
+  configPath = "/../../../../Assets";
 #endif
+  path.append(configPath);
 
   libng::Directory::setCurrent(path);
   LIBNG_LOG("{} path = {}", __LIBNG_PRETTY_FUNCTION__, path);

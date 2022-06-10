@@ -3,6 +3,24 @@
   "tasks": [
     {
       "type": "shell",
+      "label": "Format",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "windows": {
+        "command": "nmake fmt" 
+      },
+      "linux": {
+        "command": "make fmt"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "type": "shell",
       "label": "Clean",
       "options": {
         "cwd": "${workspaceFolder}"

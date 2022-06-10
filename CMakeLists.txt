@@ -16,10 +16,20 @@ include_directories("${CMAKE_CURRENT_LIST_DIR}")
 include_directories("${dir_src}")
 include_directories("${dir_src}/core")
 
+OPTION(IDE_VSC         "IDE VSC"         OFF)
+OPTION(IDE_VS          "IDE VS"          OFF)
 OPTION(BUILD_GAME      "Build Game"      OFF)
 OPTION(BUILD_TEST      "Build Test"      OFF)
 OPTION(BUILD_BENCHMARK "Build Benchmark" OFF)
 OPTION(BUILD_SERVER    "Build Server"    OFF)
+
+IF(IDE_VSC)
+add_compile_definitions(LIBNG_IDE_VSC=1)
+ENDIF()
+
+IF(IDE_VS)
+add_compile_definitions(LIBNG_IDE_VS=1)
+ENDIF()
 
 add_subdirectory("${dir_src}/core")
 add_subdirectory("${dir_src}/renderer")

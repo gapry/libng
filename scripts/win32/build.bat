@@ -12,7 +12,7 @@ cd build
 :: make -j$(nproc)
 :: make -j16 
 
-cmake -DBUILD_GAME=ON -GNinja ..
+cmake -DBUILD_GAME=ON -DIDE_VSC=ON -GNinja ..
 ninja
 
 cd ..

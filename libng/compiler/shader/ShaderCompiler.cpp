@@ -15,10 +15,11 @@ ShaderCompiler::ShaderCompiler() {
   LIBNG_LOG("{} {}\n", __LIBNG_PRETTY_FUNCTION__, _path);
 
   libng::String configPath;
-#if 1
-  configPath = "\\..\\..\\Assets"; // Visual Stdio Code
-#else
-  configPath = "/../../../../Assets"; // Visual Stdio
+
+#if LIBNG_IDE_VSC
+  configPath = "\\..\\..\\Assets"; 
+#elif LIBNG_IDE_VS
+  configPath = "/../../../../Assets"; 
 #endif
   _path.append(configPath);
 

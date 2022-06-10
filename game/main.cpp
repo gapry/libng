@@ -4,14 +4,9 @@
 #include <exception/error.hpp>
 #include <memory/SPtr.hpp>
 #include <file/FilePath.hpp>
-
 #include <ui/UIApp.hpp>
 #include <ui/UIWindow.hpp>
-
-#include <libcxx/util/util.hpp>
-
 #include <platform/graphics.hpp>
-
 #include <renderer/Renderer.hpp>
 #include <renderer/RenderContext.hpp>
 #include <renderer/mesh/RenderMesh.hpp>
@@ -105,9 +100,9 @@ public:
       String path = FilePath::getDir(file);
 
       String configPath;
-#if 1
-      configPath = "/../../Assets";
-#else
+#if LIBNG_IDE_VSC
+      configPath = "\\..\\..\\Assets";
+#elif LIBNG_IDE_VS
       configPath = "/../../../../Assets";
 #endif
       path.append(configPath);
