@@ -15,7 +15,7 @@ CodeGenDX11::CodeGenDX11(CreateDesc& desc) {
 
   auto hlsl = memmap.span();
 
-  auto profile = ShaderUtil::getDxStageProfile(desc.shaderStage);
+  auto profile = ShaderUtil::getStageProfile(desc.shaderStage);
 
   ComPtr<ID3DBlob> byteCode;
   ComPtr<ID3DBlob> errorMsg;

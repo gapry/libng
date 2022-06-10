@@ -11,6 +11,7 @@
 #include <renderer/type/RenderDataType.hpp>
 #include <renderer/type/RenderPrimitiveType.hpp>
 #include <renderer/vertex/VertexSemanticType.hpp>
+#include <renderer/material/ShaderStage.hpp>
 
 namespace libng {
 
@@ -32,6 +33,14 @@ struct DX11Util {
   static const char* getDxSemanticName(VertexSemanticType t);
 
   static String getStrFromHRESULT(HRESULT hr);
+
+  static const char* getDxStageProfile(ShaderStage s) {
+    switch (s) {
+      case ShaderStage::Vertex: return "vs_5_0";
+      case ShaderStage::Pixel: return "ps_5_0";
+      default: return "";
+    }
+  }
 
 private:
   static bool _checkError(HRESULT hr);
