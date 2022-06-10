@@ -3,13 +3,43 @@
   "tasks": [
     {
       "type": "shell",
+      "label": "Clean",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "windows": {
+        "command": "make clean" 
+      },
+      "linux": {
+        "command": "make clean"
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Build",
+      "windows": {
+        "command": "make build" 
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "type": "shell",
       "label": "Execute",
       "options": {
         "cwd": "${workspaceFolder}"
       },
       "windows": {
         // "command": "${cwd}\\scripts\\win32\\run.bat" 
-        "command": "nmake default" 
+        "command": "make execute" 
       },
       "linux": {
         // "command": "sh -x ${cwd}/scripts/linux/build_on_linux.sh"
@@ -23,11 +53,11 @@
     },
     {
       "type": "shell",
-      "label": "Build",
-      "group": "build",
+      "label": "BuildAndExecute",
       "windows": {
-        "command": "nmake clean; nmake build" 
+        "command": "make build; make execute" 
       },
+      "group": "build",
       "presentation": {
         "reveal": "always",
         "panel": "new"
@@ -40,7 +70,7 @@
         "cwd": "${workspaceFolder}"
       },
       "windows": {
-        "command": "nmake fmt; nmake clean; nmake tests" 
+        "command": "make tests" 
       },
       "linux": {
         "command": "make clean; make fmt; make tests"

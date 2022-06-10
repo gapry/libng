@@ -104,16 +104,17 @@ public:
       String file = getExecutableFilename();
       String path = FilePath::getDir(file);
 
+      String configPath;
 #if 1
-      path.append("/../../Assets");
+      configPath = "/../../Assets";
 #else
-      path.append("/../../../../Assets");
+      configPath = "/../../../../Assets";
 #endif
-
+      path.append(configPath);
       setCurrentDir(path);
 
       auto dir = getCurrentDir();
-      LIBNG_LOG("[log] dir = {}", dir);
+      LIBNG_LOG("Current Dir = {}\n", dir);
     }
 
     Base::onCreate(desc);
