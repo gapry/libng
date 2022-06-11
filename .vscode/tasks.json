@@ -119,6 +119,18 @@
     },
     {
       "type": "shell",
+      "label": "Build And Execute The Compiler",
+      "windows": {
+        "command": "nmake build_compiler; nmake execute_compiler" 
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "type": "shell",
       "label": "Build And Execute The Tests",
       "windows": {
         "command": "nmake build_tests; nmake tests" 

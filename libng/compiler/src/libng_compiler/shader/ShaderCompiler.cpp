@@ -37,8 +37,8 @@ ShaderCompiler::~ShaderCompiler() {
 
 void ShaderCompiler::onRun() {
   ShaderInfo info;
-  StrView shaderFilename = "Assets/Shaders/test.shader";
-  String outputPath      = Fmt("LocalTemp/Imported/{}", shaderFilename);
+  StrView shaderFilename = "Assets/Shaders/test/case01.shader";
+  String outputPath      = Fmt("Assets/LocalTemp/Imported/{}", shaderFilename);
   Directory::create(outputPath);
 
   readFile(info, shaderFilename);

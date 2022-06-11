@@ -6,14 +6,13 @@
 namespace libng {
 
 void Directory::create(StrView path) {
-  if (exists(path))
+  if (exists(path)) {
     return;
-
+  }
   auto parent = FilePath::dirname(path);
   if (parent.size()) {
     create(parent);
   }
-
   _create(path);
 }
 

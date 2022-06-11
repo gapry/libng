@@ -10,16 +10,22 @@ fmt:
 	call .\scripts\win32\fmt.bat
 
 build_game:
-	call .\scripts\win32\build\game.bat
+	call .\scripts\win32\build_game.bat
+
+build_compiler:
+	call .\scripts\win32\build_compiler.bat
 
 build_tests:
-	call .\scripts\win32\build\tests.bat
+	call .\scripts\win32\build_tests.bat
 
 tests:
 	call .\scripts\win32\unit_test.bat
 
 execute:
 	call .\scripts\win32\execute.bat
+
+execute_compiler:
+	call .\scripts\win32\execute_compiler.bat
 
 vcpkg:
 	call .\scripts\win32\vcpkg.bat

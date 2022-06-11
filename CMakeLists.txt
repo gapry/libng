@@ -22,11 +22,11 @@ OPTION(BUILD_BENCHMARK "Build Benchmark" OFF)
 OPTION(BUILD_SERVER    "Build Server"    OFF)
 
 IF(IDE_VSC)
-add_compile_definitions(LIBNG_IDE_VSC=1)
+  add_compile_definitions(LIBNG_IDE_VSC=1)
 ENDIF(IDE_VSC)
 
 IF(IDE_VS)
-add_compile_definitions(LIBNG_IDE_VS=1)
+  add_compile_definitions(LIBNG_IDE_VS=1)
 ENDIF(IDE_VS)
 
 add_subdirectory("${dir_src}/core")
@@ -39,6 +39,12 @@ add_subdirectory("${dir_src}/editor")
 add_subdirectory("${dir_src}/editor/app")
 add_subdirectory("${dir_src}/plugin")
 add_subdirectory("${dir_src}/script")
+
+IF(BUILD_COMPILER)
+  add_subdirectory(test)
+  add_subdirectory("${dir_src}/core/test")
+  add_subdirectory("${dir_src}/compiler/test")
+ENDIF(BUILD_TEST)
 
 IF(BUILD_GAME)
   add_subdirectory(game)
