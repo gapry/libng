@@ -1,0 +1,44 @@
+#pragma once
+
+#include <type_traits>
+#include <libng_core/types/function.hpp>
+
+template<class T>
+LIBNG_INLINE constexpr typename std::underlying_type<T>::type enumToInt(T value) {
+  return static_cast<typename std::underlying_type<T>::type>(value);
+}
+
+// clang-format off
+#define LIBNG_ENUM_BITWISE_OPERATOR(T)                                                                         \
+  LIBNG_INLINE T    operator~(T value)           { return static_cast<T>(~enumToInt(value));                 } \
+  LIBNG_INLINE T    operator|(T one, T other)    { return static_cast<T>(enumToInt(one) | enumToInt(other)); } \
+  LIBNG_INLINE T    operator&(T one, T other)    { return static_cast<T>(enumToInt(one) & enumToInt(other)); } \
+  LIBNG_INLINE T    operator^(T one, T other)    { return static_cast<T>(enumToInt(one) ^ enumToInt(other)); } \
+  LIBNG_INLINE void operator|=(T& one, T other)  { one = static_cast<T>(enumToInt(one) | enumToInt(other));  } \
+  LIBNG_INLINE void operator&=(T& one, T other)  { one = static_cast<T>(enumToInt(one) & enumToInt(other));  } \
+  LIBNG_INLINE void operator^=(T& one, T other)  { one = static_cast<T>(enumToInt(one) ^ enumToInt(other));  }
+
+#define LIBNG_ENUM_ARITHMETIC_OPERATOR(T)                                                      \
+	constexpr T    operator+ (T  a, T b) { return static_cast<T>(enumToInt(a) + enumToInt(b)); } \
+	constexpr T    operator- (T  a, T b) { return static_cast<T>(enumToInt(a) - enumToInt(b)); } \
+	constexpr T    operator* (T  a, T b) { return static_cast<T>(enumToInt(a) * enumToInt(b)); } \
+	constexpr T    operator/ (T  a, T b) { return static_cast<T>(enumToInt(a) / enumToInt(b)); } \
+	constexpr void operator+=(T& a, T b) { a = static_cast<T>(enumToInt(a) + enumToInt(b)); }    \
+	constexpr void operator-=(T& a, T b) { a = static_cast<T>(enumToInt(a) - enumToInt(b)); }    \
+	constexpr void operator*=(T& a, T b) { a = static_cast<T>(enumToInt(a) * enumToInt(b)); }    \
+	constexpr void operator/=(T& a, T b) { a = static_cast<T>(enumToInt(a) / enumToInt(b)); } 
+
+#define LIBNG_ENUM_ARITHMETIC_OPERATOR_INT(T)                                         \
+	constexpr T    operator+ (T  a, int b) { return static_cast<T>(enumToInt(a) + b); } \
+	constexpr T    operator- (T  a, int b) { return static_cast<T>(enumToInt(a) - b); } \
+	constexpr T    operator* (T  a, int b) { return static_cast<T>(enumToInt(a) * b); } \
+	constexpr T    operator/ (T  a, int b) { return static_cast<T>(enumToInt(a) / b); } \
+	constexpr void operator+=(T& a, int b) { a = static_cast<T>(enumToInt(a) + b); }    \
+	constexpr void operator-=(T& a, int b) { a = static_cast<T>(enumToInt(a) - b); }    \
+	constexpr void operator*=(T& a, int b) { a = static_cast<T>(enumToInt(a) * b); }    \
+	constexpr void operator/=(T& a, int b) { a = static_cast<T>(enumToInt(a) / b); }
+
+#define LIBNG_ENUM_ALL_OPERATOR(T)      \
+  LIBNG_ENUM_BITWISE_OPERATOR(T)        \
+  LIBNG_ENUM_ARITHMETIC_OPERATOR(T)     \
+  LIBNG_ENUM_ARITHMETIC_OPERATOR_INT(T)

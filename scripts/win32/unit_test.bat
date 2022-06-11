@@ -5,4 +5,4 @@ cd build
 cmake -DBUILD_TEST=ON -GNinja ..
 ninja
 cd ..
-.\build\test\libng_test.exe
+.\build\libng\core\test\libng_core_test.exe

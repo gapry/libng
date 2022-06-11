@@ -71,6 +71,18 @@
     },
     {
       "type": "shell",
+      "label": "CleanAndBuild",
+      "windows": {
+        "command": "make clean; make build" 
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "type": "shell",
       "label": "BuildAndExecute",
       "windows": {
         "command": "make build; make execute" 

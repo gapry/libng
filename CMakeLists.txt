@@ -13,8 +13,6 @@ include(${dir_cmake}/vcpkg.cmake)
 include(${dir_cmake}/helper.cmake)
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}")
-include_directories("${dir_src}")
-include_directories("${dir_src}/core")
 
 OPTION(IDE_VSC         "IDE VSC"         OFF)
 OPTION(IDE_VS          "IDE VS"          OFF)
@@ -25,24 +23,24 @@ OPTION(BUILD_SERVER    "Build Server"    OFF)
 
 IF(IDE_VSC)
 add_compile_definitions(LIBNG_IDE_VSC=1)
-ENDIF()
+ENDIF(IDE_VSC)
 
 IF(IDE_VS)
 add_compile_definitions(LIBNG_IDE_VS=1)
-ENDIF()
+ENDIF(IDE_VS)
 
 add_subdirectory("${dir_src}/core")
 add_subdirectory("${dir_src}/renderer")
-add_subdirectory("${dir_src}/compiler/shader")
-add_subdirectory("${dir_src}/compiler/json")
-add_subdirectory("${dir_src}/compiler/app")
+add_subdirectory("${dir_src}/compiler")
 
 IF(BUILD_GAME)
   add_subdirectory(game)
 ENDIF(BUILD_GAME)
-
+ 
 IF(BUILD_TEST)
   add_subdirectory(test)
+  add_subdirectory("${dir_src}/core/test")
+  # add_subdirectory("${dir_src}/compiler/test")
 ENDIF(BUILD_TEST)
 
 IF(BUILD_BENCHMARK)

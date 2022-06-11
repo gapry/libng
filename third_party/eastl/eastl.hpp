@@ -1,12 +1,5 @@
 #pragma once
 
-#include <iostream>
-#include <iterator>
-#include <string_view>
-
-#include <fmt/core.h>
-#include <fmt/format.h>
-
 #include <EASTL/vector.h>
 #include <EASTL/fixed_vector.h>
 #include <EASTL/string.h>
@@ -24,10 +17,6 @@
 #include <EASTL/unique_ptr.h>
 #include <EASTL/shared_ptr.h>
 #include <EASTL/weak_ptr.h>
-
-#include <types/function.hpp>
-#include <types/utility.hpp>
-#include <platform/os.hpp>
 
 #if !EASTL_DLL
 

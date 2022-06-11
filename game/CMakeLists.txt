@@ -14,3 +14,5 @@ set_target_properties(${project_name} PROPERTIES FOLDER ${minor})
 
 target_link_libraries(${project_name} PUBLIC fmt::fmt ${major}_core
                                                       ${major}_renderer)
+
+message("-- [${project_name}] - done")
