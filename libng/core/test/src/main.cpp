@@ -1,8 +1,8 @@
-#include <libng_core_test/memory/SPtr.hpp>
-#include <libng_core_test/memory/LinearAllocator.hpp>
-#include <libng_core_test/libcxx/vector.hpp>
-#include <libng_core_test/third_party/eastl/vector.hpp>
-#include <libng_core_test/third_party/imgui/app.hpp>
+#include <libng_core_test/memory/TestSPtr.hpp>
+#include <libng_core_test/memory/TestLinearAllocator.hpp>
+#include <libng_core_test/libcxx/TestVector.hpp>
+#include <libng_core_test/third_party/eastl/TestEASTL.hpp>
+#include <libng_core_test/third_party/imgui/TestImGui.hpp>
 
 int main(int, char**) {
   LIBNG_VERIFY(libng::TestLibcxx);

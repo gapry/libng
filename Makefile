@@ -9,8 +9,11 @@ clean:
 fmt:
 	call .\scripts\win32\fmt.bat
 
-build:
-	call .\scripts\win32\build.bat
+build_game:
+	call .\scripts\win32\build\game.bat
+
+build_tests:
+	call .\scripts\win32\build\tests.bat
 
 tests:
 	call .\scripts\win32\unit_test.bat

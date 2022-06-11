@@ -26,7 +26,7 @@
         "cwd": "${workspaceFolder}"
       },
       "windows": {
-        "command": "make clean" 
+        "command": "nmake clean" 
       },
       "linux": {
         "command": "make clean"
@@ -39,9 +39,21 @@
     },
     {
       "type": "shell",
-      "label": "Build",
+      "label": "Build Game",
       "windows": {
-        "command": "make build" 
+        "command": "nmake build_game" 
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Build Tests",
+      "windows": {
+        "command": "nmake build_tests" 
       },
       "group": "build",
       "presentation": {
@@ -57,7 +69,7 @@
       },
       "windows": {
         // "command": "${cwd}\\scripts\\win32\\run.bat" 
-        "command": "make execute" 
+        "command": "nmake execute" 
       },
       "linux": {
         // "command": "sh -x ${cwd}/scripts/linux/build_on_linux.sh"
@@ -71,9 +83,9 @@
     },
     {
       "type": "shell",
-      "label": "CleanAndBuild",
+      "label": "Clean And Build The Game",
       "windows": {
-        "command": "make clean; make build" 
+        "command": "nmake clean; nmake build_game" 
       },
       "group": "build",
       "presentation": {
@@ -83,9 +95,33 @@
     },
     {
       "type": "shell",
-      "label": "BuildAndExecute",
+      "label": "Clean And Build The Tests",
       "windows": {
-        "command": "make build; make execute" 
+        "command": "nmake clean; nmake build_tests" 
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Build And Execute The Game",
+      "windows": {
+        "command": "nmake build_game; nmake execute" 
+      },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      }
+    },
+    {
+      "type": "shell",
+      "label": "Build And Execute The Tests",
+      "windows": {
+        "command": "nmake build_tests; nmake tests" 
       },
       "group": "build",
       "presentation": {
@@ -100,7 +136,7 @@
         "cwd": "${workspaceFolder}"
       },
       "windows": {
-        "command": "make tests" 
+        "command": "nmake tests" 
       },
       "linux": {
         "command": "make clean; make fmt; make tests"

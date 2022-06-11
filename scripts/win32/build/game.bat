@@ -14,5 +14,4 @@ cd build
 
 cmake -DBUILD_GAME=ON -DIDE_VSC=ON -GNinja ..
 ninja
-
 cd ..

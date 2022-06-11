@@ -16,9 +16,9 @@ ShaderCompiler::ShaderCompiler() {
   libng::String configPath;
 
 #if LIBNG_IDE_VSC
-  configPath = "\\..\\..\\Assets"; 
+  configPath = "\\..\\..\\Assets";
 #elif LIBNG_IDE_VS
-  configPath = "/../../../../Assets"; 
+  configPath = "/../../../../Assets";
 #endif
   _path.append(configPath);
 

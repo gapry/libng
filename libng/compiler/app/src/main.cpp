@@ -16,7 +16,7 @@ int main(void) {
 
   libng::String configPath;
 #if LIBNG_IDE_VSC
-  configPath = "\\..\\..\\Assets"; 
+  configPath = "\\..\\..\\Assets";
 #elif LIBNG_IDE_VS
   configPath = "/../../../../Assets";
 #endif
