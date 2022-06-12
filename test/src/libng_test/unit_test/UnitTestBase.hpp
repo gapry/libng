@@ -4,11 +4,15 @@
 #include <libng_core/types/noncopyable.hpp>
 #include <libng_core/exception/error.hpp>
 
-#define LIBNG_TEST_CASE(TestClass, TestFunc)                    \
-  do {                                                          \
-    LIBNG_LOG("\n [TEST_CASE] " #TestClass "." #TestFunc "\n"); \
-    TestClass testObj;                                          \
-    testObj.TestFunc;                                           \
+#define color_green "\033[32m"
+#define color_reset "\033[0m"
+
+#define LIBNG_TEST_CASE(TestClass, TestFunc)                                               \
+  do {                                                                                     \
+    LIBNG_LOG("{}[TEST_CASE] " #TestClass "." #TestFunc "{}\n", color_green, color_reset); \
+    TestClass testObj;                                                                     \
+    testObj.TestFunc;                                                                      \
+    LIBNG_LOG("{}\n", "----");                                                             \
   } while (false)
 
 #define LIBNG_VERIFY(TestClass)    LIBNG_TEST_CASE(TestClass, onVerify())

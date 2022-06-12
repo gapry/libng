@@ -18,6 +18,8 @@
 #include <EASTL/shared_ptr.h>
 #include <EASTL/weak_ptr.h>
 
+#include <libng_core/types/function.hpp>
+
 #if !EASTL_DLL
 
 #pragma warning(push)

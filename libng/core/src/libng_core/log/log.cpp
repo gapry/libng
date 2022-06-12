@@ -6,7 +6,7 @@ namespace libng {
 Log g_log;
 
 void Log::onWrite(Level lv, StrView str) {
-  fmt::print("[{}] {}\n", enumStr(lv), str);
+  fmt::print("[{}] {}", enumStr(lv), str);
 }
 
 } // namespace libng

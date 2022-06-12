@@ -13,7 +13,6 @@ ShaderCompiler::ShaderCompiler() {
   _file = getExecutableFilename();
   _path = FilePath::dirname(_file);
 
-
 #if LIBNG_IDE_VSC
   _assetsPath = "\\..\\..\\Assets";
 #elif LIBNG_IDE_VS
@@ -28,7 +27,7 @@ ShaderCompiler::ShaderCompiler() {
 }
 
 ShaderCompiler::~ShaderCompiler() {
-  if(!_proj) {
+  if (!_proj) {
     _proj = nullptr;
   }
   _file.clear();
@@ -37,11 +36,11 @@ ShaderCompiler::~ShaderCompiler() {
 }
 
 void ShaderCompiler::onRun(int argc, char** argv) {
-  if(argc != 2) {
+  if (argc != 2) {
     LIBNG_ERROR("{}\n", "console arguments aren't correct!");
   }
 
-  if(argv[1] == nullptr) {
+  if (argv[1] == nullptr) {
     LIBNG_ERROR("{}\n", "argv[1] is wrong!");
   }
 

@@ -33,7 +33,7 @@ private:
   UPtr<ShaderSemantic> typeChecker;
   UPtr<ShaderCodeGen> codeGen;
   UPtr<ShaderInfo> _outInfo;
-  
+
   ProjectSettings* _proj = nullptr; // Issue: UPtr to static variable.
 
   MemMapFile _memMapfile;
