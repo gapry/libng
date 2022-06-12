@@ -14,10 +14,16 @@
 namespace libng {
 
 void run_temp_test() {
+  LIBNG_RUN_TEST(test_string);
+}
+
+void run_libcxx_test() {
   LIBNG_RUN_TEST(test_unique_ptr);
 }
 
 void run_all_test() {
+  run_libcxx_test();
+
   LIBNG_VERIFY(TestLibcxx);
   LIBNG_VERIFY(TestSPrt);
   LIBNG_VERIFY(TestLinearAllocator);

@@ -7,12 +7,12 @@
 
 namespace libng {
 
-class packet_chat {
+class test_packet_chat {
 public:
   String username;
   String hostname;
 
-  packet_chat() {
+  test_packet_chat() {
     username = "user1";
     hostname = "host1";
     version  = "v1.0";
@@ -21,7 +21,7 @@ public:
   }
 
   // Issue
-  packet_chat(String name, String host)
+  test_packet_chat(String name, String host)
     : version("v2.0") {
     username = name;
     hostname = host;
@@ -29,7 +29,7 @@ public:
     LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
   }
 
-  ~packet_chat() {
+  ~test_packet_chat() {
     username.clear();
     hostname.clear();
     version.clear();
@@ -45,18 +45,22 @@ private:
   String version;
 };
 
-LIBNG_FORMATTER(packet_chat);
+LIBNG_FORMATTER(test_packet_chat);
+
+} // namespace libng
+
+namespace libng::libcxx {
 
 class test_unique_ptr : public UnitTestBase {
 public:
   void test_ctor_and_dtor() {
-    auto ptr1 = libng::libcxx::unique_ptr<packet_chat>(new packet_chat());
-    auto ptr2 = libng::libcxx::make_unique<packet_chat>(libng::String("user2"), libng::String("host2"));
+    auto ptr1 = libng::libcxx::unique_ptr<libng::test_packet_chat>(new libng::test_packet_chat());
+    auto ptr2 = libng::libcxx::make_unique<libng::test_packet_chat>(libng::String("user2"), libng::String("host2"));
   }
 
   void test_operator() {
-    auto pkt1 = libng::libcxx::unique_ptr<packet_chat>(new packet_chat());
-    auto pkt2 = libng::libcxx::make_unique<packet_chat>(libng::String("user2"), libng::String("host2"));
+    auto pkt1 = libng::libcxx::unique_ptr<libng::test_packet_chat>(new libng::test_packet_chat());
+    auto pkt2 = libng::libcxx::make_unique<libng::test_packet_chat>(libng::String("user2"), libng::String("host2"));
 
     LIBNG_LOG("packet1 = {}\n", fmt::format("{}", *pkt1));
     LIBNG_LOG("packet2 = {}\n", fmt::format("{}", *pkt2));
@@ -69,10 +73,10 @@ public:
   }
 };
 
-} // namespace libng
+} // namespace libng::libcxx
 
 void test_unique_ptr() {
   // using namespace libng; // issue
-  LIBNG_TEST_CASE(libng::test_unique_ptr, test_ctor_and_dtor());
-  LIBNG_TEST_CASE(libng::test_unique_ptr, test_operator());
+  LIBNG_TEST_CASE(libng::libcxx::test_unique_ptr, test_ctor_and_dtor());
+  LIBNG_TEST_CASE(libng::libcxx::test_unique_ptr, test_operator());
 }

@@ -44,7 +44,7 @@ IF(BUILD_COMPILER)
   add_subdirectory(test)
   add_subdirectory("${dir_src}/core/test")
   add_subdirectory("${dir_src}/compiler/test")
-ENDIF(BUILD_TEST)
+ENDIF(BUILD_COMPILER)
 
 IF(BUILD_GAME)
   add_subdirectory(game)

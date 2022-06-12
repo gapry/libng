@@ -3,6 +3,7 @@
 #include <iterator>
 #include <fmt/format.h>
 
+// #include <libng_core/encoding/UtfUtil.hpp> // 'LIBNG_ERROR': identifier not found
 #include <libng_core/platform/compiler.hpp>
 #include <libng_core/types/utility.hpp>
 #include <libng_core/libcxx/string.hpp>
@@ -103,7 +104,7 @@ struct fmt::formatter<libng::StrViewW> {
     return ctx.begin();
   }
   auto format(const libng::StrViewW& v, fmt::format_context& ctx) {
-    libng::TempStringA tmp; // Issue: = libng::UtfUtil::toString(v);
+    libng::TempStringA tmp; // Issue : tmp = libng::UtfUtil::toString(v);
     return fmt::format_to(ctx.out(), "{}", tmp);
   }
 };
