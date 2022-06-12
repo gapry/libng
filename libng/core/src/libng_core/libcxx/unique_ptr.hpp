@@ -1,7 +1,7 @@
 #pragma once
 
-#include <utility> // std::forward
 #include <libng_core/types/noncopyable.hpp>
+#include <libng_core/libcxx/utility.hpp>
 #include <third_party/eastl/eastl.hpp>
 
 namespace libng::libcxx {
@@ -35,7 +35,7 @@ private:
 
 template<typename T, typename... Args>
 typename unique_ptr<T> make_unique(Args&&... args) {
-  return unique_ptr<T>(new T(std::forward<Args>(args)...));
+  return unique_ptr<T>(new T(libng::libcxx::forward<Args>(args)...));
 }
 
 } // namespace libng::libcxx
