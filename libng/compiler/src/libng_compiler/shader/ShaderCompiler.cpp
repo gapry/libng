@@ -7,43 +7,53 @@
 namespace libng {
 
 ShaderCompiler::ShaderCompiler() {
+  _apiType.clear();
+  _assetsPath.clear();
+
   _file = getExecutableFilename();
-  LIBNG_LOG("{} {}\n", __LIBNG_PRETTY_FUNCTION__, _file);
-
   _path = FilePath::dirname(_file);
-  LIBNG_LOG("{} {}\n", __LIBNG_PRETTY_FUNCTION__, _path);
 
-  libng::String configPath;
 
 #if LIBNG_IDE_VSC
-  configPath = "\\..\\..\\Assets";
+  _assetsPath = "\\..\\..\\Assets";
 #elif LIBNG_IDE_VS
-  configPath = "/../../../../Assets";
+  _assetsPath = "/../../../../Assets";
 #endif
-  _path.append(configPath);
+  _path.append(_assetsPath);
 
   Directory::setCurrent(_path);
-  LIBNG_LOG("{} {}\n", __LIBNG_PRETTY_FUNCTION__, _path);
 
   _proj = ProjectSettings::instance();
   _proj->setProjectRoot(_path);
 }
 
 ShaderCompiler::~ShaderCompiler() {
-  if (!_proj) {
+  if(!_proj) {
     _proj = nullptr;
   }
+  _file.clear();
+  _path.clear();
+  _apiType.clear();
 }
 
-void ShaderCompiler::onRun() {
-  ShaderInfo info;
+void ShaderCompiler::onRun(int argc, char** argv) {
+  if(argc != 2) {
+    LIBNG_ERROR("{}\n", "console arguments aren't correct!");
+  }
+
+  if(argv[1] == nullptr) {
+    LIBNG_ERROR("{}\n", "argv[1] is wrong!");
+  }
+
+  _apiType = argv[1];
+  LIBNG_LOG("GFX API = {}", _apiType);
+
   StrView shaderFilename = "Assets/Shaders/test/case01.shader";
   String outputPath      = Fmt("Assets/LocalTemp/Imported/{}", shaderFilename);
   Directory::create(outputPath);
 
+  ShaderInfo info;
   readFile(info, shaderFilename);
-
-  LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
 }
 
 void ShaderCompiler::readFile(ShaderInfo& outInfo, StrView filename) {
@@ -62,8 +72,6 @@ void ShaderCompiler::readMem(ShaderInfo& outInfo, ByteSpan data, StrView filenam
   //   parser->_readShader();
   // } else {
   // }
-
-  LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
 }
 
 } // namespace libng

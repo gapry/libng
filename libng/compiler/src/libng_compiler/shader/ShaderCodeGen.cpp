@@ -9,12 +9,6 @@ namespace libng {
 ShaderCodeGen* ShaderCodeGen::s_codeGen = nullptr;
 
 ShaderCodeGen::CreateDesc::CreateDesc(StrView filename, ShaderStage stage, StrView src, StrView entry) {
-#if LIBNG_OS_WINDOWS
-  apiType = ApiType::DX11;
-#else
-  apiType = ApiType::OpenGL;
-#endif
-
   outFilename = filename;
   shaderStage = stage;
   srcFilename = src;
@@ -31,6 +25,10 @@ ShaderCodeGen* ShaderCodeGen::create(CreateDesc& desc) {
   }
   // clang-format on
   return codeGen;
+}
+
+void ShaderCodeGen::setApiType(String& apiType) { // Issue: const string&
+  _apiType = apiType;
 }
 
 } // namespace libng

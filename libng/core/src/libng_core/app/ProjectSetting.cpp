@@ -15,11 +15,11 @@ void ProjectSettings::setProjectRoot(StrView path) {
   _projectRoot = path;
 
   auto currentDir = Directory::getCurrent();
-  LIBNG_LOG("projectRoot = {}\n", currentDir);
+  // LIBNG_LOG("projectRoot = {}\n", currentDir);
 }
 
 StrView ProjectSettings::importedPath() const {
-  return "LocalTemp/Imported";
+  return "LocalTemp/Imported"; // Issue
 }
 
 } // namespace libng

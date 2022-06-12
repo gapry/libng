@@ -5,6 +5,8 @@
 #include <libng_core/file/MemMapFile.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/libcxx/span.hpp>
+#include <libng_core/libcxx/unique_ptr.hpp>
+#include <libng_core/memory/ComPtr.hpp>
 #include <libng_render/material/ShaderInfo.hpp>
 #include <libng_compiler/shader/ShaderLexer.hpp>
 #include <libng_compiler/shader/ShaderParser.hpp>
@@ -23,20 +25,22 @@ public:
 
   void readMem(ShaderInfo& outInfo, ByteSpan data, StrView filename);
 
-  virtual void onRun() override;
+  virtual void onRun(int argc, char** argv) override;
 
 private:
-  ShaderLexer* lexer          = nullptr;
-  ShaderParser* parser        = nullptr;
-  ShaderSemantic* typeChecker = nullptr;
-  ShaderCodeGen* codeGen      = nullptr;
+  UPtr<ShaderLexer> lexer;
+  UPtr<ShaderParser> parser;
+  UPtr<ShaderSemantic> typeChecker;
+  UPtr<ShaderCodeGen> codeGen;
+  UPtr<ShaderInfo> _outInfo;
+  
+  ProjectSettings* _proj = nullptr; // Issue: UPtr to static variable.
 
   MemMapFile _memMapfile;
-  ShaderInfo* _outInfo = nullptr;
-
   String _file;
   String _path;
-  ProjectSettings* _proj = nullptr;
+  String _apiType;
+  String _assetsPath;
 };
 
 } // namespace libng

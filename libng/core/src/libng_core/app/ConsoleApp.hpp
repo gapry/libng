@@ -6,10 +6,12 @@ namespace libng {
 
 class ConsoleApp : public Platforms {
 public:
-  void run();
+  void run(int argc, char** argv);
 
 protected:
-  virtual void onRun() = 0;
+  virtual void onRun(int argc, char** argv) = 0;
+
+  void listArgv(int argc, char** argv);
 };
 
 } // namespace libng
