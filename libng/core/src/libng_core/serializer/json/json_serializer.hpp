@@ -23,10 +23,19 @@ struct json_serializer : public NonCopyable {
   }
 
   // clang-format off
-  void io(u8& v)  { to_value(v); LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); }
+  void io(u8&  v) { to_value(v); LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); }
   void io(u16& v) { to_value(v); LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); }
   void io(u32& v) { to_value(v); LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); }
   void io(u64& v) { to_value(v); LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); }
+
+  void io(i8&  v) { to_value(v); }
+  void io(i16& v) { to_value(v); }
+  void io(i32& v) { to_value(v); }
+  void io(i64& v) { to_value(v); }
+  
+  void io(f32&  v) { to_value(v); }
+  void io(f64&  v) { to_value(v); }
+  void io(f128& v) { to_value(v); }
   // clang-format on
 
 protected:
@@ -34,7 +43,7 @@ protected:
   void to_value(const V& val) {
     LIBNG_LOG("{}, stack size = {}\n", __LIBNG_FUNCTION__, _stack.size());
     auto& current = _stack.back();
-    if(!current->is_null()) {
+    if (!current->is_null()) {
       throw LIBNG_ERROR("It has already contained value.");
     }
     *current = val;
