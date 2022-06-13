@@ -4,14 +4,14 @@
     {
       "name": "(MS) Debug",
       "type": "cppvsdbg",
-      "program": "${workspaceFolder}/build/game/libng_game.exe",
+      "program": "${workspaceFolder}/build/libng/core/test/libng_core_test.exe",
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
       "console": "internalConsole",
-      "preLaunchTask": "Build",
+      "preLaunchTask": "Build Tests",
     },
     {
       "name": "(Linux) Debug",

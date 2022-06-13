@@ -14,11 +14,12 @@
 namespace libng {
 
 void run_temp_test() {
-  LIBNG_RUN_TEST(test_string);
+  LIBNG_RUN_TEST(test_json);
 }
 
 void run_libcxx_test() {
   LIBNG_RUN_TEST(test_unique_ptr);
+  LIBNG_RUN_TEST(test_string);
 }
 
 void run_all_test() {
