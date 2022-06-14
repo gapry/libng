@@ -4,6 +4,7 @@
 #include <libng_core/log/log.hpp>
 #include <libng_core/types/function.hpp>
 #include <libng_core/libcxx/fmt.hpp>
+#include <libng_core/libcxx/string.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
 #include <libng_core/serializer/json/json_deserializer.hpp>
 
@@ -59,6 +60,23 @@ public:
 
     fmt::print("{}\n", "-----------");
   }
+
+  void test_str_view() {
+    Json dataset;
+    json_serializer json_se(dataset);
+    json_deserializer json_de(dataset);
+
+    String send_msg = "I go to school by bus !!!";
+    String recv_msg;
+
+    json_se.io(send_msg);
+    fmt::print("send msg = {}\n", send_msg);
+    fmt::print("recv msg = {}\n", recv_msg);
+
+    json_de.io(recv_msg);
+    fmt::print("send msg = {}\n", send_msg);
+    fmt::print("recv msg = {}\n", recv_msg);
+  }
 };
 
 } // namespace libng
@@ -67,4 +85,5 @@ void test_json() {
   LIBNG_TEST_CASE(libng::test_json, test_ctor());
   LIBNG_TEST_CASE(libng::test_json, test_to_value());
   LIBNG_TEST_CASE(libng::test_json, test_io_shader_info());
+  LIBNG_TEST_CASE(libng::test_json, test_str_view());
 }

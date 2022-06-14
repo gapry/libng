@@ -7,6 +7,7 @@
 #include <libng_core/types/noncopyable.hpp>
 #include <libng_core/libcxx/json.hpp>
 #include <libng_core/libcxx/fixed_vector.hpp>
+#include <libng_core/libcxx/string.hpp>
 #include <libng_core/serializer/json/json_io.hpp>
 
 #define SGE_NAMED_IO(SE, V) SE.named_io(#V, V)
@@ -78,9 +79,30 @@ protected:
     }
   }
 
+  void to_str_view(StrView val) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_null()) {
+      throw LIBNG_ERROR("It has already contained value.");
+    }
+    *current  = "";
+    auto* dst = current->get_ptr<Json::string_t*>();
+    dst->assign(val.begin(), val.end());
+  }
+
 private:
   Json& _json;
   Vector_<Json*, (16 << 1) + (16 >> 1)> _stack;
+};
+
+template<size_t N>
+struct json_io<json_serializer, String_<N>> {
+  static void io(json_serializer& se, String_<N>& data) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    se.to_str_view(data);
+  }
 };
 
 } // namespace libng
