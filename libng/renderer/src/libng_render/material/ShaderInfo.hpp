@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_core/types/function.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/fixed_vector.hpp>
 #include <libng_render/material/ShaderPropType.hpp>
@@ -25,6 +26,11 @@ struct ShaderInfo {
   Vector_<Pass, 1> passes;
 
   void clear();
+
+  template<class SE>
+  void on_json(SE& se) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  }
 };
 
 } // namespace libng

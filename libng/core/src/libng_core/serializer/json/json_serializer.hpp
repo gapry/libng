@@ -38,6 +38,15 @@ struct json_serializer : public NonCopyable {
   void io(f128& v) { to_value(v); }
   // clang-format on
 
+  template<class V>
+  void io(V& val) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    json_io<This, V>::io(*this, val);
+  }
+
+  template<class SE, class T, class ENABLE>
+  friend struct json_io;
+
 protected:
   template<class V>
   void to_value(const V& val) {
@@ -48,6 +57,25 @@ protected:
     }
     *current = val;
     LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  }
+
+  void begin_object() {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_null()) {
+      throw LIBNG_ERROR("{}\n", "serializer:json: begin_object()");
+    }
+    *current = Json::object();
+  }
+
+  void end_object() {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_object()) {
+      throw LIBNG_ERROR("{}\n", "serializer:json: end_object()");
+    }
   }
 
 private:

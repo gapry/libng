@@ -7,6 +7,8 @@
 #include <libng_core/serializer/json/json_serializer.hpp>
 #include <libng_core/serializer/json/json_deserializer.hpp>
 
+#include <libng_render/material/ShaderInfo.hpp>
+
 #include <libng_test/unit_test/UnitTestBase.hpp>
 
 namespace libng {
@@ -35,6 +37,28 @@ public:
     json_de.io(recver);
     fmt::print("sender = {}, recver = {}\n", sender, recver);
   }
+
+  void test_io_shader_info() {
+    Json dataset;
+    auto obj = Json::object();
+    std::cout << "dataset = " << dataset << "\n";
+    std::cout << "obj     = " << obj << "\n";
+
+    ShaderInfo src_info;
+    ShaderInfo dst_info;
+
+    fmt::print("{}\n", "-----------");
+
+    json_serializer json_se(dataset);
+    json_se.io(src_info);
+
+    fmt::print("{}\n", "-----------");
+
+    json_deserializer json_de(dataset);
+    json_de.io(dst_info);
+
+    fmt::print("{}\n", "-----------");
+  }
 };
 
 } // namespace libng
@@ -42,4 +66,5 @@ public:
 void test_json() {
   LIBNG_TEST_CASE(libng::test_json, test_ctor());
   LIBNG_TEST_CASE(libng::test_json, test_to_value());
+  LIBNG_TEST_CASE(libng::test_json, test_io_shader_info());
 }
