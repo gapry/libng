@@ -1,10 +1,12 @@
 // #include <fmt/core.h>
 #include <iostream>
+
 #include <libng_core/log/log.hpp>
 #include <libng_core/types/function.hpp>
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
 #include <libng_core/serializer/json/json_deserializer.hpp>
+
 #include <libng_test/unit_test/UnitTestBase.hpp>
 
 namespace libng {
@@ -16,14 +18,22 @@ public:
     // fmt::print("{}\n", dataset); // Issue
     std::cout << dataset << "\n";
     json_serializer json_se(dataset);
+    json_deserializer json_de(dataset);
   }
 
   void test_to_value() {
     Json dataset;
     json_serializer json_se(dataset);
+    json_deserializer json_de(dataset);
 
-    uint8_t v;
-    json_se.io(v);
+    uint8_t sender = 10;
+    uint8_t recver = 0;
+
+    json_se.io(sender);
+    fmt::print("sender = {}, recver = {}\n", sender, recver);
+
+    json_de.io(recver);
+    fmt::print("sender = {}, recver = {}\n", sender, recver);
   }
 };
 
