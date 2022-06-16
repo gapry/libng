@@ -99,6 +99,8 @@ protected:
     LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto& current = _stack.back();
+    // std::cout << *current << std::endl;
+
     if (!current->is_object()) {
       throw LIBNG_ERROR("{}\n", "deserializer:json: to_object_member");
     }

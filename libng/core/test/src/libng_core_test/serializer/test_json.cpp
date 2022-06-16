@@ -80,43 +80,28 @@ public:
   }
 
   void test_to_object_member() {
-    auto send_pos = Json::object();
-    auto recv_pos = Json::object();
+    auto print = [](const char* const sig, const std::pair<f32, f32>& pos) -> void {
+      LIBNG_LOG("{} = ({}, {})\n", sig, pos.first, pos.second);
+    };
 
-    f32 send_pos_x = 1.2f;
-    f32 send_pos_y = 2.1f;
-    // send_pos["pos_x"] = send_pos_x;
-    // send_pos["pos_y"] = send_pos_y;
+    auto pos = Json::object();
 
-    f32 recv_pos_x    = 0.0f;
-    f32 recv_pos_y    = 0.0f;
-    recv_pos["pos_x"] = recv_pos_x;
-    recv_pos["pos_y"] = recv_pos_y;
-    std::cout << "pos = " << send_pos << "\n";
+    auto send_pos = std::make_pair<f32, f32>(1.2f, 2.1f);
+    auto recv_pos = std::make_pair<f32, f32>(0.0f, 0.0f);
 
-    json_serializer json_se(send_pos);
-    LIBNG_LOG("{}\n", "-----------");
+    print(LIBNG_GET_FUNCTION_NAME(send_pos), send_pos);
+    print(LIBNG_GET_FUNCTION_NAME(recv_pos), recv_pos);
 
-    json_se.named_io("pos_x", send_pos_x);
-    LIBNG_LOG("{}\n", "-----------");
+    json_serializer json_se(pos);
+    json_se.named_io("pos_x", send_pos.first);
+    json_se.named_io("pos_y", send_pos.second);
 
-    json_se.named_io("pos_y", send_pos_y);
-    LIBNG_LOG("{}\n", "-----------");
+    json_deserializer json_de(pos);
+    json_de.named_io("pos_x", recv_pos.first);
+    json_de.named_io("pos_y", recv_pos.second);
 
-    std::cout << send_pos << "\n";
-    std::cout << recv_pos << "\n";
-
-    json_deserializer json_de(recv_pos);
-    LIBNG_LOG("{}\n", "-----------");
-
-    json_de.named_io("pos_x", recv_pos_x);
-    LIBNG_LOG("{}\n", "-----------");
-
-    json_de.named_io("pos_y", recv_pos_y);
-    LIBNG_LOG("{}\n", "-----------");
-
-    std::cout << send_pos << "\n";
-    std::cout << recv_pos << "\n";
+    print(LIBNG_GET_FUNCTION_NAME(send_pos), send_pos);
+    print(LIBNG_GET_FUNCTION_NAME(recv_pos), recv_pos);
   }
 };
 

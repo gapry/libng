@@ -25,3 +25,5 @@
 #else
 #define LIBNG_INLINE inline
 #endif
+
+#define LIBNG_GET_FUNCTION_NAME(sig) #sig
