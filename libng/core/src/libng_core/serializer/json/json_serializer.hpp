@@ -45,6 +45,12 @@ struct json_serializer : public NonCopyable {
     json_io<This, V>::io(*this, val);
   }
 
+  template<class V>
+  void named_io(const char* name, V& val) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    to_object_member(name, val);
+  }
+
   template<class SE, class T, class ENABLE>
   friend struct json_io;
 
@@ -52,12 +58,12 @@ protected:
   template<class V>
   void to_value(const V& val) {
     LIBNG_LOG("{}, stack size = {}\n", __LIBNG_FUNCTION__, _stack.size());
+
     auto& current = _stack.back();
     if (!current->is_null()) {
       throw LIBNG_ERROR("It has already contained value.");
     }
     *current = val;
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
   }
 
   void begin_object() {
@@ -89,6 +95,28 @@ protected:
     *current  = "";
     auto* dst = current->get_ptr<Json::string_t*>();
     dst->assign(val.begin(), val.end());
+  }
+
+  template<class V>
+  void to_object_member(const char* name, V& val) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& obj = _stack.back();
+    if (!obj->is_object()) {
+      throw LIBNG_ERROR("{}\n", "serializer:json: not found object");
+    }
+    // std::cout << "obj = " << obj << "\n"; // Log
+
+    auto& member_value = obj->operator[](name); // Issue
+    // std::cout << "member_value = " << member_value << "\n";
+
+    _stack.emplace_back(&member_value);
+    // std::cout << "_stack " << _stack.back() << "\n"; // Log
+
+    io(val);
+
+    _stack.pop_back(); // Issue
+    // std::cout << "_stack " << _stack.back() << "\n"; // Log
   }
 
 private:

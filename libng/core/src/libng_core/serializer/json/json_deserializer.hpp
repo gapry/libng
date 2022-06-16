@@ -44,18 +44,25 @@ public:
     json_io<This, V>::io(*this, val);
   }
 
+  template<class V>
+  void named_io(const char* name, V& val) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    to_object_member(name, val);
+  }
+
   template<class SE, class T, class ENABLE>
   friend struct json_io;
 
 protected:
   template<class V>
   void to_value(V& val) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
     auto& current = _stack.back();
     if (current->is_null()) {
       throw LIBNG_ERROR("json deserializer:to_value val is null");
     }
     val = *current;
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
   }
 
   void begin_object() {
@@ -85,6 +92,20 @@ protected:
     }
     auto* str = current->get_ptr<Json::string_t*>();
     return StrView(str->data(), str->size());
+  }
+
+  template<class V>
+  void to_object_member(const char* name, V& val) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_object()) {
+      throw LIBNG_ERROR("{}\n", "deserializer:json: to_object_member");
+    }
+    auto& member_value = current->operator[](name);
+    _stack.emplace_back(&member_value);
+    io(val);
+    _stack.pop_back();
   }
 
 private:

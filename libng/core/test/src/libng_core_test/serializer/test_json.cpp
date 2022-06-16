@@ -3,6 +3,7 @@
 
 #include <libng_core/log/log.hpp>
 #include <libng_core/types/function.hpp>
+#include <libng_core/types/number.hpp>
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
@@ -48,17 +49,17 @@ public:
     ShaderInfo src_info;
     ShaderInfo dst_info;
 
-    fmt::print("{}\n", "-----------");
+    LIBNG_LOG("{}\n", "-----------");
 
     json_serializer json_se(dataset);
     json_se.io(src_info);
 
-    fmt::print("{}\n", "-----------");
+    LIBNG_LOG("{}\n", "-----------");
 
     json_deserializer json_de(dataset);
     json_de.io(dst_info);
 
-    fmt::print("{}\n", "-----------");
+    LIBNG_LOG("{}\n", "-----------");
   }
 
   void test_str_view() {
@@ -77,6 +78,46 @@ public:
     fmt::print("send msg = {}\n", send_msg);
     fmt::print("recv msg = {}\n", recv_msg);
   }
+
+  void test_to_object_member() {
+    auto send_pos = Json::object();
+    auto recv_pos = Json::object();
+
+    f32 send_pos_x = 1.2f;
+    f32 send_pos_y = 2.1f;
+    // send_pos["pos_x"] = send_pos_x;
+    // send_pos["pos_y"] = send_pos_y;
+
+    f32 recv_pos_x    = 0.0f;
+    f32 recv_pos_y    = 0.0f;
+    recv_pos["pos_x"] = recv_pos_x;
+    recv_pos["pos_y"] = recv_pos_y;
+    std::cout << "pos = " << send_pos << "\n";
+
+    json_serializer json_se(send_pos);
+    LIBNG_LOG("{}\n", "-----------");
+
+    json_se.named_io("pos_x", send_pos_x);
+    LIBNG_LOG("{}\n", "-----------");
+
+    json_se.named_io("pos_y", send_pos_y);
+    LIBNG_LOG("{}\n", "-----------");
+
+    std::cout << send_pos << "\n";
+    std::cout << recv_pos << "\n";
+
+    json_deserializer json_de(recv_pos);
+    LIBNG_LOG("{}\n", "-----------");
+
+    json_de.named_io("pos_x", recv_pos_x);
+    LIBNG_LOG("{}\n", "-----------");
+
+    json_de.named_io("pos_y", recv_pos_y);
+    LIBNG_LOG("{}\n", "-----------");
+
+    std::cout << send_pos << "\n";
+    std::cout << recv_pos << "\n";
+  }
 };
 
 } // namespace libng
@@ -86,4 +127,5 @@ void test_json() {
   LIBNG_TEST_CASE(libng::test_json, test_to_value());
   LIBNG_TEST_CASE(libng::test_json, test_io_shader_info());
   LIBNG_TEST_CASE(libng::test_json, test_str_view());
+  LIBNG_TEST_CASE(libng::test_json, test_to_object_member());
 }
