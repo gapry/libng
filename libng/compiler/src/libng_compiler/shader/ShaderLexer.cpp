@@ -100,6 +100,11 @@ bool ShaderLexer::_nextToken() {
       return _parseIdentifier();
     }
 
+    // case 5: digit
+    if (isDigit(_ch)) {
+      return _parseNumber();
+    }
+
     // final case: it must be the operator
     _token.type = TokenType::Operator;
     // update the _token before get next char;
@@ -184,7 +189,31 @@ bool ShaderLexer::_parseIdentifier() {
 }
 
 bool ShaderLexer::_parseNumber() {
-  return false;
+  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+  _token.type = TokenType::Number;
+  _token.str += _ch;
+  nextChar();
+
+  bool hasDot = false;
+  while (_ch) {
+    if (_ch == '.') {
+      // case: the '..' is invalid
+      if (hasDot) {
+        errorUnexpectedChar();
+      }
+      hasDot = true;
+      _token.str += _ch;
+      nextChar();
+    } else if (isDigit(_ch)) {
+      _token.str += _ch;
+      nextChar();
+    } else {
+      break;
+    }
+  }
+
+  return true;
 }
 
 bool ShaderLexer::_parseString() {
@@ -192,8 +221,13 @@ bool ShaderLexer::_parseString() {
 }
 
 void ShaderLexer::_error(StrView msg) {
-  // ToDo
   LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
+  // ToDo
+}
+
+void ShaderLexer::errorUnexpectedChar() {
+  LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
+  // ToDo;
 }
 
 ShaderLexer::Token::Token() {

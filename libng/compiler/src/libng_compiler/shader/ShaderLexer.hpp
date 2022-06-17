@@ -82,6 +82,8 @@ public:
     _error(msg);
   }
 
+  void errorUnexpectedChar();
+
 protected:
   void _error(StrView msg);
 
