@@ -105,6 +105,11 @@ bool ShaderLexer::_nextToken() {
       return _parseNumber();
     }
 
+    // case 6: string
+    if (_ch == '\"') {
+      return _parseString();
+    }
+
     // final case: it must be the operator
     _token.type = TokenType::Operator;
     // update the _token before get next char;
@@ -217,7 +222,31 @@ bool ShaderLexer::_parseNumber() {
 }
 
 bool ShaderLexer::_parseString() {
-  return false;
+  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+  // char* ch = '"';
+  _token.type = TokenType::String;
+
+  for (;;) {
+    nextChar();
+    if (_ch == '\\') { /* char* ch = '"\'; */
+      nextChar();
+      // clang-format off
+      switch (_ch) {
+        case '\\': /* char* ch = '"\\'; */
+        case '/':  /* char* ch = '"\/'; */
+        case '"':  /* char* ch = '""';  */ break;
+        default:
+      }
+      // clang-format on
+    } else if (_ch == '\"') { /* char* ch = '""'; */
+      break;
+    } else {
+      // case: the char isn't delimiter
+      _token.str += _ch;
+    }
+  }
+  return true;
 }
 
 void ShaderLexer::_error(StrView msg) {
