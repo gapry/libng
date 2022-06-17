@@ -87,6 +87,14 @@ bool ShaderLexer::_nextToken() {
       return true;
     }
 
+    // case 3: new line
+    if (_ch == '\n') {
+      _token.type = TokenType::Newline;
+      _token.str += "<newline>";
+      nextChar();
+      return true;
+    }
+
     // final case: it must be the operator
     _token.type = TokenType::Operator;
     // update the _token before get next char;
