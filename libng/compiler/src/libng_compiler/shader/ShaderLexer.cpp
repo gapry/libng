@@ -217,7 +217,6 @@ bool ShaderLexer::_parseNumber() {
       break;
     }
   }
-
   return true;
 }
 
@@ -235,11 +234,19 @@ bool ShaderLexer::_parseString() {
       switch (_ch) {
         case '\\': /* char* ch = '"\\'; */
         case '/':  /* char* ch = '"\/'; */
-        case '"':  /* char* ch = '""';  */ break;
-        default:
+        case '"':  /* char* ch = '""';  */ {
+          _token.str += _ch;
+        } break;
+        case 'b': _token.str += '\b'; break;
+        case 'f': _token.str += '\f'; break;
+        case 'n': _token.str += '\n'; break;
+        case 'r': _token.str += '\r'; break;
+        case 't': _token.str += '\t'; break;
+        default: error("unknown escape characher [{}]", _ch); break;
       }
       // clang-format on
     } else if (_ch == '\"') { /* char* ch = '""'; */
+      nextChar();
       break;
     } else {
       // case: the char isn't delimiter
