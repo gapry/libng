@@ -2,6 +2,8 @@
 #include <libng_core/file/FilePath.hpp>
 #include <libng_core/file/Directory.hpp>
 #include <libng_core/libcxx/string.hpp>
+
+#include <libng_compiler/shader/ShaderParser.hpp>
 #include <libng_compiler/shader/ShaderCompiler.hpp>
 #include <libng_compiler/shader/backend/dx11/CodeGenDX11.hpp>
 
@@ -25,7 +27,7 @@ void ShaderCompiler::onRun(int argc, char** argv) {
   }
 
   _apiType = argv[1];
-  LIBNG_LOG("The Graphics API is {}", _apiType);
+  LIBNG_LOG("The Graphics API is {}\n", _apiType);
 
   _apiType.clear();
 
@@ -51,6 +53,11 @@ void ShaderCompiler::onRun(int argc, char** argv) {
   StrView shaderFilename = "Assets/Shaders/test/case01.shader";
   String outputPath      = Fmt("Assets/LocalTemp/Imported/{}", shaderFilename);
   Directory::create(outputPath);
+
+  {
+    ShaderParser parser;
+    parser.readFile(info, shaderFilename);
+  }
 }
 
 } // namespace libng
