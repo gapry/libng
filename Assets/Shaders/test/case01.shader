@@ -1,14 +1,14 @@
 Shader {
-	Properties {
-		Float	s   = 0.5
-		Vec4f	v   = {1.2, 2.3, 3.4, 4.5}
-		Color4f	c = {1.0, 1.0, 1.0, 1.0}
-	}
-	
-	Pass {
+  Properties {
+    Float s   = 0.5
+    Vec4f v   = {1.2, 2.3, 3.4, 4.5}
+    Color4f c = {1.0, 1.0, 1.0, 1.0}
+  }
+  
+  Pass {
     VsFunc vs_main
     PsFunc ps_main
-	}
+  }
 }
 
 struct VertexIn {

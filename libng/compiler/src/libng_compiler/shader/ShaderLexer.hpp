@@ -1,10 +1,12 @@
 #pragma once
 
 #include <libng_core/exception/error.hpp>
-#include <libng_core/types/noncopyable.hpp>
+#include <libng_core/log/log.hpp>
 #include <libng_core/types/function.hpp>
+#include <libng_core/types/noncopyable.hpp>
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/libcxx/span.hpp>
+#include <libng_core/libcxx/type_make.hpp>
 
 namespace libng {
 
@@ -50,11 +52,6 @@ public:
     void onFormat(fmt::format_context& ctx) const;
   };
 
-  ShaderLexer();
-
-  ~ShaderLexer();
-
-  void reset();
   void reset(ByteSpan source, StrView filename);
   void reset(StrView source, StrView filename);
 
@@ -76,7 +73,17 @@ public:
   size_t col()      const { return _col;    }
   // clang-format on
 
+  template<class... Args>
+  void error(const Args&... args) {
+    LIBNG_LOG("{}", __LIBNG_FUNCTION__);
+
+    auto msg = Fmt(args...);
+    _error(msg);
+  }
+
 protected:
+  void _error(StrView msg);
+
   bool _parseIdentifier();
   bool _parseNumber();
   bool _parseString();

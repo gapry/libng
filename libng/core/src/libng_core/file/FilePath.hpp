@@ -1,7 +1,7 @@
 #pragma once
 
-#include <libng_core/libcxx/util/util.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/libcxx/string_view.hpp>
 
 namespace libng {
 

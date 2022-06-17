@@ -2,7 +2,7 @@
 
 #include <libng_core/types/noncopyable.hpp>
 #include <libng_core/math/Rect2.hpp>
-#include <libng_core/libcxx/util/util.hpp>
+#include <libng_core/libcxx/string_view.hpp>
 
 namespace libng {
 

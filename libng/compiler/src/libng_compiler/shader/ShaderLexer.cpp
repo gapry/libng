@@ -1,32 +1,16 @@
-#include <libng_core/libcxx/util/util.hpp>
 #include <libng_compiler/shader/ShaderLexer.hpp>
 
 namespace libng {
 
-ShaderLexer::ShaderLexer() {
-  this->reset();
-}
-
-ShaderLexer::~ShaderLexer() {
-  this->reset();
-}
-
-void ShaderLexer::reset() {
-  _token.setNone();
-  _filename.clear();
-  _source.empty();
-
-  _cur  = nullptr;
-  _ch   = 0;
-  _col  = 0;
-  _line = 0;
-}
-
 void ShaderLexer::reset(ByteSpan source, StrView filename) {
+  LIBNG_LOG("[{}] source size = {}, filename = {}\n", __LIBNG_FUNCTION__, source.size(), filename);
+
   reset(StrView_make(source), filename);
 }
 
 void ShaderLexer::reset(StrView source, StrView filename) {
+  LIBNG_LOG("[{}] source = \n{}\n\nfilename = {}\n", __LIBNG_FUNCTION__, source, filename);
+
   _source   = source;
   _filename = filename;
   _cur      = _source.data();
@@ -39,10 +23,14 @@ void ShaderLexer::reset(StrView source, StrView filename) {
 }
 
 bool ShaderLexer::nextChar() {
+  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
   return false;
 }
 
 bool ShaderLexer::nextToken() {
+  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
   return false;
 }
 
@@ -85,6 +73,11 @@ bool ShaderLexer::_parseToken() {
 
 void ShaderLexer::Token::onFormat(fmt::format_context& ctx) const {
   fmt::format_to(ctx.out(), "({}, {})", type, str);
+}
+
+void ShaderLexer::_error(StrView msg) {
+  // ToDo
+  LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
 }
 
 } // namespace libng

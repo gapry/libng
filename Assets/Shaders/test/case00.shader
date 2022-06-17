@@ -1,10 +1,10 @@
 Shader "case00" {
-	Properties {
+  Properties {
     Mat4 MVP
     Color4f color = {1.0f, 1.0f, 1.0f, 1.0f}
-	}
-	
-	Pass {
+  }
+  
+  Pass {
     // Queue "Transparent"
     Cull None
 
@@ -16,7 +16,7 @@ Shader "case00" {
 
     VsFunc     vs_main
     PsFunc     ps_main
-	}
+  }
 
   Pass {
     VsFunc vs2_main

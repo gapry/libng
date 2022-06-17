@@ -4,7 +4,9 @@
 #include <libng_core/exception/error.hpp>
 #include <libng_core/platform/os.hpp>
 #include <libng_core/file/File.hpp>
-#include <libng_core/libcxx/util/util.hpp>
+#include <libng_core/libcxx/span.hpp>
+#include <libng_core/libcxx/string.hpp>
+#include <libng_core/libcxx/string_view.hpp>
 
 namespace libng {
 
