@@ -47,6 +47,15 @@ bool ShaderLexer::nextChar() {
 bool ShaderLexer::nextToken() {
   LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
+  if (!_nextToken()) {
+    return false;
+  }
+  return true;
+}
+
+bool ShaderLexer::_nextToken() {
+  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
   return false;
 }
 

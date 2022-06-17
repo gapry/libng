@@ -84,6 +84,8 @@ public:
 protected:
   void _error(StrView msg);
 
+  bool _nextToken();
+
   bool _parseIdentifier();
   bool _parseNumber();
   bool _parseString();
