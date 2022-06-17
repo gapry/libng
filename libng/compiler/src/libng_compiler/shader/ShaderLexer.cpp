@@ -23,9 +23,25 @@ void ShaderLexer::reset(StrView source, StrView filename) {
 }
 
 bool ShaderLexer::nextChar() {
-  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  LIBNG_LOG("[begin] {}, _ch = {}, *_cur = {}, _col = {}\n", __LIBNG_FUNCTION__, _ch, *_cur, _col);
 
-  return false;
+  _ch = 0;
+  if (!_cur || _cur >= _source.end()) {
+    return false;
+  }
+
+  _ch = *_cur;
+  _cur++;
+  _col++;
+
+  if (_ch == '\n') {
+    _line++;
+    _col = 0;
+  }
+
+  LIBNG_LOG("[end] {}, _ch = {}, *_cur = {}, _col = {}\n", __LIBNG_FUNCTION__, _ch, *_cur, _col);
+
+  return true;
 }
 
 bool ShaderLexer::nextToken() {
