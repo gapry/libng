@@ -56,8 +56,9 @@ public:
   void reset(StrView source, StrView filename);
 
   bool nextChar();
-
   bool nextToken();
+
+  void trimSpaces();
 
   // clang-format off
   bool isDigit(const char c)     const { return c >= '0' && c <= '9';             }

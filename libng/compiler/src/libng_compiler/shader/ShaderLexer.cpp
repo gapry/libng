@@ -56,7 +56,24 @@ bool ShaderLexer::nextToken() {
 bool ShaderLexer::_nextToken() {
   LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
-  return false;
+  _token.setNone();
+  for (;;) {
+    trimSpaces();
+    nextChar();
+    return true;
+  }
+}
+
+void ShaderLexer::trimSpaces() {
+  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+  for (;;) {
+    if (_ch == ' ' || _ch == '\t' || _ch == '\r') {
+      nextChar();
+    } else {
+      break;
+    }
+  }
 }
 
 ShaderLexer::Token::Token() {
