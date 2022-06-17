@@ -65,6 +65,12 @@ bool ShaderLexer::_nextToken() {
       return false;
     }
 
+    // case 1: single line comment
+    if (_ch == '#') {
+      _parseCommentSingleLine();
+      continue;
+    }
+
     // update the _token before get next char;
     _token.type = TokenType::Operator;
     _token.str += _ch;
@@ -85,17 +91,27 @@ void ShaderLexer::trimSpaces() {
   }
 }
 
-ShaderLexer::Token::Token() {
-  this->setNone();
+void ShaderLexer::_parseCommentSingleLine() {
+  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+  nextChar();
+  for (;;) {
+    // case 0: no char
+    if (!_ch) {
+      return;
+    }
+    // case 1: new line
+    if (_ch == '\n') {
+      nextChar();
+      return;
+    } else {
+      // case 2: get next char diectly
+      nextChar();
+    }
+  }
 }
 
-ShaderLexer::Token::~Token() {
-  this->setNone();
-}
-
-void ShaderLexer::Token::setNone() {
-  type = TokenType::None;
-  str.clear();
+void ShaderLexer::_parseCommentBlock() {
 }
 
 bool ShaderLexer::_parseIdentifier() {
@@ -110,25 +126,26 @@ bool ShaderLexer::_parseString() {
   return false;
 }
 
-bool ShaderLexer::_parseCommentBlock() {
-  return false;
+void ShaderLexer::_error(StrView msg) {
+  // ToDo
+  LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
 }
 
-bool ShaderLexer::_parseCommentString() {
-  return false;
+ShaderLexer::Token::Token() {
+  this->setNone();
 }
 
-bool ShaderLexer::_parseToken() {
-  return false;
+ShaderLexer::Token::~Token() {
+  this->setNone();
+}
+
+void ShaderLexer::Token::setNone() {
+  type = TokenType::None;
+  str.clear();
 }
 
 void ShaderLexer::Token::onFormat(fmt::format_context& ctx) const {
   fmt::format_to(ctx.out(), "({}, {})", type, str);
-}
-
-void ShaderLexer::_error(StrView msg) {
-  // ToDo
-  LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
 }
 
 } // namespace libng

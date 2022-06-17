@@ -90,9 +90,8 @@ protected:
   bool _parseIdentifier();
   bool _parseNumber();
   bool _parseString();
-  bool _parseCommentBlock();
-  bool _parseCommentString();
-  bool _parseToken();
+  void _parseCommentSingleLine();
+  void _parseCommentBlock();
 
   Token _token;
   String _filename;
