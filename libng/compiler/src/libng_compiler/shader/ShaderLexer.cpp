@@ -65,6 +65,9 @@ bool ShaderLexer::_nextToken() {
       return false;
     }
 
+    // update the _token before get next char;
+    _token.type = TokenType::Operator;
+    _token.str += _ch;
     nextChar();
     return true;
   }
