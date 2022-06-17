@@ -103,6 +103,37 @@ public:
     print(LIBNG_GET_FUNCTION_NAME(send_pos), send_pos);
     print(LIBNG_GET_FUNCTION_NAME(recv_pos), recv_pos);
   }
+
+  void test_array() {
+    auto print = [](const Vector_<f32, 16>& dataset) -> void {
+      for (auto& data : dataset) {
+        fmt::print("{} ", data);
+      }
+      fmt::print("\n");
+    };
+
+    Json storage;
+    auto send_dataset = Vector_<f32, 16>();
+    auto recv_dataset = Vector_<f32, 16>();
+
+    // send_dataset.resize(4); // Issue
+    send_dataset.push_back(1.2f);
+    send_dataset.push_back(2.3f);
+    send_dataset.push_back(3.4f);
+    send_dataset.push_back(4.5f);
+
+    json_serializer json_se(storage);
+    json_se.io(send_dataset);
+
+    print(send_dataset);
+    print(recv_dataset);
+
+    json_deserializer json_de(storage);
+    json_de.io(recv_dataset);
+
+    print(send_dataset);
+    print(recv_dataset);
+  }
 };
 
 } // namespace libng
@@ -113,4 +144,5 @@ void test_json() {
   LIBNG_TEST_CASE(libng::test_json, test_io_shader_info());
   LIBNG_TEST_CASE(libng::test_json, test_str_view());
   LIBNG_TEST_CASE(libng::test_json, test_to_object_member());
+  LIBNG_TEST_CASE(libng::test_json, test_array());
 }

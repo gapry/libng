@@ -119,6 +119,60 @@ protected:
     // std::cout << "_stack " << _stack.back() << "\n"; // Log
   }
 
+  void begin_array() {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_null()) {
+      throw LIBNG_ERROR("{}\n", "serializer:json: it isn't empty");
+    }
+    *current = Json::array();
+  }
+
+  void resize_array(size_t size) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_array()) {
+      throw LIBNG_ERROR("{}\n", "serializer:json: resize_array");
+    }
+
+    auto* json_array = current->get_ptr<Json::array_t*>();
+    json_array->resize(size);
+  }
+
+  void end_array() {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_array()) {
+      throw LIBNG_ERROR("{}\n", "serializer:json: end_array");
+    }
+  }
+
+  template<class V>
+  void to_array_element(size_t index, V& val) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_array()) {
+      throw LIBNG_ERROR("{}\n", "serializer:json: to_array_element");
+    }
+
+    auto* json_array = current->get_ptr<Json::array_t*>();
+    // LIBNG_LOG("index = {}\n", index);
+    // LIBNG_LOG("size  = {}\n", json_array->size());
+
+    if (index >= json_array->size()) {
+      throw LIBNG_ERROR("{}\n", "serializer:json:array: index overflow");
+    }
+
+    auto& elem_val = json_array->at(index);
+    _stack.emplace_back(&elem_val);
+    io(val);
+    _stack.pop_back();
+  }
+
 private:
   Json& _json;
   Vector_<Json*, (16 << 1) + (16 >> 1)> _stack;
@@ -130,6 +184,21 @@ struct json_io<json_serializer, String_<N>> {
     LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     se.to_str_view(data);
+  }
+};
+
+template<class T, size_t N>
+struct json_io<json_serializer, Vector_<T, N>> {
+  static void io(json_serializer& se, Vector_<T, N>& data) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    se.begin_array();
+    size_t n = data.size();
+    se.resize_array(n);
+    for (size_t i = 0; i < n; i++) {
+      se.to_array_element(i, data[i]);
+    }
+    se.end_array();
   }
 };
 

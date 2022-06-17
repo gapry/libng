@@ -110,6 +110,47 @@ protected:
     _stack.pop_back();
   }
 
+  size_t begin_array() {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_array()) {
+      throw LIBNG_ERROR("{}\n", "deserializer:json: begin_array");
+    }
+
+    auto* json_array = current->get_ptr<Json::array_t*>();
+    return json_array->size();
+  }
+
+  void end_array() {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_array()) {
+      throw LIBNG_ERROR("{}\n", "deserializer:json: end_array");
+    }
+  }
+
+  template<class V>
+  void to_array_element(size_t index, V& val) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto& current = _stack.back();
+    if (!current->is_array()) {
+      throw LIBNG_ERROR("{}\n", "deserializer:json: to_array_element");
+    }
+
+    auto* json_array = current->get_ptr<Json::array_t*>();
+    if (index >= json_array->size()) {
+      throw LIBNG_ERROR("{}\n", "deserializer:json: to_array_element");
+    }
+
+    auto& elem_val = json_array->at(index);
+    _stack.emplace_back(&elem_val);
+    io(val);
+    _stack.pop_back();
+  }
+
 private:
   Json& _json;
   Vector_<Json*, (16 << 1) + (16 >> 1)> _stack;
@@ -121,6 +162,21 @@ struct json_io<json_deserializer, String_<N>> {
     LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     data = se.to_str_view();
+  }
+};
+
+template<class T, size_t N>
+struct json_io<json_deserializer, Vector_<T, N>> {
+  static void io(json_deserializer& se, Vector_<T, N>& data) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    size_t n = se.begin_array();
+    data.clear();
+    data.resize(n);
+    for (size_t i = 0; i < n; ++i) {
+      se.to_array_element(i, data[i]);
+    }
+    se.end_array();
   }
 };
 
