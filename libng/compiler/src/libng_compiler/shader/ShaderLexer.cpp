@@ -59,6 +59,12 @@ bool ShaderLexer::_nextToken() {
   _token.setNone();
   for (;;) {
     trimSpaces();
+
+    // case 0: the next token doesn't exist
+    if (!_ch) {
+      return false;
+    }
+
     nextChar();
     return true;
   }
