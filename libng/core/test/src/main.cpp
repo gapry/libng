@@ -2,7 +2,6 @@
 #include <libng_core_test/memory/TestSPtr.hpp>
 #include <libng_core_test/memory/TestLinearAllocator.hpp>
 #include <libng_core_test/libcxx/TestVector.hpp>
-#include <libng_core_test/third_party/eastl/TestEASTL.hpp>
 #include <libng_core_test/third_party/imgui/TestImGui.hpp>
 
 #define LIBNG_RUN_TEST(fn)                     \
@@ -14,6 +13,10 @@
 namespace libng {
 
 void run_temp_test() {
+  LIBNG_RUN_TEST(test_eastl_fixed_vector);
+}
+
+void run_third_party() {
   LIBNG_RUN_TEST(test_json);
 }
 
@@ -28,8 +31,8 @@ void run_all_test() {
   LIBNG_VERIFY(TestLibcxx);
   LIBNG_VERIFY(TestSPrt);
   LIBNG_VERIFY(TestLinearAllocator);
-  LIBNG_TEST_CASE(TestEASTL, onVerify());
-  LIBNG_TEST_CASE(TestImGui, onVerify());
+  // LIBNG_TEST_CASE(TestEASTL, onVerify());
+  // LIBNG_TEST_CASE(TestImGui, onVerify());
 }
 
 int test_main(void) {
