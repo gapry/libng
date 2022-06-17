@@ -71,8 +71,25 @@ bool ShaderLexer::_nextToken() {
       continue;
     }
 
-    // update the _token before get next char;
+    // case 2: comment block
+    if (_ch == '/') {
+      nextChar();
+      if (_ch == '*') {
+        _parseCommentBlock();
+        continue;
+      }
+      if (_ch == '/') {
+        _parseCommentSingleLine();
+        continue;
+      }
+      _token.type = TokenType::Operator;
+      _token.str  = '/';
+      return true;
+    }
+
+    // final case: it must be the operator
     _token.type = TokenType::Operator;
+    // update the _token before get next char;
     _token.str += _ch;
     nextChar();
     return true;
@@ -112,6 +129,27 @@ void ShaderLexer::_parseCommentSingleLine() {
 }
 
 void ShaderLexer::_parseCommentBlock() {
+  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+  nextChar();
+  for (;;) {
+    // case 0: no char
+    if (!_ch) {
+      return;
+    }
+    // case 1: comment operator
+    if (_ch == '*') {
+      nextChar();
+      // case 2: the end of the comment
+      if (_ch == '/') {
+        nextChar();
+        return;
+      } else {
+        // case 3: get next char diectly
+        nextChar();
+      }
+    }
+  }
 }
 
 bool ShaderLexer::_parseIdentifier() {
