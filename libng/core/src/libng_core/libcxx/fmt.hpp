@@ -7,6 +7,7 @@
 #include <libng_core/platform/compiler.hpp>
 #include <libng_core/types/utility.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/libcxx/json.hpp>
 
 #if LIBNG_COMPILER_VC
 #if _DEBUG
@@ -128,5 +129,16 @@ struct fmt::formatter<libng::StringW_<N>> {
   auto format(const libng::StringW_<N>& v, fmt::format_context& ctx) {
     libng::StrViewW view(v.data(), v.size());
     return fmt::format_to(ctx.out(), "{}", view);
+  }
+};
+
+// Issue
+template<>
+struct fmt::formatter<libng::Json> {
+  auto parse(fmt::format_parse_context& ctx) {
+    return ctx.begin();
+  }
+  auto format(const libng::Json& v, fmt::format_context& ctx) {
+    return fmt::format_to(ctx.out(), "{}", v);
   }
 };
