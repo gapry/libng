@@ -3,35 +3,15 @@
 #include <libng_core/file/Directory.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_compiler/shader/ShaderCompiler.hpp>
+#include <libng_compiler/shader/backend/dx11/CodeGenDX11.hpp>
 
 namespace libng {
 
 ShaderCompiler::ShaderCompiler() {
   _apiType.clear();
-  _assetsPath.clear();
-
-  _file = getExecutableFilename();
-  _path = FilePath::dirname(_file);
-
-#if LIBNG_IDE_VSC
-  _assetsPath = "\\..\\..\\Assets";
-#elif LIBNG_IDE_VS
-  _assetsPath = "/../../../../Assets";
-#endif
-  _path.append(_assetsPath);
-
-  Directory::setCurrent(_path);
-
-  _proj = ProjectSettings::instance();
-  _proj->setProjectRoot(_path);
 }
 
 ShaderCompiler::~ShaderCompiler() {
-  if (!_proj) {
-    _proj = nullptr;
-  }
-  _file.clear();
-  _path.clear();
   _apiType.clear();
 }
 
@@ -45,32 +25,32 @@ void ShaderCompiler::onRun(int argc, char** argv) {
   }
 
   _apiType = argv[1];
-  LIBNG_LOG("GFX API = {}", _apiType);
+  LIBNG_LOG("The Graphics API is {}", _apiType);
+
+  _apiType.clear();
+
+  {
+    String file = getExecutableFilename();
+    String path = FilePath::dirname(file);
+
+    String assetsPath;
+#if LIBNG_IDE_VSC
+    assetsPath = "\\..\\..\\Assets";
+#elif LIBNG_IDE_VS
+    assetsPath = "/../../../../Assets";
+#endif
+    path.append(assetsPath);
+    Directory::setCurrent(path);
+
+    auto* proj = ProjectSettings::instance();
+    proj->setProjectRoot(path);
+  }
+
+  ShaderInfo info;
 
   StrView shaderFilename = "Assets/Shaders/test/case01.shader";
   String outputPath      = Fmt("Assets/LocalTemp/Imported/{}", shaderFilename);
   Directory::create(outputPath);
-
-  ShaderInfo info;
-  readFile(info, shaderFilename);
-}
-
-void ShaderCompiler::readFile(ShaderInfo& outInfo, StrView filename) {
-  // _memMapfile.open(filename);
-  // readMem(outInfo, _memMapfile, filename);
-  //
-  // LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
-}
-
-void ShaderCompiler::readMem(ShaderInfo& outInfo, ByteSpan data, StrView filename) {
-  // outInfo.clear();
-  // _outInfo = &outInfo;
-
-  // lexer->reset(data, filename);
-  // if (lexer->_token.isIdentifier("Shader")) {
-  //   parser->_readShader();
-  // } else {
-  // }
 }
 
 } // namespace libng

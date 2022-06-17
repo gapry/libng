@@ -9,35 +9,21 @@
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/backend/dx11/DX11Util.hpp>
 #include <libng_render/backend/dx11/TypeDX11.hpp>
-#include <libng_compiler/shader/ShaderCodeGen.hpp>
 
 namespace libng {
 
-class CodeGenDX11 : public ShaderCodeGen {
+class CodeGenDX11 {
   using Util     = DX11Util;
   using DataType = RenderDataType;
 
 public:
-  CodeGenDX11(CreateDesc& desc);
+  CodeGenDX11();
 
 private:
-  struct Reflect {
-    void execute();
-
-  private:
-    void _inputs();
-    void _constBuffers();
-    void _textures();
-    void _samplers();
-  };
-
-  StrView _outFilename;
-  ByteSpan _ByteToChar;
-  ShaderStageMask _stage;
-  StrView _profile;
-  // ShaderStageInfo& outInfo; // Issue: references must be initialized
-  ID3D11ShaderReflection* _refect;
-  // D3D11_SHADER_DESC& desc;
+  void _inputs();
+  void _constBuffers();
+  void _textures();
+  void _samplers();
 };
 
 } // namespace libng

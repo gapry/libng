@@ -10,7 +10,7 @@
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/serializer/json/json_io.hpp>
 
-#define SGE_NAMED_IO(SE, V) SE.named_io(#V, V)
+#define LIBNG_NAMED_IO(SE, V) SE.named_io(#V, V)
 
 namespace libng {
 

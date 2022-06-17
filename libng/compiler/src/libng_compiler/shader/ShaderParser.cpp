@@ -2,30 +2,6 @@
 
 namespace libng {
 
-bool ShaderParser::_parseIdentifier() {
-  return false;
-}
-
-bool ShaderParser::_parseNumber() {
-  return false;
-}
-
-bool ShaderParser::_parseString() {
-  return false;
-}
-
-bool ShaderParser::_parseCommentBlock() {
-  return false;
-}
-
-bool ShaderParser::_parseCommentString() {
-  return false;
-}
-
-bool ShaderParser::_parseToken() {
-  return false;
-}
-
 void ShaderParser::_readShader() {
 }
 

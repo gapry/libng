@@ -2,7 +2,7 @@
 
 namespace libng {
 
-CodeGenOpenGL::CodeGenOpenGL(CreateDesc& desc) {
+CodeGenOpenGL::CodeGenOpenGL() {
   // glUseProgram(_program);
   // shader = glCreateShader(type);
   // glShaderSource(shader, 1, &srcData, &srcLen);

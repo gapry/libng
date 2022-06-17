@@ -3,19 +3,12 @@
 #include <libng_core/libcxx/util/util.hpp>
 #include <libng_core/file/MemMapFile.hpp>
 #include <libng_render/material/ShaderInfo.hpp>
+#include <libng_compiler/shader/ShaderLexer.hpp>
 
 namespace libng {
 
-class ShaderParser {
+class ShaderParser : public ShaderLexer {
 public:
-  // protected: // Issue
-  bool _parseIdentifier();
-  bool _parseNumber();
-  bool _parseString();
-  bool _parseCommentBlock();
-  bool _parseCommentString();
-  bool _parseToken();
-
   void _readShader();
   void _readProperties();
   void _readProperty();

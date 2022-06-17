@@ -6,29 +6,16 @@
 
 namespace libng {
 
-ShaderCodeGen* ShaderCodeGen::s_codeGen = nullptr;
-
-ShaderCodeGen::CreateDesc::CreateDesc(StrView filename, ShaderStage stage, StrView src, StrView entry) {
-  outFilename = filename;
-  shaderStage = stage;
-  srcFilename = src;
-  entryFunc   = entry;
+ShaderCodeGen::ShaderCodeGen() {
+  resetApi();
 }
 
-ShaderCodeGen* ShaderCodeGen::create(CreateDesc& desc) {
-  ShaderCodeGen* codeGen = nullptr;
-  // clang-format off
-  switch (desc.apiType) {
-    case ApiType::DX11:   codeGen = new CodeGenDX11(desc);   break;
-    case ApiType::OpenGL: codeGen = new CodeGenOpenGL(desc); break;
-    default: LIBNG_ERROR("{}\n", "Unsupported Shader Format");
-  }
-  // clang-format on
-  return codeGen;
+ShaderCodeGen::~ShaderCodeGen() {
+  resetApi();
 }
 
-void ShaderCodeGen::setApiType(String& apiType) { // Issue: const string&
-  _apiType = apiType;
+void ShaderCodeGen::resetApi() {
+  _apiType.clear();
 }
 
 } // namespace libng

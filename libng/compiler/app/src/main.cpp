@@ -8,7 +8,7 @@
 #include <libng_compiler/json/JSONLexer.hpp>
 #include <libng_compiler/shader/ShaderCompiler.hpp>
 
-int main(int argc, char** argv) {
+void pre_run() {
   libng::String file = libng::Directory::getCurrent();
   libng::String path = libng::FilePath::dirname(file);
 
@@ -22,7 +22,9 @@ int main(int argc, char** argv) {
 
   libng::Directory::setCurrent(path);
   auto dir = libng::Directory::getCurrent();
+}
 
+int main(int argc, char** argv) {
   libng::ShaderCompiler shaderCompiler;
   shaderCompiler.run(argc, argv);
   return 0;

@@ -76,7 +76,13 @@ public:
   size_t col()      const { return _col;    }
   // clang-format on
 
-  // private: // Issue
+protected:
+  bool _parseIdentifier();
+  bool _parseNumber();
+  bool _parseString();
+  bool _parseCommentBlock();
+  bool _parseCommentString();
+  bool _parseToken();
 
   Token _token;
   String _filename;

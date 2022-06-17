@@ -59,6 +59,30 @@ void ShaderLexer::Token::setNone() {
   str.clear();
 }
 
+bool ShaderLexer::_parseIdentifier() {
+  return false;
+}
+
+bool ShaderLexer::_parseNumber() {
+  return false;
+}
+
+bool ShaderLexer::_parseString() {
+  return false;
+}
+
+bool ShaderLexer::_parseCommentBlock() {
+  return false;
+}
+
+bool ShaderLexer::_parseCommentString() {
+  return false;
+}
+
+bool ShaderLexer::_parseToken() {
+  return false;
+}
+
 void ShaderLexer::Token::onFormat(fmt::format_context& ctx) const {
   fmt::format_to(ctx.out(), "({}, {})", type, str);
 }
