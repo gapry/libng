@@ -95,6 +95,11 @@ bool ShaderLexer::_nextToken() {
       return true;
     }
 
+    // case 4: alphabet
+    if (_ch == '_' || isAlpha(_ch)) {
+      return _parseIdentifier();
+    }
+
     // final case: it must be the operator
     _token.type = TokenType::Operator;
     // update the _token before get next char;
@@ -161,7 +166,21 @@ void ShaderLexer::_parseCommentBlock() {
 }
 
 bool ShaderLexer::_parseIdentifier() {
-  return false;
+  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+  _token.type = TokenType::Identifier;
+  _token.str += _ch;
+  nextChar();
+  while (_ch) {
+    // the identifier can be combined by alphabet, digit and '_'
+    if (_ch == '_' || isAlpha(_ch) || isDigit(_ch)) {
+      _token.str += _ch;
+      nextChar();
+    } else {
+      break;
+    }
+  }
+  return true;
 }
 
 bool ShaderLexer::_parseNumber() {
