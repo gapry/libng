@@ -1,7 +1,9 @@
 #pragma once
 
 #include <libng_core/log/log.hpp>
+#include <libng_core/types/number.hpp>
 #include <libng_core/types/noncopyable.hpp>
+#include <libng_core/types/enum.hpp>
 #include <libng_core/exception/error.hpp>
 
 #define color_green "\033[32m"

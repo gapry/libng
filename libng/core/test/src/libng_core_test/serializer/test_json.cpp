@@ -4,16 +4,31 @@
 #include <libng_core/log/log.hpp>
 #include <libng_core/types/function.hpp>
 #include <libng_core/types/number.hpp>
+#include <libng_core/types/enum.hpp>
+#include <libng_core/exception/error.hpp>
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
 #include <libng_core/serializer/json/json_deserializer.hpp>
 
+#include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/material/ShaderInfo.hpp>
 
 #include <libng_test/unit_test/UnitTestBase.hpp>
 
 namespace libng {
+
+enum class TestJsonInfo : u8
+{
+  None,
+  PosX,
+};
+
+#define TestJsonInfo_ENUM_LIST(E) \
+  E(None)                         \
+  E(PosX)                         \
+  // ----
+LIBNG_ENUM_STR_UTIL(TestJsonInfo)
 
 class test_json : public UnitTestBase {
 public:
@@ -134,6 +149,21 @@ public:
     print(send_dataset);
     print(recv_dataset);
   }
+
+  void test_enum(void) {
+    Json storage;
+
+    TestJsonInfo p1 = TestJsonInfo::PosX;
+    TestJsonInfo p2;
+    // RenderDataType d1 = RenderDataType::Float16;
+
+    json_serializer json_se(storage);
+    json_se.io(p1);
+    // json_se.io(d1); // Issue: bug as continue io
+
+    json_deserializer json_de(storage);
+    json_de.io(p2);
+  }
 };
 
 } // namespace libng
@@ -145,4 +175,5 @@ void test_json() {
   LIBNG_TEST_CASE(libng::test_json, test_str_view());
   LIBNG_TEST_CASE(libng::test_json, test_to_object_member());
   LIBNG_TEST_CASE(libng::test_json, test_array());
+  LIBNG_TEST_CASE(libng::test_json, test_enum());
 }

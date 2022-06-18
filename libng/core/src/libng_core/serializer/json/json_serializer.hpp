@@ -19,35 +19,38 @@ struct json_serializer : public NonCopyable {
 
   json_serializer(Json& out_json)
     : _json(out_json) {
-    _stack.emplace_back(&_json);
     LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    _stack.emplace_back(&_json);
   }
 
   // clang-format off
-  void io(u8&  v) { to_value(v); LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); }
-  void io(u16& v) { to_value(v); LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); }
-  void io(u32& v) { to_value(v); LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); }
-  void io(u64& v) { to_value(v); LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); }
+  void io(u8&  v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(u16& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(u32& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(u64& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
 
-  void io(i8&  v) { to_value(v); }
-  void io(i16& v) { to_value(v); }
-  void io(i32& v) { to_value(v); }
-  void io(i64& v) { to_value(v); }
+  void io(i8&  v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(i16& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(i32& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(i64& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
   
-  void io(f32&  v) { to_value(v); }
-  void io(f64&  v) { to_value(v); }
-  void io(f128& v) { to_value(v); }
-  // clang-format on
+  void io(f32&  v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(f64&  v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(f128& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  // clang-format on  
 
   template<class V>
   void io(V& val) {
     LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
     json_io<This, V>::io(*this, val);
   }
 
   template<class V>
   void named_io(const char* name, V& val) {
     LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
     to_object_member(name, val);
   }
 
@@ -64,6 +67,16 @@ protected:
       throw LIBNG_ERROR("It has already contained value.");
     }
     *current = val;
+  }
+
+  template<class V>
+  void to_enum(const V& val) {
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+
+    auto data = enumStr(val);
+    LIBNG_LOG("enumStr(val) = {}\n", data);
+
+    to_value(data);
   }
 
   void begin_object() {
