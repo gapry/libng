@@ -28,7 +28,7 @@ struct VertexPos : public VertexBase {
   }
 
   static void onRegister(VertexLayout* layout) {
-    layout->addElement(Semantic::Pos, &VertexPos::pos);
+    layout->addElement(Semantic::POSITION, &VertexPos::pos);
   }
 };
 

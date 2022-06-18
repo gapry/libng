@@ -23,7 +23,8 @@ void ShaderLexer::reset(StrView source, StrView filename) {
 }
 
 bool ShaderLexer::nextChar() {
-  LIBNG_LOG("[begin] {}, _ch = {}, *_cur = {}, _col = {}\n", __LIBNG_FUNCTION__, _ch, *_cur, _col);
+  // LIBNG_LOG("[begin] {}, _ch = {}, *_cur = {}, _col = {}\n", __LIBNG_FUNCTION__, _ch, *_cur, _col);
+  LIBNG_LOG("[begin] {}\n", __LIBNG_FUNCTION__);
 
   _ch = 0;
   if (!_cur || _cur >= _source.end()) {
@@ -39,7 +40,8 @@ bool ShaderLexer::nextChar() {
     _col = 0;
   }
 
-  LIBNG_LOG("[end] {}, _ch = {}, *_cur = {}, _col = {}\n", __LIBNG_FUNCTION__, _ch, *_cur, _col);
+  // LIBNG_LOG("[end] {}, _ch = {}, *_cur = {}, _col = {}\n", __LIBNG_FUNCTION__, _ch, *_cur, _col);
+  LIBNG_LOG("[end] {}\n", __LIBNG_FUNCTION__);
 
   return true;
 }
@@ -50,6 +52,7 @@ bool ShaderLexer::nextToken() {
   if (!_nextToken()) {
     return false;
   }
+  LIBNG_LOG("{} {}\n", _line, _token);
   return true;
 }
 
@@ -57,6 +60,7 @@ bool ShaderLexer::_nextToken() {
   LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
   _token.setNone();
+
   for (;;) {
     trimSpaces();
 
@@ -69,6 +73,29 @@ bool ShaderLexer::_nextToken() {
     if (_ch == '#') {
       _parseCommentSingleLine();
       continue;
+    }
+
+    // case 4: alphabet
+    if (_ch == '_' || isAlpha(_ch)) {
+      return _parseIdentifier();
+    }
+
+    // case 5: digit
+    if (isDigit(_ch)) {
+      return _parseNumber();
+    }
+
+    // case 6: string
+    if (_ch == '\"') {
+      return _parseString();
+    }
+
+    // case 3: new line
+    if (_ch == '\n') {
+      _token.type = TokenType::Newline;
+      _token.str += "<newline>";
+      nextChar();
+      return true;
     }
 
     // case 2: comment block
@@ -85,29 +112,6 @@ bool ShaderLexer::_nextToken() {
       _token.type = TokenType::Operator;
       _token.str  = '/';
       return true;
-    }
-
-    // case 3: new line
-    if (_ch == '\n') {
-      _token.type = TokenType::Newline;
-      _token.str += "<newline>";
-      nextChar();
-      return true;
-    }
-
-    // case 4: alphabet
-    if (_ch == '_' || isAlpha(_ch)) {
-      return _parseIdentifier();
-    }
-
-    // case 5: digit
-    if (isDigit(_ch)) {
-      return _parseNumber();
-    }
-
-    // case 6: string
-    if (_ch == '\"') {
-      return _parseString();
     }
 
     // final case: it must be the operator
@@ -242,7 +246,7 @@ bool ShaderLexer::_parseString() {
         case 'n': _token.str += '\n'; break;
         case 'r': _token.str += '\r'; break;
         case 't': _token.str += '\t'; break;
-        default: error("unknown escape characher [{}]", _ch); break;
+        default: error("unknown escape characher [{}]", _ch); 
       }
       // clang-format on
     } else if (_ch == '\"') { /* char* ch = '""'; */
@@ -256,6 +260,22 @@ bool ShaderLexer::_parseString() {
   return true;
 }
 
+void ShaderLexer::readString(String& s) {
+  if (!_token.isIdentifier()) {
+    errorUnexpectedToken();
+  }
+  s = _token.str;
+  nextToken();
+}
+
+void ShaderLexer::readIdentifier(String& s) {
+  if (!_token.isIdentifier()) {
+    errorUnexpectedToken();
+  }
+  s = _token.str;
+  nextToken();
+}
+
 void ShaderLexer::_error(StrView msg) {
   LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
   // ToDo
@@ -263,7 +283,32 @@ void ShaderLexer::_error(StrView msg) {
 
 void ShaderLexer::errorUnexpectedChar() {
   LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
-  // ToDo;
+
+  error("Unexpected charactor [{}]", _ch);
+}
+
+void ShaderLexer::errorUnexpectedToken() {
+  LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
+
+  error("Unexpected token [{}]", _token.str);
+}
+
+void ShaderLexer::expectOperator(StrView s) {
+  LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
+
+  if (_token.isOperator(s)) {
+    nextToken();
+    return;
+  }
+  error("expected token {}", s);
+}
+
+void ShaderLexer::skipNewlineTokens() {
+  LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
+
+  while (_token.isNewLine()) {
+    nextToken();
+  }
 }
 
 ShaderLexer::Token::Token() {

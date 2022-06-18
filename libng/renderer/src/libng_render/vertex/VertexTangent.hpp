@@ -26,7 +26,7 @@ struct VertexTangent : public BASE {
   static void onRegister(VertexLayout* layout) {
     static_assert(std::is_same<TangentType, NormalType>::value, ""); // Issue
     BASE::onRegister(layout);
-    layout->addElement(Semantic::Tangent, &VertexTangent::tangent);
+    layout->addElement(Semantic::TANGENT, &VertexTangent::tangent);
   }
 };
 

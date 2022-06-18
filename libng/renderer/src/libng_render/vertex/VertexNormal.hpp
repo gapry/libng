@@ -25,7 +25,7 @@ struct VertexNormal : public BASE {                      // Issue
 
   static void onRegister(VertexLayout* layout) {
     BASE::onRegister(layout);
-    layout->addElement(Semantic::Normal, &VertexNormal::normal);
+    layout->addElement(Semantic::NORMAL, &VertexNormal::normal);
   }
 };
 

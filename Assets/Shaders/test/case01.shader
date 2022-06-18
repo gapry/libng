@@ -2,12 +2,23 @@ Shader {
   Properties {
     Float s   = 0.5
     Vec4f v   = {1.2, 2.3, 3.4, 4.5}
+
+    [DisplayName="Color Test"]
     Color4f c = {1.0, 1.0, 1.0, 1.0}
   }
   
   Pass {
-    VsFunc vs_main
-    PsFunc ps_main
+		// Queue	     "Transparent"
+		// Cull		     None
+    //
+		// BlendRGB 	 
+		// BlendAlpha	 
+    //
+		// DepthTest	 Always
+		// DepthWrite	 false
+    //
+    VsFunc         vs_main
+    PsFunc         ps_main
   }
 }
 

@@ -6,6 +6,8 @@
 #include <libng_core/types/noncopyable.hpp>
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/libcxx/span.hpp>
+#include <libng_core/libcxx/string.hpp>
+#include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/libcxx/type_make.hpp>
 
 namespace libng {
@@ -27,7 +29,6 @@ public:
     String str;
 
     Token();
-
     ~Token();
 
     // clang-format off
@@ -42,7 +43,7 @@ public:
     bool isString(const StrView s)     const { return TokenType::String == type && s == str; }
 
     bool isOperator()                  const { return TokenType::Operator == type;}
-    bool isOperator(const StrView s)   const { return TokenType::String == type && s == str; }
+    bool isOperator(const StrView s)   const { return TokenType::Operator == type && s == str; }
     
     bool isNewLine()                   const { return TokenType::Newline == type;}
     // clang-format on
@@ -60,18 +61,15 @@ public:
 
   void trimSpaces();
 
+  void skipNewlineTokens();
+
   // clang-format off
   bool isDigit(const char c)     const { return c >= '0' && c <= '9';             }
   bool isLowerCase(const char c) const { return c >= 'a' && c <= 'z';             }
   bool isUpperCase(const char c) const { return c >= 'A' && c <= 'Z';             }
   bool isAlpha(const char c)     const { return isLowerCase(c) || isUpperCase(c); }
-  // clang-format on
 
-  // clang-format off
-  const char* cur() const { return _cur;    } 
-  StrView source()  const { return _source; }
-  size_t line()     const { return _line;   }
-  size_t col()      const { return _col;    }
+  const Token& token() const { return _token; }
   // clang-format on
 
   template<class... Args>
@@ -83,6 +81,19 @@ public:
   }
 
   void errorUnexpectedChar();
+  void errorUnexpectedToken();
+
+  void expectOperator(StrView s);
+
+  void readString(String& s);
+  void readIdentifier(String& s);
+
+  // clang-format off
+  const char* cur() const { return _cur;    } 
+  StrView source()  const { return _source; }
+  size_t line()     const { return _line;   }
+  size_t col()      const { return _col;    }
+  // clang-format on
 
 protected:
   void _error(StrView msg);

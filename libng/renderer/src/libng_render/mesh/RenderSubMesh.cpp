@@ -39,7 +39,7 @@ void RenderSubMesh::create(const EditMesh& src) {
     auto semanticIndex = U::getIndex(e.semantic);
 
     switch (semanticType) {
-      case ST::TexCoord: {
+      case ST::TEXCOORD: {
         if (semanticIndex < EditMesh::kUvCountMax) {
           Helper::copyVertexData(pData, vc, e, stride, src.uv[semanticIndex].data());
           break;
@@ -50,11 +50,11 @@ void RenderSubMesh::create(const EditMesh& src) {
 
     // clang-format off
 		switch (e.semantic) {
-			case S::Pos:		  Helper::copyVertexData(pData, vc, e, stride, src.pos.data());      break;
-			case S::Color0:		Helper::copyVertexData(pData, vc, e, stride, src.color.data());    break;
-			case S::Normal:		Helper::copyVertexData(pData, vc, e, stride, src.normal.data());   break;
-			case S::Tangent:	Helper::copyVertexData(pData, vc, e, stride, src.tangent.data());  break;
-			case S::Binormal:	Helper::copyVertexData(pData, vc, e, stride, src.binormal.data()); break;
+			case S::POSITION: Helper::copyVertexData(pData, vc, e, stride, src.pos.data());      break;
+			case S::COLOR0:		Helper::copyVertexData(pData, vc, e, stride, src.color.data());    break;
+			case S::NORMAL:		Helper::copyVertexData(pData, vc, e, stride, src.normal.data());   break;
+			case S::TANGENT:	Helper::copyVertexData(pData, vc, e, stride, src.tangent.data());  break;
+			case S::BINORMAL:	Helper::copyVertexData(pData, vc, e, stride, src.binormal.data()); break;
 		}
     // clang-format on
   }

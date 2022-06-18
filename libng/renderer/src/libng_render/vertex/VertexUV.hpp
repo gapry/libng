@@ -25,7 +25,7 @@ struct VertexUV : public BASE {                  // Issue
 
   static void onRegister(VertexLayout* layout) {
     BASE::onRegister(layout);
-    layout->addElement(Semantic::TexCoord0, &VertexUV::uv);
+    layout->addElement(Semantic::TEXCOORD0, &VertexUV::uv);
   }
 };
 

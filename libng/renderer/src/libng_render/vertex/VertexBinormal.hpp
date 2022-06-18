@@ -26,7 +26,7 @@ struct VertexBinormal : public BASE {                        // Issue
   static void onRegister(VertexLayout* layout) {
     static_assert(std::is_same<BinormalType, NormalType>::value, ""); // Issue
     BASE::onRegister(layout);
-    layout->addElement(Semantic::Binormal, &VertexBinormal::binormal);
+    layout->addElement(Semantic::BINORMAL, &VertexBinormal::binormal);
   }
 };
 

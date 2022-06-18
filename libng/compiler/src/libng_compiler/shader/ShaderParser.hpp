@@ -21,8 +21,23 @@ private:
   void _readProperty();
   void _readPass();
 
+  template<class E>
+  void _readEnum(E& v);
+
   MemMapFile _memMapFile;
   ShaderInfo* _outInfo = nullptr;
 };
+
+template<class E>
+LIBNG_INLINE void ShaderParser::_readEnum(E& v) {
+  if (!token().isIdentifier()) {
+    errorUnexpectedToken();
+    return;
+  }
+  if (!enumTryParse(v, _token.str)) {
+    error("read enum [{}]", _token.str);
+  }
+  nextToken();
+}
 
 } // namespace libng

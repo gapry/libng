@@ -60,12 +60,12 @@ LIBNG_INLINE
 const char* DX11Util::getDxSemanticName(VertexSemanticType t) {
   using SRC = VertexSemanticType;
   switch (t) {
-    case SRC::Pos:      return "POSITION";
-    case SRC::Color:    return "COLOR";
-    case SRC::TexCoord: return "TEXCOORD";
-    case SRC::Normal:   return "NORMAL";
-    case SRC::Tangent:  return "TANGENT";
-    case SRC::Binormal: return "BINORMAL";
+    case SRC::POSITION: return "POSITION";
+    case SRC::COLOR:    return "COLOR";
+    case SRC::TEXCOORD: return "TEXCOORD";
+    case SRC::NORMAL:   return "NORMAL";
+    case SRC::TANGENT:  return "TANGENT";
+    case SRC::BINORMAL: return "BINORMAL";
     default: throw LIBNG_ERROR("unknown VertexLayout_SemanticType");
   }
 }

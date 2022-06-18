@@ -25,7 +25,7 @@ struct VertexColor : public BASE {                     // Issue
 
   static void onRegister(VertexLayout* layout) {
     BASE::onRegister(layout);
-    layout->addElement(Semantic::Color0, &VertexColor::color);
+    layout->addElement(Semantic::COLOR0, &VertexColor::color);
   }
 };
 
