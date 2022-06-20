@@ -19,25 +19,26 @@ public:
     libng::String file = libng::Directory::getCurrent();
     LIBNG_LOG("file = {}\n", file);
 
-    String dataPath;
+    String slash;
 #if LIBNG_IDE_VSC
-    dataPath = "\\test\\data\\MemMapFile\\";
+    slash = "\\";
 #elif LIBNG_IDE_VS
-    dataPath = "/test/data/MemMapFile/";
+    slash = "/";
 #endif
+    String dataPath = Fmt("{}test{}data{}MemMapFile{}", slash, slash, slash, slash);
+
     file.append(dataPath);
     LIBNG_LOG("file = {}\n", file);
 
-    String filename = "sample.txt";
-    file.append(filename);
-    LIBNG_LOG("file = {}\n", file);
+    String filename = Fmt("{}{}", file, "sample.txt");
+    LIBNG_LOG("file = {}\n", filename);
 
     MemMapFile mapFile;
-    mapFile.open(file);
+    mapFile.open(filename);
 
     // LIBNG_TEST_CHECK(mapFile.span() == sample); // Issue
     LIBNG_LOG("mapFile == {}\n", mapFile.span().data());
-    LIBNG_LOG("file    == {}\n", file.data());
+    LIBNG_LOG("file    == {}\n", filename.data());
   }
 };
 
