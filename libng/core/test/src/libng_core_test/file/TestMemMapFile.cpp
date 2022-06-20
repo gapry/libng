@@ -16,8 +16,8 @@ public:
     ByteSpan sample(reinterpret_cast<const u8*>(data), sizeof(data));
     LIBNG_LOG("sample = {}\n", sample.data());
 
-    libng::String file = libng::Directory::getCurrent();
-    LIBNG_LOG("file = {}\n", file);
+    libng::String path = libng::Directory::getCurrent();
+    LIBNG_LOG("path = {}\n", path);
 
     String slash;
 #if LIBNG_IDE_VSC
@@ -25,13 +25,13 @@ public:
 #elif LIBNG_IDE_VS
     slash = "/";
 #endif
-    String dataPath = Fmt("{}test{}data{}MemMapFile{}", slash, slash, slash, slash);
+    String testDataPath = Fmt("{0}test{0}data{0}MemMapFile{0}", slash);
 
-    file.append(dataPath);
-    LIBNG_LOG("file = {}\n", file);
+    path.append(testDataPath);
+    LIBNG_LOG("path = {}\n", path);
 
-    String filename = Fmt("{}{}", file, "sample.txt");
-    LIBNG_LOG("file = {}\n", filename);
+    String filename = Fmt("{}{}", path, "sample.txt");
+    LIBNG_LOG("full path filename = {}\n", filename);
 
     MemMapFile mapFile;
     mapFile.open(filename);
