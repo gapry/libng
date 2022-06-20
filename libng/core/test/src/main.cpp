@@ -13,12 +13,11 @@
 namespace libng {
 
 void run_temp_test() {
-  LIBNG_RUN_TEST(test_json);
+  LIBNG_RUN_TEST(test_mem_map_file);
 }
 
-void run_third_party() {
-  LIBNG_RUN_TEST(test_eastl_fixed_vector);
-  LIBNG_RUN_TEST(test_json);
+void run_core_test() {
+  LIBNG_RUN_TEST(test_mem_map_file);
 }
 
 void run_libcxx_test() {
@@ -26,9 +25,15 @@ void run_libcxx_test() {
   LIBNG_RUN_TEST(test_string);
 }
 
+void run_third_party_test() {
+  LIBNG_RUN_TEST(test_eastl_fixed_vector);
+  LIBNG_RUN_TEST(test_json);
+}
+
 void run_all_test() {
+  run_core_test();
   run_libcxx_test();
-  run_third_party();
+  run_third_party_test();
 
   LIBNG_VERIFY(TestLibcxx);
   LIBNG_VERIFY(TestSPrt);

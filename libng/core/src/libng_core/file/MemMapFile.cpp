@@ -1,3 +1,4 @@
+#include <libng_core/types/number.hpp>
 #include <libng_core/file/MemMapFile.hpp>
 
 namespace libng {

@@ -54,10 +54,13 @@ void ShaderCompiler::onRun(int argc, char** argv) {
   String outputPath      = Fmt("Assets/LocalTemp/Imported/{}", shaderFilename);
   Directory::create(outputPath);
 
+  // Shader Input
   {
     ShaderParser parser;
     parser.readFile(info, shaderFilename);
   }
+  // JSON Output
+  { auto jsonFilename = Fmt("{}/test_case01_shader.json", outputPath); }
 }
 
 } // namespace libng
