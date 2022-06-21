@@ -6,6 +6,18 @@
 namespace libng {
 
 struct FilePath {
+  FilePath() = delete;
+
+  static String getSlash() {
+    String slash;
+#if LIBNG_IDE_VSC
+    slash = "\\";
+#elif LIBNG_IDE_VS
+    slash = "/";
+#endif
+    return slash;
+  }
+
   static String getDir(StrView path) {
     auto* end   = path.end();
     auto* begin = path.begin();
