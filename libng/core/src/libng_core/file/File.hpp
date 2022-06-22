@@ -3,6 +3,7 @@
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/exception/error.hpp>
+#include <libng_core/encoding/UtfUtil.hpp>
 #include <libng_core/types/number.hpp>
 #include <libng_core/platform/os.hpp>
 
@@ -62,7 +63,16 @@ LIBNG_INLINE void File::writeText(StrView filename, StrView buf) {
 #if defined(LIBNG_OS_WINDOWS)
 
 LIBNG_INLINE bool File::exists(StrView filename) {
-  return false;
+  TempStringW filenameW;
+  UtfUtil::convert(filenameW, filename);
+
+  // https://docs.microsoft.com/en-us/windows/win32/api/fileapi/nf-fileapi-getfileattributesw
+  DWORD dwAttrib = ::GetFileAttributes(filenameW.c_str());
+
+  // https://docs.microsoft.com/en-us/windows/win32/fileio/file-attribute-constants
+  bool ret = (dwAttrib != INVALID_FILE_ATTRIBUTES &&   //
+              !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY)); //
+  return ret;
 }
 
 LIBNG_INLINE void File::rename(StrView src, StrView dst) {

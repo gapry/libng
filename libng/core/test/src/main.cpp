@@ -13,12 +13,17 @@
 namespace libng {
 
 void run_temp_test() {
+  LIBNG_RUN_TEST(test_file);
+}
+
+void run_file_test() {
+  LIBNG_RUN_TEST(test_file);
+  LIBNG_RUN_TEST(test_mem_map_file);
   LIBNG_RUN_TEST(test_json_file);
 }
 
 void run_core_test() {
-  LIBNG_RUN_TEST(test_mem_map_file);
-  LIBNG_RUN_TEST(test_json_file);
+  run_file_test();
 }
 
 void run_libcxx_test() {
