@@ -75,7 +75,15 @@ LIBNG_INLINE bool File::exists(StrView filename) {
   return ret;
 }
 
-LIBNG_INLINE void File::rename(StrView src, StrView dst) {
+LIBNG_INLINE void File::rename(StrView oldName, StrView newName) {
+  TempStringW oldNameW, newNameW;
+  UtfUtil::convert(oldNameW, oldName);
+  UtfUtil::convert(newNameW, newName);
+
+  // https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/rename-wrename
+  if (int ret = ::_wrename(oldNameW.c_str(), newNameW.c_str()); 0 != ret) {
+    throw LIBNG_ERROR("rename file {} -> {} is failed", oldNameW, newNameW);
+  }
 }
 
 #elif defined(LIBNG_OS_LINUX) || defined(LIBNG_OS_MACOS) || defined(LIBNG_OS_FREEBSD)

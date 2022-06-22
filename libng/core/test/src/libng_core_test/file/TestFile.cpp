@@ -8,8 +8,16 @@
 namespace libng {
 
 class TestFile : public UnitTestBase {
+  String getTestDataPath(const char* const folder) {
+    String currentPath = libng::Directory::getCurrent();
+    String slash       = libng::FilePath::getSlash();
+    String dataPath    = Fmt("{0}{1}{0}{2}{0}{3}{0}", slash, "test", "data", folder); // Issue
+    currentPath.append(dataPath);
+    return currentPath;
+  }
+
 public:
-  void test_exists() {
+  void testExists() {
     auto onCheck = [](const String& path, const char* const name) -> void {
       String filename = Fmt("{}{}", path, name);
       bool ret        = libng::File::exists(filename);
@@ -17,19 +25,25 @@ public:
       LIBNG_LOG("ret      = {}\n", ret ? "true" : "false");
     };
 
-    String currentPath = libng::Directory::getCurrent();
-    String slash       = libng::FilePath::getSlash();
-    String dataPath    = Fmt("{0}{1}{0}{2}{0}{3}{0}", slash, "test", "data", "Json"); // Issue
-    currentPath.append(dataPath);
-
+    auto currentPath = getTestDataPath("Json");
     onCheck(currentPath, "test_write.json");
     onCheck(currentPath, "sample.json");
     onCheck(currentPath, "");
+  }
+
+  void testRename() {
+    auto path      = getTestDataPath("Json");
+    String oldName = Fmt("{}{}", path, "sample.json");
+    String newName = Fmt("{}{}", path, "dataset.json");
+
+    File::rename(oldName, newName);
+    File::rename(newName, oldName);
   }
 };
 
 } // namespace libng
 
 void test_file() {
-  LIBNG_TEST_CASE(libng::TestFile, test_exists());
+  LIBNG_TEST_CASE(libng::TestFile, testExists());
+  LIBNG_TEST_CASE(libng::TestFile, testRename());
 }
