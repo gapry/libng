@@ -1,11 +1,11 @@
 #pragma once
 
-#include <libng_core/math/Tuple/Tuple2.hpp>
-#include <libng_core/math/Tuple/Tuple3.hpp>
 #include <libng_core/exception/error.hpp>
 #include <libng_core/libcxx/fmt.hpp>
-#include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/span.hpp>
+#include <libng_core/libcxx/string.hpp>
+#include <libng_core/math/Tuple/Tuple2.hpp>
+#include <libng_core/math/Tuple/Tuple3.hpp>
 #include <libng_render/mesh/EditMesh.hpp>
 
 namespace libng {

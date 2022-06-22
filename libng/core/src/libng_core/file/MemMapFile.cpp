@@ -1,5 +1,5 @@
-#include <libng_core/types/number.hpp>
 #include <libng_core/file/MemMapFile.hpp>
+#include <libng_core/types/number.hpp>
 
 namespace libng {
 

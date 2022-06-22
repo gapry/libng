@@ -1,6 +1,6 @@
+#include <libng_compiler/json/JSONLexer.hpp>
 #include <libng_core/log/log.hpp>
 #include <libng_core/types/function.hpp>
-#include <libng_compiler/json/JSONLexer.hpp>
 
 namespace libng {
 

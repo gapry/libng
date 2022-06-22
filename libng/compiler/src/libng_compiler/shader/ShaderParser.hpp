@@ -1,12 +1,14 @@
 #pragma once
 
+#include <libng_core/file/MemMapFile.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/log/log.hpp>
 #include <libng_core/types/function.hpp>
-#include <libng_core/file/MemMapFile.hpp>
-#include <libng_render/material/ShaderInfo.hpp>
+
 #include <libng_compiler/shader/ShaderLexer.hpp>
+
+#include <libng_render/material/ShaderInfo.hpp>
 
 namespace libng {
 

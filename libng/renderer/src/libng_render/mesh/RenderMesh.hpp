@@ -2,10 +2,10 @@
 
 #include <libng_core/libcxx/fixed_vector.hpp>
 #include <libng_core/libcxx/span.hpp>
-#include <libng_render/vertex/VertexLayout.hpp>
-#include <libng_render/type/RenderPrimitiveType.hpp>
 #include <libng_render/mesh/EditMesh.hpp>
 #include <libng_render/mesh/RenderSubMesh.hpp>
+#include <libng_render/type/RenderPrimitiveType.hpp>
+#include <libng_render/vertex/VertexLayout.hpp>
 
 namespace libng {
 

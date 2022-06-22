@@ -8,7 +8,7 @@
 #endif
 
 #if LIBNG_RENDER_DX11
-
+// clang-format off
 #include <d3d11.h>
 #include <d3d11_4.h>
 #include <dxgi1_4.h>
@@ -17,6 +17,7 @@
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
+// clang-format on
 #endif
 
 #if LIBNG_OS_Linux

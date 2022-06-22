@@ -1,5 +1,5 @@
-#include <fmt/core.h>
 #include <cassert>
+#include <fmt/core.h>
 #include <libng_test/unit_test/UnitTestBase.hpp>
 
 namespace libng {

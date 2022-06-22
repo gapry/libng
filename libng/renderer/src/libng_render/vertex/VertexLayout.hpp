@@ -1,14 +1,14 @@
 #pragma once
 
-#include <type_traits>
+#include <libng_core/libcxx/fixed_vector.hpp>
+#include <libng_core/memory/util.hpp>
 #include <libng_core/types/noncopyable.hpp>
 #include <libng_core/types/number.hpp>
-#include <libng_core/memory/util.hpp>
-#include <libng_core/libcxx/fixed_vector.hpp>
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/type/RenderDataTypeUtil.hpp>
-#include <libng_render/vertex/VertexType.hpp>
 #include <libng_render/vertex/VertexSemantic.hpp>
+#include <libng_render/vertex/VertexType.hpp>
+#include <type_traits>
 
 namespace libng {
 

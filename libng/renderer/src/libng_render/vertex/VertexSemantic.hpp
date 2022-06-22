@@ -1,7 +1,7 @@
 #pragma once
 
-#include <libng_core/types/number.hpp>
 #include <libng_core/types/enum.hpp>
+#include <libng_core/types/number.hpp>
 #include <libng_render/vertex/VertexSemanticType.hpp>
 
 namespace libng {

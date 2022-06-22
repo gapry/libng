@@ -1,7 +1,8 @@
 #include <libng_core/log/log.hpp>
-#include <libng_core_test/memory/TestSPtr.hpp>
-#include <libng_core_test/memory/TestLinearAllocator.hpp>
+
 #include <libng_core_test/libcxx/TestVector.hpp>
+#include <libng_core_test/memory/TestLinearAllocator.hpp>
+#include <libng_core_test/memory/TestSPtr.hpp>
 #include <libng_core_test/third_party/imgui/TestImGui.hpp>
 
 #define LIBNG_RUN_TEST(fn)                     \

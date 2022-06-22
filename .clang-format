@@ -17,7 +17,7 @@ ConstructorInitializerAllOnOneLineOrOnePerLine: false
 ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 2 
 SpaceAfterTemplateKeyword: false
-SortIncludes: false
+SortIncludes: true
 AlignConsecutiveAssignments: true
 AlignOperands: true
 AllowShortEnumsOnASingleLine: false

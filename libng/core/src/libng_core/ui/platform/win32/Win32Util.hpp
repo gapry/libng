@@ -1,7 +1,7 @@
 #pragma once
 
-#include <libng_core/platform/os.hpp>
 #include <libng_core/math/Rect2.hpp>
+#include <libng_core/platform/os.hpp>
 
 #if LIBNG_OS_WINDOWS
 

@@ -2,17 +2,17 @@
 
 #include <libng_core/math/Tuple/Tuple2.hpp>
 #include <libng_core/math/Tuple/Tuple3.hpp>
-#include <libng_render/vertex/VertexType.hpp>
-#include <libng_render/vertex/VertexBase.hpp>
-#include <libng_render/vertex/VertexTypeUtil.hpp>
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/type/RenderDataTypeUtil.hpp>
-#include <libng_render/vertex/VertexPos.hpp>
-#include <libng_render/vertex/VertexColor.hpp>
-#include <libng_render/vertex/VertexUV.hpp>
-#include <libng_render/vertex/VertexNormal.hpp>
-#include <libng_render/vertex/VertexTangent.hpp>
+#include <libng_render/vertex/VertexBase.hpp>
 #include <libng_render/vertex/VertexBinormal.hpp>
+#include <libng_render/vertex/VertexColor.hpp>
+#include <libng_render/vertex/VertexNormal.hpp>
+#include <libng_render/vertex/VertexPos.hpp>
+#include <libng_render/vertex/VertexTangent.hpp>
+#include <libng_render/vertex/VertexType.hpp>
+#include <libng_render/vertex/VertexTypeUtil.hpp>
+#include <libng_render/vertex/VertexUV.hpp>
 
 // clang-format off
 namespace libng {

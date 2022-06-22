@@ -2,9 +2,9 @@
 
 #include <libng_core/memory/ComPtr.hpp>
 #include <libng_render/Renderer.hpp>
-#include <libng_render/backend/dx11/RendererDX11.hpp>
 #include <libng_render/backend/dx11/DX11Util.hpp>
 #include <libng_render/backend/dx11/GPUBufferDX11.hpp>
+#include <libng_render/backend/dx11/RendererDX11.hpp>
 
 namespace libng {
 

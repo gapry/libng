@@ -1,8 +1,8 @@
 #pragma once
 
 #include <fmt/core.h>
-#include <libng_core/types/number.hpp>
 #include <libng_core/libcxx/fixed_vector.hpp>
+#include <libng_core/types/number.hpp>
 #include <libng_test/unit_test/UnitTestBase.hpp>
 
 namespace libng {

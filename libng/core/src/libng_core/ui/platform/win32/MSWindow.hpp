@@ -1,8 +1,8 @@
 #pragma once
 
 #include <libng_core/platform/os.hpp>
-#include <libng_core/ui/BaseWindow.hpp>
 #include <libng_core/types/function.hpp>
+#include <libng_core/ui/BaseWindow.hpp>
 
 #if LIBNG_OS_WINDOWS
 

@@ -1,8 +1,8 @@
 #pragma once
 
 #include <libng_render/type/RenderDataType.hpp>
-#include <libng_render/vertex/VertexType.hpp>
 #include <libng_render/vertex/VertexSemantic.hpp>
+#include <libng_render/vertex/VertexType.hpp>
 
 namespace libng {
 

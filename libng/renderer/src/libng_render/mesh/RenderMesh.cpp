@@ -1,10 +1,10 @@
+#include <libng_core/math/Color.hpp>
 #include <libng_core/math/Tuple/Tuple2.hpp>
 #include <libng_core/math/Tuple/Tuple3.hpp>
-#include <libng_core/math/Color.hpp>
 #include <libng_render/mesh/RenderMesh.hpp>
 #include <libng_render/mesh/RenderMeshInternalHelper.hpp>
-#include <libng_render/type/RenderPrimitiveType.hpp>
 #include <libng_render/type/RenderDataTypeUtil.hpp>
+#include <libng_render/type/RenderPrimitiveType.hpp>
 #include <libng_render/vertex/VertexLayoutManager.hpp>
 #include <libng_render/vertex/VertexTypeUtil.hpp>
 

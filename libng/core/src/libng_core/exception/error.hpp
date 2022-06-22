@@ -3,10 +3,10 @@
 #include <cassert>
 #include <exception>
 
+#include <libng_core/debug/SourceLocation.hpp>
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/types/function.hpp>
-#include <libng_core/debug/SourceLocation.hpp>
 
 #define LIBNG_ASSERT(...) assert(__VA_ARGS__)
 

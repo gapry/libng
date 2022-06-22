@@ -1,9 +1,9 @@
 #pragma once
 
-#include <libng_core/types/function.hpp>
-#include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/fixed_vector.hpp>
+#include <libng_core/libcxx/string.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
+#include <libng_core/types/function.hpp>
 #include <libng_render/material/ShaderPropType.hpp>
 
 namespace libng {

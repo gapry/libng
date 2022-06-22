@@ -1,9 +1,9 @@
 #pragma once
 
 #include <libng_core/libcxx/map.hpp>
+#include <libng_render/vertex/VertexCommon.hpp>
 #include <libng_render/vertex/VertexLayout.hpp>
 #include <libng_render/vertex/VertexType.hpp>
-#include <libng_render/vertex/VertexCommon.hpp>
 
 namespace libng {
 

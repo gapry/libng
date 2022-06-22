@@ -9,9 +9,9 @@
 #define WIN32_OPENGL (false)
 
 #if WIN32_DX11
-#include <wrl.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
+#include <wrl.h>
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
 #endif
@@ -28,11 +28,11 @@
 
 #endif
 
-#include <cstdio>
 #include <cstdint>
+#include <cstdio>
+#include <exception>
 #include <iostream>
 #include <memory>
-#include <exception>
 #include <string>
 
 struct Vertex {

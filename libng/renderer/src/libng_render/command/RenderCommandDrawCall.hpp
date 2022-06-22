@@ -1,11 +1,11 @@
 #pragma once
 
 #include <libng_core/memory/SPtr.hpp>
-#include <libng_render/vertex/VertexLayout.hpp>
 #include <libng_render/buffer/GPUBuffer.hpp>
 #include <libng_render/command/RenderCommand.hpp>
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/type/RenderPrimitiveType.hpp>
+#include <libng_render/vertex/VertexLayout.hpp>
 
 namespace libng {
 

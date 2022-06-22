@@ -1,7 +1,8 @@
-#include <libng_core/log/log.hpp>
-#include <libng_core/types/function.hpp>
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/log/log.hpp>
+#include <libng_core/types/function.hpp>
+
 #include <libng_test/unit_test/UnitTestBase.hpp>
 
 namespace libng::libcxx {

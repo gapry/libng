@@ -1,7 +1,7 @@
-#include <libng_core/ui/platform/win32/MSApp.hpp>
 #include <libng_core/encoding/UtfUtil.hpp>
 #include <libng_core/exception/error.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/ui/platform/win32/MSApp.hpp>
 
 #if LIBNG_OS_WINDOWS
 

@@ -11,6 +11,7 @@
 #endif
 
 #if LIBNG_OS_WINDOWS
+// clang-format off
 #define NOMINMAX 1
 #include <WinSock2.h>              // WinSock2.h must include before windows.h to avoid winsock1 define
 #include <ws2tcpip.h>              // struct sockaddr_in6
@@ -18,6 +19,7 @@
 #include <Windows.h>               //
 #include <Windowsx.h>              //
 #include <intsafe.h>               //
+// clang-format on
 #endif
 
 #if __APPLE__ && __MACH__

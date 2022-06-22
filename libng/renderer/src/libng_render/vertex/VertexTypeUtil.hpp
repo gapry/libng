@@ -1,9 +1,9 @@
 #pragma once
 
 #include <libng_core/types/number.hpp>
+#include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/vertex/VertexType.hpp>
 #include <libng_render/vertex/VertexTypeUtil.hpp>
-#include <libng_render/type/RenderDataType.hpp>
 
 namespace libng {
 

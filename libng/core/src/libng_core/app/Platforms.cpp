@@ -1,8 +1,8 @@
 #include <libng_core/app/Platforms.hpp>
+#include <libng_core/encoding/UtfUtil.hpp>
+#include <libng_core/exception/error.hpp>
 #include <libng_core/platform/os.hpp>
 #include <libng_core/types/function.hpp>
-#include <libng_core/exception/error.hpp>
-#include <libng_core/encoding/UtfUtil.hpp>
 
 namespace libng {
 

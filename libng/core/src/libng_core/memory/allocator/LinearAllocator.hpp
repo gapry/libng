@@ -1,9 +1,9 @@
 #pragma once
 
+#include <libng_core/libcxx/unique_ptr.hpp>
+#include <libng_core/libcxx/vector.hpp>
 #include <libng_core/types/noncopyable.hpp>
 #include <libng_core/types/number.hpp>
-#include <libng_core/libcxx/vector.hpp>
-#include <libng_core/libcxx/unique_ptr.hpp>
 
 namespace libng {
 

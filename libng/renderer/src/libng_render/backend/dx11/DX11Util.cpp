@@ -1,10 +1,10 @@
-#include <libng_core/platform/graphics.hpp>
-#include <libng_core/types/function.hpp>
 #include <libng_core/exception/error.hpp>
 #include <libng_core/log/log.hpp>
-#include <libng_render/vertex/VertexSemanticType.hpp>
-#include <libng_render/type/RenderDataType.hpp>
+#include <libng_core/platform/graphics.hpp>
+#include <libng_core/types/function.hpp>
 #include <libng_render/backend/dx11/DX11Util.hpp>
+#include <libng_render/type/RenderDataType.hpp>
+#include <libng_render/vertex/VertexSemanticType.hpp>
 
 namespace libng {
 

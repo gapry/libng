@@ -1,13 +1,13 @@
 #pragma once
 
-#include <iterator>
 #include <fmt/format.h>
+#include <iterator>
 
 // #include <libng_core/encoding/UtfUtil.hpp> // 'LIBNG_ERROR': identifier not found
+#include <libng_core/libcxx/json.hpp>
+#include <libng_core/libcxx/string.hpp>
 #include <libng_core/platform/compiler.hpp>
 #include <libng_core/types/utility.hpp>
-#include <libng_core/libcxx/string.hpp>
-#include <libng_core/libcxx/json.hpp>
 
 #if LIBNG_COMPILER_VC
 #if _DEBUG

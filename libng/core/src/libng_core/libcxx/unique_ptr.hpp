@@ -1,7 +1,7 @@
 #pragma once
 
-#include <libng_core/types/noncopyable.hpp>
 #include <libng_core/libcxx/utility.hpp>
+#include <libng_core/types/noncopyable.hpp>
 #include <third_party/eastl/eastl.hpp>
 
 namespace libng::libcxx {

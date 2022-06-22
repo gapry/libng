@@ -2,13 +2,13 @@
 
 #include <libng_core/encoding/UtfUtil.hpp>
 #include <libng_core/libcxx/string.hpp>
-#include <libng_core/platform/os.hpp>
 #include <libng_core/platform/graphics.hpp>
+#include <libng_core/platform/os.hpp>
 #include <libng_render/backend/dx11/TypeDX11.hpp>
+#include <libng_render/material/ShaderStage.hpp>
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/type/RenderPrimitiveType.hpp>
 #include <libng_render/vertex/VertexSemanticType.hpp>
-#include <libng_render/material/ShaderStage.hpp>
 
 namespace libng {
 

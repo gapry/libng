@@ -1,12 +1,12 @@
 #pragma once
 
-#include <libng_core/file/FileStream.hpp>
 #include <libng_core/exception/error.hpp>
-#include <libng_core/platform/os.hpp>
-#include <libng_core/types/number.hpp>
-#include <libng_core/types/noncopyable.hpp>
+#include <libng_core/file/FileStream.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/platform/os.hpp>
+#include <libng_core/types/noncopyable.hpp>
+#include <libng_core/types/number.hpp>
 
 namespace libng {
 

@@ -1,10 +1,10 @@
 #pragma once
 
 #include <libng_core/exception/error.hpp>
-#include <libng_core/types/function.hpp>
-#include <libng_core/libcxx/string_view.hpp>
-#include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/char.hpp>
+#include <libng_core/libcxx/string.hpp>
+#include <libng_core/libcxx/string_view.hpp>
+#include <libng_core/types/function.hpp>
 
 namespace libng {
 

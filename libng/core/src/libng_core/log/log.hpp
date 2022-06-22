@@ -1,11 +1,11 @@
 #pragma once
 
-#include <libng_core/types/utility.hpp>
-#include <libng_core/types/noncopyable.hpp>
-#include <libng_core/types/function.hpp>
 #include <libng_core/exception/error.hpp>
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/types/function.hpp>
+#include <libng_core/types/noncopyable.hpp>
+#include <libng_core/types/utility.hpp>
 
 // clang-format off
 #define LIBNG_LOG(...)       do{ libng::g_log.write(libng::Log::Level::Info,    __VA_ARGS__); } while(false)

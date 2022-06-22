@@ -1,7 +1,7 @@
 #pragma once
 
-#include <libng_core/types/number.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/types/number.hpp>
 
 namespace libng {
 

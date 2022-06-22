@@ -3,9 +3,9 @@
 #include <cstring>
 #include <fmt/format.h>
 
-#include <libng_core/types/utility.hpp>
-#include <libng_core/types/function.hpp>
 #include <libng_core/libcxx/string_view.hpp>
+#include <libng_core/types/function.hpp>
+#include <libng_core/types/utility.hpp>
 #include <third_party/eastl/eastl.hpp>
 
 #define LIBNG_LIBCXX_FORMATTER(T)                                      \

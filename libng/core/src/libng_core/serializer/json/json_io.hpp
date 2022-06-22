@@ -1,7 +1,7 @@
 #pragma once
 
-#include <type_traits>
 #include <libng_core/types/function.hpp>
+#include <type_traits>
 
 namespace libng {
 

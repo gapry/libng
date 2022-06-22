@@ -3,8 +3,8 @@
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/types/Object.hpp>
 #include <libng_core/types/number.hpp>
-#include <libng_render/buffer/GPUBufferType.hpp>
 #include <libng_render/buffer/GPUBufferCreateDesc.hpp>
+#include <libng_render/buffer/GPUBufferType.hpp>
 
 namespace libng {
 

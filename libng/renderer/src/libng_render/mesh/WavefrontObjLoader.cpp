@@ -1,7 +1,7 @@
 #include <libng_core/file/MemMapFile.hpp>
-#include <libng_core/math/Tuple/Tuple4.hpp>
 #include <libng_core/libcxx/fixed_vector.hpp>
 #include <libng_core/libcxx/util/StringUtil.hpp>
+#include <libng_core/math/Tuple/Tuple4.hpp>
 #include <libng_render/mesh/WavefrontObjLoader.hpp>
 
 namespace libng {

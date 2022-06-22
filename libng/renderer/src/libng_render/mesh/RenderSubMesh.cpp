@@ -1,9 +1,9 @@
 #include <libng_render/Renderer.hpp>
-#include <libng_render/mesh/RenderMesh.hpp>
-#include <libng_render/mesh/RenderSubMesh.hpp>
-#include <libng_render/mesh/RenderMeshInternalHelper.hpp>
 #include <libng_render/buffer/GPUBuffer.hpp>
 #include <libng_render/buffer/GPUBufferType.hpp>
+#include <libng_render/mesh/RenderMesh.hpp>
+#include <libng_render/mesh/RenderMeshInternalHelper.hpp>
+#include <libng_render/mesh/RenderSubMesh.hpp>
 #include <libng_render/vertex/VertexSemantic.hpp>
 #include <libng_render/vertex/VertexSemanticType.hpp>
 

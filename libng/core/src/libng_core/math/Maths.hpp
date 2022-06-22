@@ -1,8 +1,8 @@
 #pragma once
 
+#include <cfloat>
 #include <cmath>
 #include <cstdint>
-#include <cfloat>
 #include <libng_core/types/function.hpp>
 
 namespace libng {

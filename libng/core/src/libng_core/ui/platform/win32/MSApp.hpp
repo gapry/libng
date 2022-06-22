@@ -1,7 +1,7 @@
 #pragma once
 
-#include <libng_core/ui/BaseApp.hpp>
 #include <libng_core/platform/os.hpp>
+#include <libng_core/ui/BaseApp.hpp>
 
 #if LIBNG_OS_WINDOWS
 

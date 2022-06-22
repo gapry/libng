@@ -1,12 +1,13 @@
 #pragma once
 
-#include <libng_core/types/noncopyable.hpp>
+#include <libng_core/encoding/UtfUtil.hpp>
 #include <libng_core/exception/error.hpp>
-#include <libng_core/platform/os.hpp>
 #include <libng_core/file/File.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>
+#include <libng_core/platform/os.hpp>
+#include <libng_core/types/noncopyable.hpp>
 
 namespace libng {
 
@@ -20,6 +21,7 @@ public:
   }
 #else
   using NativeFd = int;
+
   static const NativeFd kInvalid() {
     return -1;
   }
@@ -45,11 +47,11 @@ public:
   void setFileSize(FileSize newSize);
 
   FileSize getPos();
-  void setPos(FileSize pos);
+  void setPosFromBegin(FileSize pos);
   void setPosFromEnd(FileSize pos);
 
   void readBytes(Span<u8> data);
-  void writeBytes(Span<const u8> data);
+  void writeBytes(ByteSpan data);
 
   const String& filename() const {
     return _filename;
@@ -61,8 +63,15 @@ public:
 
 private:
   void _ensure_fd() {
-    if (_fd == kInvalid())
-      throw LIBNG_ERROR("invalid file handle");
+    if (_fd == kInvalid()) {
+      TempString errMsg;
+#if defined(LIBNG_OS_WINDOWS)
+      errMsg = "invalid file handle";
+#else
+      errMsg = "invalid file descriptor";
+#endif
+      throw LIBNG_ERROR("{}\n", errMsg);
+    }
   }
 
   String _filename;

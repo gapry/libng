@@ -1,7 +1,7 @@
 #pragma once
 
-#include <libng_render/command/RenderCommandType.hpp>
 #include <libng_render/command/RenderCommand.hpp>
+#include <libng_render/command/RenderCommandType.hpp>
 
 namespace libng {
 

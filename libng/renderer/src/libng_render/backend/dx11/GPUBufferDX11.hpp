@@ -1,9 +1,9 @@
 #pragma once
 
 #include <libng_core/memory/ComPtr.hpp>
-#include <libng_render/buffer/GPUBuffer.hpp>
 #include <libng_render/backend/dx11/DX11Util.hpp>
 #include <libng_render/backend/dx11/TypeDX11.hpp>
+#include <libng_render/buffer/GPUBuffer.hpp>
 
 namespace libng {
 

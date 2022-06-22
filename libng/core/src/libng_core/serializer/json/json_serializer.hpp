@@ -1,14 +1,14 @@
 #pragma once
 
 #include <libng_core/exception/error.hpp>
-#include <libng_core/log/log.hpp>
-#include <libng_core/types/function.hpp>
-#include <libng_core/types/number.hpp>
-#include <libng_core/types/noncopyable.hpp>
-#include <libng_core/libcxx/json.hpp>
 #include <libng_core/libcxx/fixed_vector.hpp>
+#include <libng_core/libcxx/json.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/log/log.hpp>
 #include <libng_core/serializer/json/json_io.hpp>
+#include <libng_core/types/function.hpp>
+#include <libng_core/types/noncopyable.hpp>
+#include <libng_core/types/number.hpp>
 
 #define LIBNG_NAMED_IO(SE, V) SE.named_io(#V, V)
 

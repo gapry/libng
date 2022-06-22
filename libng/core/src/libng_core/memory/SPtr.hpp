@@ -1,8 +1,8 @@
 #pragma once
 
-#include <libng_core/types/noncopyable.hpp>
-#include <libng_core/types/RefCountBase.hpp>
 #include <libng_core/memory/util.hpp>
+#include <libng_core/types/RefCountBase.hpp>
+#include <libng_core/types/noncopyable.hpp>
 
 namespace libng {
 

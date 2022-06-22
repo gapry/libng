@@ -1,21 +1,21 @@
 #pragma once
 
-#include <EASTL/vector.h>
-#include <EASTL/fixed_vector.h>
-#include <EASTL/string.h>
 #include <EASTL/fixed_string.h>
-#include <EASTL/string_view.h>
+#include <EASTL/fixed_vector.h>
 #include <EASTL/span.h>
+#include <EASTL/string.h>
+#include <EASTL/string_view.h>
+#include <EASTL/vector.h>
 
 #include <EASTL/optional.h>
 
-#include <EASTL/map.h>
 #include <EASTL/hash_map.h>
-#include <EASTL/vector_map.h>
+#include <EASTL/map.h>
 #include <EASTL/string_map.h>
+#include <EASTL/vector_map.h>
 
-#include <EASTL/unique_ptr.h>
 #include <EASTL/shared_ptr.h>
+#include <EASTL/unique_ptr.h>
 #include <EASTL/weak_ptr.h>
 
 #include <libng_core/types/function.hpp>
