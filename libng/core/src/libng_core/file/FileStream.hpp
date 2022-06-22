@@ -2,7 +2,10 @@
 
 #include <libng_core/encoding/UtfUtil.hpp>
 #include <libng_core/exception/error.hpp>
-#include <libng_core/file/File.hpp>
+#include <libng_core/file/FIleShareMode.hpp>
+#include <libng_core/file/FileAccess.hpp>
+#include <libng_core/file/FileMode.hpp>
+#include <libng_core/file/FileSize.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>

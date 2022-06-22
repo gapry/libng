@@ -2,36 +2,12 @@
 
 #include <libng_core/encoding/UtfUtil.hpp>
 #include <libng_core/exception/error.hpp>
+#include <libng_core/file/FileStream.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/platform/os.hpp>
-#include <libng_core/types/number.hpp>
 
 namespace libng {
-
-using FileSize = u64;
-
-enum class FileMode
-{
-  CreateNew,
-  OpenExists,
-  OpenOrCreate,
-};
-
-enum class FileAccess
-{
-  Read,
-  ReadWrite,
-  WriteOnly,
-};
-
-enum class FileShareMode
-{
-  None,
-  Read,
-  Write,
-  ReadWrite,
-};
 
 struct File {
   File() = delete;
@@ -55,6 +31,9 @@ LIBNG_INLINE char File::writeFile(StrView filename, StrView data, bool createDir
 }
 
 LIBNG_INLINE void File::writeBytes(StrView filename, ByteSpan buf) {
+  libng::FileStream fstream;
+  fstream.openWrite(filename, true);
+  fstream.writeBytes(buf);
 }
 
 LIBNG_INLINE void File::writeText(StrView filename, StrView buf) {
