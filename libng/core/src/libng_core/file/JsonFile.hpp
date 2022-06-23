@@ -33,6 +33,8 @@ LIBNG_INLINE void JsonFile::serialize(String_<N>& outJson, T& obj) {
   Json data;
   json_serializer se(data);
   se.io(obj);
+
+  // the data which will be output to the json file
   auto tmp = data.dump(1, '\t');
   outJson  = tmp.c_str();
 }

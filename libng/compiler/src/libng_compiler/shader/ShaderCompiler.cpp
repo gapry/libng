@@ -43,17 +43,16 @@ void ShaderCompiler::onRun(int argc, char** argv) {
     proj->setProjectRoot(path);
   }
 
-  ShaderInfo info;
-
   StrView shaderFilename = "Assets/Shaders/test/case02.shader";
   String outputPath      = Fmt("Assets/LocalTemp/Imported/{}", shaderFilename);
   Directory::create(outputPath);
 
+  ShaderInfo info;
   {
-    // Shader Input
     LIBNG_LOG("prop size = {}\n", info.props.size());
     LIBNG_LOG("pass size = {}\n", info.passes.size());
 
+    // Shader Input
     ShaderParser parser;
     parser.readFile(info, shaderFilename);
 
@@ -63,6 +62,37 @@ void ShaderCompiler::onRun(int argc, char** argv) {
     // JSON Output
     auto jsonFilename = Fmt("{}/info.json", outputPath);
     JsonFile::write(jsonFilename, info, true);
+  }
+
+  // DX11 CodeGen
+  {
+    size_t passIndex = 0;
+    for (auto& pass : info.passes) {
+      auto passOutPath = Fmt("{}/dx11/pass{}", outputPath, passIndex);
+      LIBNG_LOG("passPath = {}\n", passOutPath);
+
+      CodeGenDX11 codegen;
+      {
+        if (pass.vsFunc.size()) {
+          LIBNG_LOG("pass[{}] : {}\n", passIndex, "vertex shader");
+
+          codegen.Execute(passOutPath,             //
+                          ShaderStageMask::Vertex, //
+                          shaderFilename,          //
+                          pass.vsFunc);            //
+        }
+
+        if (pass.psFunc.size()) {
+          LIBNG_LOG("pass[{}] : {}\n", passIndex, "pixel shader");
+
+          codegen.Execute(passOutPath,            //
+                          ShaderStageMask::Pixel, //
+                          shaderFilename,         //
+                          pass.psFunc);           //
+        }
+      }
+      passIndex++;
+    }
   }
 }
 
