@@ -11,7 +11,7 @@ namespace libng {
 class TestFile : public UnitTestBase {
   String getTestDataPath(const char* const folder) {
     String currentPath = libng::Directory::getCurrent();
-    String slash       = libng::FilePath::getSlash();
+    String slash       = libng::FilePath::GetSlash();
     String dataPath    = Fmt("{0}{1}{0}{2}{0}{3}{0}", slash, "test", "data", folder); // Issue
     currentPath.append(dataPath);
     return currentPath;

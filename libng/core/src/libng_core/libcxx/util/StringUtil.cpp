@@ -2,7 +2,7 @@
 
 namespace libng {
 
-void StringUtil::appendBinToHex(String& result, Span<const u8> data) {
+void StringUtil::appendBinToHex(String& result, ByteSpan data) {
   const char* hex  = "0123456789ABCDEF";
   size_t lineCount = (data.size() + 15) / 16;
 
@@ -42,19 +42,73 @@ void StringUtil::appendBinToHex(String& result, Span<const u8> data) {
   }
 }
 
+const char* StringUtil::findChar(StrView view, StrView charList, bool ignoreCase) {
+  auto* start = view.data();
+  auto* end   = start + view.size();
+  auto* p     = start;
+
+  if (ignoreCase) {
+    for (; p < end; p++) {
+      for (auto& ch : charList) {
+        if (ignoreCaseCompare(*p, ch) == 0) {
+          return p;
+        }
+      }
+    }
+  } else {
+    for (; p < end; p++) {
+      for (auto& ch : charList) {
+        if (*p == ch) {
+          return p;
+        }
+      }
+    }
+  }
+  return nullptr;
+}
+
+const char* StringUtil::findCharFromEnd(StrView view, StrView charList, bool ignoreCase) {
+  if (view.size() <= 0) {
+    return nullptr;
+  }
+
+  auto* start = view.data();
+  auto* end   = start + view.size();
+  auto* p     = end - 1;
+  if (ignoreCase) {
+    for (; p >= start; p--) {
+      for (auto& ch : charList) {
+        if (ignoreCaseCompare(*p, ch)) {
+          return p;
+        }
+      }
+    }
+  } else {
+    for (; p >= start; p--) {
+      for (auto& ch : charList) {
+        if (*p == ch) {
+          return p;
+        }
+      }
+    }
+  }
+  return nullptr;
+}
+
 struct StringUtil_ParseHelper {
   template<class T>
   LIBNG_INLINE static bool tryParseInt(StrView view, T& outValue) {
     static_assert(std::is_signed<T>::value, "");
+
     String_<256> tmp = view;
-    i64 v;
-    auto ret = ::sscanf_s(tmp.c_str(), "%lld", &v);
-    if (ret != 1)
-      return false;
-    if (v < std::numeric_limits<T>::min())
-      return false;
-    if (v > std::numeric_limits<T>::max())
-      return false;
+    i64 v            = 0;
+
+    // clang-format off
+    if (auto ret = ::sscanf_s(tmp.c_str(), "%lld", &v); ret != 1) return false;
+    if (v < std::numeric_limits<T>::min())                        return false;
+    if (v > std::numeric_limits<T>::max())                        return false;
+    // clang-format on
+
     outValue = static_cast<T>(v);
     return true;
   }
@@ -62,32 +116,33 @@ struct StringUtil_ParseHelper {
   template<class T>
   LIBNG_INLINE static bool tryParseUInt(StrView view, T& outValue) {
     static_assert(std::is_unsigned<T>::value, "");
+
     String_<256> tmp = view;
-    u64 v;
-    auto ret = ::sscanf_s(tmp.c_str(), "%llu", &v);
-    if (ret != 1)
-      return false;
-    if (v < std::numeric_limits<T>::min())
-      return false;
-    if (v > std::numeric_limits<T>::max())
-      return false;
+    u64 v            = 0;
+
+    // clang-format off
+    if (auto ret = ::sscanf_s(tmp.c_str(), "%llu", &v); ret != 1) return false;
+    if (v < std::numeric_limits<T>::min())                        return false;
+    if (v > std::numeric_limits<T>::max())                        return false;
+    // clang-format on
+
     outValue = static_cast<T>(v);
     return true;
   }
 
   static bool tryParseFloat(StrView view, f32& outValue) {
     String_<256> tmp = view;
-    auto ret         = ::sscanf_s(tmp.c_str(), "%f", &outValue);
-    if (ret != 1)
+    if (auto ret = ::sscanf_s(tmp.c_str(), "%f", &outValue); ret != 1) {
       return false;
+    }
     return true;
   }
 
   static bool tryParseFloat(StrView view, f64& outValue) {
     String_<256> tmp = view;
-    auto ret         = ::sscanf_s(tmp.c_str(), "%lf", &outValue);
-    if (ret != 1)
+    if (auto ret = ::sscanf_s(tmp.c_str(), "%lf", &outValue); ret != 1) {
       return false;
+    }
     return true;
   }
 };

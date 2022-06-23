@@ -1,7 +1,11 @@
 #pragma once
 
+#include <libng_core/encoding/UtfUtil.hpp>
+#include <libng_core/exception/error.hpp>
+#include <libng_core/file/FilePath.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>
+#include <libng_core/platform/os.hpp>
 
 namespace libng {
 

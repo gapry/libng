@@ -32,15 +32,9 @@ void ShaderCompiler::onRun(int argc, char** argv) {
   _apiType.clear();
 
   {
-    String file = getExecutableFilename();
-    String path = FilePath::dirname(file);
-
-    String assetsPath;
-#if LIBNG_IDE_VSC
-    assetsPath = "\\..\\..\\Assets";
-#elif LIBNG_IDE_VS
-    assetsPath = "/../../../../Assets";
-#endif
+    String file       = getExecutableFilename();
+    String path       = FilePath::DirName(file);
+    String assetsPath = FilePath::GetAssetsPath();
     path.append(assetsPath);
     Directory::setCurrent(path);
 

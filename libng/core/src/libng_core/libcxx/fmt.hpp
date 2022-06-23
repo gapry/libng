@@ -1,6 +1,7 @@
 #pragma once
 
 #include <fmt/format.h>
+#include <iostream>
 #include <iterator>
 
 // #include <libng_core/encoding/UtfUtil.hpp> // 'LIBNG_ERROR': identifier not found

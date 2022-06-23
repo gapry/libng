@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>
@@ -16,7 +17,7 @@ struct StringUtil {
     appendBinToHex(result, data);
   }
 
-  static void appendBinToHex(String& result, Span<const u8> data);
+  static void appendBinToHex(String& result, ByteSpan data);
 
   static bool hasChar(StrView view, char ch) {
     return StrView::npos != view.find(ch);
@@ -26,6 +27,13 @@ struct StringUtil {
   static std::pair<StrView, StrView> splitByChar(StrView view, char seperator);
 
   static StrView trimChar(StrView view, StrView seperators);
+
+  static const char* findChar(StrView view, StrView charList, bool ignoreCase);
+  static const char* findCharFromEnd(StrView view, StrView charList, bool ignoreCase);
+
+  static bool ignoreCaseCompare(char a, char b) {
+    return tolower(a) == tolower(b);
+  }
 
   static bool tryParse(StrView view, i8& outValue);
   static bool tryParse(StrView view, i16& outValue);

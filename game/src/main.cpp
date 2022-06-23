@@ -96,16 +96,10 @@ class GameApp : public UIApp {
 public:
   virtual void onCreate(CreateDesc& desc) override {
     {
-      String file = getExecutableFilename();
-      String path = FilePath::getDir(file);
-
-      String configPath;
-#if LIBNG_IDE_VSC
-      configPath = "\\..\\..\\Assets";
-#elif LIBNG_IDE_VS
-      configPath = "/../../../../Assets";
-#endif
-      path.append(configPath);
+      String file       = getExecutableFilename();
+      String path       = FilePath::DirName(file);
+      String assetsPath = FilePath::GetAssetsPath();
+      path.append(assetsPath);
       setCurrentDir(path);
 
       auto dir = getCurrentDir();

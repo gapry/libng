@@ -1,10 +1,10 @@
 #include <libng_core/file/MemMapFile.hpp>
-#include <libng_core/types/number.hpp>
 
 namespace libng {
 
-#if LIBNG_OS_WINDOWS
+#if defined(LIBNG_OS_WINDOWS)
 
+// https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-createfilemappingw
 void MemMapFile::open(StrView filename) {
   close();
 
@@ -40,6 +40,7 @@ void MemMapFile::open(StrView filename) {
   _span = ByteSpan(data, size);
 }
 
+// https://docs.microsoft.com/en-us/windows/win32/api/memoryapi/nf-memoryapi-unmapviewoffile
 void MemMapFile::close() {
   if (_span.size() <= 0) {
     return;
@@ -56,7 +57,7 @@ void MemMapFile::close() {
   _filestream.close();
 }
 
-#elif LIBNG_OS_MACOS
+#elif defined(LIBNG_OS_LINUX) || defined(LIBNG_OS_MACOS) || defined(LIBNG_OS_FREEBSD)
 
 void MemMapFile::open(StrView filename) {
   close();
@@ -65,16 +66,7 @@ void MemMapFile::open(StrView filename) {
 void MemMapFile::close() {
 }
 
-#elif LIBNG_OS_LINUX
-
-void MemMapFile::open(StrView filename) {
-  close();
-}
-
-void MemMapFile::close() {
-}
-
-#elif LIBNG_OS_UNSUPPORTED
+#else
 
 void MemMapFile::open(StrView filename) {
   close();

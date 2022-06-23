@@ -18,7 +18,7 @@ public:
     libng::String path = libng::Directory::getCurrent();
     LIBNG_LOG("path = {}\n", path);
 
-    String slash        = FilePath::getSlash();
+    String slash        = FilePath::GetSlash();
     String testDataPath = Fmt("{0}{1}{0}{2}{0}{3}{0}", slash, "test", "data", "JsonFile"); // Issue
 
     path.append(testDataPath);

@@ -1,56 +1,24 @@
 #pragma once
 
+#include <libng_core/file/Directory.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>
+#include <libng_core/libcxx/util/StringUtil.hpp>
 
 namespace libng {
 
 struct FilePath {
   FilePath() = delete;
 
-  static String getSlash() {
-    String slash;
-#if LIBNG_IDE_VSC
-    slash = "\\";
-#elif LIBNG_IDE_VS
-    slash = "/";
-#endif
-    return slash;
-  }
+  static String GetSlash();
 
-  static String getDir(StrView path) {
-    auto* end   = path.end();
-    auto* begin = path.begin();
+  static String GetAssetsPath();
 
-    if (end == nullptr) {
-      return String();
-    }
+  static StrView DirName(StrView path);
 
-    auto* p = end - 1;
+  static bool IsRealPath(const StrView& path);
 
-    for (; p >= begin; p--) {
-      if (*p == '/' || *p == '\\') {
-        return String(begin, p);
-      }
-    }
-    return String();
-  }
-
-  static StrView FilePath::dirname(StrView path) {
-    auto* end   = path.end();
-    auto* begin = path.begin();
-
-    if (end == nullptr)
-      return StrView();
-
-    auto* p = end - 1;
-    for (; p >= begin; p--) {
-      if (*p == '/' || *p == '\\') {
-        return StrView(begin, p - begin);
-      }
-    }
-    return StrView();
-  }
+  static String RealPath(StrView path);
 };
 
 } // namespace libng

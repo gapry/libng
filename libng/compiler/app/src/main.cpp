@@ -11,7 +11,7 @@
 
 void pre_run() {
   libng::String file = libng::Directory::getCurrent();
-  libng::String path = libng::FilePath::dirname(file);
+  libng::String path = libng::FilePath::DirName(file);
 
   libng::String configPath;
 #if LIBNG_IDE_VSC
