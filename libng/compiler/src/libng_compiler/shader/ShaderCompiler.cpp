@@ -1,5 +1,6 @@
 #include <libng_core/file/Directory.hpp>
 #include <libng_core/file/FilePath.hpp>
+#include <libng_core/file/JsonFile.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/log/log.hpp>
 
@@ -44,17 +45,25 @@ void ShaderCompiler::onRun(int argc, char** argv) {
 
   ShaderInfo info;
 
-  StrView shaderFilename = "Assets/Shaders/test/case01.shader";
+  StrView shaderFilename = "Assets/Shaders/test/case02.shader";
   String outputPath      = Fmt("Assets/LocalTemp/Imported/{}", shaderFilename);
   Directory::create(outputPath);
 
-  // Shader Input
   {
+    // Shader Input
+    LIBNG_LOG("prop size = {}\n", info.props.size());
+    LIBNG_LOG("pass size = {}\n", info.passes.size());
+
     ShaderParser parser;
     parser.readFile(info, shaderFilename);
+
+    LIBNG_LOG("prop size = {}\n", info.props.size());
+    LIBNG_LOG("pass size = {}\n", info.passes.size());
+
+    // JSON Output
+    auto jsonFilename = Fmt("{}/info.json", outputPath);
+    JsonFile::write(jsonFilename, info, true);
   }
-  // JSON Output
-  { auto jsonFilename = Fmt("{}/test_case01_shader.json", outputPath); }
 }
 
 } // namespace libng

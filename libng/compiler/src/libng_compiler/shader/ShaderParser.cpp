@@ -15,6 +15,7 @@ void ShaderParser::readMem(ShaderInfo& outInfo, ByteSpan data, StrView filename)
   outInfo.clear();
   _outInfo = &outInfo;
   reset(data, filename);
+  skipNewlineTokens();
 
   LIBNG_LOG("token = {}\n", _token);
 
@@ -129,7 +130,7 @@ void ShaderParser::_readProperty() {
  * }
  */
 void ShaderParser::_readPass() {
-  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  LIBNG_LOG("[Begin] {}\n", __LIBNG_FUNCTION__);
 
   nextToken();
   auto& o = _outInfo->passes.emplace_back();
@@ -143,11 +144,13 @@ void ShaderParser::_readPass() {
   for(;;) {
     if(_token.isOperator("}"))        { nextToken(); break; }
     if(_token.isNewLine())            { nextToken(); continue; }
-    if(_token.isIdentifier("VsFunc")) { nextToken(); readIdentifier(o.vsFunc); continue; }
-    if(_token.isIdentifier("PsFunc")) { nextToken(); readIdentifier(o.psFunc); continue; }
+    if(_token.isIdentifier("VsFunc")) { nextToken(); readIdentifier(o.vsFunc); /* LIBNG_LOG("{}\n", "vs"); */ continue; }
+    if(_token.isIdentifier("PsFunc")) { nextToken(); readIdentifier(o.psFunc); /* LIBNG_LOG("{}\n", "ps"); */ continue; }
     return errorUnexpectedToken();
   }
   // clang-format on
+
+  LIBNG_LOG("[End] {}\n", __LIBNG_FUNCTION__);
 }
 
 } // namespace libng

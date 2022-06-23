@@ -38,6 +38,7 @@ LIBNG_INLINE void ShaderParser::_readEnum(E& v) {
   }
   if (!enumTryParse(v, _token.str)) {
     error("read enum [{}]", _token.str);
+    return;
   }
   nextToken();
 }

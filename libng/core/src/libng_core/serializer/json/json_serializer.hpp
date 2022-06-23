@@ -19,37 +19,37 @@ struct json_serializer : public NonCopyable {
 
   json_serializer(Json& out_json)
     : _json(out_json) {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     _stack.emplace_back(&_json);
   }
 
   // clang-format off
-  void io(u8&  v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
-  void io(u16& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
-  void io(u32& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
-  void io(u64& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(u8&  v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(u16& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(u32& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(u64& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
 
-  void io(i8&  v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
-  void io(i16& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
-  void io(i32& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
-  void io(i64& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(i8&  v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(i16& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(i32& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(i64& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
   
-  void io(f32&  v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
-  void io(f64&  v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
-  void io(f128& v) { LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); to_value(v); }
+  void io(f32&  v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(f64&  v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(f128& v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
   // clang-format on  
 
   template<class V>
   void io(V& val) {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     json_io<This, V>::io(*this, val);
   }
 
   template<class V>
   void named_io(const char* name, V& val) {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     to_object_member(name, val);
   }
@@ -60,7 +60,7 @@ struct json_serializer : public NonCopyable {
 protected:
   template<class V>
   void to_value(const V& val) {
-    LIBNG_LOG("{}, stack size = {}\n", __LIBNG_FUNCTION__, _stack.size());
+    // LIBNG_LOG("{}, stack size = {}\n", __LIBNG_FUNCTION__, _stack.size());
 
     auto& current = _stack.back();
     if (!current->is_null()) {
@@ -71,16 +71,16 @@ protected:
 
   template<class V>
   void to_enum(const V& val) {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto data = enumStr(val);
-    LIBNG_LOG("enumStr(val) = {}\n", data);
+    // LIBNG_LOG("enumStr(val) = {}\n", data);
 
     to_value(data);
   }
 
   void begin_object() {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto& current = _stack.back();
     if (!current->is_null()) {
@@ -90,7 +90,7 @@ protected:
   }
 
   void end_object() {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto& current = _stack.back();
     if (!current->is_object()) {
@@ -99,7 +99,7 @@ protected:
   }
 
   void to_str_view(StrView val) {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto& current = _stack.back();
     if (!current->is_null()) {
@@ -112,7 +112,7 @@ protected:
 
   template<class V>
   void to_object_member(const char* name, V& val) {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto& obj = _stack.back();
     if (!obj->is_object()) {
@@ -133,7 +133,7 @@ protected:
   }
 
   void begin_array() {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto& current = _stack.back();
     if (!current->is_null()) {
@@ -143,7 +143,7 @@ protected:
   }
 
   void resize_array(size_t size) {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto& current = _stack.back();
     if (!current->is_array()) {
@@ -155,7 +155,7 @@ protected:
   }
 
   void end_array() {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto& current = _stack.back();
     if (!current->is_array()) {
@@ -165,7 +165,7 @@ protected:
 
   template<class V>
   void to_array_element(size_t index, V& val) {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto& current = _stack.back();
     if (!current->is_array()) {
@@ -194,7 +194,7 @@ private:
 template<size_t N>
 struct json_io<json_serializer, String_<N>> {
   static void io(json_serializer& se, String_<N>& data) {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     se.to_str_view(data);
   }
@@ -203,7 +203,7 @@ struct json_io<json_serializer, String_<N>> {
 template<class T, size_t N>
 struct json_io<json_serializer, Vector_<T, N>> {
   static void io(json_serializer& se, Vector_<T, N>& data) {
-    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+    // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     se.begin_array();
     size_t n = data.size();

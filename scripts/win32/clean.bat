@@ -7,3 +7,7 @@ IF EXIST *.obj DEL *.obj
 IF EXIST *.exe DEL *.exe
 IF EXIST *.ilk DEL *.ilk
 IF EXIST *.pdb DEL *.pdb
+
+cd Assets
+IF EXIST LocalTemp rmdir LocalTemp /q /s
+cd ..

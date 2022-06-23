@@ -74,7 +74,7 @@ public:
 
   template<class... Args>
   void error(const Args&... args) {
-    LIBNG_LOG("{}", __LIBNG_FUNCTION__);
+    LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
     auto msg = Fmt(args...);
     _error(msg);

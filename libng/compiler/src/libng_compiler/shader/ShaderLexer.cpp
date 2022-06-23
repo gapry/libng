@@ -3,13 +3,13 @@
 namespace libng {
 
 void ShaderLexer::reset(ByteSpan source, StrView filename) {
-  LIBNG_LOG("[{}] source size = {}, filename = {}\n", __LIBNG_FUNCTION__, source.size(), filename);
+  // LIBNG_LOG("[{}] source size = {}, filename = {}\n", __LIBNG_FUNCTION__, source.size(), filename);
 
   reset(StrView_make(source), filename);
 }
 
 void ShaderLexer::reset(StrView source, StrView filename) {
-  LIBNG_LOG("[{}] source = \n{}\n\nfilename = {}\n", __LIBNG_FUNCTION__, source, filename);
+  // LIBNG_LOG("[{}] source = \n{}\n\nfilename = {}\n", __LIBNG_FUNCTION__, source, filename);
 
   _source   = source;
   _filename = filename;
@@ -24,7 +24,7 @@ void ShaderLexer::reset(StrView source, StrView filename) {
 
 bool ShaderLexer::nextChar() {
   // LIBNG_LOG("[begin] {}, _ch = {}, *_cur = {}, _col = {}\n", __LIBNG_FUNCTION__, _ch, *_cur, _col);
-  LIBNG_LOG("[begin] {}\n", __LIBNG_FUNCTION__);
+  // LIBNG_LOG("[begin] {}\n", __LIBNG_FUNCTION__);
 
   _ch = 0;
   if (!_cur || _cur >= _source.end()) {
@@ -41,23 +41,23 @@ bool ShaderLexer::nextChar() {
   }
 
   // LIBNG_LOG("[end] {}, _ch = {}, *_cur = {}, _col = {}\n", __LIBNG_FUNCTION__, _ch, *_cur, _col);
-  LIBNG_LOG("[end] {}\n", __LIBNG_FUNCTION__);
+  // LIBNG_LOG("[end] {}\n", __LIBNG_FUNCTION__);
 
   return true;
 }
 
 bool ShaderLexer::nextToken() {
-  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
   if (!_nextToken()) {
     return false;
   }
-  LIBNG_LOG("{} {}\n", _line, _token);
+  // LIBNG_LOG("{} {}\n", _line, _token);
   return true;
 }
 
 bool ShaderLexer::_nextToken() {
-  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
   _token.setNone();
 
@@ -124,7 +124,7 @@ bool ShaderLexer::_nextToken() {
 }
 
 void ShaderLexer::trimSpaces() {
-  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
   for (;;) {
     if (_ch == ' ' || _ch == '\t' || _ch == '\r') {
@@ -136,7 +136,7 @@ void ShaderLexer::trimSpaces() {
 }
 
 void ShaderLexer::_parseCommentSingleLine() {
-  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
   nextChar();
   for (;;) {
@@ -156,7 +156,7 @@ void ShaderLexer::_parseCommentSingleLine() {
 }
 
 void ShaderLexer::_parseCommentBlock() {
-  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
   nextChar();
   for (;;) {
@@ -180,7 +180,7 @@ void ShaderLexer::_parseCommentBlock() {
 }
 
 bool ShaderLexer::_parseIdentifier() {
-  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
   _token.type = TokenType::Identifier;
   _token.str += _ch;
@@ -198,7 +198,7 @@ bool ShaderLexer::_parseIdentifier() {
 }
 
 bool ShaderLexer::_parseNumber() {
-  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
   _token.type = TokenType::Number;
   _token.str += _ch;
@@ -225,7 +225,7 @@ bool ShaderLexer::_parseNumber() {
 }
 
 bool ShaderLexer::_parseString() {
-  LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
+  // LIBNG_LOG("{}\n", __LIBNG_FUNCTION__);
 
   // char* ch = '"';
   _token.type = TokenType::String;
@@ -294,7 +294,7 @@ void ShaderLexer::errorUnexpectedToken() {
 }
 
 void ShaderLexer::expectOperator(StrView s) {
-  LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
+  // LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
 
   if (_token.isOperator(s)) {
     nextToken();
@@ -304,7 +304,7 @@ void ShaderLexer::expectOperator(StrView s) {
 }
 
 void ShaderLexer::skipNewlineTokens() {
-  LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
+  // LIBNG_ERROR("{}\n", __LIBNG_FUNCTION__);
 
   while (_token.isNewLine()) {
     nextToken();
@@ -312,11 +312,11 @@ void ShaderLexer::skipNewlineTokens() {
 }
 
 ShaderLexer::Token::Token() {
-  this->setNone();
+  // this->setNone();
 }
 
 ShaderLexer::Token::~Token() {
-  this->setNone();
+  // this->setNone();
 }
 
 void ShaderLexer::Token::setNone() {
