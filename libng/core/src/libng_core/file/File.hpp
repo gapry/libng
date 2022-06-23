@@ -4,11 +4,15 @@
 #include <libng_core/exception/error.hpp>
 #include <libng_core/file/File.hpp>
 #include <libng_core/file/FilePath.hpp>
+#include <libng_core/file/FileSize.hpp>
 #include <libng_core/file/FileStream.hpp>
 #include <libng_core/file/MemMapFile.hpp>
+#include <libng_core/libcxx/fixed_vector.hpp>
+#include <libng_core/libcxx/limits.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/libcxx/type_make.hpp>
+#include <libng_core/libcxx/vector.hpp>
 #include <libng_core/log/log.hpp>
 #include <libng_core/platform/os.hpp>
 
@@ -42,7 +46,48 @@ struct File {
                                  bool createDir,            //
                                  bool logResult   = true,   //
                                  bool logNoChange = false); //
+
+  static void readFile(StrView filename, Vector<u8>& outData);
+
+  template<size_t N>
+  static void readFile(StrView filename, Vector_<u8, N>& outData);
+
+  template<size_t N>
+  static void readFile(StrView filename, String_<N>& outData);
+
+private:
+  template<class T>
+  static void _readFile(StrView filename, T& outData);
 };
+
+template<class T>
+LIBNG_INLINE void File::_readFile(StrView filename, T& outData) {
+  FileStream fs;
+  fs.openRead(filename);
+
+  FileSize size = fs.fileSize();
+  if (size > libng::numeric_limits<size_t>::max()) {
+    throw LIBNG_ERROR("{}\n", "file is too large");
+  }
+  outData.resize(static_cast<u8>(size));
+
+  Span<u8> span(reinterpret_cast<u8*>(outData.data()), outData.size());
+  fs.readBytes(span);
+}
+
+LIBNG_INLINE void File::readFile(StrView filename, Vector<u8>& outData) {
+  _readFile(filename, outData);
+}
+
+template<size_t N>
+LIBNG_INLINE void File::readFile(StrView filename, Vector_<u8, N>& outData) {
+  _readFile(filename, outData);
+}
+
+template<size_t N>
+LIBNG_INLINE void File::readFile(StrView filename, String_<N>& outData) {
+  _readFile(filename, outData);
+}
 
 LIBNG_INLINE char File::writeFile(StrView filename, ByteSpan data, bool createDir, bool logResult) {
   char op = '+'; // Issue

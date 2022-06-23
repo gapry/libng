@@ -1,8 +1,11 @@
 #include <libng_core/file/Directory.hpp>
 #include <libng_core/file/File.hpp>
 #include <libng_core/file/FilePath.hpp>
+#include <libng_core/libcxx/fixed_vector.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/libcxx/vector.hpp>
 #include <libng_core/log/log.hpp>
+#include <libng_core/types/number.hpp>
 
 #include <libng_test/unit_test/UnitTestBase.hpp>
 
@@ -81,6 +84,27 @@ public:
       File::writeFileIfChanged(file, data, true, true);
     }
   }
+
+  void test_read_file() {
+    auto path   = getTestDataPath("Json");
+    String file = Fmt("{}{}", path, "config.json");
+
+    {
+      Vector<u8> data;
+      File::readFile(file, data);
+      LIBNG_LOG("Vector size = {}\n", data.size());
+    }
+    {
+      Vector_<u8, 16> data;
+      File::readFile(file, data);
+      LIBNG_LOG("fixed vector size = {}\n", data.size());
+    }
+    {
+      String_<16> data;
+      File::readFile(file, data);
+      LIBNG_LOG("fixed string size = {}\n", data.size());
+    }
+  }
 };
 
 } // namespace libng
@@ -91,4 +115,5 @@ void test_file() {
   LIBNG_TEST_CASE(libng::TestFile, test_write_bytes());
   LIBNG_TEST_CASE(libng::TestFile, test_write_file());
   LIBNG_TEST_CASE(libng::TestFile, test_write_file_if_change());
+  LIBNG_TEST_CASE(libng::TestFile, test_read_file());
 }
