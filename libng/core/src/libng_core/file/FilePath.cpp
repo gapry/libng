@@ -22,6 +22,12 @@ String FilePath::GetAssetsPath() {
   return path;
 }
 
+String FilePath::GetTestDataPath(const char* const path) {
+  String slash    = FilePath::GetSlash();
+  String dataPath = Fmt("{0}{1}{0}{2}{0}{3}{0}", slash, "test", "data", path); // Issue
+  return dataPath;
+}
+
 StrView FilePath::DirName(StrView path) {
   auto* end = path.end();
   if (end == nullptr) {

@@ -14,6 +14,8 @@ struct FilePath {
 
   static String GetAssetsPath();
 
+  static String GetTestDataPath(const char* const name);
+
   static StrView DirName(StrView path);
 
   static bool IsRealPath(const StrView& path);
