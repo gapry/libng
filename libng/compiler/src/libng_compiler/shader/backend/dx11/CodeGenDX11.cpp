@@ -9,6 +9,16 @@ void CodeGenDX11::Execute(StrView outFilename,         //
                           StrView srcFilename,         //
                           StrView entryFunc) {         //
   LIBNG_LOG("CodeGen Stage = {}\n", __LIBNG_FUNCTION__);
+
+  TempStringA entryPoint = entryFunc;
+  LIBNG_LOG("entry point = {}\n", entryPoint);
+
+  MemMapFile mapFile;
+  mapFile.open(srcFilename);
+  LIBNG_LOG("memMapFileName = {}\n", mapFile.filename().c_str());
+
+  auto profile = Util::getDxStageProfile(shaderStage);
+  LIBNG_LOG("profile = {}\n", profile);
 }
 
 void CodeGenDX11::_Reflect(StrView outFilename,   //

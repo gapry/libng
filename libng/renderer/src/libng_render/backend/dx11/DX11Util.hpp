@@ -5,7 +5,7 @@
 #include <libng_core/platform/graphics.hpp>
 #include <libng_core/platform/os.hpp>
 #include <libng_render/backend/dx11/TypeDX11.hpp>
-#include <libng_render/material/ShaderStage.hpp>
+#include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/type/RenderPrimitiveType.hpp>
 #include <libng_render/vertex/VertexSemanticType.hpp>
@@ -31,10 +31,10 @@ struct DX11Util {
 
   static String getStrFromHRESULT(HRESULT hr);
 
-  static const char* getDxStageProfile(ShaderStage s) {
+  static const char* getDxStageProfile(ShaderStageMask s) {
     switch (s) {
-      case ShaderStage::Vertex: return "vs_5_0";
-      case ShaderStage::Pixel: return "ps_5_0";
+      case ShaderStageMask::Vertex: return "vs_5_0";
+      case ShaderStageMask::Pixel: return "ps_5_0";
       default: return "";
     }
   }

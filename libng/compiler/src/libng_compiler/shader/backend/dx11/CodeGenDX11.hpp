@@ -2,6 +2,7 @@
 
 #include <libng_core/file/MemMapFile.hpp>
 #include <libng_core/libcxx/span.hpp>
+#include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/log/log.hpp>
 #include <libng_core/platform/graphics.hpp>
