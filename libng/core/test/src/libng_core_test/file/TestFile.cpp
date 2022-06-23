@@ -65,6 +65,22 @@ public:
       File::writeFile(file, buff, true, true);
     }
   }
+
+  void test_write_file_if_change() {
+    auto path   = getTestDataPath("Json");
+    String file = Fmt("{}{}", path, "config.json");
+
+    {
+      const char* const test_data = "{}\n\r"; // Issue
+      ByteSpan buff(reinterpret_cast<const u8*>(test_data), sizeof(test_data));
+      File::writeFileIfChanged(file, buff, true, true);
+    }
+
+    {
+      const char* const data = "[]\n\r"; // Issue
+      File::writeFileIfChanged(file, data, true, true);
+    }
+  }
 };
 
 } // namespace libng
@@ -74,4 +90,5 @@ void test_file() {
   LIBNG_TEST_CASE(libng::TestFile, test_rename());
   LIBNG_TEST_CASE(libng::TestFile, test_write_bytes());
   LIBNG_TEST_CASE(libng::TestFile, test_write_file());
+  LIBNG_TEST_CASE(libng::TestFile, test_write_file_if_change());
 }

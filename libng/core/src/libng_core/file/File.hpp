@@ -5,6 +5,7 @@
 #include <libng_core/file/File.hpp>
 #include <libng_core/file/FilePath.hpp>
 #include <libng_core/file/FileStream.hpp>
+#include <libng_core/file/MemMapFile.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/libcxx/type_make.hpp>
@@ -17,13 +18,30 @@ struct File {
   File() = delete;
 
   static bool exists(StrView filename);
-  static void rename(StrView src, StrView dst);
+  static void rename(StrView oldName, StrView newName);
 
   static void writeBytes(StrView filename, ByteSpan buf);
-  static void writeText(StrView filename, StrView buf);
+  static void writeText(StrView filename, StrView text);
 
-  static char writeFile(StrView filename, ByteSpan data, bool createDir, bool logResult = true);
-  static char writeFile(StrView filename, StrView data, bool createDir, bool logResult = true);
+  static char writeFile(StrView filename,       //
+                        ByteSpan data,          //
+                        bool createDir,         //
+                        bool logResult = true); //
+  static char writeFile(StrView filename,       //
+                        StrView data,           //
+                        bool createDir,         //
+                        bool logResult = true); //
+
+  static char writeFileIfChanged(StrView filename,          //
+                                 StrView data,              //
+                                 bool createDir,            //
+                                 bool logResult   = true,   //
+                                 bool logNoChange = false); //
+  static char writeFileIfChanged(StrView filename,          //
+                                 ByteSpan data,             //
+                                 bool createDir,            //
+                                 bool logResult   = true,   //
+                                 bool logNoChange = false); //
 };
 
 LIBNG_INLINE char File::writeFile(StrView filename, ByteSpan data, bool createDir, bool logResult) {
@@ -61,6 +79,47 @@ LIBNG_INLINE void File::writeBytes(StrView filename, ByteSpan buf) {
 
 LIBNG_INLINE void File::writeText(StrView filename, StrView text) {
   writeBytes(filename, ByteSpan_make(text));
+}
+
+LIBNG_INLINE char File::writeFileIfChanged(StrView filename,   //
+                                           ByteSpan data,      //
+                                           bool createDir,     //
+                                           bool logResult,     //
+                                           bool logNoChange) { //
+  char op = '+';                                               // Issue
+
+  auto realPath = FilePath::RealPath(filename);
+
+  if (exists(realPath)) {
+    MemMapFile mapFile;
+    mapFile.open(realPath);
+    if (mapFile.span() == data) {
+      op = '='; // Issue
+    } else {
+      op = 'U'; // Issue
+    }
+  }
+
+  if (logResult) {
+    if (op != '=' || logNoChange) {
+      LIBNG_LOG("[{}] path = {}, size = {}\n", op, realPath, data.size());
+    }
+  }
+
+  if (op == '=') {
+    return op;
+  }
+
+  return writeFile(realPath, data, createDir, false);
+}
+
+LIBNG_INLINE char File::writeFileIfChanged(StrView filename,   //
+                                           StrView data,       //
+                                           bool createDir,     //
+                                           bool logResult,     //
+                                           bool logNoChange) { //
+  auto byteSpan = ByteSpan_make(data);
+  return writeFileIfChanged(filename, byteSpan, createDir, logResult, logNoChange);
 }
 
 #if defined(LIBNG_OS_WINDOWS)
