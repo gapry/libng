@@ -2,9 +2,13 @@
 
 #include <libng_core/encoding/UtfUtil.hpp>
 #include <libng_core/exception/error.hpp>
+#include <libng_core/file/File.hpp>
+#include <libng_core/file/FilePath.hpp>
 #include <libng_core/file/FileStream.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string_view.hpp>
+#include <libng_core/libcxx/type_make.hpp>
+#include <libng_core/log/log.hpp>
 #include <libng_core/platform/os.hpp>
 
 namespace libng {
@@ -23,11 +27,30 @@ struct File {
 };
 
 LIBNG_INLINE char File::writeFile(StrView filename, ByteSpan data, bool createDir, bool logResult) {
-  return ' ';
+  char op = '+'; // Issue
+
+  auto realPath = FilePath::RealPath(filename);
+  if (File::exists(realPath)) {
+    op = 'U'; // Issue
+  }
+
+  if (logResult) {
+    LIBNG_LOG("[{}] path = {}, size = {}\n", op, realPath, data.size());
+  }
+
+  if (createDir) {
+    auto dir = FilePath::DirName(realPath);
+    if (dir.size()) {
+      Directory::create(dir);
+    }
+  }
+  writeBytes(realPath, data);
+  return op;
 }
 
 LIBNG_INLINE char File::writeFile(StrView filename, StrView data, bool createDir, bool logResult) {
-  return ' ';
+  auto bsData = ByteSpan_make(data);
+  return writeFile(filename, bsData, createDir, logResult);
 }
 
 LIBNG_INLINE void File::writeBytes(StrView filename, ByteSpan buf) {
@@ -36,7 +59,8 @@ LIBNG_INLINE void File::writeBytes(StrView filename, ByteSpan buf) {
   fstream.writeBytes(buf);
 }
 
-LIBNG_INLINE void File::writeText(StrView filename, StrView buf) {
+LIBNG_INLINE void File::writeText(StrView filename, StrView text) {
+  writeBytes(filename, ByteSpan_make(text));
 }
 
 #if defined(LIBNG_OS_WINDOWS)

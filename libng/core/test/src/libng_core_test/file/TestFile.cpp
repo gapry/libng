@@ -49,6 +49,22 @@ public:
     ByteSpan buff(reinterpret_cast<const u8*>(test_data), sizeof(test_data));
     File::writeBytes(file, buff);
   }
+
+  void test_write_file() {
+    auto path   = getTestDataPath("Json");
+    String file = Fmt("{}{}", path, "config.json");
+
+    {
+      const char* const data = "[]\n\r"; // Issue
+      File::writeFile(file, data, true, true);
+    }
+
+    {
+      const char* const test_data = "{}\n\r"; // Issue
+      ByteSpan buff(reinterpret_cast<const u8*>(test_data), sizeof(test_data));
+      File::writeFile(file, buff, true, true);
+    }
+  }
 };
 
 } // namespace libng
@@ -57,4 +73,5 @@ void test_file() {
   LIBNG_TEST_CASE(libng::TestFile, test_exists());
   LIBNG_TEST_CASE(libng::TestFile, test_rename());
   LIBNG_TEST_CASE(libng::TestFile, test_write_bytes());
+  LIBNG_TEST_CASE(libng::TestFile, test_write_file());
 }
