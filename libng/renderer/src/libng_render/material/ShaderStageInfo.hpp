@@ -57,6 +57,17 @@ public:
 
   class Variable {
   public:
+    String name;
+    size_t offset     = 0;
+    DataType dataType = DataType::None;
+    bool rowMajor     = true;
+
+    template<class SE>
+    void on_json(SE& se) {
+      LIBNG_NAMED_IO(se, name);
+      LIBNG_NAMED_IO(se, offset);
+      LIBNG_NAMED_IO(se, dataType);
+    }
   };
 
   class ConstBuffer {
