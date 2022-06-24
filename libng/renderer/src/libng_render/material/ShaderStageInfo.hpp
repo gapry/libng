@@ -138,6 +138,12 @@ public:
 
   template<class SE>
   void on_json(SE& se) {
+    LIBNG_NAMED_IO(se, profile);
+    LIBNG_NAMED_IO(se, inputs);
+    LIBNG_NAMED_IO(se, params);
+    LIBNG_NAMED_IO(se, constBuffers);
+    LIBNG_NAMED_IO(se, textures);
+    LIBNG_NAMED_IO(se, samplers);
   }
 };
 
