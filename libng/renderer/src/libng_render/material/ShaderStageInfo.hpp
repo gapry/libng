@@ -119,6 +119,23 @@ public:
   };
   Vector_<Texture, 8> textures;
 
+  class Sampler {
+  public:
+    String name;
+    i16 bindPoint           = 0;
+    i16 bindCount           = 0;
+    RenderDataType dataType = RenderDataType::None;
+
+    template<class SE>
+    void on_json(SE& se) {
+      LIBNG_NAMED_IO(se, name);
+      LIBNG_NAMED_IO(se, bindPoint);
+      LIBNG_NAMED_IO(se, bindCount);
+      LIBNG_NAMED_IO(se, dataType);
+    }
+  };
+  Vector_<Sampler, 8> samplers;
+
   template<class SE>
   void on_json(SE& se) {
   }
