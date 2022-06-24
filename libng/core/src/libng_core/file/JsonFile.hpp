@@ -6,6 +6,7 @@
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/libcxx/type_make.hpp>
+#include <libng_core/serializer/json/json_deserializer.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
 #include <libng_core/types/function.hpp>
 
@@ -19,6 +20,12 @@ struct JsonFile {
 
   template<class T, size_t N>
   static void serialize(String_<N>& json, T& obj);
+
+  template<class T>
+  static void read(StrView filename, T& obj);
+
+  template<class T>
+  static void deserialize(StrView json, T& obj);
 };
 
 template<class T>
@@ -37,6 +44,23 @@ LIBNG_INLINE void JsonFile::serialize(String_<N>& outJson, T& obj) {
   // the data which will be output to the json file
   auto tmp = data.dump(1, '\t');
   outJson  = tmp.c_str();
+}
+
+template<class T>
+LIBNG_INLINE void JsonFile::read(StrView filename, T& obj) {
+  MemMapFile mm;
+  mm.open(filename);
+  auto str = StrView_make(mm);
+
+  auto json = Json::parse(str.begin(), str.end());
+  json_deserializer de(json);
+  de.io(obj);
+}
+
+template<class T>
+LIBNG_INLINE void JsonFile::deserialize(StrView json, T& obj) {
+  json_deserializer se(json);
+  se.io(obj);
 }
 
 } // namespace libng

@@ -82,6 +82,10 @@ void CodeGenDX11::_Reflect(StrView outFilename,   //
   D3D11_SHADER_DESC desc;
   hr = reflect->GetDesc(&desc);
   Util::throwIfError(hr);
+
+  ShaderStageInfo outInfo;
+  outInfo.profile = profile;
+  outInfo.stage   = stage;
 }
 
 void CodeGenDX11::_ReflectInputs(ShaderStageInfo& outInfo,        //
