@@ -5,6 +5,8 @@
 
 namespace libng {
 
+using VertexSemanticIndex = u8;
+
 enum class VertexSemanticType : u8
 {
   None,

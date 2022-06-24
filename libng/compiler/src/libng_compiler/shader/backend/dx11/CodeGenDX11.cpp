@@ -102,27 +102,74 @@ void CodeGenDX11::_Reflect(StrView outFilename,   //
   }
 }
 
+// https://docs.microsoft.com/en-us/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_signature_parameter_desc
+// https://docs.microsoft.com/en-us/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_register_component_type
 void CodeGenDX11::_ReflectInputs(ShaderStageInfo& outInfo,        //
                                  ID3D11ShaderReflection* reflect, //
-                                 D3D11_SHADER_DESC& dec) {        //
+                                 D3D11_SHADER_DESC& desc) {       //
   LIBNG_LOG("CodeGen Stage = {}\n", __LIBNG_FUNCTION__);
+
+  // HRESULT hr;
+  outInfo.inputs.reserve(desc.InputParameters);
+
+  for (UINT i = 0; i < desc.InputParameters; i++) {
+    LIBNG_LOG("[Reflect Input] index = {}\n", i);
+
+    D3D11_SIGNATURE_PARAMETER_DESC paramDesc;
+    HRESULT hr = reflect->GetInputParameterDesc(i, &paramDesc);
+    Util::throwIfError(hr);
+
+    VertexSemanticType semanticType;
+    semanticType = Util::parseDxSemanticName(StrView_c_str(paramDesc.SemanticName));
+
+    auto& dst    = outInfo.inputs.emplace_back();
+    dst.semantic = VertexSemanticUtil::make(semanticType, //
+                                            static_cast<VertexSemanticIndex>(paramDesc.SemanticIndex));
+
+    TempString semantic = enumStr(dst.semantic);
+    if (!semantic.size()) {
+      throw LIBNG_ERROR("unsupported sematic name {}", paramDesc.SemanticName);
+    }
+
+    // clang-format off
+    TempString dataType;
+    switch (paramDesc.ComponentType) {
+      case D3D_REGISTER_COMPONENT_UINT32:  dataType.append("UInt8");   break;
+      case D3D_REGISTER_COMPONENT_SINT32:  dataType.append("Int32");   break;
+      case D3D_REGISTER_COMPONENT_FLOAT32: dataType.append("Float32"); break;
+      default: throw LIBNG_ERROR("unsupported component type {}", paramDesc.ComponentType);
+    }
+    // clang-format on
+
+    auto componentCount = BitUtil::count1(paramDesc.Mask);
+    if (componentCount < 1 || componentCount > 4) {
+      throw LIBNG_ERROR("invalid componentCount {}", componentCount);
+    }
+    if (componentCount > 1) {
+      FmtTo(dataType, "x{}", componentCount);
+    }
+
+    if (!enumTryParse(dst.dataType, dataType)) {
+      throw LIBNG_ERROR("cannot parse dataType enum {}", dataType);
+    }
+  }
 }
 
 void CodeGenDX11::_ReflectConstBuffers(ShaderStageInfo& outInfo,        //
                                        ID3D11ShaderReflection* reflect, //
-                                       D3D11_SHADER_DESC& dec) {        //
+                                       D3D11_SHADER_DESC& desc) {       //
   LIBNG_LOG("CodeGen Stage = {}\n", __LIBNG_FUNCTION__);
 }
 
 void CodeGenDX11::_ReflectTextures(ShaderStageInfo& outInfo,        //
                                    ID3D11ShaderReflection* reflect, //
-                                   D3D11_SHADER_DESC& dec) {        //
+                                   D3D11_SHADER_DESC& desc) {       //
   LIBNG_LOG("CodeGen Stage = {}\n", __LIBNG_FUNCTION__);
 }
 
 void CodeGenDX11::_ReflectSamplers(ShaderStageInfo& outInfo,        //
                                    ID3D11ShaderReflection* reflect, //
-                                   D3D11_SHADER_DESC& dec) {        //
+                                   D3D11_SHADER_DESC& desc) {       //
   LIBNG_LOG("CodeGen Stage = {}\n", __LIBNG_FUNCTION__);
 }
 #endif

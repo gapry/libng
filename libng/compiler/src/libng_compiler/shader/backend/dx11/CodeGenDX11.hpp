@@ -1,8 +1,10 @@
 #pragma once
 
+#include <libng_core/exception/error.hpp>
 #include <libng_core/file/Directory.hpp>
 #include <libng_core/file/File.hpp>
 #include <libng_core/file/MemMapFile.hpp>
+#include <libng_core/libcxx/bit_util.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>
@@ -16,6 +18,7 @@
 #include <libng_render/material/ShaderStageInfo.hpp>
 #include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/type/RenderDataType.hpp>
+#include <libng_render/vertex/VertexSemanticType.hpp>
 
 namespace libng {
 

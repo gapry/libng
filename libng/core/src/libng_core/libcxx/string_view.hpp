@@ -22,6 +22,10 @@ using StrViewW = StrViewT<wchar_t>;
 
 using StrView = StrViewA;
 
+LIBNG_INLINE StrView StrView_c_str(const char* s) {
+  return s ? StrView(s, strlen(s)) : StrView();
+}
+
 }; // namespace libng
 
 LIBNG_INLINE
