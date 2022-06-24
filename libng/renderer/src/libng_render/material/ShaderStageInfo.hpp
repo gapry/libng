@@ -98,6 +98,10 @@ public:
     }
   };
 
+  Vector_<Input, 8> inputs;
+  Vector_<Param, 8> params;
+  Vector_<ConstBuffer, 4> constBuffers;
+
   template<class SE>
   void on_json(SE& se) {
   }
