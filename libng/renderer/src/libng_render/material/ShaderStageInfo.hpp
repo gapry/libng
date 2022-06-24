@@ -8,6 +8,7 @@
 
 #include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/type/RenderDataType.hpp>
+#include <libng_render/vertex/VertexSemantic.hpp>
 
 namespace libng {
 
@@ -42,6 +43,16 @@ public:
 
   class Input {
   public:
+    String name;
+    VertexSemantic semantic = VertexSemantic::None;
+    RenderDataType dataType = RenderDataType::None;
+
+    template<class SE>
+    void on_json(SE& se) {
+      LIBNG_NAMED_IO(se, name);
+      LIBNG_NAMED_IO(se, semantic);
+      LIBNG_NAMED_IO(se, dataType);
+    }
   };
 
   class Variable {
