@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_core/memory/SPtr.hpp>
 #include <libng_core/types/noncopyable.hpp>
 
 #include <libng_render/AdapterInfo.hpp>
@@ -45,16 +46,19 @@ public:
 
   bool vsync() const;
 
-  RenderContext* createContext(RenderContextCreateDesc& desc);
-
-  GPUBuffer* createGPUBuffer(GPUBufferCreateDesc& desc);
+  // clang-format off
+  SPtr<RenderContext> createContext  (RenderContextCreateDesc& desc);
+  SPtr<GPUBuffer>     createGPUBuffer(GPUBufferCreateDesc& desc);
+  SPtr<Shader>        createShader   (StrView filename);
+  SPtr<Material>      createMaterial ();
+  // clang-format on
 
 protected:
   // clang-format off
-  virtual RenderContext* onCreateContext  (RenderContextCreateDesc& desc) = 0;
-  virtual GPUBuffer*     onCreateGPUBuffer(GPUBufferCreateDesc& desc)     = 0;
-  virtual Shader*        onCreateShader   (StrView filename)              = 0;
-  virtual Material*      onCreateMaterial ()                              = 0;
+  virtual SPtr<RenderContext> onCreateContext  (RenderContextCreateDesc& desc) = 0;
+  virtual SPtr<GPUBuffer>     onCreateGPUBuffer(GPUBufferCreateDesc& desc)     = 0;
+  virtual SPtr<Shader>        onCreateShader   (StrView filename)              = 0;
+  virtual SPtr<Material>      onCreateMaterial ()                              = 0;
   // clang-format on
 
   static Renderer* _current;

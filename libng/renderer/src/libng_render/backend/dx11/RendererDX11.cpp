@@ -84,7 +84,9 @@ RendererDX11::RendererDX11(CreateDesc& desc) {
     _adapterInfo.adapterName = UtfUtil::toString(ad.Description);
     _adapterInfo.memorySize  = ad.DedicatedVideoMemory;
 
-    LIBNG_LOG("Render Adapter\n  name = {}\n  mem = {}G\n", _adapterInfo.adapterName, Math::byteToG(_adapterInfo.memorySize));
+    LIBNG_LOG("Render Adapter\n  name = {}\n  mem = {}G\n",
+              _adapterInfo.adapterName,
+              Math::byteToG(_adapterInfo.memorySize));
   }
 
   hr = _dxgiAdapter->GetParent(IID_PPV_ARGS(_dxgiFactory.ptrForInit()));
@@ -96,19 +98,19 @@ RendererDX11::RendererDX11(CreateDesc& desc) {
   }
 }
 
-RenderContext* RendererDX11::onCreateContext(RenderContextCreateDesc& desc) {
+SPtr<RenderContext> RendererDX11::onCreateContext(RenderContextCreateDesc& desc) {
   return new RenderContextDX11(desc);
 }
 
-GPUBuffer* RendererDX11::onCreateGPUBuffer(GPUBufferCreateDesc& desc) {
+SPtr<GPUBuffer> RendererDX11::onCreateGPUBuffer(GPUBufferCreateDesc& desc) {
   return new GPUBufferDX11(desc);
 }
 
-Material* RendererDX11::onCreateMaterial() {
+SPtr<Material> RendererDX11::onCreateMaterial() {
   return new Material_DX11();
 }
 
-Shader* RendererDX11::onCreateShader(StrView filename) {
+SPtr<Shader> RendererDX11::onCreateShader(StrView filename) {
   return new Shader_DX11(filename);
 }
 

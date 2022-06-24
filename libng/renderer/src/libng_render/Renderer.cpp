@@ -86,7 +86,7 @@ bool Renderer::vsync() const {
  * @param desc
  * @return RenderContext*
  */
-RenderContext* Renderer::createContext(RenderContextCreateDesc& desc) {
+SPtr<RenderContext> Renderer::createContext(RenderContextCreateDesc& desc) {
   return onCreateContext(desc);
 }
 
@@ -98,8 +98,16 @@ RenderContext* Renderer::createContext(RenderContextCreateDesc& desc) {
  * @param desc
  * @return GPUBuffer*
  */
-GPUBuffer* Renderer::createGPUBuffer(GPUBufferCreateDesc& desc) {
+SPtr<GPUBuffer> Renderer::createGPUBuffer(GPUBufferCreateDesc& desc) {
   return onCreateGPUBuffer(desc);
+}
+
+SPtr<Shader> Renderer::createShader(StrView filename) {
+  return onCreateShader(filename);
+}
+
+SPtr<Material> Renderer::createMaterial() {
+  return onCreateMaterial();
 }
 
 } // namespace libng

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <libng_core/memory/ComPtr.hpp>
+#include <libng_core/memory/SPtr.hpp>
 
 #include <libng_render/Renderer.hpp>
 #include <libng_render/backend/dx11/DX11Util.hpp>
@@ -47,17 +48,19 @@ public:
   }
 
 protected:
-  virtual RenderContext* onCreateContext(RenderContextCreateDesc& desc) override;
-  virtual GPUBuffer* onCreateGPUBuffer(GPUBufferCreateDesc& desc) override;
-  virtual Material* onCreateMaterial() override;
-  virtual Shader* onCreateShader(StrView filename) override;
+  // clang-format off
+  virtual SPtr<RenderContext> onCreateContext   (RenderContextCreateDesc& desc) override;
+  virtual SPtr<GPUBuffer>     onCreateGPUBuffer (GPUBufferCreateDesc& desc)     override;
+  virtual SPtr<Material>      onCreateMaterial  (void)                          override;
+  virtual SPtr<Shader>        onCreateShader    (StrView filename)              override;
 
-  ComPtr<DX11_IDXGIFactory> _dxgiFactory;
-  ComPtr<DX11_IDXGIDevice> _dxgiDevice;
-  ComPtr<DX11_IDXGIAdapter> _dxgiAdapter;
-  ComPtr<DX11_ID3DDevice> _d3dDevice;
+  ComPtr<DX11_IDXGIFactory>      _dxgiFactory;
+  ComPtr<DX11_IDXGIDevice>       _dxgiDevice;
+  ComPtr<DX11_IDXGIAdapter>      _dxgiAdapter;
+
+  ComPtr<DX11_ID3DDevice>        _d3dDevice;
   ComPtr<DX11_ID3DDeviceContext> _d3dDeviceContext;
-  ComPtr<DX11_ID3DDebug> _d3dDebug;
+  ComPtr<DX11_ID3DDebug>         _d3dDebug;
 };
 
 } // namespace libng
