@@ -86,6 +86,20 @@ void CodeGenDX11::_Reflect(StrView outFilename,   //
   ShaderStageInfo outInfo;
   outInfo.profile = profile;
   outInfo.stage   = stage;
+
+  // clang-format off
+  {
+    _ReflectInputs       (outInfo, reflect, desc);
+    _ReflectConstBuffers (outInfo, reflect, desc);
+    _ReflectTextures     (outInfo, reflect, desc);
+    _ReflectSamplers     (outInfo, reflect, desc);
+  }
+  // clang-format on
+
+  {
+    auto jsonFilename = Fmt("{}.json", outFilename);
+    JsonFile::writeIfChanged(jsonFilename, outInfo, true, true);
+  }
 }
 
 void CodeGenDX11::_ReflectInputs(ShaderStageInfo& outInfo,        //
@@ -103,13 +117,13 @@ void CodeGenDX11::_ReflectConstBuffers(ShaderStageInfo& outInfo,        //
 void CodeGenDX11::_ReflectTextures(ShaderStageInfo& outInfo,        //
                                    ID3D11ShaderReflection* reflect, //
                                    D3D11_SHADER_DESC& dec) {        //
-  LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
+  LIBNG_LOG("CodeGen Stage = {}\n", __LIBNG_FUNCTION__);
 }
 
 void CodeGenDX11::_ReflectSamplers(ShaderStageInfo& outInfo,        //
                                    ID3D11ShaderReflection* reflect, //
                                    D3D11_SHADER_DESC& dec) {        //
-  LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
+  LIBNG_LOG("CodeGen Stage = {}\n", __LIBNG_FUNCTION__);
 }
 #endif
 

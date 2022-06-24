@@ -16,6 +16,9 @@ struct JsonFile {
   JsonFile() = delete;
 
   template<class T>
+  static void writeIfChanged(StrView filename, T& obj, bool createDir, bool logResult = true);
+
+  template<class T>
   static void write(StrView filename, T& obj, bool createDir, bool logResult = true);
 
   template<class T, size_t N>
@@ -27,6 +30,13 @@ struct JsonFile {
   template<class T>
   static void deserialize(StrView json, T& obj);
 };
+
+template<class T>
+inline void JsonFile::writeIfChanged(StrView filename, T& obj, bool createDir, bool logResult) {
+  TempString json;
+  serialize(json, obj);
+  File::writeFileIfChanged(filename, json, createDir, logResult);
+}
 
 template<class T>
 LIBNG_INLINE void JsonFile::write(StrView filename, T& obj, bool createDir, bool logResult) {
