@@ -4,7 +4,7 @@ namespace libng {
 
 #if defined(LIBNG_OS_WINDOWS) && defined(LIBNG_RENDER_DX11)
 
-void CodeGenDX11::Execute(StrView outFilename,         //
+void CodeGenDX11::Execute(StrView outPath,             //
                           ShaderStageMask shaderStage, //
                           StrView srcFilename,         //
                           StrView entryFunc) {         //
@@ -27,7 +27,7 @@ void CodeGenDX11::Execute(StrView outFilename,         //
   // flags1 |= D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
 #endif
 
-  ComPtr<ID3DBlob> bytecode;
+  ComPtr<ID3DBlob> byteCode;
   ComPtr<ID3DBlob> errorMsg;
 
   auto hlsl = mmapFile.span();
@@ -45,12 +45,18 @@ void CodeGenDX11::Execute(StrView outFilename,         //
                         0,                           //
                         nullptr,                     //
                         0,                           //
-                        bytecode.ptrForInit(),       //
+                        byteCode.ptrForInit(),       //
                         errorMsg.ptrForInit());      //
 
   if (FAILED(hr)) {
     throw LIBNG_ERROR("HRESULT = {}\n Error Message: {}", hr, Util::toStrView(errorMsg));
   }
+
+  Directory::create(outPath);
+  auto byteCodeSpan = Util::toSpan(byteCode);
+  auto outFileName  = Fmt("{}/{}.bin", outPath, profile);
+  File::writeFileIfChanged(outFileName, byteCodeSpan, true, true);
+  LIBNG_LOG("outputFileName = {}\n", outFileName);
 }
 
 void CodeGenDX11::_Reflect(StrView outFilename,   //

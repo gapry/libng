@@ -1,6 +1,7 @@
 #pragma once
 
 #include <libng_core/file/Directory.hpp>
+#include <libng_core/file/File.hpp>
 #include <libng_core/file/MemMapFile.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string.hpp>
@@ -25,7 +26,7 @@ class CodeGenDX11 {
   using DataType = RenderDataType;
 
 public:
-  void Execute(StrView outFilename,         //
+  void Execute(StrView outPath,             //
                ShaderStageMask shaderStage, //
                StrView srcFilename,         //
                StrView entryFunc);          //
