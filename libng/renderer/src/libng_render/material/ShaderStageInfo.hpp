@@ -1,6 +1,7 @@
 #pragma once
 
 #include <libng_core/file/JsonFile.hpp>
+#include <libng_core/libcxx/fixed_vector.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
@@ -72,6 +73,29 @@ public:
 
   class ConstBuffer {
   public:
+    String name;
+    i16 bindPoint   = 0;
+    i16 bindCount   = 0;
+    size_t dataSize = 0;
+    Vector_<Variable, 4> variables;
+
+    template<class SE>
+    void on_json(SE& se) {
+      LIBNG_NAMED_IO(se, name);
+      LIBNG_NAMED_IO(se, bindPoint);
+      LIBNG_NAMED_IO(se, bindCount);
+      LIBNG_NAMED_IO(se, dataSize);
+      LIBNG_NAMED_IO(se, variables);
+    }
+
+    const Variable* findVariable(StrView propName) const {
+      for (auto& v : variables) {
+        if (v.name == propName) {
+          return &v;
+        }
+      }
+      return nullptr;
+    }
   };
 
   template<class SE>
