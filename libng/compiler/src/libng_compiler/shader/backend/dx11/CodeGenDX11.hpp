@@ -1,10 +1,12 @@
 #pragma once
 
+#include <libng_core/file/Directory.hpp>
 #include <libng_core/file/MemMapFile.hpp>
 #include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/log/log.hpp>
+#include <libng_core/memory/ComPtr.hpp>
 #include <libng_core/platform/graphics.hpp>
 #include <libng_core/types/function.hpp>
 

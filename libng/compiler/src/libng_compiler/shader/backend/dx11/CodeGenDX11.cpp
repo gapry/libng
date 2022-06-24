@@ -13,12 +13,44 @@ void CodeGenDX11::Execute(StrView outFilename,         //
   TempStringA entryPoint = entryFunc;
   LIBNG_LOG("entry point = {}\n", entryPoint);
 
-  MemMapFile mapFile;
-  mapFile.open(srcFilename);
-  LIBNG_LOG("memMapFileName = {}\n", mapFile.filename().c_str());
+  MemMapFile mmapFile;
+  mmapFile.open(srcFilename);
+  LIBNG_LOG("memMapFileName = {}\n", mmapFile.filename().c_str());
 
   auto profile = Util::getDxStageProfile(shaderStage);
   LIBNG_LOG("profile = {}\n", profile);
+
+  // https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/d3dcompile-constants
+  UINT flags1 = 0; // D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
+  UINT flags2 = 0;
+#if _DEBUG
+  // flags1 |= D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#endif
+
+  ComPtr<ID3DBlob> bytecode;
+  ComPtr<ID3DBlob> errorMsg;
+
+  auto hlsl = mmapFile.span();
+
+  // https://docs.microsoft.com/en-us/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dcompile
+  auto hr = D3DCompile2(hlsl.data(),                 //
+                        hlsl.size(),                 //
+                        mmapFile.filename().c_str(), //
+                        nullptr,                     //
+                        nullptr,                     //
+                        entryPoint.c_str(),          //
+                        profile,                     //
+                        flags1,                      //
+                        flags2,                      //
+                        0,                           //
+                        nullptr,                     //
+                        0,                           //
+                        bytecode.ptrForInit(),       //
+                        errorMsg.ptrForInit());      //
+
+  if (FAILED(hr)) {
+    throw LIBNG_ERROR("HRESULT = {}\n Error Message: {}", hr, Util::toStrView(errorMsg));
+  }
 }
 
 void CodeGenDX11::_Reflect(StrView outFilename,   //
