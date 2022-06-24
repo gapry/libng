@@ -1,9 +1,16 @@
 #pragma once
 
 #include <libng_core/encoding/UtfUtil.hpp>
+#include <libng_core/exception/error.hpp>
+#include <libng_core/libcxx/span.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/libcxx/string_view.hpp>
+#include <libng_core/libcxx/type_make.hpp>
+#include <libng_core/log/log.hpp>
 #include <libng_core/platform/graphics.hpp>
 #include <libng_core/platform/os.hpp>
+#include <libng_core/types/function.hpp>
+
 #include <libng_render/backend/dx11/TypeDX11.hpp>
 #include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/type/RenderDataType.hpp>
@@ -15,11 +22,11 @@ namespace libng {
 struct DX11Util {
   DX11Util() = delete;
 
-  static void throwIfError(HRESULT hr);
+  static void reportError(HRESULT hr);
 
   static bool assertIfError(HRESULT hr);
 
-  static void reportError(HRESULT hr);
+  static void throwIfError(HRESULT hr);
 
   static UINT castUINT(size_t v);
 
@@ -29,22 +36,57 @@ struct DX11Util {
 
   static const char* getDxSemanticName(VertexSemanticType t);
 
+  static VertexSemanticType parseDxSemanticName(StrView s);
+
+  static const char* getDxStageProfile(ShaderStageMask s);
+
   static String getStrFromHRESULT(HRESULT hr);
 
-  static const char* getDxStageProfile(ShaderStageMask s) {
-    switch (s) {
-      case ShaderStageMask::Vertex: return "vs_5_0";
-      case ShaderStageMask::Pixel: return "ps_5_0";
-      default: return "";
-    }
-  }
+  static ByteSpan toSpan(ID3DBlob* blob);
+
+  static StrView toStrView(ID3DBlob* blob);
 
 private:
   static bool _checkError(HRESULT hr);
 };
 
-// clang-format off
+LIBNG_INLINE void DX11Util::reportError(HRESULT hr) {
+  if (!SUCCEEDED(hr)) {
+    auto str = getStrFromHRESULT(hr);
+    LIBNG_LOG("HRESULT(0x{:0X}) {}", static_cast<u32>(hr), str);
+  }
+#if 0 && _DEBUG
+	auto* d = renderer()->d3dDebug();
+	if (d) {
+		d->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+	}
+#endif
+}
 
+LIBNG_INLINE
+bool DX11Util::assertIfError(HRESULT hr) {
+  if (!_checkError(hr)) {
+    reportError(hr);
+    LIBNG_ASSERT(false);
+    return false;
+  }
+  return true;
+}
+
+LIBNG_INLINE
+void DX11Util::throwIfError(HRESULT hr) {
+  if (!_checkError(hr)) {
+    reportError(hr);
+    throw LIBNG_ERROR("HRESULT = {}", hr);
+  }
+}
+
+LIBNG_INLINE UINT DX11Util::castUINT(size_t v) {
+  LIBNG_ASSERT(v < UINT_MAX);
+  return static_cast<UINT>(v);
+}
+
+// clang-format off
 LIBNG_INLINE
 D3D11_PRIMITIVE_TOPOLOGY DX11Util::getDxPrimitiveTopology(RenderPrimitiveType t) {
   using SRC = RenderPrimitiveType;
@@ -53,20 +95,6 @@ D3D11_PRIMITIVE_TOPOLOGY DX11Util::getDxPrimitiveTopology(RenderPrimitiveType t)
     case SRC::Lines:      return D3D_PRIMITIVE_TOPOLOGY_LINELIST;
     case SRC::Triangles:  return D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
     default: throw LIBNG_ERROR("unknown RenderPrimitiveType");
-  }
-}
-
-LIBNG_INLINE
-const char* DX11Util::getDxSemanticName(VertexSemanticType t) {
-  using SRC = VertexSemanticType;
-  switch (t) {
-    case SRC::POSITION: return "POSITION";
-    case SRC::COLOR:    return "COLOR";
-    case SRC::TEXCOORD: return "TEXCOORD";
-    case SRC::NORMAL:   return "NORMAL";
-    case SRC::TANGENT:  return "TANGENT";
-    case SRC::BINORMAL: return "BINORMAL";
-    default: throw LIBNG_ERROR("unknown VertexLayout_SemanticType");
   }
 }
 
@@ -149,16 +177,49 @@ DXGI_FORMAT DX11Util::getDxFormat(RenderDataType v) {
 }
 
 LIBNG_INLINE
+const char* DX11Util::getDxStageProfile(ShaderStageMask s) {
+  switch (s) {
+    case ShaderStageMask::Vertex: return "vs_5_0";
+    case ShaderStageMask::Pixel:  return "ps_5_0";
+    default: return "";
+  }
+}
+// clang-format on
+
+LIBNG_INLINE
 String DX11Util::getStrFromHRESULT(HRESULT hr) {
   const int bufSize = 4096;
   wchar_t buf[bufSize + 1];
 
-  DWORD langId = 0; // MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT)
-  FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, nullptr, hr, langId, buf, bufSize, nullptr);
-  buf[bufSize] = 0; // ensure terminate with 0
+  DWORD langId = 0;                         // MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT)
+  FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, //
+                nullptr,                    //
+                hr,                         //
+                langId,                     //
+                buf,                        //
+                bufSize,                    //
+                nullptr);                   //
+  buf[bufSize] = 0;                         // ensure terminate with 0
 
   auto str = UtfUtil::toString(buf);
   return str;
+}
+
+LIBNG_INLINE ByteSpan DX11Util::toSpan(ID3DBlob* blob) {
+  if (!blob) {
+    return ByteSpan();
+  }
+  return ByteSpan(reinterpret_cast<const u8*>(blob->GetBufferPointer()), //
+                  static_cast<size_t>(blob->GetBufferSize()));           //
+}
+
+LIBNG_INLINE StrView DX11Util::toStrView(ID3DBlob* blob) {
+  return StrView_make(toSpan(blob));
+}
+
+LIBNG_INLINE
+bool DX11Util::_checkError(HRESULT hr) {
+  return SUCCEEDED(hr);
 }
 
 } // namespace libng
