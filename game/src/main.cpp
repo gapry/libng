@@ -67,8 +67,9 @@ public:
 
   virtual void onDraw() {
     Base::onDraw();
-    if (!_renderContext)
+    if (!_renderContext) {
       return;
+    }
 
     _renderContext->setFrameBufferSize(clientRect().size);
 

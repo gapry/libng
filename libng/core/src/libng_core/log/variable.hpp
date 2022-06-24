@@ -6,7 +6,7 @@
 
 #define LIBNG_EMPTY
 
-#define LIBNG_STRINGIFY(...)	#__VA_ARGS__
+#define LIBNG_STRINGIFY(...)  #__VA_ARGS__
 
 #define LIBNG_IDENTITY(x) x
 
@@ -16,10 +16,10 @@
 
 #define LIBNG_VA_ARGS_COUNT_INTERNAL(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, a26, a27, a28, a29, a30, a31, COUNT, ...) COUNT
 
-#define LIBNG_DUMP_VAR_1(v0)				      do{ LIBNG_LOG("[log] DUMP_VAR: {} = {}",								            #v0, (v0)); } while(false)
-#define LIBNG_DUMP_VAR_2(v0, v1)			    do{ LIBNG_LOG("[log] DUMP_VAR: {} = {}, {} = {}",						        #v0, (v0), #v1, (v1)); } while(false)
-#define LIBNG_DUMP_VAR_3(v0, v1, v2)		  do{ LIBNG_LOG("[log] DUMP_VAR: {} = {}, {} = {}, {} = {}",				  #v0, (v0), #v1, (v1), #v2, (v2)); } while(false)
-#define LIBNG_DUMP_VAR_4(v0, v1, v2, v3)	do{ LIBNG_LOG("[log] DUMP_VAR: {} = {}, {} = {}, {} = {}, {} = {}",	#v0, (v0), #v1, (v1), #v2, (v2), #v3, (v3)); } while(false)
+#define LIBNG_DUMP_VAR_1(v0)              do { LIBNG_LOG("DUMP_VAR: {} = {}\n",                             #v0, (v0)); } while(false)
+#define LIBNG_DUMP_VAR_2(v0, v1)          do { LIBNG_LOG("DUMP_VAR: {} = {}, {} = {}\n",                    #v0, (v0), #v1, (v1)); } while(false)
+#define LIBNG_DUMP_VAR_3(v0, v1, v2)      do { LIBNG_LOG("DUMP_VAR: {} = {}, {} = {}, {} = {}\n",           #v0, (v0), #v1, (v1), #v2, (v2)); } while(false)
+#define LIBNG_DUMP_VAR_4(v0, v1, v2, v3)  do { LIBNG_LOG("DUMP_VAR: {} = {}, {} = {}, {} = {}, {} = {}\n",  #v0, (v0), #v1, (v1), #v2, (v2), #v3, (v3)); } while(false)
 
 #define LIBNG_DUMP_VAR_SELECT(COUNT) LIBNG_DUMP_VAR_##COUNT
 

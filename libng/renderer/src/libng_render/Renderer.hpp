@@ -1,7 +1,10 @@
 #pragma once
 
 #include <libng_core/types/noncopyable.hpp>
+
 #include <libng_render/AdapterInfo.hpp>
+#include <libng_render/material/Material.hpp>
+#include <libng_render/material/Shader.hpp>
 
 namespace libng {
 
@@ -47,14 +50,15 @@ public:
   GPUBuffer* createGPUBuffer(GPUBufferCreateDesc& desc);
 
 protected:
-  virtual RenderContext* onCreateContext(RenderContextCreateDesc& desc) = 0;
-
-  virtual GPUBuffer* onCreateGPUBuffer(GPUBufferCreateDesc& desc) = 0;
+  // clang-format off
+  virtual RenderContext* onCreateContext  (RenderContextCreateDesc& desc) = 0;
+  virtual GPUBuffer*     onCreateGPUBuffer(GPUBufferCreateDesc& desc)     = 0;
+  virtual Shader*        onCreateShader   (StrView filename)              = 0;
+  virtual Material*      onCreateMaterial ()                              = 0;
+  // clang-format on
 
   static Renderer* _current;
-
   AdapterInfo _adapterInfo;
-
   bool _vsync : 1;
 };
 

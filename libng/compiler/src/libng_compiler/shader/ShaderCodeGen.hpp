@@ -2,7 +2,7 @@
 
 #include <libng_core/libcxx/string.hpp>
 #include <libng_core/libcxx/string_view.hpp>
-#include <libng_render/material/ShaderStage.hpp>
+#include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/material/ShaderUtil.hpp>
 
 namespace libng {

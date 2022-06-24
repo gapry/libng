@@ -3,6 +3,7 @@
 #include <libng_core/exception/error.hpp>
 #include <libng_core/math/Maths.hpp>
 #include <libng_core/ui/platform/win32/MSWindow.hpp>
+
 #include <libng_render/backend/dx11/RenderContextDX11.hpp>
 
 namespace libng {

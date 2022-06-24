@@ -1,10 +1,13 @@
 #pragma once
 
 #include <libng_core/memory/ComPtr.hpp>
+
 #include <libng_render/Renderer.hpp>
 #include <libng_render/backend/dx11/DX11Util.hpp>
 #include <libng_render/backend/dx11/GPUBufferDX11.hpp>
+#include <libng_render/backend/dx11/Material_DX11.hpp>
 #include <libng_render/backend/dx11/RendererDX11.hpp>
+#include <libng_render/backend/dx11/Shader_DX11.hpp>
 
 namespace libng {
 
@@ -45,8 +48,9 @@ public:
 
 protected:
   virtual RenderContext* onCreateContext(RenderContextCreateDesc& desc) override;
-
   virtual GPUBuffer* onCreateGPUBuffer(GPUBufferCreateDesc& desc) override;
+  virtual Material* onCreateMaterial() override;
+  virtual Shader* onCreateShader(StrView filename) override;
 
   ComPtr<DX11_IDXGIFactory> _dxgiFactory;
   ComPtr<DX11_IDXGIDevice> _dxgiDevice;

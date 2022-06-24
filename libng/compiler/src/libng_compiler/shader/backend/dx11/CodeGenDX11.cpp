@@ -109,7 +109,6 @@ void CodeGenDX11::_ReflectInputs(ShaderStageInfo& outInfo,        //
                                  D3D11_SHADER_DESC& desc) {       //
   LIBNG_LOG("CodeGen Stage = {}\n", __LIBNG_FUNCTION__);
 
-  // HRESULT hr;
   outInfo.inputs.reserve(desc.InputParameters);
 
   for (UINT i = 0; i < desc.InputParameters; i++) {
@@ -123,8 +122,8 @@ void CodeGenDX11::_ReflectInputs(ShaderStageInfo& outInfo,        //
     semanticType = Util::parseDxSemanticName(StrView_c_str(paramDesc.SemanticName));
 
     auto& dst    = outInfo.inputs.emplace_back();
-    dst.semantic = VertexSemanticUtil::make(semanticType, //
-                                            static_cast<VertexSemanticIndex>(paramDesc.SemanticIndex));
+    dst.semantic = VertexSemanticUtil::make(semanticType,                                               //
+                                            static_cast<VertexSemanticIndex>(paramDesc.SemanticIndex)); //
 
     TempString semantic = enumStr(dst.semantic);
     if (!semantic.size()) {
