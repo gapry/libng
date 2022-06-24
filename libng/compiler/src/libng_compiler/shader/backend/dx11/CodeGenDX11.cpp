@@ -159,6 +159,7 @@ void CodeGenDX11::_ReflectInputs(ShaderStageInfo& outInfo,        //
 // https://docs.microsoft.com/en-us/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_shader_input_type
 //   - D3D_SIT_CBUFFER
 //   - D3D_SIT_TEXTURE
+//   - D3D_SIT_SAMPLER
 // https://docs.microsoft.com/en-us/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_variable_desc
 // https://docs.microsoft.com/en-us/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_type_desc
 // https://docs.microsoft.com/en-us/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_shader_variable_type
@@ -271,18 +272,20 @@ void CodeGenDX11::_ReflectTextures(ShaderStageInfo& outInfo,        //
     outTex.bindPoint = static_cast<i16>(resDesc.BindPoint);
     outTex.bindCount = static_cast<i16>(resDesc.BindCount);
 
+    // clang-format off
     switch (resDesc.Dimension) {
-      case D3D_SRV_DIMENSION_TEXTURE1D:        outTex.dataType = DataType::Texture1D;   break;
-      case D3D_SRV_DIMENSION_TEXTURE2D:        outTex.dataType = DataType::Texture2D;   break;
-      case D3D_SRV_DIMENSION_TEXTURE3D:        outTex.dataType = DataType::Texture3D;   break;
-      case D3D_SRV_DIMENSION_TEXTURECUBE:      outTex.dataType = DataType::TextureCube; break;
+      case D3D_SRV_DIMENSION_TEXTURE1D        : outTex.dataType = DataType::Texture1D; break;
+      case D3D_SRV_DIMENSION_TEXTURE2D        : outTex.dataType = DataType::Texture2D; break;
+      case D3D_SRV_DIMENSION_TEXTURE3D        : outTex.dataType = DataType::Texture3D; break;
+      case D3D_SRV_DIMENSION_TEXTURECUBE      : outTex.dataType = DataType::TextureCube; break;
       //----
-      case D3D_SRV_DIMENSION_TEXTURE1DARRAY:   outTex.dataType = DataType::Texture1DArray;   break;
-      case D3D_SRV_DIMENSION_TEXTURE2DARRAY:   outTex.dataType = DataType::Texture2DArray;   break;
-      case D3D_SRV_DIMENSION_TEXTURECUBEARRAY: outTex.dataType = DataType::TextureCubeArray; break;
+      case D3D_SRV_DIMENSION_TEXTURE1DARRAY   : outTex.dataType = DataType::Texture1DArray; break;
+      case D3D_SRV_DIMENSION_TEXTURE2DARRAY   : outTex.dataType = DataType::Texture2DArray; break;
+      case D3D_SRV_DIMENSION_TEXTURECUBEARRAY : outTex.dataType = DataType::TextureCubeArray; break;
       //----
       default: throw LIBNG_ERROR("unsupported texture dimension {}", resDesc.Dimension);
     }
+    // clang-format on
   }
 }
 
@@ -290,6 +293,24 @@ void CodeGenDX11::_ReflectSamplers(ShaderStageInfo& outInfo,        //
                                    ID3D11ShaderReflection* reflect, //
                                    D3D11_SHADER_DESC& desc) {       //
   LIBNG_LOG("CodeGen Stage = {}\n", __LIBNG_FUNCTION__);
+
+  outInfo.samplers.reserve(desc.BoundResources);
+  for (UINT i = 0; i < desc.BoundResources; i++) {
+    LIBNG_LOG("[ReflectSamplers] index = {}\n", i);
+
+    D3D11_SHADER_INPUT_BIND_DESC resDesc;
+    HRESULT hr = reflect->GetResourceBindingDesc(i, &resDesc);
+    Util::throwIfError(hr);
+
+    if (resDesc.Type != D3D_SIT_SAMPLER) {
+      continue;
+    }
+
+    auto& outSampler     = outInfo.samplers.emplace_back();
+    outSampler.name      = resDesc.Name;
+    outSampler.bindPoint = static_cast<i16>(resDesc.BindPoint);
+    outSampler.bindCount = static_cast<i16>(resDesc.BindCount);
+  }
 }
 #endif
 
