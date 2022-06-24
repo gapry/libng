@@ -12,6 +12,6 @@ cd build
 :: make -j$(nproc)
 :: make -j16 
 
-cmake -DBUILD_GAME=ON -DIDE_VSC=ON -GNinja ..
+cmake -DBUILD_GAME=ON -DIDE_VSC=ON -D CMAKE_C_COMPILER="cl.exe" -D CMAKE_CXX_COMPILER="cl.exe" -GNinja ..
 ninja
 cd ..
