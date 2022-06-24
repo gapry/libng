@@ -57,13 +57,31 @@ void CodeGenDX11::Execute(StrView outPath,             //
   auto outFileName  = Fmt("{}/{}.bin", outPath, profile);
   File::writeFileIfChanged(outFileName, byteCodeSpan, true, true);
   LIBNG_LOG("outputFileName = {}\n", outFileName);
+
+  _Reflect(outFileName, byteCodeSpan, shaderStage, profile);
 }
 
+// https://docs.microsoft.com/en-us/windows/win32/api/d3d11shader/nn-d3d11shader-id3d11shaderreflection
+// https://docs.microsoft.com/en-us/windows/win32/api/unknwn/nn-unknwn-iunknown
+// https://docs.microsoft.com/en-us/windows/win32/api/combaseapi/nf-combaseapi-iid_ppv_args
+// https://docs.microsoft.com/en-us/windows/win32/api/d3dcompiler/nf-d3dcompiler-d3dreflect
+// https://docs.microsoft.com/en-us/windows/win32/api/d3d11shader/ns-d3d11shader-d3d11_shader_desc
 void CodeGenDX11::_Reflect(StrView outFilename,   //
                            ByteSpan bytecode,     //
                            ShaderStageMask stage, //
                            StrView profile) {     //
   LIBNG_LOG("CodeGen Stage = {}\n", __LIBNG_FUNCTION__);
+
+  ComPtr<ID3D11ShaderReflection> reflect;
+
+  auto hr = D3DReflect(bytecode.data(),                     //
+                       bytecode.size(),                     //
+                       IID_PPV_ARGS(reflect.ptrForInit())); //
+  Util::throwIfError(hr);
+
+  D3D11_SHADER_DESC desc;
+  hr = reflect->GetDesc(&desc);
+  Util::throwIfError(hr);
 }
 
 void CodeGenDX11::_ReflectInputs(ShaderStageInfo& outInfo,        //
