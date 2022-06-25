@@ -1,20 +1,20 @@
 #include <libng_core/log/log.hpp>
+#include <libng_core/platform/console_color.hpp>
 
-#include <libng_core_test/libcxx/TestVector.hpp>
-#include <libng_core_test/memory/TestLinearAllocator.hpp>
-#include <libng_core_test/memory/TestSPtr.hpp>
-#include <libng_core_test/third_party/imgui/TestImGui.hpp>
-
-#define LIBNG_RUN_TEST(fn)                     \
-  LIBNG_LOG("======== [" #fn "] ======== \n"); \
-  void fn();                                   \
-  fn();                                        \
+#define LIBNG_RUN_TEST(fn)                                                                  \
+  LIBNG_LOG("================ " color_blue "[" #fn "]" color_reset " ================ \n"); \
+  void fn();                                                                                \
+  fn();                                                                                     \
   // -----
 
 namespace libng {
 
 void run_temp_test() {
-  LIBNG_RUN_TEST(test_file);
+  LIBNG_RUN_TEST(test_tuple2);
+}
+
+void run_math_test() {
+  LIBNG_RUN_TEST(test_tuple2);
 }
 
 void run_file_test() {
@@ -23,13 +23,15 @@ void run_file_test() {
   LIBNG_RUN_TEST(test_json_file);
 }
 
-void run_core_test() {
-  run_file_test();
-}
-
 void run_libcxx_test() {
   LIBNG_RUN_TEST(test_unique_ptr);
   LIBNG_RUN_TEST(test_string);
+}
+
+void run_core_test() {
+  run_libcxx_test();
+  run_file_test();
+  run_math_test();
 }
 
 void run_third_party_test() {
@@ -42,11 +44,9 @@ void run_all_test() {
   run_libcxx_test();
   run_third_party_test();
 
-  LIBNG_VERIFY(TestLibcxx);
-  LIBNG_VERIFY(TestSPrt);
-  LIBNG_VERIFY(TestLinearAllocator);
-  // LIBNG_TEST_CASE(TestEASTL, onVerify());
-  // LIBNG_TEST_CASE(TestImGui, onVerify());
+  // LIBNG_VERIFY(TestLibcxx);
+  // LIBNG_VERIFY(TestSPrt);
+  // LIBNG_VERIFY(TestLinearAllocator);
 }
 
 int test_main(void) {
