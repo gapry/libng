@@ -2,8 +2,8 @@
 
 #include <libng_core/libcxx/fixed_vector.hpp>
 #include <libng_core/libcxx/string.hpp>
-#include <libng_core/types/number.hpp>
 #include <libng_core/types/RefCountBase.hpp>
+#include <libng_core/types/number.hpp>
 
 #include <libng_render/material/Shader.hpp>
 
