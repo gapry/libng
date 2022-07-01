@@ -8,7 +8,7 @@
 namespace libng {
 
 template<typename T>
-class Mat4x4 {
+class Mat4_Basic {
   static constexpr int kCol = 4;
   static constexpr int kRow = 4;
   static constexpr int kElm = kCol * kRow;
@@ -22,11 +22,11 @@ public:
     T data[kElm];
   };
 
-  ~Mat4x4() = default;
+  ~Mat4_Basic() = default;
 
-  Mat4x4() = default;
+  Mat4_Basic() = default;
 
-  Mat4x4(const Vec4<T>& cx_, const Vec4<T>& cy_, const Vec4<T>& cz_, const Vec4<T>& cw_) {
+  Mat4_Basic(const Vec4<T>& cx_, const Vec4<T>& cy_, const Vec4<T>& cz_, const Vec4<T>& cw_) {
     cx = cx_;
     cy = cy_;
     cz = cz_;
@@ -34,7 +34,7 @@ public:
   }
 
   // clang-format off
-  Mat4x4(T xx, T xy, T xz, T xw,
+  Mat4_Basic(T xx, T xy, T xz, T xw,
          T yx, T yy, T yz, T yw,
          T zx, T zy, T zz, T zw,
          T wx, T wy, T wz, T ww) {
@@ -57,9 +57,9 @@ public:
   }
   // clang-format on
 
-  static Mat4x4 kIdentity() {
+  static Mat4_Basic kIdentity() {
     // clang-format off
-  	return Mat4x4(1, 0, 0, 0, 
+  	return Mat4_Basic(1, 0, 0, 0, 
   	              0, 1, 0, 0, 
   	              0, 0, 1, 0, 
   	              0, 0, 0, 1);
@@ -71,7 +71,7 @@ public:
   }
 
   void translate(T x, T y, T z) {
-    Mat4x4 m;
+    Mat4_Basic m;
     m.setTranslate(x, y, z);
     operator*=(m);
   }
@@ -132,19 +132,19 @@ public:
   }
 
   void rotateX(T rad) {
-    Mat4x4 m;
+    Mat4_Basic m;
     m.setRotateX(rad);
     operator*=(m);
   }
 
   void rotateY(T rad) {
-    Mat4x4 m;
+    Mat4_Basic m;
     m.setRotateY(rad);
     operator*=(m);
   }
 
   void rotateZ(T rad) {
-    Mat4x4 m;
+    Mat4_Basic m;
     m.setRotateZ(rad);
     operator*=(m);
   }
@@ -206,7 +206,7 @@ public:
     Vec3<T> s = f.cross(up).normalize();
     Vec3<T> u = s.cross(f);
 
-    Mat4x4 m;
+    Mat4_Basic m;
     // clang-format off
   	m.set(s.x, u.x, -f.x, 0.0, 
   	      s.y, u.y, -f.y, 0.0, 
@@ -214,18 +214,18 @@ public:
   	      0,   0,   0,    1);
     // clang-format on
 
-    Mat4x4 t;
+    Mat4_Basic t;
     t.setTranslate(-eye);
 
     *this = m * t;
   }
 
-  void operator*=(const Mat4x4& r) {
+  void operator*=(const Mat4_Basic& r) {
     *this = *this * r;
   }
 
-  Mat4x4 operator*(const Mat4x4& r) const {
-    Mat4x4 o;
+  Mat4_Basic operator*(const Mat4_Basic& r) const {
+    Mat4_Basic o;
 
     T e0, e1, e2, e3;
     e0 = cx.x, e1 = cy.x, e2 = cz.x, e3 = cw.x;
@@ -256,7 +256,7 @@ public:
   }
 
   // clang-format off
-  Mat4x4 inverse() const {
+  Mat4_Basic inverse() const {
 	  T wtmp[4][8];
 	  T m0, m1, m2, m3, s;
 	  T *r0, *r1, *r2, *r3;
@@ -399,7 +399,7 @@ public:
 	  r0[6] = s * (r0[6] - r1[6] * m0);
 	  r0[7] = s * (r0[7] - r1[7] * m0);
 
-	  return Mat4x4(r0[4], r0[5], r0[6], r0[7],
+	  return Mat4_Basic(r0[4], r0[5], r0[6], r0[7],
 	  				      r1[4], r1[5], r1[6], r1[7],
 	  				      r2[4], r2[5], r2[6], r2[7],
 	  				      r3[4], r3[5], r3[6], r3[7]);
@@ -433,7 +433,7 @@ public:
   // clang-format on  
 };
 
-using Mat4f = Mat4x4<float>;
+using Mat4f = Mat4_Basic<float>;
 
 static_assert(sizeof(Mat4f) == sizeof(float) * 16, "");
 
