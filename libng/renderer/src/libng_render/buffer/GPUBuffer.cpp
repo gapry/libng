@@ -1,6 +1,5 @@
 #pragma once
 
-#include <libng_core/exception/error.hpp>
 #include <libng_render/buffer/GPUBuffer.hpp>
 
 namespace libng {

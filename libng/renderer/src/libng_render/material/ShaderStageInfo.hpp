@@ -1,11 +1,6 @@
 #pragma once
 
 #include <libng_core/file/JsonFile.hpp>
-#include <libng_core/libcxx/fixed_vector.hpp>
-#include <libng_core/libcxx/string.hpp>
-#include <libng_core/libcxx/string_view.hpp>
-#include <libng_core/serializer/json/json_serializer.hpp>
-#include <libng_core/types/number.hpp>
 
 #include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/type/RenderDataType.hpp>

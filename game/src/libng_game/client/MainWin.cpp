@@ -3,19 +3,56 @@
 namespace libng {
 
 void MainWin::onCreate(CreateDesc& desc) {
-  LIBNG_DUMP_VAR(sizeof(VertexPos3f));
-  LIBNG_DUMP_VAR(sizeof(VertexPos3fColor4b));
+  _RenderStatistic();
 
   Base::onCreate(desc);
 
-  auto* renderer = Renderer::current();
+  _InitRenderer();
+  _InitMaterial();
+  _InitMesh();
 
+  VertexLayoutManager::current()->getLayout(VertexPos3f::kType);
+}
+
+void MainWin::onDraw() {
+  Base::onDraw();
+  if (!_renderContext) {
+    return;
+  }
+
+  _renderContext->setFrameBufferSize(clientRect().size);
+  _renderContext->beginRender();
+  {
+    _cmdBuf.reset();
+    _cmdBuf.clearFrameBuffer()->setColor({0, 0, 0.2f, 1});
+    _cmdBuf.drawMesh(LIBNG_SRC_LOC, _renderMesh);
+    _cmdBuf.swapBuffers();
+
+    _renderContext->commit(_cmdBuf);
+  }
+  _renderContext->endRender();
+
+  drawNeeded();
+}
+
+void MainWin::onCloseButton() {
+  UIApp::current()->quit(0);
+}
+
+void MainWin::_InitRenderer() {
+  auto* renderer = Renderer::current();
   {
     RenderContext::CreateDesc renderContextDesc;
     renderContextDesc.window = this;
     _renderContext           = renderer->createContext(renderContextDesc);
   }
+  _material = renderer->createMaterial();
+}
 
+void MainWin::_InitMaterial() {
+}
+
+void MainWin::_InitMesh() {
   EditMesh editMesh;
 
 #if 1
@@ -39,29 +76,11 @@ void MainWin::onCreate(CreateDesc& desc) {
 #endif
 
   _renderMesh.create(editMesh);
-
-  VertexLayoutManager::current()->getLayout(VertexPos3f::kType);
 }
 
-void MainWin::onDraw() {
-  Base::onDraw();
-  if (!_renderContext) {
-    return;
-  }
-
-  _renderContext->setFrameBufferSize(clientRect().size);
-
-  _renderContext->beginRender();
-
-  _cmdBuf.reset();
-  _cmdBuf.clearFrameBuffer()->setColor({0, 0, 0.2f, 1});
-  _cmdBuf.drawMesh(LIBNG_SRC_LOC, _renderMesh);
-  _cmdBuf.swapBuffers();
-
-  _renderContext->commit(_cmdBuf);
-
-  _renderContext->endRender();
-  drawNeeded();
+void MainWin::_RenderStatistic() {
+  LIBNG_DUMP_VAR(sizeof(VertexPos3f));
+  LIBNG_DUMP_VAR(sizeof(VertexPos3fColor4b));
 }
 
 } // namespace libng

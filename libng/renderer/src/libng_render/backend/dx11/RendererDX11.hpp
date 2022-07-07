@@ -1,8 +1,5 @@
 #pragma once
 
-#include <libng_core/memory/ComPtr.hpp>
-#include <libng_core/memory/SPtr.hpp>
-
 #include <libng_render/Renderer.hpp>
 #include <libng_render/backend/dx11/DX11Util.hpp>
 #include <libng_render/backend/dx11/GPUBufferDX11.hpp>

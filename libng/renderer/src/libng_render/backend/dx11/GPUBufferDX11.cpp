@@ -1,5 +1,3 @@
-#include <libng_core/exception/error.hpp>
-#include <libng_core/memory/util.hpp>
 #include <libng_render/backend/dx11/GPUBufferDX11.hpp>
 #include <libng_render/backend/dx11/RendererDX11.hpp>
 

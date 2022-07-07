@@ -1,7 +1,5 @@
 #pragma once
 
-#include <libng_core/types/enum.hpp>
-
 namespace libng {
 
 enum class ShaderPropType

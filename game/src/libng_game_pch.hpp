@@ -13,6 +13,7 @@
 #include <libng_render/RenderContext.hpp>
 #include <libng_render/Renderer.hpp>
 #include <libng_render/buffer/RenderCommandBuffer.hpp>
+#include <libng_render/material/Material.hpp>
 #include <libng_render/mesh/RenderMesh.hpp>
 #include <libng_render/mesh/WavefrontObjLoader.hpp>
 #include <libng_render/vertex/VertexCommon.hpp>

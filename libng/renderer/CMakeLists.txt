@@ -12,4 +12,6 @@ set_target_properties(${project_name} PROPERTIES FOLDER ${major}/${minor})
 
 target_link_libraries(${project_name} PUBLIC EASTL fmt::fmt ${major}_core)
 
+add_dependencies(${project_name} ${major}_core)
+
 message("-- [${project_name}] - done")

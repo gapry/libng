@@ -1,6 +1,3 @@
-#include <libng_core/encoding/UtfUtil.hpp>
-#include <libng_core/log/log.hpp>
-#include <libng_core/math/Maths.hpp>
 #include <libng_render/backend/dx11/GPUBufferDX11.hpp>
 #include <libng_render/backend/dx11/RenderContextDX11.hpp>
 #include <libng_render/backend/dx11/RendererDX11.hpp>
