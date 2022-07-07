@@ -11,10 +11,6 @@ namespace libng {
 
 class MaterialPass : public RefCountBase {
 public:
-  using Pass        = MaterialPass;
-  using Stage       = MaterialPass_Stage;
-  using VertexStage = MaterialPass_VertexStage;
-  using PixelStage  = MaterialPass_PixelStage;
 };
 
 } // namespace libng

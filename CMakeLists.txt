@@ -13,6 +13,7 @@ include(${dir_cmake}/vcpkg.cmake)
 include(${dir_cmake}/helper.cmake)
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}")
+include_directories("game")
 
 OPTION(IDE_VSC         "IDE VSC"         OFF)
 OPTION(IDE_VS          "IDE VS"          OFF)
@@ -47,7 +48,7 @@ IF(BUILD_COMPILER)
 ENDIF(BUILD_COMPILER)
 
 IF(BUILD_GAME)
-  add_subdirectory(game)
+  add_subdirectory("game")
 ENDIF(BUILD_GAME)
  
 IF(BUILD_TEST)

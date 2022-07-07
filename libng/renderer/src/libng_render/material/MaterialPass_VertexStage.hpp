@@ -4,9 +4,8 @@
 
 namespace libng {
 
-struct MaterialPass_VertexStage : public MaterialPass_Stage {
+struct MaterialPass_VertexStage {
 public:
-  using Base = MaterialPass_Stage;
 };
 
 } // namespace libng
