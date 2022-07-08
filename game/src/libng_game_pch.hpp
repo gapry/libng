@@ -16,4 +16,6 @@
 #include <libng_render/material/Material.hpp>
 #include <libng_render/mesh/RenderMesh.hpp>
 #include <libng_render/mesh/WavefrontObjLoader.hpp>
+#include <libng_render/textures/Texture2D.hpp>
+#include <libng_render/textures/Texture2D_CreateDesc.hpp>
 #include <libng_render/vertex/VertexCommon.hpp>

@@ -1,5 +1,6 @@
 #include <libng_core/exception/error.hpp>
 #include <libng_core/platform/os.hpp>
+
 #include <libng_render/Renderer.hpp>
 #include <libng_render/backend/dx11/RendererDX11.hpp>
 
@@ -100,6 +101,10 @@ SPtr<RenderContext> Renderer::createContext(RenderContextCreateDesc& desc) {
  */
 SPtr<GPUBuffer> Renderer::createGPUBuffer(GPUBufferCreateDesc& desc) {
   return onCreateGPUBuffer(desc);
+}
+
+SPtr<Texture2D> Renderer::createTexture2D(Texture2D_CreateDesc& desc) {
+  return onCreateTexture2D(desc);
 }
 
 SPtr<Shader> Renderer::createShader(StrView filename) {

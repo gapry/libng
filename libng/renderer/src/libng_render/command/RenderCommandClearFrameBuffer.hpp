@@ -1,7 +1,8 @@
 #pragma once
 
 #include <libng_core/libcxx/optional.hpp>
-#include <libng_core/math/Color.hpp>
+#include <libng_core/math/Color/Color.hpp>
+
 #include <libng_render/command/RenderCommand.hpp>
 #include <libng_render/command/RenderCommandClearFrameBuffer.hpp>
 

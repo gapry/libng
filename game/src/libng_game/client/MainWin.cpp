@@ -8,6 +8,7 @@ void MainWin::onCreate(CreateDesc& desc) {
   Base::onCreate(desc);
 
   _InitRenderer();
+  _InitTexture();
   _InitMaterial();
   _InitMesh();
 
@@ -40,16 +41,21 @@ void MainWin::onCloseButton() {
 }
 
 void MainWin::_InitRenderer() {
-  auto* renderer = Renderer::current();
+  _renderer = Renderer::current();
   {
     RenderContext::CreateDesc renderContextDesc;
     renderContextDesc.window = this;
-    _renderContext           = renderer->createContext(renderContextDesc);
+    _renderContext           = _renderer->createContext(renderContextDesc);
   }
-  _material = renderer->createMaterial();
+}
+
+void MainWin::_InitTexture() {
+  Texture2D_CreateDesc texDesc;
+  _texture = _renderer->createTexture2D(texDesc);
 }
 
 void MainWin::_InitMaterial() {
+  _material = _renderer->createMaterial();
 }
 
 void MainWin::_InitMesh() {

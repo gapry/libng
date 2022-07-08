@@ -6,6 +6,7 @@
 #include <libng_render/backend/dx11/Material_DX11.hpp>
 #include <libng_render/backend/dx11/RendererDX11.hpp>
 #include <libng_render/backend/dx11/Shader_DX11.hpp>
+#include <libng_render/backend/dx11/Texture2D_DX11.hpp>
 
 namespace libng {
 
@@ -46,10 +47,11 @@ public:
 
 protected:
   // clang-format off
-  virtual SPtr<RenderContext> onCreateContext   (RenderContextCreateDesc& desc) override;
-  virtual SPtr<GPUBuffer>     onCreateGPUBuffer (GPUBufferCreateDesc& desc)     override;
-  virtual SPtr<Material>      onCreateMaterial  (void)                          override;
-  virtual SPtr<Shader>        onCreateShader    (StrView filename)              override;
+  virtual SPtr<RenderContext> onCreateContext  (RenderContextCreateDesc& desc) override;
+  virtual SPtr<GPUBuffer>     onCreateGPUBuffer(GPUBufferCreateDesc& desc)     override;
+  virtual SPtr<Texture2D>     onCreateTexture2D(Texture2D_CreateDesc& desc)    override;
+  virtual SPtr<Material>      onCreateMaterial (void)                          override;
+  virtual SPtr<Shader>        onCreateShader   (StrView filename)              override;
 
   ComPtr<DX11_IDXGIFactory>      _dxgiFactory;
   ComPtr<DX11_IDXGIDevice>       _dxgiDevice;

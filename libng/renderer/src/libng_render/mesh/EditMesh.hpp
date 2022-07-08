@@ -1,11 +1,5 @@
 #pragma once
 
-#include <libng_core/libcxx/vector.hpp>
-#include <libng_core/math/Color.hpp>
-#include <libng_core/math/Tuple/Tuple2.hpp>
-#include <libng_core/math/Tuple/Tuple3.hpp>
-#include <libng_core/types/noncopyable.hpp>
-#include <libng_core/types/number.hpp>
 #include <libng_render/type/RenderPrimitiveType.hpp>
 
 namespace libng {

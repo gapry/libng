@@ -6,6 +6,8 @@
 #include <libng_render/AdapterInfo.hpp>
 #include <libng_render/material/Material.hpp>
 #include <libng_render/material/Shader.hpp>
+#include <libng_render/textures/Texture2D.hpp>
+#include <libng_render/textures/Texture2D_CreateDesc.hpp>
 
 namespace libng {
 
@@ -49,6 +51,7 @@ public:
   // clang-format off
   SPtr<RenderContext> createContext  (RenderContextCreateDesc& desc);
   SPtr<GPUBuffer>     createGPUBuffer(GPUBufferCreateDesc& desc);
+  SPtr<Texture2D>     createTexture2D(Texture2D_CreateDesc& desc);
   SPtr<Shader>        createShader   (StrView filename);
   SPtr<Material>      createMaterial ();
   // clang-format on
@@ -57,6 +60,7 @@ protected:
   // clang-format off
   virtual SPtr<RenderContext> onCreateContext  (RenderContextCreateDesc& desc) = 0;
   virtual SPtr<GPUBuffer>     onCreateGPUBuffer(GPUBufferCreateDesc& desc)     = 0;
+  virtual SPtr<Texture2D>     onCreateTexture2D(Texture2D_CreateDesc& desc)    = 0;
   virtual SPtr<Shader>        onCreateShader   (StrView filename)              = 0;
   virtual SPtr<Material>      onCreateMaterial ()                              = 0;
   // clang-format on

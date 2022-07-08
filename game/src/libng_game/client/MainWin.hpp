@@ -12,7 +12,9 @@ public:
   virtual void onDraw();
 
   // clang-format off
+  Renderer*           _renderer = nullptr;
   SPtr<Material>      _material;
+  SPtr<Texture2D>     _texture;
   SPtr<RenderContext> _renderContext;
   RenderCommandBuffer _cmdBuf;
   RenderMesh          _renderMesh;
@@ -20,6 +22,7 @@ public:
 
 private:
   void _InitRenderer();
+  void _InitTexture();
   void _InitMaterial();
   void _InitMesh();
 

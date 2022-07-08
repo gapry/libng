@@ -9,7 +9,8 @@
                 "./externals/vcpkg/packages/eastl_x64-windows/include",
                 "${workspaceFolder}/libng/core/test/src",
                 "${workspaceFolder}/libng/core/src",
-                "${workspaceFolder}/game/src"
+                "${workspaceFolder}/game/src",
+                "${workspaceFolder}/libng/renderer/src"
             ],
             "defines": [
                 "_DEBUG",

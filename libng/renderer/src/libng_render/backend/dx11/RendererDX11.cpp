@@ -103,6 +103,10 @@ SPtr<GPUBuffer> RendererDX11::onCreateGPUBuffer(GPUBufferCreateDesc& desc) {
   return new GPUBufferDX11(desc);
 }
 
+SPtr<Texture2D> RendererDX11::onCreateTexture2D(Texture2D_CreateDesc& desc) {
+  return new Texture2D_DX11(desc);
+}
+
 SPtr<Material> RendererDX11::onCreateMaterial() {
   return new Material_DX11();
 }
