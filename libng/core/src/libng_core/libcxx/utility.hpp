@@ -1,8 +1,5 @@
 #pragma once
 
-#include <functional>
-#include <utility>
-
 namespace libng::libcxx {
 
 template<class T>

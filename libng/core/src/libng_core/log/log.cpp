@@ -1,4 +1,5 @@
 #include <fmt/core.h>
+
 #include <libng_core/log/log.hpp>
 
 namespace libng {

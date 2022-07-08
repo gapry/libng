@@ -1,9 +1,6 @@
 #pragma once
 
-#include <cassert>
 #include <fmt/core.h>
-#include <new>
-#include <utility>
 
 #include <libng_core/exception/error.hpp>
 #include <libng_core/types/noncopyable.hpp>

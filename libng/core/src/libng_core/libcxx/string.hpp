@@ -1,6 +1,5 @@
 #pragma once
 
-#include <cstring>
 #include <fmt/format.h>
 
 #include <libng_core/libcxx/string_view.hpp>
