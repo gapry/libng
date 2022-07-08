@@ -13,6 +13,8 @@
 - [Common Mistakes](https://www.khronos.org/opengl/wiki/Common_Mistakes)
 - [MSDN OpenGL](https://docs.microsoft.com/en-us/windows/win32/opengl/opengl?redirectedfrom=MSDN)
 - [Shader Compilation](https://www.khronos.org/opengl/wiki/Shader_Compilation)
+- [glGetActiveUniform](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glGetActiveUniform.xhtml)
+- [glGetActiveUniformBlock](https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glGetActiveUniformBlock.xhtml)
 
 ## [Direct3D](https://docs.microsoft.com/en-us/windows/win32/directx)
 - [DirectX 11](https://docs.microsoft.com/en-us/windows/win32/direct3d11/atoc-dx-graphics-direct3d-11)
@@ -101,6 +103,7 @@
 - [LZ4](https://github.com/lz4/lz4)
 
 ## Shader
+- [A Review of Shader Languages](https://alain.xyz/blog/a-review-of-shader-languages)
 - [Unity Rendering Tutorials](https://catlikecoding.com/unity/tutorials/rendering/)
 - [Shader Tutorials by Ronja](https://www.ronja-tutorials.com/)
 - [Normal Map Compression](http://wiki.polycount.com/wiki/Normal_Map_Compression)
