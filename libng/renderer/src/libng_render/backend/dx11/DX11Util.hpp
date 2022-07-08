@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_render/RendererCommon.hpp>
 #include <libng_render/backend/dx11/TypeDX11.hpp>
 #include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/type/RenderDataType.hpp>

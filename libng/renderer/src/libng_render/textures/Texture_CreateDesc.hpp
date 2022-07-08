@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libng_core/math/Color/ColorType.hpp>
+#include <libng_render/RendererCommon.hpp>
 
 namespace libng {
 

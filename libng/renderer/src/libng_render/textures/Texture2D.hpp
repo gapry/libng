@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_render/RendererCommon.hpp>
 #include <libng_render/textures/Texture.hpp>
 #include <libng_render/textures/Texture2D_CreateDesc.hpp>
 

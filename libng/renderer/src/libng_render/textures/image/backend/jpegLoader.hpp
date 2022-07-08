@@ -4,10 +4,10 @@
 
 namespace libng {
 
-class Texture : public RefCountBase {
+class jpegLoader {
 public:
-  Texture();
-  ~Texture();
+  jpegLoader();
+  ~jpegLoader();
 };
 
 } // namespace libng

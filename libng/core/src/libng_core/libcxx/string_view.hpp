@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_core/libng_common.hpp>
 #include <libng_core/types/function.hpp>
 #include <third_party/eastl/eastl.hpp>
 

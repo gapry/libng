@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_render/RendererCommon.hpp>
 #include <libng_render/buffer/GPUBufferCreateDesc.hpp>
 #include <libng_render/buffer/GPUBufferType.hpp>
 

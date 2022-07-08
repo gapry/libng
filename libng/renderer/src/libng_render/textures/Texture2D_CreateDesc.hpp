@@ -1,6 +1,7 @@
 #pragma once
 
-#include <libng_render/textures/Image.hpp>
+#include <libng_render/RendererCommon.hpp>
+#include <libng_render/textures/Image/Image.hpp>
 #include <libng_render/textures/SamplerState.hpp>
 #include <libng_render/textures/Texture_CreateDesc.hpp>
 

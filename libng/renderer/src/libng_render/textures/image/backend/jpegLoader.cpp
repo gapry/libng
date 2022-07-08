@@ -1,12 +1,12 @@
-#include <libng_render/textures/Image.hpp>
+#include <libng_render/textures/image/backend/jpegLoader.hpp>
 
 namespace libng {
 
-Image::Image() {
+jpegLoader::jpegLoader() {
   LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
 }
 
-Image::~Image() {
+jpegLoader::~jpegLoader() {
   LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
 }
 
