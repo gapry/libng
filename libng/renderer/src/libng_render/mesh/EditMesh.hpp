@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_render/RendererCommon.hpp>
 #include <libng_render/type/RenderPrimitiveType.hpp>
 
 namespace libng {

@@ -1,5 +1,4 @@
 #include <libng_core/libcxx/limits.hpp>
-#include <libng_core/log/variable.hpp>
 #include <libng_core/math/Vector/Vec2.hpp>
 
 #include <libng_test/unit_test/UnitTestBase.hpp>

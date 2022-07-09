@@ -10,12 +10,13 @@
 namespace libng {
 
 void run_temp_test() {
-  LIBNG_RUN_TEST(test_vec2);
+  LIBNG_RUN_TEST(test_vec3);
 }
 
 void run_math_test() {
   LIBNG_RUN_TEST(test_tuple2);
   LIBNG_RUN_TEST(test_vec2);
+  LIBNG_RUN_TEST(test_vec3);
 }
 
 void run_file_test() {

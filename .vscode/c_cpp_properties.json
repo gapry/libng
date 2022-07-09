@@ -6,11 +6,7 @@
                 "${workspaceFolder}/**",
                 "./externals/vcpkg/packages/fmt_x64-windows/include",
                 "./externals/vcpkg/packages/eabase_x64-windows/include",
-                "./externals/vcpkg/packages/eastl_x64-windows/include",
-                "${workspaceFolder}/libng/core/test/src",
-                "${workspaceFolder}/libng/core/src",
-                "${workspaceFolder}/game/src",
-                "${workspaceFolder}/libng/renderer/src"
+                "./externals/vcpkg/packages/eastl_x64-windows/include"
             ],
             "defines": [
                 "_DEBUG",
@@ -20,9 +16,7 @@
             "windowsSdkVersion": "10.0.22000.0",
             "compilerPath": "cl.exe",
             "cStandard": "c17",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64",
-            "configurationProvider": "ms-vscode.cmake-tools"
+            "cppStandard": "c++17"
         },
         {
             "name": "Linux",
