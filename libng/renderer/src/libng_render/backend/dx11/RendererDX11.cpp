@@ -83,7 +83,7 @@ RendererDX11::RendererDX11(CreateDesc& desc) {
 
     LIBNG_LOG("Render Adapter\n  name = {}\n  mem = {}G\n",
               _adapterInfo.adapterName,
-              Math::byteToG(_adapterInfo.memorySize));
+              libng::math::byteToG(_adapterInfo.memorySize));
   }
 
   hr = _dxgiAdapter->GetParent(IID_PPV_ARGS(_dxgiFactory.ptrForInit()));

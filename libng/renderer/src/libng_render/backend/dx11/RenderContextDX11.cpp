@@ -154,8 +154,8 @@ void RenderContextDX11::onSetFrameBufferSize(Vec2f newSize) {
   _renderTargetView.reset(nullptr); // release buffer and render target view before resize
 
   auto hr = _swapChain->ResizeBuffers(0,
-                                      static_cast<UINT>(Math::max(0.0f, newSize.x)),
-                                      static_cast<UINT>(Math::max(0.0f, newSize.y)),
+                                      static_cast<UINT>(libng::math::max(0.0f, newSize.x)),
+                                      static_cast<UINT>(libng::math::max(0.0f, newSize.y)),
                                       DXGI_FORMAT_UNKNOWN,
                                       0);
   Util::throwIfError(hr);
