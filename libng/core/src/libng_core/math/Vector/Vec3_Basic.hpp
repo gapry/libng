@@ -2,6 +2,7 @@
 
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/libng_common.hpp>
+#include <libng_core/math/Maths.hpp>
 #include <libng_core/math/Tuple/Tuple3.hpp>
 #include <libng_core/types/number.hpp>
 
@@ -24,6 +25,8 @@ struct Vec3_Basic : public DATA {
   using DATA::data;
 
   // clang-format off
+  static Vec3 s_inf()                               { auto inf = libng::math::inf<T>(); return Vec3(inf, inf, inf); }
+
   Vec3_Basic() = default;
 
   Vec3_Basic(const Tuple3<T>& rhs)                  { set(rhs);         }

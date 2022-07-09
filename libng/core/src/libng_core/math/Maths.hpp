@@ -16,7 +16,7 @@ template<class T> constexpr T byteToK(const T& v)                              {
 template<class T> constexpr T byteToM(const T& v)                              { return v / (1024 * 1024);        }
 template<class T> constexpr T byteToG(const T& v)                              { return v / (1024 * 1024 * 1024); }
 
-template<class T> constexpr T NaN()                                            { return std::numeric_limits<T>::quiet_NaN(); }
+template<class T> constexpr T    NaN()                                         { return std::numeric_limits<T>::quiet_NaN(); }
 template<class T> constexpr bool isNaN(const T& rhs)                           { return std::isnan(rhs); }
 
 template<class T> constexpr T    inf()                                         { return std::numeric_limits<T>::infinity();}

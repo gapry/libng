@@ -20,10 +20,16 @@ public:
       LIBNG_DUMP_VAR(v1);
     }
   }
+
+  void test_inf() {
+    auto v1 = Vec3f::s_inf();
+    LIBNG_DUMP_VAR(v1);
+  }
 };
 
 } // namespace libng
 
 void test_vec3() {
   LIBNG_TEST_CASE(libng::TestVec3, test_ctor());
+  LIBNG_TEST_CASE(libng::TestVec3, test_inf());
 }
