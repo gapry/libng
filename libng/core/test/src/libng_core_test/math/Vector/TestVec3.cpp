@@ -19,6 +19,21 @@ public:
       LIBNG_DUMP_VAR(t1);
       LIBNG_DUMP_VAR(v1);
     }
+    {
+      // Issue:  warning C4305: 'argument': truncation from 'double' to 'const T' with [T=libng::f32]
+      //
+      // Vec2f v1(1.2, -2.1);
+      // LIBNG_DUMP_VAR(v1);
+
+      // Vec3f v2(v1, 1.2);
+      // LIBNG_DUMP_VAR(v2);
+    } {
+      Vec2f v1(1.2f, -2.1f);
+      LIBNG_DUMP_VAR(v1);
+
+      Vec3f v2(v1, 1.2f);
+      LIBNG_DUMP_VAR(v2);
+    }
   }
 
   void test_static_method() {

@@ -4,6 +4,7 @@
 #include <libng_core/libng_common.hpp>
 #include <libng_core/math/Maths.hpp>
 #include <libng_core/math/Tuple/Tuple3.hpp>
+#include <libng_core/math/Vector/Vec2.hpp>
 #include <libng_core/types/number.hpp>
 
 namespace libng {
@@ -40,9 +41,9 @@ struct Vec3_Basic : public DATA {
   LIBNG_INLINE static constexpr Vec3 s_left()       { return Vec3(-1,  0,  0); }
 
   Vec3_Basic() = default;
-
-  Vec3_Basic(const Tuple3<T>& rhs)                  { set(rhs);         }
-  Vec3_Basic(const T& x_, const T& y_, const T& z_) { set(x_, y_, z_);  }
+  Vec3_Basic(const Tuple3<T>& rhs)                  { set(rhs);              }
+  Vec3_Basic(const T& x_, const T& y_, const T& z_) { set(x_, y_, z_);       }
+  Vec3_Basic(const Vec2& vec, const T& z_)          { set(vec.x, vec.y, z_); }
 
   void set(const Tuple3<T>& rhs)                    { DATA::set(rhs);             }
   void set(const T& x_, const T& y_, const T& z_)   { set(Tuple3<T>(x_, y_, z_)); }
