@@ -21,10 +21,10 @@ struct Tuple3 {
 
   // clang-format off
   LIBNG_INLINE Tuple3() = default;
-  LIBNG_INLINE Tuple3(const T x_, const T y_, const T z_)      { set(x_, y_, z_); }
+  LIBNG_INLINE Tuple3(const T x_, const T y_, const T z_)      { set(x_, y_, z_);        }
 
-  LIBNG_INLINE void set(const Tuple3<T>& rhs)                  { *this = rhs; }
   LIBNG_INLINE void set(const T x_, const T y_, const T z_)    { x = x_; y = y_; z = z_; }
+  LIBNG_INLINE void set(const Tuple3<T>& rhs)                  { *this = rhs;            }
   // clang-format on
 
   void onFormat(fmt::format_context& ctx) const {
@@ -32,9 +32,11 @@ struct Tuple3 {
   }
 };
 
+using Tuple3i = Tuple3<i32>;
 using Tuple3f = Tuple3<f32>;
 using Tuple3d = Tuple3<f64>;
 
+LIBNG_FORMATTER(math::Tuple3i);
 LIBNG_FORMATTER(math::Tuple3f);
 LIBNG_FORMATTER(math::Tuple3d);
 
