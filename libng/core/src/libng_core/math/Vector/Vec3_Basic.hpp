@@ -26,77 +26,64 @@ struct Vec3_Basic : public DATA {
   using DATA::data;
 
   // clang-format off
-  LIBNG_INLINE static constexpr Vec3 s_inf()        { auto inf = libng::math::inf<T>(); return Vec3(inf, inf, inf); }
 
-  LIBNG_INLINE static constexpr Vec3 s_zero()       { return Vec3( 0,  0,  0); }
-  LIBNG_INLINE static constexpr Vec3 s_one()        { return Vec3( 1,  1,  1); }
+  // Issue: LIBNG_INLINE u8 size() const                          { return kDimension; }
+  LIBNG_INLINE static constexpr u8 size()                         { return kDimension; }
+
+  LIBNG_INLINE static constexpr Vec3 s_inf()                      { auto inf = libng::math::inf<T>(); return Vec3(inf, inf, inf); }
   
-  LIBNG_INLINE static constexpr Vec3 s_forward()    { return Vec3( 0,  0,  1); }
-  LIBNG_INLINE static constexpr Vec3 s_back()       { return Vec3( 0,  0, -1); }
+  LIBNG_INLINE static constexpr Vec3 s_zero()                     { return Vec3( 0,  0,  0); }
+  LIBNG_INLINE static constexpr Vec3 s_one()                      { return Vec3( 1,  1,  1); }
+  
+  LIBNG_INLINE static constexpr Vec3 s_forward()                  { return Vec3( 0,  0,  1); }
+  LIBNG_INLINE static constexpr Vec3 s_back()                     { return Vec3( 0,  0, -1); }
+  
+  LIBNG_INLINE static constexpr Vec3 s_up()                       { return Vec3( 0,  1,  0); }
+  LIBNG_INLINE static constexpr Vec3 s_down()                     { return Vec3( 0, -1,  0); }
+  
+  LIBNG_INLINE static constexpr Vec3 s_right()                    { return Vec3( 1,  0,  0); }
+  LIBNG_INLINE static constexpr Vec3 s_left()                     { return Vec3(-1,  0,  0); }
 
-  LIBNG_INLINE static constexpr Vec3 s_up()         { return Vec3( 0,  1,  0); }
-  LIBNG_INLINE static constexpr Vec3 s_down()       { return Vec3( 0, -1,  0); }
+  LIBNG_INLINE Vec3_Basic() = default;
+  LIBNG_INLINE Vec3_Basic(const Tuple3<T>& rhs)                   { set(rhs);              }
+  LIBNG_INLINE Vec3_Basic(const T x_, const T y_, const T z_)     { set(x_, y_, z_);       }
+  LIBNG_INLINE Vec3_Basic(const Vec2& vec, const T& z_)           { set(vec.x, vec.y, z_); }
 
-  LIBNG_INLINE static constexpr Vec3 s_right()      { return Vec3( 1,  0,  0); }
-  LIBNG_INLINE static constexpr Vec3 s_left()       { return Vec3(-1,  0,  0); }
+  LIBNG_INLINE void set(const Tuple3<T>& rhs)                     { DATA::set(rhs);             }
+  LIBNG_INLINE void set(const T  x_, const T y_, const T z_)      { set(Tuple3<T>(x_, y_, z_)); }
 
-  Vec3_Basic() = default;
-  Vec3_Basic(const Tuple3<T>& rhs)                  { set(rhs);              }
-  Vec3_Basic(const T& x_, const T& y_, const T& z_) { set(x_, y_, z_);       }
-  Vec3_Basic(const Vec2& vec, const T& z_)          { set(vec.x, vec.y, z_); }
+  LIBNG_INLINE Vec3 operator+(const Vec3& rhs) const              { return Vec3(x + rhs.x, y + rhs.y, z + rhs.z); }
+  LIBNG_INLINE Vec3 operator-(const Vec3& rhs) const              { return Vec3(x - rhs.x, y - rhs.y, z - rhs.z); }
+  LIBNG_INLINE Vec3 operator*(const Vec3& rhs) const              { return Vec3(x * rhs.x, y * rhs.y, z * rhs.z); }
+  LIBNG_INLINE Vec3 operator/(const Vec3& rhs) const              { return Vec3(x / rhs.x, y / rhs.y, z / rhs.z); }
 
-  void set(const Tuple3<T>& rhs)                    { DATA::set(rhs);             }
-  void set(const T& x_, const T& y_, const T& z_)   { set(Tuple3<T>(x_, y_, z_)); }
+  LIBNG_INLINE Vec3 operator+(const T s) const                    { return Vec3(x + s, y + s, z + s); }
+  LIBNG_INLINE Vec3 operator-(const T s) const                    { return Vec3(x - s, y - s, z - s); }
+  LIBNG_INLINE Vec3 operator*(const T s) const                    { return Vec3(x * s, y * s, z * s); }
+  LIBNG_INLINE Vec3 operator/(const T s) const                    { return Vec3(x / s, y / s, z / s); }
 
-  Vec3 operator+(const Vec3& rhs) const             { return Vec3(x + rhs.x, y + rhs.y, z + rhs.z); }
-  Vec3 operator-(const Vec3& rhs) const             { return Vec3(x - rhs.x, y - rhs.y, z - rhs.z); }
-  Vec3 operator*(const Vec3& rhs) const             { return Vec3(x * rhs.x, y * rhs.y, z * rhs.z); }
-  Vec3 operator/(const Vec3& rhs) const             { return Vec3(x / rhs.x, y / rhs.y, z / rhs.z); }
+  LIBNG_INLINE void operator+=(const Vec3& rhs) const             { x += rhs.x; y += rhs.y; z += rhs.z; }
+  LIBNG_INLINE void operator-=(const Vec3& rhs) const             { x -= rhs.x; y -= rhs.y; z -= rhs.z; }
+  LIBNG_INLINE void operator*=(const Vec3& rhs) const             { x *= rhs.x; y *= rhs.y; z *= rhs.z; }
+  LIBNG_INLINE void operator/=(const Vec3& rhs) const             { x /= rhs.x; y /= rhs.y; z /= rhs.z; }
 
-  Vec3 operator+(T s) const                         { return Vec3(x + s, y + s, z + s); }
-  Vec3 operator-(T s) const                         { return Vec3(x - s, y - s, z - s); }
-  Vec3 operator*(T s) const                         { return Vec3(x * s, y * s, z * s); }
-  Vec3 operator/(T s) const                         { return Vec3(x / s, y / s, z / s); }
+  LIBNG_INLINE void operator+=(const T s)                         { x += s; y += s; z += s; }
+  LIBNG_INLINE void operator-=(const T s)                         { x -= s; y -= s; z -= s; }
+  LIBNG_INLINE void operator*=(const T s)                         { x *= s; y *= s; z *= s; }
+  LIBNG_INLINE void operator/=(const T s)                         { x /= s; y /= s; z /= s; }
 
-  void operator+=(T s)                              { x += s; y += s; z += s; }
-  void operator-=(T s)                              { x -= s; y -= s; z -= s; }
-  void operator*=(T s)                              { x *= s; y *= s; z *= s; }
-  void operator/=(T s)                              { x /= s; y /= s; z /= s; }
+  LIBNG_INLINE Vec3 operator-() const                             { return Vec3(-x, -y, -z); }
+
+  LIBNG_INLINE T magnitude()                const                 { return std::sqrt(x * x + y * y + z * z); }
+  LIBNG_INLINE T length   ()                const                 { return magnitude();                      }
+  LIBNG_INLINE T distance (const Vec3& rhs) const                 { return (*this - rhs).magnitude();        }
+
+  LIBNG_INLINE T    dot  (const Vec3& rhs) const                  { return (x * rhs.x) + (y * rhs.y) + (z * rhs.z);                                    }
+  LIBNG_INLINE Vec3 cross(const Vec3& rhs) const                  { return Vec3(y * rhs.z - z * rhs.y, z * rhs.x - x * rhs.z,  x * rhs.y - y * rhs.x); }
+
+  LIBNG_INLINE Vec3 normalize()            const                  { T m = magnitude(); return !m ? s_zero() : *this * (1 / m);                         }
+
   // clang-format on
-
-  Vec3 operator-() const {
-    return Vec3(-x, -y, -z);
-  }
-
-  T magnitude() const {
-    return std::sqrt(x * x + y * y + z * z);
-  }
-
-  T length() const {
-    return magnitude();
-  }
-
-  Vec3 normalize() const {
-    T m = magnitude();
-    if (!m)
-      return Vec3(0, 0, 0);
-    auto inv = 1 / m;
-    return *this * inv;
-  }
-
-  T dot(const Vec3& r) const {
-    return (x * r.x) + (y * r.y) + (z * r.z);
-  }
-
-  Vec3 cross(const Vec3& r) const {
-    return Vec3(y * r.z - z * r.y,  //
-                z * r.x - x * r.z,  //
-                x * r.y - y * r.x); //
-  }
-
-  int size() const {
-    return kDimension;
-  }
 
   void onFormat(fmt::format_context& ctx) const {
     fmt::format_to(ctx.out(), "<{}, {}, {}>", x, y, z);
