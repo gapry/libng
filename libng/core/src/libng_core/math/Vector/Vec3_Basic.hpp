@@ -25,7 +25,19 @@ struct Vec3_Basic : public DATA {
   using DATA::data;
 
   // clang-format off
-  static Vec3 s_inf()                               { auto inf = libng::math::inf<T>(); return Vec3(inf, inf, inf); }
+  LIBNG_INLINE static constexpr Vec3 s_inf()        { auto inf = libng::math::inf<T>(); return Vec3(inf, inf, inf); }
+
+  LIBNG_INLINE static constexpr Vec3 s_zero()       { return Vec3( 0,  0,  0); }
+  LIBNG_INLINE static constexpr Vec3 s_one()        { return Vec3( 1,  1,  1); }
+  
+  LIBNG_INLINE static constexpr Vec3 s_forward()    { return Vec3( 0,  0,  1); }
+  LIBNG_INLINE static constexpr Vec3 s_back()       { return Vec3( 0,  0, -1); }
+
+  LIBNG_INLINE static constexpr Vec3 s_up()         { return Vec3( 0,  1,  0); }
+  LIBNG_INLINE static constexpr Vec3 s_down()       { return Vec3( 0, -1,  0); }
+
+  LIBNG_INLINE static constexpr Vec3 s_right()      { return Vec3( 1,  0,  0); }
+  LIBNG_INLINE static constexpr Vec3 s_left()       { return Vec3(-1,  0,  0); }
 
   Vec3_Basic() = default;
 

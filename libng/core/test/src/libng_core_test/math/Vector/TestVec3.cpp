@@ -21,9 +21,24 @@ public:
     }
   }
 
-  void test_inf() {
-    auto v1 = Vec3f::s_inf();
-    LIBNG_DUMP_VAR(v1);
+  void test_static_method() {
+    auto print = [](const Vec3f& vec) -> void {
+      LIBNG_DUMP_VAR(vec);
+    };
+
+    print(Vec3f::s_inf());
+
+    print(Vec3f::s_zero());
+    print(Vec3f::s_one());
+
+    print(Vec3f::s_forward());
+    print(Vec3f::s_back());
+
+    print(Vec3f::s_up());
+    print(Vec3f::s_down());
+
+    print(Vec3f::s_left());
+    print(Vec3f::s_right());
   }
 };
 
@@ -31,5 +46,5 @@ public:
 
 void test_vec3() {
   LIBNG_TEST_CASE(libng::TestVec3, test_ctor());
-  LIBNG_TEST_CASE(libng::TestVec3, test_inf());
+  LIBNG_TEST_CASE(libng::TestVec3, test_static_method());
 }
