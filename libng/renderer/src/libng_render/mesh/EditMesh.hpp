@@ -13,13 +13,13 @@ public:
 
   Vector<u32> indices;
 
-  Vector<Tuple3f> pos;
-  Vector<Tuple2f> uv[kUvCountMax];
-  Vector<Color4b> color;
+  Vector<math::Tuple3f> pos;
+  Vector<math::Tuple2f> uv[kUvCountMax];
+  Vector<math::Color4b> color;
 
-  Vector<Tuple3f> normal;
-  Vector<Tuple3f> tangent;
-  Vector<Tuple3f> binormal;
+  Vector<math::Tuple3f> normal;
+  Vector<math::Tuple3f> tangent;
+  Vector<math::Tuple3f> binormal;
 
   void clear();
 };

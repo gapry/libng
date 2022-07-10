@@ -7,6 +7,8 @@ namespace libng {
 
 class TestVec2 : public UnitTestBase {
 public:
+  using Vec2d = math::Vec2d;
+
   void test_ctor() {
     Vec2d vec(1.2, 2.3);
     LIBNG_DUMP_VAR(vec);

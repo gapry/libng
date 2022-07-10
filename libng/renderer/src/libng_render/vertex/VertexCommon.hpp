@@ -17,6 +17,9 @@
 // clang-format off
 namespace libng {
 
+using Tuple2f            = math::Tuple2f;
+using Tuple3f            = math::Tuple3f;
+using Color4b            = math::Color4b;
 using VertexPos3f		     = VertexPos<Tuple3f>;
 using VertexPos3fColor4b = VertexColor<Color4b, 1, VertexPos3f>; // Issue
 

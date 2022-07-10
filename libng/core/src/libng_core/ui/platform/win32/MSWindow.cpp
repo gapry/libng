@@ -76,8 +76,9 @@ void MSWindow::onCreate(CreateDesc& desc) {
 
   auto rect = desc.rect;
   if (desc.centerToScreen) {
-    auto screenSize = Vec2f((float)GetSystemMetrics(SM_CXSCREEN), (float)GetSystemMetrics(SM_CYSCREEN));
-    rect.pos        = (screenSize - rect.size) / 2;
+    auto screenSize =
+      math::Vec2f(static_cast<float>(GetSystemMetrics(SM_CXSCREEN)), static_cast<float>(GetSystemMetrics(SM_CYSCREEN)));
+    rect.pos = (screenSize - rect.size) / 2;
   }
 
   _hwnd = ::CreateWindowEx(dwExStyle,
@@ -149,7 +150,7 @@ LRESULT WINAPI MSWindow::s_wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lP
       if (auto* thisObj = s_getThis(hwnd)) {
         RECT clientRect;
         ::GetClientRect(hwnd, &clientRect);
-        Rect2f newClientRect = Win32Util::toRect2f(clientRect);
+        math::Rect2f newClientRect = Win32Util::toRect2f(clientRect);
         thisObj->onClientRectChanged(newClientRect);
         return 0;
       }

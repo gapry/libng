@@ -66,7 +66,7 @@ void WavefrontObjLoader::_parseLine() {
 }
 
 void WavefrontObjLoader::_parseLine_v() {
-  Tuple4f value(0, 0, 0, 1);
+  math::Tuple4f value(0, 0, 0, 1);
 
   for (size_t i = 0; i < 4; i++) {
     _nextToken();

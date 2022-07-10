@@ -2,7 +2,7 @@
 
 #include <libng_core/math/Vector/Vec2.hpp>
 
-namespace libng {
+namespace libng::math {
 
 template<class T>
 class Rect2 {
@@ -42,4 +42,4 @@ using Rect2i = Rect2<int>;
 using Rect2f = Rect2<float>;
 using Rect2d = Rect2<double>;
 
-} // namespace libng
+} // namespace libng::math

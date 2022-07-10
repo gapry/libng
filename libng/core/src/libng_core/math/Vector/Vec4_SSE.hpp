@@ -3,7 +3,7 @@
 #include <libng_core/math/Vector/Vec4_Basic.hpp>
 #include <libng_core/platform/sse.hpp>
 
-namespace libng {
+namespace libng::math {
 
 template<class T, class M>
 struct Vec4_SSE_Data {
@@ -18,4 +18,4 @@ struct Vec4_SSE_Data {
   };
 };
 
-} // namespace libng
+} // namespace libng::math

@@ -2,7 +2,7 @@
 
 #include <libng_core/types/number.hpp>
 
-namespace libng {
+namespace libng::math {
 
 template<class T>
 struct ColorR {
@@ -84,4 +84,4 @@ using ColorRGBAb = ColorRGBA<u8>;
 using Color4f = ColorRGBAf;
 using Color4b = ColorRGBAb;
 
-} // namespace libng
+} // namespace libng::math

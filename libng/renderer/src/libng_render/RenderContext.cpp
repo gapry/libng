@@ -48,7 +48,7 @@ void RenderContext::commit(RenderCommandBuffer& cmdBuff) {
  * 1. avoid the redundant assignment
  * 2. call the protected virtual function
  */
-void RenderContext::setFrameBufferSize(Vec2f newSize) {
+void RenderContext::setFrameBufferSize(math::Vec2f newSize) {
   if (_frameBufferSize == newSize) {
     return;
   }

@@ -5,7 +5,7 @@
 #include <libng_core/math/Vector/Vec3.hpp>
 #include <libng_core/math/Vector/Vec4.hpp>
 
-namespace libng {
+namespace libng::math {
 
 template<typename T>
 class Mat4_Basic {

@@ -49,7 +49,7 @@ protected:
 
   void _createRenderTarget();
 
-  virtual void onSetFrameBufferSize(Vec2f newSize);
+  virtual void onSetFrameBufferSize(math::Vec2f newSize);
   virtual void onBeginRender() override;
   virtual void onEndRender() override;
 

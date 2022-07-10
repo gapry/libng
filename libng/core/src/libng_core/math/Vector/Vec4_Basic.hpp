@@ -1,9 +1,10 @@
 #pragma once
 
+#include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/math/Tuple/Tuple4.hpp>
 #include <libng_core/math/Vector/Vec3.hpp>
 
-namespace libng {
+namespace libng::math {
 
 template<class T>
 using Vec4_Basic_Data = Tuple4<T>;
@@ -62,4 +63,7 @@ public:
 using Vec4f_Basic = Vec4_Basic<float>;
 using Vec4d_Basic = Vec4_Basic<double>;
 
-} // namespace libng
+LIBNG_FORMATTER(math::Vec4f_Basic);
+LIBNG_FORMATTER(math::Vec4d_Basic);
+
+} // namespace libng::math

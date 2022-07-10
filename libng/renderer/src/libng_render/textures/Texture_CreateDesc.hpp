@@ -9,7 +9,7 @@ struct Texture_CreateDesc {
   ~Texture_CreateDesc();
 
   String name;
-  ColorType colorType;
+  math::ColorType colorType;
 };
 
 } // namespace libng

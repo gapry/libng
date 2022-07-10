@@ -8,6 +8,10 @@ namespace libng {
 
 class TestVec3 : public UnitTestBase {
 public:
+  using Vec2f   = math::Vec2f;
+  using Vec3f   = math::Vec3f;
+  using Tuple3f = math::Tuple3f;
+
   void test_ctor() {
     {
       Vec3f v1(1.2f, 2.3f, 3.4f);

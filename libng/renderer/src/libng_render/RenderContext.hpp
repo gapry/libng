@@ -22,7 +22,7 @@ public:
 
   void commit(RenderCommandBuffer& cmdBuff);
 
-  void setFrameBufferSize(Vec2f newSize);
+  void setFrameBufferSize(math::Vec2f newSize);
 
 protected:
   virtual void onBeginRender() = 0;
@@ -31,12 +31,12 @@ protected:
 
   virtual void onCommit(RenderCommandBuffer& cmdBuff) = 0;
 
-  virtual void onSetFrameBufferSize(Vec2f newSize) = 0;
+  virtual void onSetFrameBufferSize(math::Vec2f newSize) = 0;
 
   template<class T> // Issue: typename T, class IMPL
   void _dispatch(T* impl, RenderCommandBuffer& cmdBuff);
 
-  Vec2f _frameBufferSize{0.0f, 0.0f}; /**< Issue: Vec2f, x, y, Operator+-  */
+  math::Vec2f _frameBufferSize{0.0f, 0.0f}; /**< Issue: Vec2f, x, y, Operator+-  */
 };
 
 /**

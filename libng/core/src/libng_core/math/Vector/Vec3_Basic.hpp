@@ -7,7 +7,7 @@
 #include <libng_core/math/Vector/Vec2.hpp>
 #include <libng_core/types/number.hpp>
 
-namespace libng {
+namespace libng::math {
 
 template<class T>
 using Vec3_Basic_Data = Tuple3<T>;
@@ -50,7 +50,7 @@ struct Vec3_Basic : public DATA {
   LIBNG_INLINE Vec3_Basic(const Vec2& vec, const T& z_)           { set(vec.x, vec.y, z_); }
 
   LIBNG_INLINE void set(const Tuple3<T>& rhs)                     { DATA::set(rhs);             }
-  LIBNG_INLINE void set(const T  x_, const T y_, const T z_)      { set(Tuple3<T>(x_, y_, z_)); }
+  LIBNG_INLINE void set(const T x_, const T y_, const T z_)       { set(Tuple3<T>(x_, y_, z_)); }
 
   LIBNG_INLINE Vec3 operator+(const Vec3& rhs) const              { return Vec3(x + rhs.x, y + rhs.y, z + rhs.z); }
   LIBNG_INLINE Vec3 operator-(const Vec3& rhs) const              { return Vec3(x - rhs.x, y - rhs.y, z - rhs.z); }
@@ -93,7 +93,7 @@ struct Vec3_Basic : public DATA {
 using Vec3f_Basic = Vec3_Basic<f32>;
 using Vec3d_Basic = Vec3_Basic<f64>;
 
-LIBNG_FORMATTER(Vec3f_Basic);
-LIBNG_FORMATTER(Vec3d_Basic);
+LIBNG_FORMATTER(math::Vec3f_Basic);
+LIBNG_FORMATTER(math::Vec3d_Basic);
 
-} // namespace libng
+} // namespace libng::math

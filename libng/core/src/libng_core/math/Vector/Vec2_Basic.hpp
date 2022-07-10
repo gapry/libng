@@ -1,10 +1,11 @@
 #pragma once
 
 #include <libng_core/exception/error.hpp>
+#include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/math/Tuple/Tuple2.hpp>
 #include <libng_core/types/function.hpp>
 
-namespace libng {
+namespace libng::math {
 
 template<class T>
 using Vec2_Basic_Data = Tuple2<T>;
@@ -64,8 +65,8 @@ using Vec2i_Basic = Vec2_Basic<i32>;
 using Vec2f_Basic = Vec2_Basic<f32>;
 using Vec2d_Basic = Vec2_Basic<f64>;
 
-LIBNG_FORMATTER(Vec2i_Basic);
-LIBNG_FORMATTER(Vec2f_Basic);
-LIBNG_FORMATTER(Vec2d_Basic);
+LIBNG_FORMATTER(math::Vec2i_Basic);
+LIBNG_FORMATTER(math::Vec2f_Basic);
+LIBNG_FORMATTER(math::Vec2d_Basic);
 
-} // namespace libng
+} // namespace libng::math

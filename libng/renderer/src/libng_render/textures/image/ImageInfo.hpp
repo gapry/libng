@@ -6,10 +6,10 @@ namespace libng {
 
 struct ImageInfo {
 public:
-  Vec2i size{0, 0};
+  math::Vec2i size{0, 0};
   int strideInBytes = 0;
   int mipmapCount   = 1;
-  ColorType colorType;
+  math::ColorType colorType;
 };
 
 } // namespace libng

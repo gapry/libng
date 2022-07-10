@@ -150,7 +150,7 @@ void RenderContextDX11::_createRenderTarget() {
   Util::throwIfError(hr);
 }
 
-void RenderContextDX11::onSetFrameBufferSize(Vec2f newSize) {
+void RenderContextDX11::onSetFrameBufferSize(math::Vec2f newSize) {
   _renderTargetView.reset(nullptr); // release buffer and render target view before resize
 
   auto hr = _swapChain->ResizeBuffers(0,
@@ -284,7 +284,7 @@ void RenderContextDX11::_setTestShaders() {
   ctx->RSSetState(_testRasterizerState);
   ctx->OMSetDepthStencilState(_testDepthStencilState, 1);
 
-  Color4f blendColor(1, 1, 1, 1);
+  math::Color4f blendColor(1, 1, 1, 1);
   ctx->OMSetBlendState(_testBlendState, blendColor.data, 0xffffffff);
 
   ctx->VSSetShader(_testVertexShader, 0, 0);

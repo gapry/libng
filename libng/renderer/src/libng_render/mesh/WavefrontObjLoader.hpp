@@ -40,9 +40,9 @@ private:
 
   int _lineNumber = 0;
 
-  Vector<Tuple3f> _tmpPos;
-  Vector<Tuple2f> _tmpUv;
-  Vector<Tuple3f> _tmpNormal;
+  Vector<math::Tuple3f> _tmpPos;
+  Vector<math::Tuple2f> _tmpUv;
+  Vector<math::Tuple3f> _tmpNormal;
 };
 
 } // namespace libng

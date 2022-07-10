@@ -7,6 +7,9 @@ namespace libng {
 
 class TestTuple2 : public UnitTestBase {
 public:
+  using Tuple2f = math::Tuple2f;
+  using Tuple2d = math::Tuple2d;
+
   void test_ctor() {
     Tuple2f t1(1.0f, 2.0f);
     LIBNG_DUMP_VAR(t1);

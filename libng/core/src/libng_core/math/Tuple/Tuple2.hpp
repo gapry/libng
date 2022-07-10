@@ -3,7 +3,7 @@
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/types/number.hpp>
 
-namespace libng {
+namespace libng::math {
 
 template<class T>
 struct Tuple2 {
@@ -48,7 +48,7 @@ struct Tuple2 {
 using Tuple2f = Tuple2<f32>;
 using Tuple2d = Tuple2<f64>;
 
-LIBNG_FORMATTER(Tuple2f);
-LIBNG_FORMATTER(Tuple2d);
+LIBNG_FORMATTER(math::Tuple2f);
+LIBNG_FORMATTER(math::Tuple2d);
 
-} // namespace libng
+} // namespace libng::math

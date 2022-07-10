@@ -13,7 +13,7 @@ public:
   ~Texture2D_CreateDesc();
 
   // clang-format off
-  Vec2i size   {0, 0};
+  math::Vec2i size   {0, 0};
   SamplerState sampleState;
   Image        imageToUpload;
 };

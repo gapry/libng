@@ -1,7 +1,7 @@
 #pragma once
 
 #include <libng_core/libcxx/string_view.hpp>
-#include <libng_core/math/Rect2.hpp>
+#include <libng_core/math/Geometry/Rect2.hpp>
 #include <libng_core/types/noncopyable.hpp>
 
 namespace libng {
@@ -23,7 +23,7 @@ public:
 
     Type type = Type::NormalWindow;
 
-    Rect2f rect{13, 17, 800, 768}; // Issue: Hard Coding
+    math::Rect2f rect{13, 17, 800, 768}; // Issue: Hard Coding
 
     bool titleBar : 1;
     bool isMainWindow : 1;
@@ -46,7 +46,7 @@ public:
 
   void drawNeeded();
 
-  const Rect2f& clientRect() const;
+  const math::Rect2f& clientRect() const;
 
   virtual void onCloseButton();
 
@@ -59,11 +59,11 @@ protected:
 
   virtual void onSetWindowTitle(StrView title);
 
-  virtual void onClientRectChanged(const Rect2f& rc);
+  virtual void onClientRectChanged(const math::Rect2f& rc);
 
   virtual void onDrawNeeded();
 
-  Rect2f _clientRect{0, 0, 0, 0};
+  math::Rect2f _clientRect{0, 0, 0, 0};
 };
 
 } // namespace libng

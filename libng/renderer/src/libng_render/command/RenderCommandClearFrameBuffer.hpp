@@ -17,7 +17,7 @@ public:
 
   ~RenderCommandClearFrameBuffer();
 
-  This& setColor(const Color4f& color_);
+  This& setColor(const math::Color4f& color_);
 
   This& setDepth(const float depth_);
 
@@ -25,8 +25,8 @@ public:
 
   This& dontClearDepth();
 
-  Opt<Color4f> color = Color4f(1.0f, 1.0f, 1.0f, 1.0f);
-  Opt<float> depth   = 0;
+  Opt<math::Color4f> color = math::Color4f(1.0f, 1.0f, 1.0f, 1.0f);
+  Opt<float> depth         = 0;
 };
 
 } // namespace libng

@@ -7,7 +7,7 @@
 #include <libng_core/math/Vector/Vec2_Basic.hpp>
 #include <libng_core/math/Vector/Vec2_SSE.hpp>
 
-namespace libng {
+namespace libng::math {
 
 #if LIBNG_MATH_USE_SSE
 #else
@@ -19,4 +19,4 @@ using Vec2i = Vec2<i32>;
 using Vec2f = Vec2<f32>;
 using Vec2d = Vec2<f64>;
 
-} // namespace libng
+} // namespace libng::math

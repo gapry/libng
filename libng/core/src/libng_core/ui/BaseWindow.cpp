@@ -35,7 +35,7 @@ void BaseWindow::drawNeeded() {
   onDrawNeeded();
 }
 
-const Rect2f& BaseWindow::clientRect() const {
+const math::Rect2f& BaseWindow::clientRect() const {
   return _clientRect;
 }
 
@@ -54,7 +54,7 @@ void BaseWindow::onCreate(CreateDesc& desc) {
 void BaseWindow::onSetWindowTitle(StrView title) {
 }
 
-void BaseWindow::onClientRectChanged(const Rect2f& rc) {
+void BaseWindow::onClientRectChanged(const math::Rect2f& rc) {
   _clientRect = rc;
 }
 

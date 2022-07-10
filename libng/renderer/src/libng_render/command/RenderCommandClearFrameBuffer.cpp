@@ -9,7 +9,7 @@ RenderCommandClearFrameBuffer::RenderCommandClearFrameBuffer()
 RenderCommandClearFrameBuffer::~RenderCommandClearFrameBuffer() {
 }
 
-RenderCommandClearFrameBuffer& RenderCommandClearFrameBuffer::setColor(const Color4f& color_) {
+RenderCommandClearFrameBuffer& RenderCommandClearFrameBuffer::setColor(const math::Color4f& color_) {
   color = color_;
   return *this;
 }

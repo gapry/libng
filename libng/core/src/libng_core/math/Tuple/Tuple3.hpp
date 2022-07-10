@@ -4,7 +4,7 @@
 #include <libng_core/types/function.hpp>
 #include <libng_core/types/number.hpp>
 
-namespace libng {
+namespace libng::math {
 
 template<class T>
 struct Tuple3 {
@@ -35,7 +35,7 @@ struct Tuple3 {
 using Tuple3f = Tuple3<f32>;
 using Tuple3d = Tuple3<f64>;
 
-LIBNG_FORMATTER(Tuple3f);
-LIBNG_FORMATTER(Tuple3d);
+LIBNG_FORMATTER(math::Tuple3f);
+LIBNG_FORMATTER(math::Tuple3d);
 
-} // namespace libng
+} // namespace libng::math
