@@ -11,8 +11,7 @@ struct ColorRGB {
   using ElementType                     = T;
   static const size_t kElementCount     = 3;
   static constexpr int kAlphaBits       = 0;
-  static constexpr ColorType kColorType = libng::ColorType_make(libng::ColorModel::RGB,            //
-                                                                libng::ColorElementType_get<T>()); //
+  static constexpr ColorType kColorType = libng::ColorType_make(ColorModel::RGB, ColorElementType_get<T>());
 
   union {
     struct {

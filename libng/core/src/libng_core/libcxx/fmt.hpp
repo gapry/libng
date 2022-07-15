@@ -1,10 +1,9 @@
 #pragma once
 
-#include <fmt/format.h>
-
 // #include <libng_core/encoding/UtfUtil.hpp> // 'LIBNG_ERROR': identifier not found
 #include <libng_core/libcxx/json.hpp>
 #include <libng_core/libcxx/string.hpp>
+#include <libng_core/libng_common.hpp>
 #include <libng_core/platform/compiler.hpp>
 #include <libng_core/types/utility.hpp>
 
@@ -31,18 +30,18 @@
   namespace libng {                                            \
   // ----------
 
-#define LIBNG_FORMATTER_ENUM(T)                                  \
-  } /* namespace libng */                                        \
-  template<>                                                     \
-  struct fmt::formatter<libng::T> {                              \
-    auto parse(fmt::format_parse_context& ctx) {                 \
-      return ctx.begin();                                        \
-    }                                                            \
-    auto format(const libng::T& v, fmt::format_context& ctx) {   \
-      return fmt::format_to(ctx.out(), "{}", libng::enumStr(v)); \
-    }                                                            \
-  };                                                             \
-  namespace libng {                                              \
+#define LIBNG_FORMATTER_ENUM(T)                                \
+  } /* namespace libng */                                      \
+  template<>                                                   \
+  struct fmt::formatter<libng::T> {                            \
+    auto parse(fmt::format_parse_context& ctx) {               \
+      return ctx.begin();                                      \
+    }                                                          \
+    auto format(const libng::T& v, fmt::format_context& ctx) { \
+      return fmt::format_to(ctx.out(), "{}", enumStr(v));      \
+    }                                                          \
+  };                                                           \
+  namespace libng {                                            \
   // ----------
 
 namespace libng {

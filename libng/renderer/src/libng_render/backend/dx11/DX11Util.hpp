@@ -24,7 +24,7 @@ struct DX11Util {
 
   static D3D11_PRIMITIVE_TOPOLOGY getDxPrimitiveTopology(RenderPrimitiveType t);
   static DXGI_FORMAT              getDxFormat           (RenderDataType v);
-  static DXGI_FORMAT              getDxColorType        (ColorType v);
+  static DXGI_FORMAT              getDxColorType        (math::ColorType v);
 
   static const char* getDxSemanticName(VertexSemanticType t);
 
@@ -167,8 +167,8 @@ DXGI_FORMAT DX11Util::getDxFormat(RenderDataType v) {
 }
 
 LIBNG_INLINE
-DXGI_FORMAT DX11Util::getDxColorType(ColorType v) {
-  using SRC = ColorType;
+DXGI_FORMAT DX11Util::getDxColorType(math::ColorType v) {
+  using SRC = math::ColorType;
   switch (v) {
     case SRC::Rb:     return DXGI_FORMAT_R8_UNORM;
     case SRC::Rf:     return DXGI_FORMAT_R32_FLOAT;

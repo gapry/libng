@@ -5,7 +5,7 @@
 #include <libng_core/math/Color/ColorModel.hpp>
 #include <libng_core/math/Color/ColorType.hpp>
 
-namespace libng {
+namespace libng::math {
 
 template<ColorType BC, ColorModel MODEL, int BITS, int BLOCK>
 struct ColorBC {

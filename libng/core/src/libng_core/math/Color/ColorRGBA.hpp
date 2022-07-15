@@ -13,8 +13,7 @@ struct ColorRGBA {
 
   static const size_t kElementCount     = 4;
   static constexpr int kAlphaBits       = sizeof(T) * 8;
-  static constexpr ColorType kColorType = libng::ColorType_make(libng::ColorModel::RGBA,           //
-                                                                libng::ColorElementType_get<T>()); //
+  static constexpr ColorType kColorType = ColorType_make(ColorModel::RGBA, ColorElementType_get<T>());
 
   union {
     struct {
