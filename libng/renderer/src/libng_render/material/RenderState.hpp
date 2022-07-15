@@ -14,7 +14,24 @@ struct RenderState {
   using BlendOp     = RenderState_BlendOp;
   using BlendFactor = RenderState_BlendFactor;
 
-  struct DepthTest {};
+  struct DepthTest {
+    DepthTestOp op = DepthTestOp::LessEqual;
+    bool writeMask = true;
+
+    LIBNG_INLINE bool operator==(const DepthTest& rhs) const {
+      return op == rhs.op && writeMask == rhs.writeMask;
+    }
+
+    LIBNG_INLINE bool isEnable() const {
+      return op != DepthTestOp::Always;
+    }
+
+    template<class SE>
+    void onJson(SE& se) {
+      LIBNG_NAMED_IO(se, op);
+      LIBNG_NAMED_IO(se, writeMask);
+    }
+  };
 
   struct Blend {};
 
