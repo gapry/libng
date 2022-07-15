@@ -1,3 +1,5 @@
+#pragma once
+
 #include <libng_core/types/enum.hpp>
 #include <libng_core/types/number.hpp>
 
