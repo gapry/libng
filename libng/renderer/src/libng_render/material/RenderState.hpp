@@ -33,7 +33,45 @@ struct RenderState {
     }
   };
 
-  struct Blend {};
+  struct BlendFunc {
+    BlendOp op            = BlendOp::Disable;
+    BlendFactor srcFactor = BlendFactor::SrcAlpha;
+    BlendFactor dstFactor = BlendFactor::OneMinusSrcAlpha;
+
+    void set(BlendOp op_,              //
+             BlendFactor srcFactor_,   //
+             BlendFactor dstFactor_) { //
+      op        = op_;
+      srcFactor = srcFactor_;
+      dstFactor = dstFactor_;
+    }
+
+    template<class SE>
+    void onJson(SE& se) {
+      LIBNG_NAMED_IO(se, op);
+      LIBNG_NAMED_IO(se, srcFactor);
+      LIBNG_NAMED_IO(se, dstFactor);
+    }
+  };
+
+  struct Blend {
+    BlendFunc rgb;
+    BlendFunc alpha;
+    Color4f constColor(1, 1, 1, 1);
+
+    LIBNG_INLINE bool isEnable() const {
+      const bool cond1 = BlendOp::Disable != rgb.op;
+      const bool cond2 = BlendOp::Disable != alpha.op;
+      return cond1 || cond2;
+    }
+
+    template<class SE>
+    void onJson(SE& se) {
+      LIBNG_NAMED_IO(se, rgb);
+      LIBNG_NAMED_IO(se, alpha);
+      LIBNG_NAMED_IO(se, constColor);
+    }
+  };
 
   bool wireframe = false;
   Cull cull      = Cull::Back;
