@@ -14,15 +14,22 @@ struct RenderState {
   using BlendOp     = RenderState_BlendOp;
   using BlendFactor = RenderState_BlendFactor;
 
-  bool wireframe = false;
-
-  Cull cull = Cull::Back;
-
   struct DepthTest {};
-  DepthTest depthTest;
 
   struct Blend {};
+
+  bool wireframe = false;
+  Cull cull      = Cull::Back;
+  DepthTest depthTest;
   Blend blend;
+
+  template<class SE>
+  void onJson(SE& se) {
+    LIBNG_NAMED_IO(se, wireframe);
+    LIBNG_NAMED_IO(se, cull);
+    LIBNG_NAMED_IO(se, depthTest);
+    LIBNG_NAMED_IO(se, blend);
+  }
 };
 
 } // namespace libng
