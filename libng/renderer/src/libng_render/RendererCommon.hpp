@@ -14,7 +14,6 @@
 #include <libng_core/log/log.hpp>
 #include <libng_core/log/variable.hpp>
 #include <libng_core/math/Color/Color.hpp>
-#include <libng_core/math/Color/ColorType.hpp>
 #include <libng_core/math/Maths.hpp>
 #include <libng_core/math/Matrix/Mat4.hpp>
 #include <libng_core/math/Tuple/Tuple2.hpp>
