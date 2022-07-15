@@ -12,4 +12,5 @@
 #include <iterator>
 #include <limits>
 #include <new>
+#include <type_traits>
 #include <utility>
