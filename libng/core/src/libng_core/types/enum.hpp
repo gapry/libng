@@ -89,3 +89,8 @@ LIBNG_INLINE constexpr typename std::underlying_type<T>::type enumToInt(T value)
     T##_ENUM_LIST(LIBNG_ENUM_DECLARE__ITEM) \
   };                                        \
   //----
+
+#define LIBNG_ENUM_CLASS(T, BASE_TYPE) \
+  LIBNG_ENUM_DECLARE(T, BASE_TYPE)     \
+  LIBNG_ENUM_STR_UTIL(T)               \
+  //----
