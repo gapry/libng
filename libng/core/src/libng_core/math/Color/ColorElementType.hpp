@@ -3,12 +3,13 @@
 #include <libng_core/types/enum.hpp>
 #include <libng_core/types/number.hpp>
 
-namespace libng::math {
+namespace libng {
 
 #define ColorElementType_ENUM_LIST(E) \
   E(None, )                           \
   E(UNorm8, )                         \
   E(UNorm16, )                        \
+  E(Float16, )                        \
   E(Float32, )                        \
   E(Float64, )                        \
 //-------

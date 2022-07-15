@@ -3,7 +3,7 @@
 #include <libng_core/types/enum.hpp>
 #include <libng_core/types/number.hpp>
 
-namespace libng::math {
+namespace libng {
 
 #define ColorModel_ENUM_LIST(E) \
   E(None, )                     \
@@ -18,4 +18,4 @@ namespace libng::math {
 //----
 LIBNG_ENUM_CLASS(ColorModel, u8)
 
-} // namespace libng::math
+} // namespace libng
