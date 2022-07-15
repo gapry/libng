@@ -7,22 +7,24 @@
 #include <libng_render/type/RenderPrimitiveType.hpp>
 #include <libng_render/vertex/VertexSemanticType.hpp>
 
+// clang-format off
+
 namespace libng {
+
+#if LIBNG_RENDER_DX11
 
 struct DX11Util {
   DX11Util() = delete;
 
-  static void reportError(HRESULT hr);
-
+  static void reportError  (HRESULT hr);
   static bool assertIfError(HRESULT hr);
-
-  static void throwIfError(HRESULT hr);
+  static void throwIfError (HRESULT hr);
 
   static UINT castUINT(size_t v);
 
   static D3D11_PRIMITIVE_TOPOLOGY getDxPrimitiveTopology(RenderPrimitiveType t);
-
-  static DXGI_FORMAT getDxFormat(RenderDataType v);
+  static DXGI_FORMAT              getDxFormat           (RenderDataType v);
+  // static DXGI_FORMAT              getDxColorType        (ColorType v);
 
   static const char* getDxSemanticName(VertexSemanticType t);
 
@@ -32,9 +34,8 @@ struct DX11Util {
 
   static String getStrFromHRESULT(HRESULT hr);
 
-  static ByteSpan toSpan(ID3DBlob* blob);
-
-  static StrView toStrView(ID3DBlob* blob);
+  static ByteSpan toSpan   (ID3DBlob* blob);
+  static StrView  toStrView(ID3DBlob* blob);
 
 private:
   static bool _checkError(HRESULT hr);
@@ -46,10 +47,10 @@ LIBNG_INLINE void DX11Util::reportError(HRESULT hr) {
     LIBNG_LOG("HRESULT(0x{:0X}) {}", static_cast<u32>(hr), str);
   }
 #if 0 && _DEBUG
-	auto* d = renderer()->d3dDebug();
-	if (d) {
-		d->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
-	}
+  auto* d = renderer()->d3dDebug();
+  if (d) {
+    d->ReportLiveDeviceObjects(D3D11_RLDO_DETAIL);
+  }
 #endif
 }
 
@@ -76,7 +77,6 @@ LIBNG_INLINE UINT DX11Util::castUINT(size_t v) {
   return static_cast<UINT>(v);
 }
 
-// clang-format off
 LIBNG_INLINE
 D3D11_PRIMITIVE_TOPOLOGY DX11Util::getDxPrimitiveTopology(RenderPrimitiveType t) {
   using SRC = RenderPrimitiveType;
@@ -166,6 +166,34 @@ DXGI_FORMAT DX11Util::getDxFormat(RenderDataType v) {
   }
 }
 
+// LIBNG_INLINE
+// DXGI_FORMAT DX11Util::getDxColorType(ColorType v) {
+//   using SRC = ColorType;
+//   // switch (v) {
+//     case SRC::Rb:     return DXGI_FORMAT_R8_UNORM;
+//     case SRC::Rf:     return DXGI_FORMAT_R32_FLOAT;
+// 
+//     case SRC::RGb:    return DXGI_FORMAT_R8G8_UNORM;
+//     case SRC::RGf:    return DXGI_FORMAT_R32G32_FLOAT;
+// 
+//     // case SRC::RGBb:  return DXGI_FORMAT_R8G8B8_UNORM;    // DX Not Support
+//     // case SRC::RGBf:  return DXGI_FORMAT_R32G32B32_FLOAT; // DX Not Support
+// 
+//     case SRC::RGBAb:  return DXGI_FORMAT_R8G8B8A8_UNORM;
+//     case SRC::RGBAf:  return DXGI_FORMAT_R32G32B32A32_FLOAT;
+// 
+//     case SRC::BC1:    return DXGI_FORMAT_BC1_UNORM;
+//     case SRC::BC2:    return DXGI_FORMAT_BC2_UNORM;
+//     case SRC::BC3:    return DXGI_FORMAT_BC3_UNORM;
+//     case SRC::BC4:    return DXGI_FORMAT_BC4_UNORM;
+//     case SRC::BC5:    return DXGI_FORMAT_BC5_UNORM;
+//     case SRC::BC6h:   return DXGI_FORMAT_BC6H_UF16;
+//     case SRC::BC7:    return DXGI_FORMAT_BC7_UNORM;
+// 
+//     default: throw LIBNG_ERROR("unsupported ColorType");
+//   }
+// }
+
 LIBNG_INLINE
 const char* DX11Util::getDxStageProfile(ShaderStageMask s) {
   switch (s) {
@@ -174,7 +202,6 @@ const char* DX11Util::getDxStageProfile(ShaderStageMask s) {
     default: return "";
   }
 }
-// clang-format on
 
 LIBNG_INLINE
 String DX11Util::getStrFromHRESULT(HRESULT hr) {
@@ -211,5 +238,7 @@ LIBNG_INLINE
 bool DX11Util::_checkError(HRESULT hr) {
   return SUCCEEDED(hr);
 }
+
+#endif
 
 } // namespace libng
