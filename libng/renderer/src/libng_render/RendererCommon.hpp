@@ -24,6 +24,7 @@
 #include <libng_core/memory/ComPtr.hpp>
 #include <libng_core/memory/SPtr.hpp>
 #include <libng_core/memory/util.hpp>
+#include <libng_core/platform/graphics.hpp>
 #include <libng_core/platform/os.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
 #include <libng_core/types/Object.hpp>
