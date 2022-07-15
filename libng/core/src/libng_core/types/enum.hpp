@@ -49,23 +49,24 @@ LIBNG_INLINE constexpr typename std::underlying_type<T>::type enumToInt(T value)
   LIBNG_ENUM_ARITHMETIC_OPERATOR_INT(T) \
   // ----
 
-#define LIBNG_ENUM_STR__CASE(V) case E::V: return #V;
+#define LIBNG_ENUM_STR__CASE(V, ...) case E::V: return #V;
 
 #define LIBNG_ENUM_STR(T)                                                \
   LIBNG_INLINE const char* enumStr(const T& v) {                         \
     using E = T;                                                         \
     switch (v) {                                                         \
-      T##_ENUM_LIST(LIBNG_ENUM_STR__CASE) default : LIBNG_ASSERT(false); \
+      T##_ENUM_LIST(LIBNG_ENUM_STR__CASE)                                \
+      default : LIBNG_ASSERT(false);                                     \
       return "";                                                         \
     }                                                                    \
   }                                                                      \
   // ----
 
-#define LIBNG_ENUM_TRY_PARSE__CASE(V) \
-  if (str == #V) {                    \
-    outValue = E::V;                  \
-    return true;                      \
-  }                                   \
+#define LIBNG_ENUM_TRY_PARSE__CASE(V, ...) \
+  if (str == #V) {                         \
+    outValue = E::V;                       \
+    return true;                           \
+  }                                        \
   // ----
 
 #define LIBNG_ENUM_TRY_PARSE(T)                              \
