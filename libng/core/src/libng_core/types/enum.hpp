@@ -76,3 +76,5 @@ LIBNG_INLINE constexpr typename std::underlying_type<T>::type enumToInt(T value)
   LIBNG_ENUM_TRY_PARSE(T)      \
   LIBNG_FORMATTER_ENUM(T)      \
   // ---
+
+#define LIBNG_ENUM_DECLARE__ITEM(ITEM, VALUE) ITEM VALUE,
