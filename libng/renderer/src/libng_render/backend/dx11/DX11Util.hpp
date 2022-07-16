@@ -34,6 +34,7 @@ struct DX11Util {
 
   static D3D11_CULL_MODE          getDxCullMode         (RenderState_Cull        state);
   static D3D11_COMPARISON_FUNC    getDxDepthTestOp      (RenderState_DepthTestOp state);
+  static D3D11_BLEND_OP           getDxBlendOp          (RenderState_BlendOp     state);
 
   static ByteSpan toSpan   (ID3DBlob* blob);
   static StrView  toStrView(ID3DBlob* blob);
@@ -247,6 +248,19 @@ D3D11_COMPARISON_FUNC DX11Util::getDxDepthTestOp(RenderState_DepthTestOp state) 
     case DepthTestOp::Greater:      return D3D11_COMPARISON_GREATER;
     case DepthTestOp::GreaterEqual: return D3D11_COMPARISON_GREATER_EQUAL;
     default:                        throw  LIBNG_ERROR("{}\n", "Unsupported DepthTestOp");
+  }
+}
+
+LIBNG_INLINE
+D3D11_BLEND_OP DX11Util::getDxBlendOp(RenderState_BlendOp state) {
+  using BlendOp = RenderState_BlendOp;
+  switch(state) {
+    case BlendOp::Add:    return D3D11_BLEND_OP_ADD;  
+    case BlendOp::Sub:    return D3D11_BLEND_OP_SUBTRACT;
+    case BlendOp::RevSub: return D3D11_BLEND_OP_REV_SUBTRACT;
+    case BlendOp::Min:    return D3D11_BLEND_OP_MIN;
+    case BlendOp::Max:    return D3D11_BLEND_OP_MAX;
+    default:              throw  LIBNG_ERROR("{}\n", "Unsupported BlendOp");
   }
 }
 
