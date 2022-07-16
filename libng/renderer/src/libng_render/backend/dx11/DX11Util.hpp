@@ -32,7 +32,8 @@ struct DX11Util {
   static const char*              getDxSemanticName     (VertexSemanticType type);
   static VertexSemanticType       parseDxSemanticName   (StrView            name);
 
-  static D3D11_CULL_MODE          getDxCullMode         (RenderState_Cull   state);
+  static D3D11_CULL_MODE          getDxCullMode         (RenderState_Cull        state);
+  static D3D11_COMPARISON_FUNC    getDxDepthTestOp      (RenderState_DepthTestOp state);
 
   static ByteSpan toSpan   (ID3DBlob* blob);
   static StrView  toStrView(ID3DBlob* blob);
@@ -231,6 +232,22 @@ D3D11_CULL_MODE DX11Util::getDxCullMode(RenderState_Cull state) {
     case RenderState::Front: return D3D11_CULL_FRONT;
     default:                 throw  LIBNG_ERROR("{}\n", "Unsupported CullMode");
   }  
+}
+
+LIBNG_INLINE
+D3D11_COMPARISON_FUNC DX11Util::getDxDepthTestOp(RenderState_DepthTestOp state) {
+  using DepthTestOp = RenderState_DepthTestOp;
+  switch(state) {
+    case DepthTestOp::Always:       return D3D11_COMPARISON_ALWAYS;
+    case DepthTestOp::Never:        return D3D11_COMPARISON_NEVER;
+    case DepthTestOp::Equal:        return D3D11_COMPARISON_EQUAL;
+    case DepthTestOp::NotEqual:     return D3D11_COMPARISON_NOT_EQUAL;
+    case DepthTestOp::Less:         return D3D11_COMPARISON_LESS;
+    case DepthTestOp::LessEqual:    return D3D11_COMPARISON_LESS_EQUAL;
+    case DepthTestOp::Greater:      return D3D11_COMPARISON_GREATER;
+    case DepthTestOp::GreaterEqual: return D3D11_COMPARISON_GREATER_EQUAL;
+    default:                        throw  LIBNG_ERROR("{}\n", "Unsupported DepthTestOp");
+  }
 }
 
 LIBNG_INLINE ByteSpan DX11Util::toSpan(ID3DBlob* blob) {
