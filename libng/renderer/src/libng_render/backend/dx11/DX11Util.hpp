@@ -5,6 +5,7 @@
 #include <libng_render/material/RenderState.hpp>
 #include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/textures/TextureFilter.hpp>
+#include <libng_render/textures/TextureWrap.hpp>
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/type/RenderPrimitiveType.hpp>
 #include <libng_render/vertex/VertexSemanticType.hpp>
@@ -25,20 +26,21 @@ struct DX11Util {
 
   static UINT castUINT(size_t v);
 
-  static D3D11_PRIMITIVE_TOPOLOGY getDxPrimitiveTopology(RenderPrimitiveType type);
-  static DXGI_FORMAT              getDxFormat           (RenderDataType      type);
-  static DXGI_FORMAT              getDxColorType        (math::ColorType     type);
+  static D3D11_PRIMITIVE_TOPOLOGY   getDxPrimitiveTopology(RenderPrimitiveType type);
+  static DXGI_FORMAT                getDxFormat           (RenderDataType      type);
+  static DXGI_FORMAT                getDxColorType        (math::ColorType     type);
 
-  static const char*              getDxStageProfile     (ShaderStageMask    mask);
-  static const char*              getDxSemanticName     (VertexSemanticType type);
-  static VertexSemanticType       parseDxSemanticName   (StrView            name);
+  static const char*                getDxStageProfile     (ShaderStageMask    mask);
+  static const char*                getDxSemanticName     (VertexSemanticType type);
+  static VertexSemanticType         parseDxSemanticName   (StrView            name);
 
-  static D3D11_CULL_MODE          getDxCullMode         (RenderState_Cull        state);
-  static D3D11_COMPARISON_FUNC    getDxDepthTestOp      (RenderState_DepthTestOp state);
-  static D3D11_BLEND_OP           getDxBlendOp          (RenderState_BlendOp     state);
-  static D3D11_BLEND              getDxBlendFactor      (RenderState_BlendFactor state);
+  static D3D11_CULL_MODE            getDxCullMode         (RenderState_Cull        state);
+  static D3D11_COMPARISON_FUNC      getDxDepthTestOp      (RenderState_DepthTestOp state);
+  static D3D11_BLEND_OP             getDxBlendOp          (RenderState_BlendOp     state);
+  static D3D11_BLEND                getDxBlendFactor      (RenderState_BlendFactor state);
 
-  static D3D11_FILTER             getDxTextureFilter    (TextureFilter           filter);
+  static D3D11_FILTER               getDxTextureFilter    (TextureFilter           filter);
+  static D3D11_TEXTURE_ADDRESS_MODE getDxTextureWrap      (TextureWrap             wrap);
 
   static ByteSpan toSpan   (ID3DBlob* blob);
   static StrView  toStrView(ID3DBlob* blob);
@@ -304,6 +306,18 @@ D3D11_FILTER DX11Util::getDxTextureFilter(TextureFilter filter) {
     case Filter::Anisotropic: return D3D11_FILTER_ANISOTROPIC;
     default:                  throw  LIBNG_ERROR("{}\n", "Unsupported TextureFilter");
   } 
+}
+
+LIBNG_INLINE
+D3D11_TEXTURE_ADDRESS_MODE DX11Util::getDxTextureWrap(TextureWrap wrap) {
+  using TexWrap = TextureWrap;
+  switch(wrap) {
+    case TexWrap::Repeat:     return D3D11_TEXTURE_ADDRESS_WRAP;
+    case TexWrap::Clamp:      return D3D11_TEXTURE_ADDRESS_CLAMP;
+    case TexWrap::Mirror:     return D3D11_TEXTURE_ADDRESS_MIRROR;
+    case TexWrap::MirrorOnce: return D3D11_TEXTURE_ADDRESS_MIRROR_ONCE;
+    default:                  throw  LIBNG_ERROR("{}\n", "Unsupported TextureWrap");
+  }
 }
 
 LIBNG_INLINE 
