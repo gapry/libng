@@ -2,25 +2,29 @@
 
 namespace libng {
 
-VertexSemanticType DX11Util::parseDxSemanticName(StrView s) {
-  VertexSemanticType v;
+#if LIBNG_RENDER_DX11
 
-  if (s == "SV_POSITION") {
+VertexSemanticType DX11Util::parseDxSemanticName(StrView name) {
+  VertexSemanticType type;
+
+  if (name == "SV_POSITION") {
     return VertexSemanticType::POSITION;
   }
 
-  if (!enumTryParse(v, s)) {
-    throw LIBNG_ERROR("unknown VertexLayout_SemanticType {}", s);
+  if (!enumTryParse(type, name)) {
+    throw LIBNG_ERROR("unknown VertexLayout_SemanticType {}", name);
   }
-  return v;
+  return type;
 }
 
-const char* DX11Util::getDxSemanticName(VertexSemanticType v) {
-  const char* s = enumStr(v);
-  if (!s) {
-    throw LIBNG_ERROR("unknown VertexLayout_SemanticType {}", v);
+const char* DX11Util::getDxSemanticName(VertexSemanticType type) {
+  const char* name = enumStr(type);
+  if (!name) {
+    throw LIBNG_ERROR("unknown VertexLayout_SemanticType {}", type);
   }
-  return s;
+  return name;
 }
+
+#endif
 
 } // namespace libng
