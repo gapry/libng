@@ -4,6 +4,7 @@
 #include <libng_render/backend/dx11/TypeDX11.hpp>
 #include <libng_render/material/RenderState.hpp>
 #include <libng_render/material/ShaderStageMask.hpp>
+#include <libng_render/textures/TextureFilter.hpp>
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/type/RenderPrimitiveType.hpp>
 #include <libng_render/vertex/VertexSemanticType.hpp>
@@ -37,6 +38,8 @@ struct DX11Util {
   static D3D11_BLEND_OP           getDxBlendOp          (RenderState_BlendOp     state);
   static D3D11_BLEND              getDxBlendFactor      (RenderState_BlendFactor state);
 
+  static D3D11_FILTER             getDxTextureFilter    (TextureFilter           filter);
+
   static ByteSpan toSpan   (ID3DBlob* blob);
   static StrView  toStrView(ID3DBlob* blob);
 
@@ -44,7 +47,8 @@ private:
   static bool _checkError(HRESULT hr);
 };
 
-LIBNG_INLINE void DX11Util::reportError(HRESULT hr) {
+LIBNG_INLINE 
+void DX11Util::reportError(HRESULT hr) {
   if (!SUCCEEDED(hr)) {
     auto str = getStrFromHRESULT(hr);
     LIBNG_LOG("HRESULT(0x{:0X}) {}", static_cast<u32>(hr), str);
@@ -94,7 +98,8 @@ String DX11Util::getStrFromHRESULT(HRESULT hr) {
   return str;
 }
 
-LIBNG_INLINE UINT DX11Util::castUINT(size_t v) {
+LIBNG_INLINE 
+UINT DX11Util::castUINT(size_t v) {
   LIBNG_ASSERT(v < UINT_MAX);
   return static_cast<UINT>(v);
 }
@@ -288,7 +293,21 @@ D3D11_BLEND DX11Util::getDxBlendFactor(RenderState_BlendFactor state) {
   }
 }
 
-LIBNG_INLINE ByteSpan DX11Util::toSpan(ID3DBlob* blob) {
+LIBNG_INLINE 
+D3D11_FILTER DX11Util::getDxTextureFilter(TextureFilter filter) {
+  using Filter = TextureFilter;
+  switch(filter) {
+    case Filter::Point:       return D3D11_FILTER_MIN_MAG_MIP_POINT;
+    case Filter::Linear:      return D3D11_FILTER_MIN_MAG_POINT_MIP_LINEAR;
+    case Filter::Bilinear:    return D3D11_FILTER_MIN_MAG_LINEAR_MIP_POINT;
+    case Filter::Trilinear:   return D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+    case Filter::Anisotropic: return D3D11_FILTER_ANISOTROPIC;
+    default:                  throw  LIBNG_ERROR("{}\n", "Unsupported TextureFilter");
+  } 
+}
+
+LIBNG_INLINE 
+ByteSpan DX11Util::toSpan(ID3DBlob* blob) {
   if (!blob) {
     return ByteSpan();
   }
@@ -296,7 +315,8 @@ LIBNG_INLINE ByteSpan DX11Util::toSpan(ID3DBlob* blob) {
                   static_cast<size_t>(blob->GetBufferSize()));           //
 }
 
-LIBNG_INLINE StrView DX11Util::toStrView(ID3DBlob* blob) {
+LIBNG_INLINE 
+StrView DX11Util::toStrView(ID3DBlob* blob) {
   return StrView_make(toSpan(blob));
 }
 
