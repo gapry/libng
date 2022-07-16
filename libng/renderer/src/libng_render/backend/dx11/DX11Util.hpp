@@ -35,6 +35,7 @@ struct DX11Util {
   static D3D11_CULL_MODE          getDxCullMode         (RenderState_Cull        state);
   static D3D11_COMPARISON_FUNC    getDxDepthTestOp      (RenderState_DepthTestOp state);
   static D3D11_BLEND_OP           getDxBlendOp          (RenderState_BlendOp     state);
+  static D3D11_BLEND              getDxBlendFactor      (RenderState_BlendFactor state);
 
   static ByteSpan toSpan   (ID3DBlob* blob);
   static StrView  toStrView(ID3DBlob* blob);
@@ -261,6 +262,29 @@ D3D11_BLEND_OP DX11Util::getDxBlendOp(RenderState_BlendOp state) {
     case BlendOp::Min:    return D3D11_BLEND_OP_MIN;
     case BlendOp::Max:    return D3D11_BLEND_OP_MAX;
     default:              throw  LIBNG_ERROR("{}\n", "Unsupported BlendOp");
+  }
+}
+
+LIBNG_INLINE
+D3D11_BLEND DX11Util::getDxBlendFactor(RenderState_BlendFactor state) {
+  using Factor = RenderState_BlendFactor;  
+  switch(state) {
+    case Factor::Zero:               return D3D11_BLEND_ZERO;
+    case Factor::One:                return D3D11_BLEND_ONE;
+    case Factor::SrcAlphaSaturate:   return D3D11_BLEND_SRC_ALPHA_SAT;
+    case Factor::SrcAlpha:           return D3D11_BLEND_SRC_ALPHA;
+    case Factor::DstAlpha:           return D3D11_BLEND_DEST_ALPHA;
+    case Factor::SrcColor:           return D3D11_BLEND_SRC_COLOR;
+    case Factor::DstColor:           return D3D11_BLEND_DEST_COLOR;
+    case Factor::ConstColor:         return D3D11_BLEND_BLEND_FACTOR;
+//  case Factor::ConstAlpha:         return;
+    case Factor::OneMinusSrcAlpha:   return D3D11_BLEND_INV_SRC_ALPHA;
+    case Factor::OneMinusDstAlpha:   return D3D11_BLEND_INV_DEST_ALPHA;
+    case Factor::OneMinusSrcColor:   return D3D11_BLEND_INV_SRC_COLOR;
+    case Factor::OneMinusDstColor:   return D3D11_BLEND_INV_DEST_COLOR;
+    case Factor::OneMinusConstColor: return D3D11_BLEND_INV_BLEND_FACTOR;
+//  case Factor::OneMinusConstAlpha: return;
+    default:                         throw  LIBNG_ERROR("{}\n", "Unsupported BlendFactor");
   }
 }
 
