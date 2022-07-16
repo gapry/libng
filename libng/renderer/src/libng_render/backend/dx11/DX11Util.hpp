@@ -2,6 +2,7 @@
 
 #include <libng_render/RendererCommon.hpp>
 #include <libng_render/backend/dx11/TypeDX11.hpp>
+#include <libng_render/material/RenderState.hpp>
 #include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/type/RenderPrimitiveType.hpp>
@@ -27,10 +28,11 @@ struct DX11Util {
   static DXGI_FORMAT              getDxFormat           (RenderDataType      type);
   static DXGI_FORMAT              getDxColorType        (math::ColorType     type);
 
-  static const char* getDxSemanticName(VertexSemanticType type);
-  static const char* getDxStageProfile(ShaderStageMask    mask);
+  static const char*              getDxStageProfile     (ShaderStageMask    mask);
+  static const char*              getDxSemanticName     (VertexSemanticType type);
+  static VertexSemanticType       parseDxSemanticName   (StrView            name);
 
-  static VertexSemanticType parseDxSemanticName(StrView name);
+  static D3D11_CULL_MODE          getDxCullMode         (RenderState_Cull   state);
 
   static ByteSpan toSpan   (ID3DBlob* blob);
   static StrView  toStrView(ID3DBlob* blob);
@@ -68,6 +70,25 @@ void DX11Util::throwIfError(HRESULT hr) {
     reportError(hr);
     throw LIBNG_ERROR("HRESULT = {}", hr);
   }
+}
+
+LIBNG_INLINE
+String DX11Util::getStrFromHRESULT(HRESULT hr) {
+  const int bufSize = 4096;
+  wchar_t buf[bufSize + 1];
+
+  DWORD langId = 0;                         // MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT)
+  FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, //
+                nullptr,                    //
+                hr,                         //
+                langId,                     //
+                buf,                        //
+                bufSize,                    //
+                nullptr);                   //
+  buf[bufSize] = 0;                         // ensure terminate with 0
+
+  auto str = UtfUtil::toString(buf);
+  return str;
 }
 
 LIBNG_INLINE UINT DX11Util::castUINT(size_t v) {
@@ -202,22 +223,14 @@ const char* DX11Util::getDxStageProfile(ShaderStageMask mask) {
 }
 
 LIBNG_INLINE
-String DX11Util::getStrFromHRESULT(HRESULT hr) {
-  const int bufSize = 4096;
-  wchar_t buf[bufSize + 1];
-
-  DWORD langId = 0;                         // MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT)
-  FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM, //
-                nullptr,                    //
-                hr,                         //
-                langId,                     //
-                buf,                        //
-                bufSize,                    //
-                nullptr);                   //
-  buf[bufSize] = 0;                         // ensure terminate with 0
-
-  auto str = UtfUtil::toString(buf);
-  return str;
+D3D11_CULL_MODE DX11Util::getDxCullMode(RenderState_Cull state) {
+  using RenderState = RenderState_Cull;
+  switch(state) {
+    case RenderState::None:  return D3D11_CULL_NONE;
+    case RenderState::Back:  return D3D11_CULL_BACK;
+    case RenderState::Front: return D3D11_CULL_FRONT;
+    default:                 throw  LIBNG_ERROR("{}\n", "Unsupported CullMode");
+  }  
 }
 
 LIBNG_INLINE ByteSpan DX11Util::toSpan(ID3DBlob* blob) {

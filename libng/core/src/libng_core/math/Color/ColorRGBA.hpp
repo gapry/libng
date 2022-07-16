@@ -59,9 +59,9 @@ struct ColorRGBA {
   }
 };
 
-using ColorRGBAf = ColorRGBA<float>;
 using ColorRGBAb = ColorRGBA<u8>;
 using ColorRGBAs = ColorRGBA<u16>;
+using ColorRGBAf = ColorRGBA<f32>;
 
 using Color4f = ColorRGBAf;
 using Color4b = ColorRGBAb;

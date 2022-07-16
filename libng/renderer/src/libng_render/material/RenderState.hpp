@@ -57,7 +57,11 @@ struct RenderState {
   struct Blend {
     BlendFunc rgb;
     BlendFunc alpha;
-    Color4f constColor(1, 1, 1, 1);
+    math::Color4f constColor;
+
+    Blend()
+      : constColor(1, 1, 1, 1) {
+    }
 
     LIBNG_INLINE bool isEnable() const {
       const bool cond1 = BlendOp::Disable != rgb.op;
