@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_core/app/ProjectSetting.hpp>
 #include <libng_core/debug/SourceLocation.hpp>
 #include <libng_core/encoding/UtfUtil.hpp>
 #include <libng_core/exception/error.hpp>

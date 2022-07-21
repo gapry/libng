@@ -2,7 +2,8 @@
 
 namespace libng {
 
-Shader_DX11::Shader_DX11(StrView filename) {
+Shader_DX11::Shader_DX11(StrView filename)
+  : Base(filename) {
   LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
 }
 
