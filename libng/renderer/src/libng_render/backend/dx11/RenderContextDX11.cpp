@@ -168,7 +168,7 @@ void RenderContextDX11::onBeginRender() {
   }
 
   DX11_ID3DRenderTargetView* rt[] = {_renderTargetView};
-  //	ctx->OMSetRenderTargets(1, rt, _depthStencilView);
+  // ctx->OMSetRenderTargets(1, rt, _depthStencilView);
   ctx->OMSetRenderTargets(1, rt, nullptr);
 
   D3D11_VIEWPORT viewport = {};
