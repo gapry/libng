@@ -12,6 +12,7 @@
 #include <libng_core/libcxx/type_make.hpp>
 #include <libng_core/libcxx/unique_ptr.hpp>
 #include <libng_core/libcxx/vector.hpp>
+#include <libng_core/libcxx/vector_map.hpp>
 #include <libng_core/log/log.hpp>
 #include <libng_core/log/variable.hpp>
 #include <libng_core/math/Color/Color.hpp>
