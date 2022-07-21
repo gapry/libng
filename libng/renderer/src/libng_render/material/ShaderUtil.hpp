@@ -1,6 +1,6 @@
 #pragma once
 
-#include <libng_render/backend/dx11/DX11Util.hpp>
+#include <libng_render/backend/dx11/Util_DX11.hpp>
 #include <libng_render/material/ShaderStageMask.hpp>
 
 namespace libng {
@@ -10,7 +10,7 @@ struct ShaderUtil {
 
   static const char* getStageProfile(ShaderStageMask s) {
 #if LIBNG_RENDER_DX11
-    return DX11Util::getDxStageProfile(s);
+    return Util_DX11::getDxStageProfile(s);
 #else
     return "Unknown Stage Profile";
 #endif

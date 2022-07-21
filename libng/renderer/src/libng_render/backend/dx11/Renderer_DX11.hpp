@@ -1,25 +1,25 @@
 #pragma once
 
 #include <libng_render/Renderer.hpp>
-#include <libng_render/backend/dx11/DX11Util.hpp>
-#include <libng_render/backend/dx11/GPUBufferDX11.hpp>
+#include <libng_render/backend/dx11/GPUBuffer_DX11.hpp>
 #include <libng_render/backend/dx11/Material_DX11.hpp>
-#include <libng_render/backend/dx11/RendererDX11.hpp>
+#include <libng_render/backend/dx11/Renderer_DX11.hpp>
 #include <libng_render/backend/dx11/Shader_DX11.hpp>
 #include <libng_render/backend/dx11/Texture2D_DX11.hpp>
+#include <libng_render/backend/dx11/Util_DX11.hpp>
 
 namespace libng {
 
-class RendererDX11 : public Renderer {
+class Renderer_DX11 : public Renderer {
   using Base = Renderer;
-  using Util = DX11Util;
+  using Util = Util_DX11;
 
 public:
-  static RendererDX11* current() {
-    return static_cast<RendererDX11*>(s_instance);
+  static Renderer_DX11* current() {
+    return static_cast<Renderer_DX11*>(s_instance);
   }
 
-  RendererDX11(CreateDesc& desc);
+  Renderer_DX11(CreateDesc& desc);
 
   DX11_IDXGIFactory* dxgiFactory() {
     return _dxgiFactory;

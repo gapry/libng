@@ -7,29 +7,29 @@
 #include <libng_render/command/RenderCommandDrawCall.hpp>
 #include <libng_render/command/RenderCommandSwapBuffer.hpp>
 
-#include <libng_render/backend/dx11/RendererDX11.hpp>
-#include <libng_render/backend/dx11/DX11Util.hpp>
-#include <libng_render/backend/dx11/GPUBufferDX11.hpp>
-#include <libng_render/backend/dx11/TypeDX11.hpp>
+#include <libng_render/backend/dx11/GPUBuffer_DX11.hpp>
+#include <libng_render/backend/dx11/Renderer_DX11.hpp>
+#include <libng_render/backend/dx11/Type_DX11.hpp>
+#include <libng_render/backend/dx11/Util_DX11.hpp>
 
 namespace libng {
 
 // clang-format off
 
-class RenderContextDX11 : public RenderContext {
+class RenderContext_DX11 : public RenderContext {
   using Base = RenderContext;
 
 public:
-  using Util = DX11Util;
+  using Util = Util_DX11;
   
-  RenderContextDX11(CreateDesc& desc);
+  RenderContext_DX11(CreateDesc& desc);
 
   void onCmd_ClearFrameBuffer(RenderCommandClearFrameBuffer& cmd);
   void onCmd_SwapBuffer      (RenderCommandSwapBuffer& cmd);
   void onCmd_DrawCall        (RenderCommandDrawCall& cmd);
 
 protected:
-  RendererDX11* _renderer = nullptr;
+  Renderer_DX11* _renderer = nullptr;
 
   ComPtr<DX11_IDXGISwapChain>        _swapChain;
   ComPtr<DX11_ID3DRenderTargetView>  _renderTargetView;

@@ -1,18 +1,20 @@
 #pragma once
 
-#include <libng_core/memory/ComPtr.hpp>
-#include <libng_render/backend/dx11/DX11Util.hpp>
-#include <libng_render/backend/dx11/TypeDX11.hpp>
+#include <libng_render/RendererCommon.hpp>
+
 #include <libng_render/buffer/GPUBuffer.hpp>
+
+#include <libng_render/backend/dx11/Type_DX11.hpp>
+#include <libng_render/backend/dx11/Util_DX11.hpp>
 
 namespace libng {
 
-class GPUBufferDX11 : public GPUBuffer {
+class GPUBuffer_DX11 : public GPUBuffer {
   using Base = GPUBuffer;
-  using Util = DX11Util;
+  using Util = Util_DX11;
 
 public:
-  GPUBufferDX11(CreateDesc& desc);
+  GPUBuffer_DX11(CreateDesc& desc);
 
   virtual void onUploadToGPU(Span<const u8> data, size_t offset) override;
 

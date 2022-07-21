@@ -1,10 +1,10 @@
-#include <libng_render/backend/dx11/GPUBufferDX11.hpp>
-#include <libng_render/backend/dx11/RenderContextDX11.hpp>
-#include <libng_render/backend/dx11/RendererDX11.hpp>
+#include <libng_render/backend/dx11/GPUBuffer_DX11.hpp>
+#include <libng_render/backend/dx11/RenderContext_DX11.hpp>
+#include <libng_render/backend/dx11/Renderer_DX11.hpp>
 
 namespace libng {
 
-RendererDX11::RendererDX11(CreateDesc& desc) {
+Renderer_DX11::Renderer_DX11(CreateDesc& desc) {
   D3D_FEATURE_LEVEL featureLevel;
   UINT createDeviceFlags = 0;
 
@@ -95,23 +95,23 @@ RendererDX11::RendererDX11(CreateDesc& desc) {
   }
 }
 
-SPtr<RenderContext> RendererDX11::onCreateContext(RenderContextCreateDesc& desc) {
-  return new RenderContextDX11(desc);
+SPtr<RenderContext> Renderer_DX11::onCreateContext(RenderContextCreateDesc& desc) {
+  return new RenderContext_DX11(desc);
 }
 
-SPtr<GPUBuffer> RendererDX11::onCreateGPUBuffer(GPUBufferCreateDesc& desc) {
-  return new GPUBufferDX11(desc);
+SPtr<GPUBuffer> Renderer_DX11::onCreateGPUBuffer(GPUBufferCreateDesc& desc) {
+  return new GPUBuffer_DX11(desc);
 }
 
-SPtr<Texture2D> RendererDX11::onCreateTexture2D(Texture2D_CreateDesc& desc) {
+SPtr<Texture2D> Renderer_DX11::onCreateTexture2D(Texture2D_CreateDesc& desc) {
   return new Texture2D_DX11(desc);
 }
 
-SPtr<Material> RendererDX11::onCreateMaterial() {
+SPtr<Material> Renderer_DX11::onCreateMaterial() {
   return new Material_DX11();
 }
 
-SPtr<Shader> RendererDX11::onCreateShader(StrView filename) {
+SPtr<Shader> Renderer_DX11::onCreateShader(StrView filename) {
   return new Shader_DX11(filename);
 }
 

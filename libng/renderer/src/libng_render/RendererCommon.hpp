@@ -4,6 +4,10 @@
 #include <libng_core/debug/SourceLocation.hpp>
 #include <libng_core/encoding/UtfUtil.hpp>
 #include <libng_core/exception/error.hpp>
+#include <libng_core/file/Directory.hpp>
+#include <libng_core/file/File.hpp>
+#include <libng_core/file/MemMapFile.hpp>
+#include <libng_core/libcxx/bit_util.hpp>
 #include <libng_core/libcxx/fixed_vector.hpp>
 #include <libng_core/libcxx/optional.hpp>
 #include <libng_core/libcxx/span.hpp>

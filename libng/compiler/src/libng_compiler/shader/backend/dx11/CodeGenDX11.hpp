@@ -1,31 +1,21 @@
 #pragma once
 
-#include <libng_core/exception/error.hpp>
-#include <libng_core/file/Directory.hpp>
-#include <libng_core/file/File.hpp>
-#include <libng_core/file/MemMapFile.hpp>
-#include <libng_core/libcxx/bit_util.hpp>
-#include <libng_core/libcxx/span.hpp>
-#include <libng_core/libcxx/string.hpp>
-#include <libng_core/libcxx/string_view.hpp>
-#include <libng_core/log/log.hpp>
-#include <libng_core/memory/ComPtr.hpp>
-#include <libng_core/platform/graphics.hpp>
-#include <libng_core/types/function.hpp>
+#include <libng_render/RendererCommon.hpp>
 
-#include <libng_render/backend/dx11/DX11Util.hpp>
-#include <libng_render/backend/dx11/TypeDX11.hpp>
 #include <libng_render/material/ShaderStageInfo.hpp>
 #include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/vertex/VertexSemanticType.hpp>
+
+#include <libng_render/backend/dx11/Type_DX11.hpp>
+#include <libng_render/backend/dx11/Util_DX11.hpp>
 
 namespace libng {
 
 #if defined(LIBNG_OS_WINDOWS) && defined(LIBNG_RENDER_DX11)
 
 class CodeGenDX11 {
-  using Util     = DX11Util;
+  using Util     = Util_DX11;
   using DataType = RenderDataType;
 
 public:

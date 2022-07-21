@@ -1,9 +1,9 @@
-#include <libng_render/backend/dx11/GPUBufferDX11.hpp>
-#include <libng_render/backend/dx11/RendererDX11.hpp>
+#include <libng_render/backend/dx11/GPUBuffer_DX11.hpp>
+#include <libng_render/backend/dx11/Renderer_DX11.hpp>
 
 namespace libng {
 
-GPUBufferDX11::GPUBufferDX11(CreateDesc& desc)
+GPUBuffer_DX11::GPUBuffer_DX11(CreateDesc& desc)
   : Base(desc) {
   if (desc.bufferSize <= 0)
     throw LIBNG_ERROR("buffer size = 0");
@@ -37,15 +37,15 @@ GPUBufferDX11::GPUBufferDX11(CreateDesc& desc)
 	}
   // clang-format on
 
-  auto* renderer = RendererDX11::current();
+  auto* renderer = Renderer_DX11::current();
   auto* dev      = renderer->d3dDevice();
 
   auto hr = dev->CreateBuffer(&bd, nullptr, _d3dBuf.ptrForInit());
   Util::throwIfError(hr);
 }
 
-void GPUBufferDX11::onUploadToGPU(Span<const u8> data, size_t offset) {
-  auto* renderer = RendererDX11::current();
+void GPUBuffer_DX11::onUploadToGPU(Span<const u8> data, size_t offset) {
+  auto* renderer = Renderer_DX11::current();
   auto* ctx      = renderer->d3dDeviceContext();
 
   D3D11_MAPPED_SUBRESOURCE mapped = {};

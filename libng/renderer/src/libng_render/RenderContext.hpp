@@ -1,7 +1,7 @@
 #pragma once
 
-#include <libng_core/math/Vector/Vec2.hpp>
-#include <libng_core/types/Object.hpp>
+#include <libng_render/RendererCommon.hpp>
+
 #include <libng_render/RenderContextCreateDesc.hpp>
 #include <libng_render/buffer/RenderCommandBuffer.hpp>
 #include <libng_render/command/RenderCommandType.hpp>

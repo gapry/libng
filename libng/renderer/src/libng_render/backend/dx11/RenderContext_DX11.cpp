@@ -1,12 +1,12 @@
 #pragma once
 
-#include <libng_render/backend/dx11/RenderContextDX11.hpp>
+#include <libng_render/backend/dx11/RenderContext_DX11.hpp>
 
 namespace libng {
 
-RenderContextDX11::RenderContextDX11(CreateDesc& desc)
+RenderContext_DX11::RenderContext_DX11(CreateDesc& desc)
   : Base(desc) {
-  _renderer = RendererDX11::current();
+  _renderer = Renderer_DX11::current();
 
   auto* win = static_cast<MSWindow*>(desc.window);
 
@@ -34,7 +34,7 @@ RenderContextDX11::RenderContextDX11(CreateDesc& desc)
   }
 }
 
-void RenderContextDX11::onCmd_ClearFrameBuffer(RenderCommandClearFrameBuffer& cmd) {
+void RenderContext_DX11::onCmd_ClearFrameBuffer(RenderCommandClearFrameBuffer& cmd) {
   auto* ctx = _renderer->d3dDeviceContext();
   if (_renderTargetView && cmd.color.has_value()) {
     ctx->ClearRenderTargetView(_renderTargetView, cmd.color->data);
@@ -44,13 +44,13 @@ void RenderContextDX11::onCmd_ClearFrameBuffer(RenderCommandClearFrameBuffer& cm
   }
 }
 
-void RenderContextDX11::onCmd_DrawCall(RenderCommandDrawCall& cmd) {
+void RenderContext_DX11::onCmd_DrawCall(RenderCommandDrawCall& cmd) {
   if (!cmd.vertexLayout) {
     LIBNG_ASSERT(false);
     return;
   }
 
-  auto* vertexBuffer = static_cast<GPUBufferDX11*>(cmd.vertexBuffer.ptr());
+  auto* vertexBuffer = static_cast<GPUBuffer_DX11*>(cmd.vertexBuffer.ptr());
   if (!vertexBuffer) {
     LIBNG_ASSERT(false);
     return;
@@ -65,9 +65,9 @@ void RenderContextDX11::onCmd_DrawCall(RenderCommandDrawCall& cmd) {
     return;
   }
 
-  GPUBufferDX11* indexBuffer = nullptr;
+  GPUBuffer_DX11* indexBuffer = nullptr;
   if (cmd.indexCount > 0) {
-    indexBuffer = static_cast<GPUBufferDX11*>(cmd.indexBuffer.ptr());
+    indexBuffer = static_cast<GPUBuffer_DX11*>(cmd.indexBuffer.ptr());
     if (!indexBuffer) {
       LIBNG_ASSERT(false);
       return;
@@ -105,13 +105,13 @@ void RenderContextDX11::onCmd_DrawCall(RenderCommandDrawCall& cmd) {
   }
 }
 
-void RenderContextDX11::onCmd_SwapBuffer(RenderCommandSwapBuffer& cmd) {
+void RenderContext_DX11::onCmd_SwapBuffer(RenderCommandSwapBuffer& cmd) {
   auto hr = _swapChain->Present(_renderer->vsync() ? 1 : 0, 0);
   Util::throwIfError(hr);
 }
 
-void RenderContextDX11::_createRenderTarget() {
-  auto* renderer = RendererDX11::current();
+void RenderContext_DX11::_createRenderTarget() {
+  auto* renderer = Renderer_DX11::current();
   auto* dev      = renderer->d3dDevice();
   HRESULT hr;
 
@@ -150,7 +150,7 @@ void RenderContextDX11::_createRenderTarget() {
   Util::throwIfError(hr);
 }
 
-void RenderContextDX11::onSetFrameBufferSize(math::Vec2f newSize) {
+void RenderContext_DX11::onSetFrameBufferSize(math::Vec2f newSize) {
   _renderTargetView.reset(nullptr); // release buffer and render target view before resize
 
   auto hr = _swapChain->ResizeBuffers(0,
@@ -161,7 +161,7 @@ void RenderContextDX11::onSetFrameBufferSize(math::Vec2f newSize) {
   Util::throwIfError(hr);
 }
 
-void RenderContextDX11::onBeginRender() {
+void RenderContext_DX11::onBeginRender() {
   auto* ctx = _renderer->d3dDeviceContext();
   if (!_renderTargetView) {
     _createRenderTarget();
@@ -180,10 +180,10 @@ void RenderContextDX11::onBeginRender() {
   ctx->RSSetViewports(1, &viewport);
 }
 
-void RenderContextDX11::onEndRender() {
+void RenderContext_DX11::onEndRender() {
 }
 
-void RenderContextDX11::_setTestShaders() {
+void RenderContext_DX11::_setTestShaders() {
   HRESULT hr;
   const wchar_t* shaderFile = L"Shaders/hlsl/test.hlsl";
 
@@ -291,11 +291,11 @@ void RenderContextDX11::_setTestShaders() {
   ctx->PSSetShader(_testPixelShader, 0, 0);
 }
 
-void RenderContextDX11::onCommit(RenderCommandBuffer& cmdBuf) {
+void RenderContext_DX11::onCommit(RenderCommandBuffer& cmdBuf) {
   _dispatch(this, cmdBuf);
 }
 
-DX11_ID3DInputLayout* RenderContextDX11::_getTestInputLayout(const VertexLayout* src) {
+DX11_ID3DInputLayout* RenderContext_DX11::_getTestInputLayout(const VertexLayout* src) {
   if (!src)
     return nullptr;
 

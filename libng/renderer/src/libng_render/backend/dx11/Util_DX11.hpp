@@ -1,7 +1,7 @@
 #pragma once
 
 #include <libng_render/RendererCommon.hpp>
-#include <libng_render/backend/dx11/TypeDX11.hpp>
+
 #include <libng_render/material/RenderState.hpp>
 #include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/textures/TextureFilter.hpp>
@@ -10,14 +10,16 @@
 #include <libng_render/type/RenderPrimitiveType.hpp>
 #include <libng_render/vertex/VertexSemanticType.hpp>
 
+#include <libng_render/backend/dx11/Type_DX11.hpp>
+
 // clang-format off
 
 namespace libng {
 
 #if LIBNG_RENDER_DX11
 
-struct DX11Util {
-  DX11Util() = delete;
+struct Util_DX11 {
+  Util_DX11() = delete;
 
   static void   reportError      (HRESULT hr);
   static bool   assertIfError    (HRESULT hr);
@@ -50,7 +52,7 @@ private:
 };
 
 LIBNG_INLINE 
-void DX11Util::reportError(HRESULT hr) {
+void Util_DX11::reportError(HRESULT hr) {
   if (!SUCCEEDED(hr)) {
     auto str = getStrFromHRESULT(hr);
     LIBNG_LOG("HRESULT(0x{:0X}) {}", static_cast<u32>(hr), str);
@@ -64,7 +66,7 @@ void DX11Util::reportError(HRESULT hr) {
 }
 
 LIBNG_INLINE
-bool DX11Util::assertIfError(HRESULT hr) {
+bool Util_DX11::assertIfError(HRESULT hr) {
   if (!_checkError(hr)) {
     reportError(hr);
     LIBNG_ASSERT(false);
@@ -74,7 +76,7 @@ bool DX11Util::assertIfError(HRESULT hr) {
 }
 
 LIBNG_INLINE
-void DX11Util::throwIfError(HRESULT hr) {
+void Util_DX11::throwIfError(HRESULT hr) {
   if (!_checkError(hr)) {
     reportError(hr);
     throw LIBNG_ERROR("HRESULT = {}", hr);
@@ -82,7 +84,7 @@ void DX11Util::throwIfError(HRESULT hr) {
 }
 
 LIBNG_INLINE
-String DX11Util::getStrFromHRESULT(HRESULT hr) {
+String Util_DX11::getStrFromHRESULT(HRESULT hr) {
   const int bufSize = 4096;
   wchar_t buf[bufSize + 1];
 
@@ -101,13 +103,13 @@ String DX11Util::getStrFromHRESULT(HRESULT hr) {
 }
 
 LIBNG_INLINE 
-UINT DX11Util::castUINT(size_t v) {
+UINT Util_DX11::castUINT(size_t v) {
   LIBNG_ASSERT(v < UINT_MAX);
   return static_cast<UINT>(v);
 }
 
 LIBNG_INLINE
-D3D11_PRIMITIVE_TOPOLOGY DX11Util::getDxPrimitiveTopology(RenderPrimitiveType type) {
+D3D11_PRIMITIVE_TOPOLOGY Util_DX11::getDxPrimitiveTopology(RenderPrimitiveType type) {
   using PrimitiveType = RenderPrimitiveType;
   switch (type) {
     case PrimitiveType::Points:    return D3D_PRIMITIVE_TOPOLOGY_POINTLIST;
@@ -118,7 +120,7 @@ D3D11_PRIMITIVE_TOPOLOGY DX11Util::getDxPrimitiveTopology(RenderPrimitiveType ty
 }
 
 LIBNG_INLINE
-DXGI_FORMAT DX11Util::getDxFormat(RenderDataType type) {
+DXGI_FORMAT Util_DX11::getDxFormat(RenderDataType type) {
   using DataType = RenderDataType;
   switch (type) {
     case DataType::Int8:      return DXGI_FORMAT_R8_SINT;       
@@ -196,7 +198,7 @@ DXGI_FORMAT DX11Util::getDxFormat(RenderDataType type) {
 }
 
 LIBNG_INLINE
-DXGI_FORMAT DX11Util::getDxColorType(math::ColorType type) {
+DXGI_FORMAT Util_DX11::getDxColorType(math::ColorType type) {
   using ColorType = math::ColorType;
   switch (type) {
     case ColorType::Rb:    return DXGI_FORMAT_R8_UNORM;
@@ -224,7 +226,7 @@ DXGI_FORMAT DX11Util::getDxColorType(math::ColorType type) {
 }
 
 LIBNG_INLINE
-const char* DX11Util::getDxStageProfile(ShaderStageMask mask) {
+const char* Util_DX11::getDxStageProfile(ShaderStageMask mask) {
   switch (mask) {
     case ShaderStageMask::Vertex: return "vs_5_0";
     case ShaderStageMask::Pixel:  return "ps_5_0";
@@ -233,7 +235,7 @@ const char* DX11Util::getDxStageProfile(ShaderStageMask mask) {
 }
 
 LIBNG_INLINE
-D3D11_CULL_MODE DX11Util::getDxCullMode(RenderState_Cull state) {
+D3D11_CULL_MODE Util_DX11::getDxCullMode(RenderState_Cull state) {
   using RenderState = RenderState_Cull;
   switch(state) {
     case RenderState::None:  return D3D11_CULL_NONE;
@@ -244,7 +246,7 @@ D3D11_CULL_MODE DX11Util::getDxCullMode(RenderState_Cull state) {
 }
 
 LIBNG_INLINE
-D3D11_COMPARISON_FUNC DX11Util::getDxDepthTestOp(RenderState_DepthTestOp state) {
+D3D11_COMPARISON_FUNC Util_DX11::getDxDepthTestOp(RenderState_DepthTestOp state) {
   using DepthTestOp = RenderState_DepthTestOp;
   switch(state) {
     case DepthTestOp::Always:       return D3D11_COMPARISON_ALWAYS;
@@ -260,7 +262,7 @@ D3D11_COMPARISON_FUNC DX11Util::getDxDepthTestOp(RenderState_DepthTestOp state) 
 }
 
 LIBNG_INLINE
-D3D11_BLEND_OP DX11Util::getDxBlendOp(RenderState_BlendOp state) {
+D3D11_BLEND_OP Util_DX11::getDxBlendOp(RenderState_BlendOp state) {
   using BlendOp = RenderState_BlendOp;
   switch(state) {
     case BlendOp::Add:    return D3D11_BLEND_OP_ADD;  
@@ -273,7 +275,7 @@ D3D11_BLEND_OP DX11Util::getDxBlendOp(RenderState_BlendOp state) {
 }
 
 LIBNG_INLINE
-D3D11_BLEND DX11Util::getDxBlendFactor(RenderState_BlendFactor state) {
+D3D11_BLEND Util_DX11::getDxBlendFactor(RenderState_BlendFactor state) {
   using Factor = RenderState_BlendFactor;  
   switch(state) {
     case Factor::Zero:               return D3D11_BLEND_ZERO;
@@ -296,7 +298,7 @@ D3D11_BLEND DX11Util::getDxBlendFactor(RenderState_BlendFactor state) {
 }
 
 LIBNG_INLINE 
-D3D11_FILTER DX11Util::getDxTextureFilter(TextureFilter filter) {
+D3D11_FILTER Util_DX11::getDxTextureFilter(TextureFilter filter) {
   using Filter = TextureFilter;
   switch(filter) {
     case Filter::Point:       return D3D11_FILTER_MIN_MAG_MIP_POINT;
@@ -309,7 +311,7 @@ D3D11_FILTER DX11Util::getDxTextureFilter(TextureFilter filter) {
 }
 
 LIBNG_INLINE
-D3D11_TEXTURE_ADDRESS_MODE DX11Util::getDxTextureWrap(TextureWrap wrap) {
+D3D11_TEXTURE_ADDRESS_MODE Util_DX11::getDxTextureWrap(TextureWrap wrap) {
   using TexWrap = TextureWrap;
   switch(wrap) {
     case TexWrap::Repeat:     return D3D11_TEXTURE_ADDRESS_WRAP;
@@ -321,7 +323,7 @@ D3D11_TEXTURE_ADDRESS_MODE DX11Util::getDxTextureWrap(TextureWrap wrap) {
 }
 
 LIBNG_INLINE 
-ByteSpan DX11Util::toSpan(ID3DBlob* blob) {
+ByteSpan Util_DX11::toSpan(ID3DBlob* blob) {
   if (!blob) {
     return ByteSpan();
   }
@@ -330,12 +332,12 @@ ByteSpan DX11Util::toSpan(ID3DBlob* blob) {
 }
 
 LIBNG_INLINE 
-StrView DX11Util::toStrView(ID3DBlob* blob) {
+StrView Util_DX11::toStrView(ID3DBlob* blob) {
   return StrView_make(toSpan(blob));
 }
 
 LIBNG_INLINE
-bool DX11Util::_checkError(HRESULT hr) {
+bool Util_DX11::_checkError(HRESULT hr) {
   return SUCCEEDED(hr);
 }
 

@@ -9,7 +9,7 @@
 #include <libng_render/material/ShaderStageMask.hpp>
 #include <libng_render/material/ShaderVertexStage.hpp>
 
-#include <libng_render/backend/dx11/DX11Util.hpp>
+#include <libng_render/backend/dx11/Util_DX11.hpp>
 
 namespace libng {
 
@@ -19,7 +19,7 @@ class Shader_DX11 : public Shader {
   using Base = Shader;
 
 public:
-  using Util = DX11Util;
+  using Util = Util_DX11;
 
   struct ShaderPass_DX11;
 
