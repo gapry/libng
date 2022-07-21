@@ -21,6 +21,8 @@
 #include <libng_core/math/Tuple/Tuple3.hpp>
 #include <libng_core/math/Tuple/Tuple4.hpp>
 #include <libng_core/math/Vector/Vec2.hpp>
+#include <libng_core/math/Vector/Vec3.hpp>
+#include <libng_core/math/Vector/Vec4.hpp>
 #include <libng_core/memory/ComPtr.hpp>
 #include <libng_core/memory/SPtr.hpp>
 #include <libng_core/memory/util.hpp>
