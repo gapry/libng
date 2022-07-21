@@ -10,6 +10,8 @@ Shader::Shader(StrView filename)
 }
 
 Shader::~Shader() {
+  auto* renderer = Renderer::instance();
+  renderer->onShaderDestory(this);
 }
 
 const String& Shader::filename() const {

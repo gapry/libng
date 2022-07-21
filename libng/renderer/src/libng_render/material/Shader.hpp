@@ -1,6 +1,8 @@
 #pragma once
 
 #include <libng_render/RendererCommon.hpp>
+
+#include <libng_render/Renderer.hpp>
 #include <libng_render/material/ShaderInfo.hpp>
 #include <libng_render/material/ShaderPass.hpp>
 
