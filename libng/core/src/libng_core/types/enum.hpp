@@ -91,13 +91,18 @@ LIBNG_INLINE constexpr typename std::underlying_type<T>::type enumToInt(T value)
   };                                        \
   //----
 
+#define LIBNG_BASE_ENUM_CLASS(T, BASE_TYPE) \
+  LIBNG_ENUM_DECLARE(T, BASE_TYPE)          \
+  LIBNG_ENUM_STR(T)                         \
+  LIBNG_ENUM_TRY_PARSE(T)                   \
+  //----
+
 #define LIBNG_ENUM_CLASS(T, BASE_TYPE) \
-  LIBNG_ENUM_DECLARE(T, BASE_TYPE)     \
-  LIBNG_ENUM_STR(T)                    \
-  LIBNG_ENUM_TRY_PARSE(T)              \
+  LIBNG_BASE_ENUM_CLASS(T, BASE_TYPE)  \
+  LIBNG_FORMATTER_ENUM(T)              \
   //----
 
 #define LIBNG_MATH_ENUM_CLASS(T, BASE_TYPE) \
-  LIBNG_ENUM_CLASS(T, BASE_TYPE)            \
+  LIBNG_BASE_ENUM_CLASS(T, BASE_TYPE)       \
   LIBNG_FORMATTER_ENUM(math::T)             \
   //----
