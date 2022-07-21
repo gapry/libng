@@ -4,6 +4,7 @@
 #include <EASTL/fixed_vector.h>
 #include <EASTL/span.h>
 #include <EASTL/string.h>
+#include <EASTL/string_map.h>
 #include <EASTL/string_view.h>
 #include <EASTL/vector.h>
 

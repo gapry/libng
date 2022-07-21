@@ -41,7 +41,7 @@ void MainWin::onCloseButton() {
 }
 
 void MainWin::_InitRenderer() {
-  _renderer = Renderer::current();
+  _renderer = Renderer::instance();
   {
     RenderContext::CreateDesc renderContextDesc;
     renderContextDesc.window = this;

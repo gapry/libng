@@ -16,7 +16,7 @@ class RendererDX11 : public Renderer {
 
 public:
   static RendererDX11* current() {
-    return static_cast<RendererDX11*>(_current);
+    return static_cast<RendererDX11*>(s_instance);
   }
 
   RendererDX11(CreateDesc& desc);

@@ -27,6 +27,7 @@
 #include <libng_core/platform/graphics.hpp>
 #include <libng_core/platform/os.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
+#include <libng_core/serializer/json/json_util.hpp>
 #include <libng_core/types/Object.hpp>
 #include <libng_core/types/RefCountBase.hpp>
 #include <libng_core/types/enum.hpp>

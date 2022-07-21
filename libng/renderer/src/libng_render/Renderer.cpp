@@ -1,104 +1,51 @@
-#include <libng_core/exception/error.hpp>
-#include <libng_core/platform/os.hpp>
-
 #include <libng_render/Renderer.hpp>
 #include <libng_render/backend/dx11/RendererDX11.hpp>
 
 namespace libng {
 
-Renderer* Renderer::_current = nullptr; // Issue: redundant assignment: ctor & global
+Renderer* Renderer::s_instance = nullptr;
 
-/**
- * @brief Public inner class constructor
- *
- * 1. select the graphic api in runtime.
- * 2. determine the renderer support the multi-thread or not in compile-time.
- */
 Renderer::CreateDesc::CreateDesc()
   : multithread(false) {
 #if LIBNG_OS_WINDOWS
-  apiType = APIType::DX11;
+  apiType = ApiType::DX11;
 #else
-  apiType = APIType::None;
+  apiType = ApiType::None;
 #endif
 }
 
 Renderer::CreateDesc::~CreateDesc() {
 }
 
-/**
- * @brief public static member function
- *
- * @return Renderer*
- */
-Renderer* Renderer::current() {
-  return _current;
+Renderer* Renderer::instance() {
+  return s_instance;
 }
 
-/**
- * @brief public static member function
- *
- * create the instance of the renderer which the graphic API is selected in ctor.
- *
- * @param desc
- * @return Renderer*
- */
 Renderer* Renderer::create(CreateDesc& desc) {
-  Renderer* p = nullptr;
+  Renderer* instance = nullptr;
   switch (desc.apiType) {
-    case APIType::DX11: p = new RendererDX11(desc); break;
-    case APIType::OpenGL: break;
-    default: throw LIBNG_ERROR("[ERROR] doesn't find the supported Graphic API"); break;
+    case ApiType::DX11: instance = new RendererDX11(desc); break;
+    case ApiType::OpenGL: break;
+    default: throw LIBNG_ERROR("{}\n", "Doesn't find the supported Graphic API"); break;
   }
-  return p;
+  return instance;
 }
 
-/**
- * @brief Construct a new Renderer object
- *
- * 1. use the protected static raw pointer to hold the instance object in runtime.
- * 2. enable vsync or not.
- * 3. since it's critical, it prohibit to utilize the execption/if as `_current` is `nullptr`
- */
 Renderer::Renderer() {
-  LIBNG_ASSERT(_current == nullptr);
-  _current = this;
-  _vsync   = true;
+  LIBNG_ASSERT(s_instance == nullptr);
+  s_instance = this;
+  _vsync     = true;
 }
 
 Renderer::~Renderer() {
-  LIBNG_ASSERT(_current == this);
-  _current = nullptr;
+  LIBNG_ASSERT(s_instance == this);
+  s_instance = nullptr;
 }
 
-const AdapterInfo& Renderer::adapterInfo() const {
-  return _adapterInfo;
-}
-
-bool Renderer::vsync() const {
-  return _vsync;
-}
-
-/**
- * @brief public member function
- *
- * call the pure virtual protected function `onCreateContext(RenderContextCreateDesc&)`.
- *
- * @param desc
- * @return RenderContext*
- */
 SPtr<RenderContext> Renderer::createContext(RenderContextCreateDesc& desc) {
   return onCreateContext(desc);
 }
 
-/**
- * @brief public member function
- *
- * call the pure virtual protected function `onCreateGPUBuffer(GPUBufferCreateDesc&)`.
- *
- * @param desc
- * @return GPUBuffer*
- */
 SPtr<GPUBuffer> Renderer::createGPUBuffer(GPUBufferCreateDesc& desc) {
   return onCreateGPUBuffer(desc);
 }
@@ -108,11 +55,32 @@ SPtr<Texture2D> Renderer::createTexture2D(Texture2D_CreateDesc& desc) {
 }
 
 SPtr<Shader> Renderer::createShader(StrView filename) {
-  return onCreateShader(filename);
+  TempString tmpName = filename;
+
+  auto it = _shaders.find(tmpName.c_str());
+  if (it != _shaders.end()) {
+    return it->second;
+  }
+
+  auto shader               = onCreateShader(tmpName);
+  _shaders[tmpName.c_str()] = shader.ptr();
+  return shader;
 }
 
 SPtr<Material> Renderer::createMaterial() {
   return onCreateMaterial();
+}
+
+void Renderer::onShaderDestory(Shader* shader) {
+  _shaders.erase(shader->filename().c_str());
+}
+
+const AdapterInfo& Renderer::adapterInfo() const {
+  return _adapterInfo;
+}
+
+bool Renderer::vsync() const {
+  return _vsync;
 }
 
 } // namespace libng

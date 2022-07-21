@@ -260,4 +260,7 @@ using String_ = StringA_<N>;
 
 using TempString = TempStringA;
 
+template<class VALUE>
+using StringMap = eastl::string_map<VALUE>;
+
 } // namespace libng

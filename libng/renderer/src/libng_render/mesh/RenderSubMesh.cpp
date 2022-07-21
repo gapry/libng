@@ -59,7 +59,7 @@ void RenderSubMesh::create(const EditMesh& src) {
     // clang-format on
   }
 
-  auto* renderer = Renderer::current();
+  auto* renderer = Renderer::instance();
 
   //
   {

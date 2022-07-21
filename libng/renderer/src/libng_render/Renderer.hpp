@@ -1,13 +1,14 @@
 #pragma once
 
-#include <libng_core/memory/SPtr.hpp>
-#include <libng_core/types/noncopyable.hpp>
+#include <libng_render/RendererCommon.hpp>
 
 #include <libng_render/AdapterInfo.hpp>
 #include <libng_render/material/Material.hpp>
 #include <libng_render/material/Shader.hpp>
 #include <libng_render/textures/Texture2D.hpp>
 #include <libng_render/textures/Texture2D_CreateDesc.hpp>
+
+// clang-format off
 
 namespace libng {
 
@@ -16,10 +17,10 @@ struct RenderContextCreateDesc;
 
 class GPUBuffer;
 struct GPUBufferCreateDesc;
-
+  
 class Renderer : public NonCopyable {
 public:
-  enum class APIType
+  enum class ApiType
   {
     None,
     DX11,
@@ -27,47 +28,42 @@ public:
   };
 
   struct CreateDesc {
-    CreateDesc();
-
+     CreateDesc();
     ~CreateDesc();
 
-    APIType apiType;
-
+    ApiType apiType;
     bool multithread : 1;
   };
 
-  static Renderer* current();
-
+  static Renderer* instance();
   static Renderer* create(CreateDesc& desc);
 
-  Renderer();
-
+           Renderer();
   virtual ~Renderer();
 
-  const AdapterInfo& adapterInfo() const;
-
-  bool vsync() const;
-
-  // clang-format off
   SPtr<RenderContext> createContext  (RenderContextCreateDesc& desc);
   SPtr<GPUBuffer>     createGPUBuffer(GPUBufferCreateDesc& desc);
   SPtr<Texture2D>     createTexture2D(Texture2D_CreateDesc& desc);
   SPtr<Shader>        createShader   (StrView filename);
   SPtr<Material>      createMaterial ();
-  // clang-format on
+
+  void onShaderDestory(Shader* shader);
+
+  const AdapterInfo& adapterInfo() const;
+                bool       vsync() const;
 
 protected:
-  // clang-format off
+  static Renderer* s_instance;
+
   virtual SPtr<RenderContext> onCreateContext  (RenderContextCreateDesc& desc) = 0;
   virtual SPtr<GPUBuffer>     onCreateGPUBuffer(GPUBufferCreateDesc& desc)     = 0;
   virtual SPtr<Texture2D>     onCreateTexture2D(Texture2D_CreateDesc& desc)    = 0;
   virtual SPtr<Shader>        onCreateShader   (StrView filename)              = 0;
   virtual SPtr<Material>      onCreateMaterial ()                              = 0;
-  // clang-format on
 
-  static Renderer* _current;
-  AdapterInfo _adapterInfo;
-  bool _vsync : 1;
+  StringMap<Shader*> _shaders;
+  AdapterInfo        _adapterInfo;
+         bool        _vsync : 1;
 };
 
 } // namespace libng
