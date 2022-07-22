@@ -14,7 +14,7 @@ public:
 
   // clang-format off
   math::Vec2i size   {0, 0};
-  SamplerState sampleState;
+  SamplerState samplerState;
   Image        imageToUpload;
 };
 

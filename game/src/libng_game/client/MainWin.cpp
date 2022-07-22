@@ -51,6 +51,34 @@ void MainWin::_InitRenderer() {
 
 void MainWin::_InitTexture() {
   Texture2D_CreateDesc texDesc;
+
+  auto& image = texDesc.imageToUpload;
+#if 0
+  image.loadFile("Assets/Textures/uvChecker/uvChecker.png");
+  // image.loadFile("Assets/Textures/uvChecker/uvChecker_BC1.dds");
+  // image.loadFile("Assets/Textures/uvChecker/uvChecker_BC2.dds");
+  // image.loadFile("Assets/Textures/uvChecker/uvChecker_BC3.dds");
+  // image.loadFile("Assets/Textures/uvChecker/uvChecker_BC7.dds");
+
+  texDesc.size      = image.size();
+  texDesc.colorType = image.colorType();
+#else
+  int w = 256;
+  int h = 256;
+
+  texDesc.size.set(w, h);
+  texDesc.colorType = math::ColorType::RGBAb;
+
+  image.create(math::Color4b::kColorType, w, h);
+
+  for (int y = 0; y < w; y++) {
+    auto span = image.row<math::Color4b>(y);
+    for (int x = 0; x < h; x++) {
+      span[x] = math::Color4b(static_cast<u8>(x), static_cast<u8>(y), 0, 255);
+    }
+  }
+#endif
+
   _texture = _renderer->createTexture2D(texDesc);
 }
 
