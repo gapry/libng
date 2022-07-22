@@ -49,6 +49,20 @@ public:
 
   void onShaderDestory(Shader* shader);
 
+  struct StockTextures {
+    SPtr<Texture2D> white;
+    SPtr<Texture2D> black;
+    SPtr<Texture2D> red;
+    SPtr<Texture2D> green;
+    SPtr<Texture2D> blue;
+    SPtr<Texture2D> magenta;
+    SPtr<Texture2D> error;
+  };
+
+  StockTextures stockTextures;
+
+  SPtr<Texture2D> createSolidColorTexture2D(const math::Color4b& color);
+
   const AdapterInfo& adapterInfo() const;
                 bool       vsync() const;
 

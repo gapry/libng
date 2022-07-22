@@ -75,6 +75,26 @@ void Renderer::onShaderDestory(Shader* shader) {
   _shaders.erase(shader->filename().c_str());
 }
 
+SPtr<Texture2D> Renderer::createSolidColorTexture2D(const math::Color4b& color) {
+  int w = 4;
+  int h = 4;
+  Texture2D_CreateDesc texDesc;
+  texDesc.colorType   = math::ColorType::RGBAb;
+  texDesc.mipmapCount = 1;
+  texDesc.size.set(w, h);
+
+  auto& image = texDesc.imageToUpload;
+  image.create(math::Color4b::kColorType, w, h);
+
+  for (int y = 0; y < w; y++) {
+    auto span = image.row<math::Color4b>(y);
+    for (int x = 0; x < h; x++) {
+      span[x] = color;
+    }
+  }
+  return createTexture2D(texDesc);
+}
+
 const AdapterInfo& Renderer::adapterInfo() const {
   return _adapterInfo;
 }

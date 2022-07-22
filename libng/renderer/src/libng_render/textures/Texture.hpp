@@ -17,7 +17,6 @@ public:
 
 protected:
   Texture();
-  ~Texture();
 
   DataType _type = DataType::None;
 };
