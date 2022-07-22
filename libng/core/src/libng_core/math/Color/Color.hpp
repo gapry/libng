@@ -6,3 +6,4 @@
 #include <libng_core/math/Color/ColorRGB.hpp>
 #include <libng_core/math/Color/ColorRGBA.hpp>
 #include <libng_core/math/Color/ColorType.hpp>
+#include <libng_core/math/Color/ColorUtil.hpp>

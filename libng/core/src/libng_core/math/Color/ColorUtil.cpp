@@ -2,14 +2,6 @@
 
 namespace libng::math {
 
-constexpr int ColorUtil::pixelSizeInBytes(ColorUtil::Type t) {
-  switch (t) {
-    case Type::RGBAb: return sizeof(ColorRGBAb);
-  }
-  LIBNG_ASSERT(false);
-  return 0;
-}
-
 // clang-format off
 constexpr int ColorUtil::bytesPerPixelBlock(ColorUtil::Type type) {
   switch (type) {

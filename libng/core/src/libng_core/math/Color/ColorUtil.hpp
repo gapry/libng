@@ -22,4 +22,12 @@ struct ColorUtil {
   LIBNG_INLINE static constexpr Model    colorModel        (Type t) { return static_cast<Model>((enumToInt(t) >> 8) & 0xff); }
 };
 
+constexpr int ColorUtil::pixelSizeInBytes(ColorUtil::Type t) {
+  switch (t) {
+    case Type::RGBAb: return sizeof(ColorRGBAb);
+  }
+  LIBNG_ASSERT(false);
+  return 0;
+}
+
 } // namespace libng::math
