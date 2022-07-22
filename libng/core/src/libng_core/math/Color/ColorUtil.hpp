@@ -30,4 +30,13 @@ constexpr int ColorUtil::pixelSizeInBytes(ColorUtil::Type t) {
   return 0;
 }
 
+// fix: warning C4506: no definition for inline function
+constexpr bool ColorUtil::hasAlpha(ColorUtil::Type t) {
+  auto model = colorModel(t);
+  switch (model) {
+    case Model::RGBA: return true;
+  }
+  return false;
+}
+
 } // namespace libng::math

@@ -31,7 +31,10 @@
 #include <libng_core/memory/ComPtr.hpp>
 #include <libng_core/memory/SPtr.hpp>
 #include <libng_core/memory/util.hpp>
+#include <libng_core/platform/compiler.hpp>
+#include <libng_core/platform/endian.hpp>
 #include <libng_core/platform/graphics.hpp>
+#include <libng_core/platform/machine.hpp>
 #include <libng_core/platform/os.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
 #include <libng_core/serializer/json/json_util.hpp>

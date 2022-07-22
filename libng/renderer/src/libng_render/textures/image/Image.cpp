@@ -1,4 +1,5 @@
 #include <libng_render/textures/image/Image.hpp>
+#include <libng_render/textures/image/backend/pngLoader.hpp>
 
 namespace libng {
 
@@ -33,6 +34,8 @@ void Image::loadPngFile(StrView filename) {
 }
 
 void Image::loadPngMem(ByteSpan data) {
+  pngLoader::Reader reader;
+  reader.load(*this, data);
 }
 
 void Image::loadDdsFile(StrView filename) {
