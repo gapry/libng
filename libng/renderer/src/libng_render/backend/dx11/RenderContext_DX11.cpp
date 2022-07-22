@@ -110,6 +110,10 @@ void RenderContext_DX11::onCmd_SwapBuffer(RenderCommandSwapBuffer& cmd) {
   Util::throwIfError(hr);
 }
 
+Renderer_DX11* RenderContext_DX11::renderer() {
+  return _renderer;
+}
+
 void RenderContext_DX11::_createRenderTarget() {
   auto* renderer = Renderer_DX11::current();
   auto* dev      = renderer->d3dDevice();

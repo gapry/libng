@@ -32,7 +32,17 @@ public:
   ~Shader_DX11();
 
   struct VertexStage_DX11 : public ShaderVertexStage {
+    void load(ShaderPass_DX11* pass, //
+              StrView passPath,      //
+              DX11_ID3DDevice* dev); //
+
+    void bind(RenderContext_DX11* ctx);
+
+    ByteSpan bytecode() const;
+
   private:
+    ComPtr<DX11_ID3DVertexShader> _shader;
+    Vector<u8> _bytecode;
   };
 
   struct PixelStage_DX11 : public ShaderPixelStage {

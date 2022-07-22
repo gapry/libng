@@ -28,6 +28,8 @@ public:
   void onCmd_SwapBuffer      (RenderCommandSwapBuffer& cmd);
   void onCmd_DrawCall        (RenderCommandDrawCall& cmd);
 
+  Renderer_DX11* renderer();
+
 protected:
   Renderer_DX11* _renderer = nullptr;
 
