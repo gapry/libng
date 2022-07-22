@@ -1,5 +1,7 @@
 #pragma once
 
+#include <libng_core/libng_common.hpp>
+
 #include <libng_core/app/ProjectSetting.hpp>
 #include <libng_core/debug/SourceLocation.hpp>
 #include <libng_core/encoding/UtfUtil.hpp>

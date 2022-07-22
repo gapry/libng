@@ -25,15 +25,17 @@ struct json_serializer : public NonCopyable {
   }
 
   // clang-format off
-  void io(u8&  v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
-  void io(u16& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
-  void io(u32& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
-  void io(u64& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(bool& v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  
+  void io(u8&   v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(u16&  v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(u32&  v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(u64&  v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
 
-  void io(i8&  v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
-  void io(i16& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
-  void io(i32& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
-  void io(i64& v)  { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(i8&   v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(i16&  v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(i32&  v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
+  void io(i64&  v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
   
   void io(f32&  v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }
   void io(f64&  v) { /* LIBNG_LOG("{}\n", __LIBNG_FUNCTION__); */ to_value(v); }

@@ -5,6 +5,7 @@
 #include <libng_render/material/Material.hpp>
 #include <libng_render/material/ShaderPass.hpp>
 #include <libng_render/vertex/VertexLayout.hpp>
+#include <libng_render/vertex/VertexSemantic.hpp>
 
 #include <libng_render/backend/dx11/GPUBuffer_DX11.hpp>
 #include <libng_render/backend/dx11/Material_DX11.hpp>
@@ -101,15 +102,15 @@ private:
     }
   };
 
-  struct Pass_DX11 : public Pass {
-    Pass_DX11(Material* material, ShaderPass* shaderPass);
+  struct MaterialPass_DX11 : public Pass {
+    MaterialPass_DX11(Material* material, ShaderPass* shaderPass);
 
     virtual void onBind(RenderContext* ctx, const VertexLayout* vertexLayout) override;
 
     void _bindRenderState(RenderContext_DX11* ctx);
 
-    VertexStage_DX11 _vertexStageDX11;
-    PixelStage_DX11 _pixelStageDX11;
+    VertexStage_DX11 _vertexStage_DX11;
+    PixelStage_DX11 _pixelStage_DX11;
 
     ComPtr<DX11_ID3DRasterizerState> _rasterizerState;
     ComPtr<DX11_ID3DDepthStencilState> _depthStencilState;
@@ -117,7 +118,7 @@ private:
   };
 
   virtual UPtr<Pass> onCreatePass(ShaderPass* shaderPass) override {
-    return UPtr<Pass>(new Pass_DX11(this, shaderPass));
+    return UPtr<Pass>(new MaterialPass_DX11(this, shaderPass));
   }
 };
 

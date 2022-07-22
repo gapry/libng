@@ -112,15 +112,15 @@ void Material_DX11::VertexStage_DX11::bindInputLayout(RenderContext_DX11* ctx, c
   dc->IASetInputLayout(dxLayout);
 }
 
-void Material_DX11::Pass_DX11::onBind(RenderContext* ctx_, const VertexLayout* vertexLayout) {
+void Material_DX11::MaterialPass_DX11::onBind(RenderContext* ctx_, const VertexLayout* vertexLayout) {
   auto* ctx = static_cast<RenderContext_DX11*>(ctx_);
-  _vertexStageDX11.bind(ctx, vertexLayout);
-  _pixelStageDX11.bind(ctx, vertexLayout);
+  _vertexStage_DX11.bind(ctx, vertexLayout);
+  _pixelStage_DX11.bind(ctx, vertexLayout);
 
   _bindRenderState(ctx);
 }
 
-void Material_DX11::Pass_DX11::_bindRenderState(RenderContext_DX11* ctx) {
+void Material_DX11::MaterialPass_DX11::_bindRenderState(RenderContext_DX11* ctx) {
   auto* renderer = ctx->renderer();
 
   if (!_rasterizerState) {
@@ -223,12 +223,12 @@ void Material_DX11::Pass_DX11::_bindRenderState(RenderContext_DX11* ctx) {
   d3dCtx->OMSetBlendState(_blendState, blendColor.data, 0xffffffff);
 }
 
-Material_DX11::Pass_DX11::Pass_DX11(Material* material, ShaderPass* shaderPass)
+Material_DX11::MaterialPass_DX11::MaterialPass_DX11(Material* material, ShaderPass* shaderPass)
   : Pass(material, shaderPass)
-  , _vertexStageDX11(this, shaderPass->vertexStage())
-  , _pixelStageDX11(this, shaderPass->pixelStage()) {
-  _vertexStage = &_vertexStageDX11;
-  _pixelStage  = &_pixelStageDX11;
+  , _vertexStage_DX11(this, shaderPass->vertexStage())
+  , _pixelStage_DX11(this, shaderPass->pixelStage()) {
+  _vertexStage = &_vertexStage_DX11;
+  _pixelStage  = &_pixelStage_DX11;
 }
 
 } // namespace libng
