@@ -2,7 +2,8 @@
 
 namespace libng {
 
-Texture2D_DX11::Texture2D_DX11(CreateDesc& desc) {
+Texture2D_DX11::Texture2D_DX11(CreateDesc& desc)
+  : Base(desc) {
   LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
 }
 

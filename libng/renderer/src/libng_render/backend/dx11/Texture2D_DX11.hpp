@@ -6,6 +6,8 @@
 namespace libng {
 
 class Texture2D_DX11 : public Texture2D {
+  using Base = Texture2D;
+
 public:
   Texture2D_DX11(CreateDesc& desc);
   ~Texture2D_DX11();
