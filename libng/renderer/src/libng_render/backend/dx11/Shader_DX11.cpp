@@ -15,6 +15,13 @@ void Shader_DX11::loadStageFile(StrView passPath,           //
                                 ShaderStageMask stageMask,  //
                                 Vector<u8>& outBytecode,    //
                                 ShaderStageInfo& outInfo) { //
+  auto* profile = Util::getDxStageProfile(stageMask);
+
+  auto filename = Fmt("{}/{}.bin", passPath, profile);
+  File::readFile(filename, outBytecode);
+
+  filename += ".json";
+  JsonUtil::readFile(filename, outInfo);
 }
 
 } // namespace libng
