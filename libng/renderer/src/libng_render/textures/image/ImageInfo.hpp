@@ -5,11 +5,13 @@
 namespace libng {
 
 struct ImageInfo {
-public:
-  math::Vec2i size{0, 0};
   int strideInBytes = 0;
   int mipmapCount   = 1;
-  math::ColorType colorType;
+
+  math::Vec2i size{0, 0};
+  math::ColorType colorType = math::ColorType::None;
+
+  int pixelSizeInBytes() const;
 };
 
 } // namespace libng
