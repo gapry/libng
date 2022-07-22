@@ -108,7 +108,7 @@ SPtr<Texture2D> Renderer_DX11::onCreateTexture2D(Texture2D_CreateDesc& desc) {
 }
 
 SPtr<Material> Renderer_DX11::onCreateMaterial() {
-  return new Material_DX11();
+  return nullptr; // new Material_DX11();
 }
 
 SPtr<Shader> Renderer_DX11::onCreateShader(StrView filename) {

@@ -1,13 +1,12 @@
 #pragma once
 
+#include <libng_render/RendererCommon.hpp>
+
 #include <libng_render/material/Material.hpp>
+#include <libng_render/material/ShaderPass.hpp>
 
 namespace libng {
 
-class Material_DX11 : public Material {
-public:
-  Material_DX11();
-  ~Material_DX11();
-};
+class Material_DX11 {};
 
 } // namespace libng
