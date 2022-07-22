@@ -27,7 +27,7 @@ struct RenderState {
     }
 
     template<class SE>
-    void onJson(SE& se) {
+    void on_json(SE& se) {
       LIBNG_NAMED_IO(se, op);
       LIBNG_NAMED_IO(se, writeMask);
     }
@@ -47,7 +47,7 @@ struct RenderState {
     }
 
     template<class SE>
-    void onJson(SE& se) {
+    void on_json(SE& se) {
       LIBNG_NAMED_IO(se, op);
       LIBNG_NAMED_IO(se, srcFactor);
       LIBNG_NAMED_IO(se, dstFactor);
@@ -70,7 +70,7 @@ struct RenderState {
     }
 
     template<class SE>
-    void onJson(SE& se) {
+    void on_json(SE& se) {
       LIBNG_NAMED_IO(se, rgb);
       LIBNG_NAMED_IO(se, alpha);
       LIBNG_NAMED_IO(se, constColor);
@@ -83,7 +83,7 @@ struct RenderState {
   Blend blend;
 
   template<class SE>
-  void onJson(SE& se) {
+  void on_json(SE& se) {
     LIBNG_NAMED_IO(se, wireframe);
     LIBNG_NAMED_IO(se, cull);
     LIBNG_NAMED_IO(se, depthTest);

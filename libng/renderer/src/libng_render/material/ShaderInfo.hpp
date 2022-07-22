@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_render/material/RenderState.hpp>
 #include <libng_render/material/ShaderPropType.hpp>
 
 namespace libng {
@@ -24,12 +25,14 @@ struct ShaderInfo {
     String name;
     String vsFunc;
     String psFunc;
+    RenderState renderState;
 
     template<class SE>
     void on_json(SE& se) {
       LIBNG_NAMED_IO(se, name);
       LIBNG_NAMED_IO(se, vsFunc);
       LIBNG_NAMED_IO(se, psFunc);
+      LIBNG_NAMED_IO(se, renderState);
     }
   };
 

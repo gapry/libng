@@ -51,7 +51,7 @@ struct ColorRGBA {
   }
 
   template<class SE>
-  void onJson(SE& se) {
+  void on_json(SE& se) {
     LIBNG_NAMED_IO(se, r);
     LIBNG_NAMED_IO(se, g);
     LIBNG_NAMED_IO(se, b);
