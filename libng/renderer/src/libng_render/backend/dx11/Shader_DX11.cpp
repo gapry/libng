@@ -5,6 +5,18 @@ namespace libng {
 Shader_DX11::Shader_DX11(StrView filename)
   : Base(filename) {
   LIBNG_LOG("{}\n", __LIBNG_PRETTY_FUNCTION__);
+
+  auto* proj = ProjectSettings::instance();
+  TempString passPath;
+
+  size_t passes_size = _info.passes.size();
+  _passes.reserve(passes_size);
+
+  for (size_t i = 0; i < passes_size; i++) {
+    FmtTo(passPath, "{}/{}/dx11/pass{}", proj->importedPath(), filename, i);
+    auto* pass = new ShaderPass_DX11(this, passPath, _info.passes[i]);
+    _passes.emplace_back(pass);
+  }
 }
 
 Shader_DX11::~Shader_DX11() {
