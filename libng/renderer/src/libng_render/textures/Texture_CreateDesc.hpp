@@ -5,7 +5,7 @@
 namespace libng {
 
 class Texture_CreateDesc {
-  ColorType = math::ColorType;
+  using ColorType = math::ColorType;
 
 public:
   Texture_CreateDesc();
