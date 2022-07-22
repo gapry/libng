@@ -4,12 +4,16 @@
 
 namespace libng {
 
-struct Texture_CreateDesc {
+class Texture_CreateDesc {
+  ColorType = math::ColorType;
+
+public:
   Texture_CreateDesc();
   ~Texture_CreateDesc();
 
+  ColorType colorType = ColorType::RGBAb;
+  int mipmapCount     = 1;
   String name;
-  math::ColorType colorType;
 };
 
 } // namespace libng
