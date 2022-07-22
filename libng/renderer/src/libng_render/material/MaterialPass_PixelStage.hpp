@@ -1,6 +1,7 @@
 #pragma once
 
 #include <libng_render/material/MaterialPass_Stage.hpp>
+#include <libng_render/material/ShaderPixelStage.hpp>
 
 namespace libng {
 
