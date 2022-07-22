@@ -36,6 +36,8 @@
 #include <libng_core/platform/graphics.hpp>
 #include <libng_core/platform/machine.hpp>
 #include <libng_core/platform/os.hpp>
+#include <libng_core/serializer/binary/binary_deserializer.hpp>
+#include <libng_core/serializer/binary/binary_serializer.hpp>
 #include <libng_core/serializer/json/json_serializer.hpp>
 #include <libng_core/serializer/json/json_util.hpp>
 #include <libng_core/types/Object.hpp>

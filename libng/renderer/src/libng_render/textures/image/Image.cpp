@@ -1,4 +1,5 @@
 #include <libng_render/textures/image/Image.hpp>
+#include <libng_render/textures/image/backend/ddsLoader.hpp>
 #include <libng_render/textures/image/backend/pngLoader.hpp>
 
 namespace libng {
@@ -45,6 +46,8 @@ void Image::loadDdsFile(StrView filename) {
 }
 
 void Image::loadDdsMem(ByteSpan data) {
+  ddsLoader::Reader reader;
+  reader.load(*this, data);
 }
 
 void Image::create(ColorType colorType, int width, int height) {

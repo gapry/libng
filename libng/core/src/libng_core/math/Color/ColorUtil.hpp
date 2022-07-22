@@ -39,4 +39,23 @@ constexpr bool ColorUtil::hasAlpha(ColorUtil::Type t) {
   return false;
 }
 
+// fix: warning C4506: no definition for inline function
+constexpr int ColorUtil::bytesPerPixelBlock(ColorUtil::Type type) {
+  // clang-format off
+  switch (type) {
+    #define E(T, ...) case Type::T: return Color##T::kBytesPerPixelBlock;
+    //----
+    E(BC1)
+    E(BC2)
+    E(BC3)
+    E(BC4)
+    E(BC5)
+    E(BC6h)
+    E(BC7)
+    #undef E
+  }
+  // clang-format on
+  return 0;
+}
+
 } // namespace libng::math
