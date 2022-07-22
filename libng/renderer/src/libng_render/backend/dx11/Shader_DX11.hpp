@@ -3,6 +3,7 @@
 #include <libng_render/RendererCommon.hpp>
 
 #include <libng_render/material/Shader.hpp>
+#include <libng_render/material/ShaderInfo.hpp>
 #include <libng_render/material/ShaderPass.hpp>
 #include <libng_render/material/ShaderPixelStage.hpp>
 #include <libng_render/material/ShaderStageInfo.hpp>
@@ -60,7 +61,16 @@ public:
   };
 
   struct ShaderPass_DX11 : public ShaderPass {
+    using Base = ShaderPass;
+
+    ShaderPass_DX11(Shader_DX11* shader,     //
+                    StrView passPath,        //
+                    ShaderInfo::Pass& info); //
+    ~ShaderPass_DX11();
+
   private:
+    VertexStage_DX11 _vertexStage_DX11;
+    PixelStage_DX11 _pixelStage_DX11;
   };
 };
 

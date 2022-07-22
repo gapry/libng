@@ -78,4 +78,26 @@ ByteSpan Shader_DX11::PixelStage_DX11::bytecode() const {
   return _bytecode;
 }
 
+Shader_DX11::ShaderPass_DX11::ShaderPass_DX11(Shader_DX11* shader,    //
+                                              StrView passPath,       //
+                                              ShaderInfo::Pass& info) //
+  : Base(shader, info) {
+  _vertexStage = &_vertexStage_DX11;
+  _pixelStage  = &_pixelStage_DX11;
+
+  auto* renderer = Renderer_DX11::instance();
+  auto* dev      = renderer->d3dDevice();
+
+  if (info.vsFunc.size()) {
+    _vertexStage_DX11.load(this, passPath, dev);
+  }
+
+  if (info.psFunc.size()) {
+    _pixelStage_DX11.load(this, passPath, dev);
+  }
+}
+
+Shader_DX11::ShaderPass_DX11::~ShaderPass_DX11() {
+}
+
 } // namespace libng

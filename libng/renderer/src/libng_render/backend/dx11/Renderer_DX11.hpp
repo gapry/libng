@@ -15,7 +15,7 @@ class Renderer_DX11 : public Renderer {
   using Util = Util_DX11;
 
 public:
-  static Renderer_DX11* current() {
+  static Renderer_DX11* instance() {
     return static_cast<Renderer_DX11*>(s_instance);
   }
 
