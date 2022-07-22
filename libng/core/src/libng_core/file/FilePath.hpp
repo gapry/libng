@@ -21,6 +21,8 @@ struct FilePath {
   static bool IsRealPath(const StrView& path);
 
   static String RealPath(StrView path);
+
+  static StrView extension(StrView path);
 };
 
 } // namespace libng

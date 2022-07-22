@@ -99,4 +99,19 @@ String FilePath::RealPath(StrView path) {
   return outStr;
 }
 
+StrView FilePath::extension(StrView path) {
+  auto* begin = path.begin();
+  auto* end   = path.end();
+  if (end == nullptr) {
+    return StrView();
+  }
+  for (auto* p = end - 1; p >= begin; p--) {
+    if (*p == '.') {
+      p++;
+      return StrView(p, end - p);
+    }
+  }
+  return StrView();
+}
+
 } // namespace libng

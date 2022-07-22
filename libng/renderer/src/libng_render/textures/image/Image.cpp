@@ -26,6 +26,17 @@ void Image::clear() {
 }
 
 void Image::loadFile(StrView filename) {
+  auto ext = FilePath::extension(filename);
+
+  if (0 == StringUtil::ignoreCaseCompare(ext, "png")) {
+    return loadPngFile(filename);
+  }
+
+  if (0 == StringUtil::ignoreCaseCompare(ext, "dds")) {
+    return loadDdsFile(filename);
+  }
+
+  throw LIBNG_ERROR("unsupported image file format {}", ext);
 }
 
 void Image::loadPngFile(StrView filename) {

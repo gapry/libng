@@ -6,6 +6,7 @@
 #include <libng_core/exception/error.hpp>
 #include <libng_core/file/Directory.hpp>
 #include <libng_core/file/File.hpp>
+#include <libng_core/file/FilePath.hpp>
 #include <libng_core/file/MemMapFile.hpp>
 #include <libng_core/libcxx/bit_util.hpp>
 #include <libng_core/libcxx/fixed_vector.hpp>
@@ -15,6 +16,7 @@
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/libcxx/type_make.hpp>
 #include <libng_core/libcxx/unique_ptr.hpp>
+#include <libng_core/libcxx/util/StringUtil.hpp>
 #include <libng_core/libcxx/vector.hpp>
 #include <libng_core/libcxx/vector_map.hpp>
 #include <libng_core/log/log.hpp>
