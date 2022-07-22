@@ -6,7 +6,7 @@ namespace libng {
 
 RenderContext_DX11::RenderContext_DX11(CreateDesc& desc)
   : Base(desc) {
-  _renderer = Renderer_DX11::current();
+  _renderer = Renderer_DX11::instance();
 
   auto* win = static_cast<MSWindow*>(desc.window);
 
@@ -115,7 +115,7 @@ Renderer_DX11* RenderContext_DX11::renderer() {
 }
 
 void RenderContext_DX11::_createRenderTarget() {
-  auto* renderer = Renderer_DX11::current();
+  auto* renderer = Renderer_DX11::instance();
   auto* dev      = renderer->d3dDevice();
   HRESULT hr;
 
