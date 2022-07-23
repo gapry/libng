@@ -24,7 +24,7 @@ struct Tuple3 {
 
   LIBNG_INLINE void set   (const Tuple3<T>& v)                    { *this = v; }
   LIBNG_INLINE void set   (const T& x_, const T& y_, const T& z_) { x = x_; y = y_; z = z_; }
-  LIBNG_INLINE bool setAll(const T& v)                            { set(v, v, v); }
+  LIBNG_INLINE void setAll(const T& v)                            { set(v, v, v); }
 
   LIBNG_INLINE       T& operator[](int i)                         { return data[i]; }
   LIBNG_INLINE const T& operator[](int i) const                   { return data[i]; }

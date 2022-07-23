@@ -10,13 +10,13 @@ template<class T>
 struct Tuple2 {
   using ElementType = T;
 
-  static const size_t kElementCount = 2;
+  static const size_t kElement = 2;
 
   union {
     struct { 
       T x, y; 
     };
-    T data[kElementCount];
+    T data[kElement];
   };
 
   LIBNG_INLINE Tuple2() = default;
