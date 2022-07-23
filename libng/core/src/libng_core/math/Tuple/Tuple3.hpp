@@ -1,4 +1,4 @@
-#pragma once
+#pragma once // clang-format off
 
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/types/function.hpp>
@@ -19,13 +19,15 @@ struct Tuple3 {
     T data[kElement];
   };
 
-  // clang-format off
   LIBNG_INLINE Tuple3() = default;
-  LIBNG_INLINE Tuple3(const T x_, const T y_, const T z_)      { set(x_, y_, z_);        }
+  LIBNG_INLINE Tuple3(const T& x_, const T& y_, const T& z_)      { set(x_, y_, z_); }
 
-  LIBNG_INLINE void set(const T x_, const T y_, const T z_)    { x = x_; y = y_; z = z_; }
-  LIBNG_INLINE void set(const Tuple3<T>& rhs)                  { *this = rhs;            }
-  // clang-format on
+  LIBNG_INLINE void set   (const Tuple3<T>& v)                    { *this = v; }
+  LIBNG_INLINE void set   (const T& x_, const T& y_, const T& z_) { x = x_; y = y_; z = z_; }
+  LIBNG_INLINE bool setAll(const T& v)                            { set(v, v, v); }
+
+  LIBNG_INLINE       T& operator[](int i)                         { return data[i]; }
+  LIBNG_INLINE const T& operator[](int i) const                   { return data[i]; }
 
   void onFormat(fmt::format_context& ctx) const {
     fmt::format_to(ctx.out(), "({}, {}, {})", x, y, z);
