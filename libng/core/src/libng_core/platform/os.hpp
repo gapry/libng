@@ -22,6 +22,8 @@
 // clang-format on
 #endif
 
+#define LIBNG_OS_CYGWIN 0
+
 #if __APPLE__ && __MACH__
 #define LIBNG_OS_MACOS 1
 #endif

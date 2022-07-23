@@ -1,6 +1,9 @@
 #pragma once
 
 #include <libng_core/libng_common.hpp>
+#include <libng_core/platform/compiler.hpp>
+#include <libng_core/platform/os.hpp>
+#include <libng_core/platform/sse.hpp>
 #include <libng_core/types/function.hpp>
 #include <libng_core/types/number.hpp>
 
@@ -93,21 +96,21 @@ LIBNG_INLINE int    ceilToInt(double a)       { return static_cast<int>(ceil (a)
 #if 0
 #pragma mark -- Trigonometry --
 #endif
-  template<class T> constexpr    T      PI()            { return static_cast<T>(thePI); }
-  template<class T> constexpr    T      twoPI()         { return PI<T>() * 2;           }
-  template<class T> constexpr    T      halfPI()        { return PI<T>() * 0.5;         }
+template<class T> constexpr    T      PI()            { return static_cast<T>(thePI); }
+template<class T> constexpr    T      twoPI()         { return PI<T>() * 2;           }
+template<class T> constexpr    T      halfPI()        { return PI<T>() * 0.5;         }
 
-  template<class T> LIBNG_INLINE T      radians(T deg)  { return deg * (PI<T>() / static_cast<T>(180)); }
-  template<class T> LIBNG_INLINE T      degrees(T rad)  { return rad * (static_cast<T>(180) / PI<T>()); }
+template<class T> LIBNG_INLINE T      radians(T deg)  { return deg * (PI<T>() / static_cast<T>(180)); }
+template<class T> LIBNG_INLINE T      degrees(T rad)  { return rad * (static_cast<T>(180) / PI<T>()); }
 
-                    LIBNG_INLINE float  sin(float  rad) { return ::sinf(rad); }
-                    LIBNG_INLINE double sin(double rad) { return ::sin (rad); }
+                  LIBNG_INLINE float  sin(float  rad) { return ::sinf(rad); }
+                  LIBNG_INLINE double sin(double rad) { return ::sin (rad); }
 
-                    LIBNG_INLINE float  cos(float  rad) { return ::cosf(rad); }
-                    LIBNG_INLINE double cos(double rad) { return ::cos (rad); }
+                  LIBNG_INLINE float  cos(float  rad) { return ::cosf(rad); }
+                  LIBNG_INLINE double cos(double rad) { return ::cos (rad); }
 
-                    LIBNG_INLINE float  tan(float  rad) { return ::tanf(rad); }
-                    LIBNG_INLINE double tan(double rad) { return ::tan (rad); }
+                  LIBNG_INLINE float  tan(float  rad) { return ::tanf(rad); }
+                  LIBNG_INLINE double tan(double rad) { return ::tan (rad); }
 
 #if LIBNG_OS_MACOSX
   LIBNG_INLINE void sincos(float  rad, float & out_sin, float & out_cos) { ::__sincosf(rad, &out_sin, &out_cos); }
@@ -172,7 +175,7 @@ LIBNG_INLINE int    cbrt(int    n) { return static_cast<int>(std::cbrt(static_ca
 
 // -- reciprocal square root --
 LIBNG_INLINE float rsqrt_fast(float n) {
-#if LIBNG_CPU_FEATURE_SSE2
+#if LIBNG_CPU_SSE2
   return _mm_cvtss_f32(_mm_rsqrt_ss(_mm_set_ss(n)));
 #else // https://en.wikipedia.org/wiki/Fast_inverse_square_root
   f32 x2 = n * 0.5f;
@@ -232,8 +235,8 @@ constexpr size_t alignTo(size_t n, size_t a) {
 
 // --------------------------------
 
-LIBNG_INLINE bool  isEq  (float a, float b, float epsilon = LIBNG_FLT_EPSILON) { return std::abs(a - b) < epsilon; }
-LIBNG_INLINE bool  isPow2(int v)                                               { return !(v & (v - 1)) && v;       }
+LIBNG_INLINE bool isEq  (float a, float b, float epsilon = LIBNG_FLT_EPSILON) { return std::abs(a - b) < epsilon; }
+LIBNG_INLINE bool isPow2(int v)                                               { return !(v & (v - 1)) && v;       }
 
 // --------------------------------
 
