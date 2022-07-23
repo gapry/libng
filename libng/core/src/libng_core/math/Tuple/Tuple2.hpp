@@ -1,4 +1,4 @@
-#pragma once
+#pragma once // clang-format off
 
 #include <libng_core/libcxx/fmt.hpp>
 #include <libng_core/types/function.hpp>
@@ -8,22 +8,26 @@ namespace libng::math {
 
 template<class T>
 struct Tuple2 {
-  static const size_t kElement = 2;
+  using ElementType = T;
+
+  static const size_t kElementCount = 2;
 
   union {
-    struct {
-      T x, y;
+    struct { 
+      T x, y; 
     };
-    T data[kElement];
+    T data[kElementCount];
   };
 
-  // clang-format off
   LIBNG_INLINE Tuple2() = default;
-  LIBNG_INLINE Tuple2(const T& x_, const T& y_)   { set(x_, y_);    }
+  LIBNG_INLINE Tuple2(const T& x_, const T& y_)      { set(x_, y_);    }
 
-  LIBNG_INLINE void set(const Tuple2<T>& v)       { *this = v;      }
-  LIBNG_INLINE void set(const T& x_, const T& y_) { x = x_; y = y_; }
-  // clang-format on
+  LIBNG_INLINE void set   (const Tuple2<T>& v)       { *this = v;      }
+  LIBNG_INLINE void set   (const T& x_, const T& y_) { x = x_; y = y_; }
+  LIBNG_INLINE void setAll(const T& v)               { set(v,v);       }
+
+  LIBNG_INLINE       T& operator[](int i)            { return data[i]; }
+  LIBNG_INLINE const T& operator[](int i) const      { return data[i]; }
 
   void onFormat(fmt::format_context& ctx) const {
     fmt::format_to(ctx.out(), "({}, {})", x, y);
