@@ -23,6 +23,8 @@ public:
     T data[kElement];
   };
 
+  Rect2() = default;
+
   Rect2(const T& x_, const T& y_, const T& w_, const T& h_)
     : x(x_)
     , y(y_)

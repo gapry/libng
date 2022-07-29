@@ -1,5 +1,7 @@
 #pragma once
 
+#include <libng_game/libng_game_common.hpp>
+
 namespace libng {
 
 class MainWin : public UIWindow {
@@ -18,6 +20,7 @@ public:
   SPtr<RenderContext> _renderContext;
   RenderCommandBuffer _cmdBuf;
   RenderMesh          _renderMesh;
+  math::Camera3f      _camera;
   // clang-format on
 
 private:
