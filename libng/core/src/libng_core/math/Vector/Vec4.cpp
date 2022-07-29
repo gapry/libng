@@ -3,9 +3,11 @@
 
 namespace libng::math {
 
-#if LIBNG_MATH_USE_SSE
-// template Vec4_SSE<float>;
-// template Vec4_SSE<double>;
+#ifndef LIBNG_CPU_SSE
+#error
+#elif LIBNG_CPU_SSE
+template Vec4_SSE<float>;
+template Vec4_SSE<double>;
 #else
 template Vec4_Basic<float>;
 template Vec4_Basic<double>;

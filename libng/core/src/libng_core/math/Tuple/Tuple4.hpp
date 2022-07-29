@@ -10,6 +10,8 @@ template<class T>
 struct Tuple4 {
   static const size_t kElement = 4;
 
+  using ElementType = T;
+
   union {
     struct {
       T x, y, z, w;
