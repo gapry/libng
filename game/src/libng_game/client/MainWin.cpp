@@ -6,14 +6,12 @@ void MainWin::onCreate(CreateDesc& desc) {
   _RenderStatistic();
 
   Base::onCreate(desc);
-
-  _InitRenderer();
-
   _camera.setPos(0, 5, 5);
   _camera.setAim(0, 0, 0);
 
-  _InitTexture();
+  _InitRenderer();
   _InitMaterial();
+  _InitTexture();
   _InitMesh();
 
   VertexLayoutManager::current()->getLayout(VertexPos3f::kType);
@@ -21,11 +19,11 @@ void MainWin::onCreate(CreateDesc& desc) {
 
 void MainWin::onDraw() {
   Base::onDraw();
-  if (!_renderContext)
+  if (!_renderContext) {
     return;
+  }
 
   _camera.setViewport(clientRect());
-
   {
     auto model = math::Mat4f::s_identity();
     auto view  = _camera.viewMatrix();
@@ -102,7 +100,9 @@ void MainWin::_InitTexture() {
 }
 
 void MainWin::_InitMaterial() {
-  _material = _renderer->createMaterial();
+  auto shader = _renderer->createShader("Shaders/test/case02.shader");
+  _material   = _renderer->createMaterial();
+  _material->setShader(shader);
 }
 
 void MainWin::_InitMesh() {
