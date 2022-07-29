@@ -100,7 +100,7 @@ void MainWin::_InitTexture() {
 }
 
 void MainWin::_InitMaterial() {
-  auto shader = _renderer->createShader("/Shaders/test/case02.shader");
+  auto shader = _renderer->createShader("Shaders/test/case02.shader");
   _material   = _renderer->createMaterial();
   _material->setShader(shader);
 }

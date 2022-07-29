@@ -17,7 +17,8 @@ String FilePath::GetAssetsPath() {
 #if LIBNG_IDE_VSC
   path = "\\..\\..\\Assets";
 #elif LIBNG_IDE_VS
-  path  = "/../../../../../../Assets";
+  // path  = "/../../../../../../Assets/"; // Compiler
+  path  = "/../../../../Assets/";    // Game
 #endif
   return path;
 }
