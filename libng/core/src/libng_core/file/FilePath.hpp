@@ -14,6 +14,8 @@ struct FilePath {
 
   static String GetAssetsPath();
 
+  static void SetAssetsPath(const char* const path);
+
   static String GetTestDataPath(const char* const name);
 
   static StrView DirName(StrView path);
@@ -23,6 +25,8 @@ struct FilePath {
   static String RealPath(StrView path);
 
   static StrView extension(StrView path);
+
+  static String path;
 };
 
 } // namespace libng

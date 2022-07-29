@@ -12,15 +12,20 @@ String FilePath::GetSlash() {
   return slash;
 }
 
+String FilePath::path = "";
+
 String FilePath::GetAssetsPath() {
-  String path;
 #if LIBNG_IDE_VSC
   path = "\\..\\..\\Assets";
 #elif LIBNG_IDE_VS
-  // path  = "/../../../../../../Assets/"; // Compiler
-  path  = "/../../../../Assets/";    // Game
+  // path = "/../../../../../../Assets/"; // Compiler
+  // path = "/../../../../Assets/";       // Game
 #endif
   return path;
+}
+
+void FilePath::SetAssetsPath(const char* const _path) {
+  path = _path;
 }
 
 String FilePath::GetTestDataPath(const char* const path) {

@@ -34,6 +34,8 @@ void ShaderCompiler::onRun(int argc, char** argv) {
   _apiType.clear();
 
   {
+    FilePath::SetAssetsPath("/../../../../../../Assets/"); // Compiler
+
     String file       = getExecutableFilename();
     String path       = FilePath::DirName(file);
     String assetsPath = FilePath::GetAssetsPath();

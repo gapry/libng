@@ -4,6 +4,8 @@ namespace libng {
 
 void GameClient::onCreate(CreateDesc& desc) {
   {
+    FilePath::SetAssetsPath("/../../../../Assets/");
+
     String file       = getExecutableFilename();
     String path       = FilePath::DirName(file);
     String assetsPath = FilePath::GetAssetsPath();
