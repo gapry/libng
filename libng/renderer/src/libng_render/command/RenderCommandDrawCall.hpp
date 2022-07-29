@@ -3,6 +3,7 @@
 #include <libng_core/memory/SPtr.hpp>
 #include <libng_render/buffer/GPUBuffer.hpp>
 #include <libng_render/command/RenderCommand.hpp>
+#include <libng_render/material/Material.hpp>
 #include <libng_render/type/RenderDataType.hpp>
 #include <libng_render/type/RenderPrimitiveType.hpp>
 #include <libng_render/vertex/VertexLayout.hpp>
@@ -23,6 +24,13 @@ public:
 
   SPtr<GPUBuffer> vertexBuffer;
   SPtr<GPUBuffer> indexBuffer;
+
+  SPtr<Material> material;
+  size_t materialPassIndex = 0;
+
+  MaterialPass* getMaterialPass() {
+    return material ? material->getPass(materialPassIndex) : nullptr;
+  }
 
   size_t vertexCount = 0;
   size_t indexCount  = 0;

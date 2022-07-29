@@ -61,4 +61,21 @@ void BaseWindow::onClientRectChanged(const math::Rect2f& rc) {
 void BaseWindow::onDrawNeeded() {
 }
 
+void BaseWindow::onUINativeMouseEvent(UIMouseEvent& ev) {
+  using Button = UIMouseEventButton;
+  using Type   = UIMouseEventType;
+
+  // clang-format off
+  switch (ev.type) {
+    case Type::Down: { BitUtil::set(  _pressedMouseButtons, ev.button); } break;
+    case Type::Up:   { BitUtil::unset(_pressedMouseButtons, ev.button); } break;
+    default: break;
+  }
+  // clang-format on
+  ev.pressedButtons = _pressedMouseButtons;
+  ev.deltaPos       = ev.pos - _mousePos;
+  _mousePos         = ev.pos;
+  onUIMouseEvent(ev);
+}
+
 } // namespace libng

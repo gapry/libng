@@ -1,5 +1,7 @@
 #pragma once
 
+#include <libng_core/input/UIMouseEvent.hpp>
+#include <libng_core/libcxx/bit_util.hpp>
 #include <libng_core/libcxx/string_view.hpp>
 #include <libng_core/math/Geometry/Rect2.hpp>
 #include <libng_core/types/noncopyable.hpp>
@@ -54,6 +56,10 @@ public:
 
   virtual void onDraw();
 
+  virtual void onUINativeMouseEvent(UIMouseEvent& ev);
+  virtual void onUIMouseEvent(UIMouseEvent& ev) {
+  }
+
 protected:
   virtual void onCreate(CreateDesc& desc);
 
@@ -64,6 +70,8 @@ protected:
   virtual void onDrawNeeded();
 
   math::Rect2f _clientRect{0, 0, 0, 0};
+  UIMouseEventButton _pressedMouseButtons = UIMouseEventButton::None;
+  math::Vec2f _mousePos{0, 0};
 };
 
 } // namespace libng

@@ -9,6 +9,8 @@
 // clang-format off
 
 namespace libng {
+
+struct UIMouseEvent {
   using Type     = UIMouseEventType;
   using Modifier = UIEventModifier;
   using Button   = UIMouseEventButton;
@@ -24,7 +26,9 @@ namespace libng {
   Button   button         = Button::None;
   Button   pressedButtons = Button::None;
 
-  Vec2f pos{0, 0};
-  Vec2f deltaPos{0, 0};
-  Vec2f scroll{0, 0};
+  math::Vec2f pos{0, 0};
+  math::Vec2f deltaPos{0, 0};
+  math::Vec2f scroll{0, 0};
+};
+
 } // namespace libng

@@ -16,6 +16,18 @@ struct Win32Util {
                         static_cast<float>(rc.right - rc.left),
                         static_cast<float>(rc.bottom - rc.top));
   }
+
+  static void convert(math::Rect2f& o, const ::RECT& i) {
+    o.x = static_cast<float>(i.left);
+    o.y = static_cast<float>(i.top);
+    o.w = static_cast<float>(i.right - i.left);
+    o.h = static_cast<float>(i.bottom - i.top);
+  }
+
+  static void convert(math::Vec2f& o, const ::POINT& i) {
+    o.x = static_cast<float>(i.x);
+    o.y = static_cast<float>(i.y);
+  }
 };
 
 } // namespace libng

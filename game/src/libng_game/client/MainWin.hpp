@@ -12,6 +12,7 @@ public:
 
   virtual void onCloseButton() override;
   virtual void onDraw();
+  virtual void onUIMouseEvent(UIMouseEvent& ev) override;
 
   // clang-format off
   Renderer*           _renderer = nullptr;

@@ -2,7 +2,6 @@
 
 #include <libng_render/RendererCommon.hpp>
 
-#include <libng_render/RenderContext.hpp>
 #include <libng_render/material/MaterialPass.hpp>
 #include <libng_render/material/MaterialPass_PixelStage.hpp>
 #include <libng_render/material/MaterialPass_Stage.hpp>
@@ -11,6 +10,8 @@
 #include <libng_render/vertex/VertexLayout.hpp>
 
 namespace libng {
+
+class RenderContext;
 
 class MaterialPass : public NonCopyable {
 public:

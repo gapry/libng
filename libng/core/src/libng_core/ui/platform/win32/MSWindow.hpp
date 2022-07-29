@@ -1,5 +1,6 @@
 #pragma once
 
+#include <libng_core/input/UIEventModifier.hpp>
 #include <libng_core/platform/os.hpp>
 #include <libng_core/types/function.hpp>
 #include <libng_core/ui/BaseWindow.hpp>
@@ -27,6 +28,10 @@ public:
 
 private:
   LRESULT _handleWin32Event(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+  bool _handleNativeUIMouseEvent(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
+  UIEventModifier _getWin32Modifier();
 
   static LRESULT WINAPI s_wndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam);
 

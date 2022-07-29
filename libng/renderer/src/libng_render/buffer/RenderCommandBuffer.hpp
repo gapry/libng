@@ -6,6 +6,7 @@
 #include <libng_render/command/RenderCommandClearFrameBuffer.hpp>
 #include <libng_render/command/RenderCommandDrawCall.hpp>
 #include <libng_render/command/RenderCommandSwapBuffer.hpp>
+#include <libng_render/material/Material.hpp>
 #include <libng_render/mesh/RenderMesh.hpp>
 #include <libng_render/mesh/RenderSubMesh.hpp>
 
@@ -17,9 +18,9 @@ public:
 
   RenderCommandSwapBuffer* swapBuffers();
 
-  void drawMesh(const SrcLoc& debugLoc, const RenderMesh& mesh);
+  void drawMesh(const SrcLoc& debugLoc, const RenderMesh& mesh, Material* material);
 
-  void drawSubMesh(const SrcLoc& debugLoc, const RenderSubMesh& subMesh);
+  void drawSubMesh(const SrcLoc& debugLoc, const RenderSubMesh& subMesh, Material* material);
 
   void reset();
 
