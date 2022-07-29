@@ -9,7 +9,11 @@
 
 namespace libng::math {
 
-#if LIBNG_MATH_USE_SSE
+#ifndef LIBNG_CPU_SSE
+#error
+#elif LIBNG_CPU_SSE
+template<class T>
+using Vec2 = Vec2_SSE<T>;
 #else
 template<class T>
 using Vec2 = Vec2_Basic<T>;

@@ -7,12 +7,13 @@
 
 namespace libng::math {
 
-template<class T>
-using Vec2_Basic_Data = Tuple2<T>;
+// clang-format off
 
-template<class T, class DATA = Vec2_Basic_Data<T>>
+template<class T> using Vec2_Basic_Data = Tuple2<T>;
+
+template<class T, class DATA = Vec2_Basic_Data<T> >
 struct Vec2_Basic : public DATA {
-  static const size_t kElement = 2;
+  static const size_t kElementCount = 2;
 
   using Vec2        = Vec2_Basic;
   using ElementType = T;
@@ -20,50 +21,69 @@ struct Vec2_Basic : public DATA {
   using DATA::x;
   using DATA::y;
 
-  // clang-format off
-  LIBNG_INLINE          Vec2()                            { set(0, 0);   }
-  LIBNG_INLINE          Vec2(const DATA& v)               { set(v); }
-  LIBNG_INLINE          Vec2(const T& x_, const T& y_)    { set(x_, y_); }
+  LIBNG_INLINE Vec2() = default;
+  LIBNG_INLINE Vec2(const Tuple2<T> & v)      { set(v);      }
+  LIBNG_INLINE Vec2(const T& x_, const T& y_) { set(x_, y_); }
 
-  LIBNG_INLINE     void set(const DATA& v)                { DATA::set(v); }
-  LIBNG_INLINE     void set(const T& x_, const T& y_)     { set(DATA(x_, y_)); }
+  LIBNG_INLINE void set(const Tuple2<T> & v)      { DATA::set(v);           }
+  LIBNG_INLINE void set(const T& x_, const T& y_) { set(Tuple2<T>(x_, y_)); }
 
-  LIBNG_INLINE const T& operator[](int i)           const { LIBNG_ASSERT(i >= 0);      return data[i]; }
-  LIBNG_INLINE       T& operator[](int i)                 { LIBNG_ASSERT(i >= 0);      return data[i]; }
+  LIBNG_INLINE bool equals (const Vec2& r, const T& epsilon = math::epsilon<T>()) const;
+  LIBNG_INLINE bool equals0(               const T& epsilon = math::epsilon<T>()) const;
 
-  LIBNG_INLINE     Vec2 operator+(const Vec2& rhs)  const {                            return Vec2(x + rhs.x, y + rhs.y); }
-  LIBNG_INLINE     Vec2 operator-(const Vec2& rhs)  const {                            return Vec2(x - rhs.x, y - rhs.y); }
-  LIBNG_INLINE     Vec2 operator*(const Vec2& rhs)  const {                            return Vec2(x * rhs.x, y * rhs.y); }
-  LIBNG_INLINE     Vec2 operator/(const Vec2& rhs)  const { LIBNG_ASSERT(rhs != 0);    return Vec2(x / rhs.x, y / rhs.y); }
+  LIBNG_INLINE void setAll(const T& v) { set(v,v); }
+  LIBNG_INLINE bool isAll (const T& v) { return equals(Vec2(v,v)); }
 
-  LIBNG_INLINE     Vec2 operator+(const T& scalar)  const {                            return Vec2(x + scalar, y + scalar); }
-  LIBNG_INLINE     Vec2 operator-(const T& scalar)  const {                            return Vec2(x - scalar, y - scalar); }
-  LIBNG_INLINE     Vec2 operator*(const T& scalar)  const {                            return Vec2(x * scalar, y * scalar); }
-  LIBNG_INLINE     Vec2 operator/(const T& scalar)  const { LIBNG_ASSERT(scalar != 0); return Vec2(x / scalar, y / scalar); }
+  LIBNG_INLINE Vec2 operator+(const Vec2& r) const { return Vec2(x + r.x, y + r.y); }
+  LIBNG_INLINE Vec2 operator-(const Vec2& r) const { return Vec2(x - r.x, y - r.y); }
+  LIBNG_INLINE Vec2 operator*(const Vec2& r) const { return Vec2(x * r.x, y * r.y); }
+  LIBNG_INLINE Vec2 operator/(const Vec2& r) const { return Vec2(x / r.x, y / r.y); }
 
-  LIBNG_INLINE     void operator+=(const Vec2& rhs)       {                            x += rhs.x; y += rhs.y; }
-  LIBNG_INLINE     void operator-=(const Vec2& rhs)       {                            x -= rhs.x; y -= rhs.y; }
-  LIBNG_INLINE     void operator*=(const Vec2& rhs)       {                            x *= rhs.x; y *= rhs.y; }
-  LIBNG_INLINE     void operator/=(const Vec2& rhs)       { LIBNG_ASSERT(rhs != 0);    x /= rhs.x; y /= rhs.y; }
+  LIBNG_INLINE Vec2 operator+(const T& s) const { return Vec2(x + s, y + s); }
+  LIBNG_INLINE Vec2 operator-(const T& s) const { return Vec2(x - s, y - s); }
+  LIBNG_INLINE Vec2 operator*(const T& s) const { return Vec2(x * s, y * s); }
+  LIBNG_INLINE Vec2 operator/(const T& s) const { return Vec2(x / s, y / s); }
 
-  LIBNG_INLINE     void operator+=(const T& scalar)       {                            x += scalar; y += scalar; }
-  LIBNG_INLINE     void operator-=(const T& scalar)       {                            x -= scalar; y -= scalar; }
-  LIBNG_INLINE     void operator*=(const T& scalar)       {                            x *= scalar; y *= scalar; }
-  LIBNG_INLINE     void operator/=(const T& scalar)       { LIBNG_ASSERT(scalar != 0); x /= scalar; y /= scalar; }
-  
-  LIBNG_INLINE     bool operator==(const Vec2& rhs) const { return x == rhs.x  && y == rhs.y;  }
-  LIBNG_INLINE     bool operator!=(const Vec2& rhs) const { return x != rhs.x  || y != rhs.y;  }
-  LIBNG_INLINE     bool operator!=(const T& scalar) const { return x != scalar || y != scalar; }
-  // clang-format on
+  LIBNG_INLINE void operator+= (const Vec2& r) { x += r.x; y += r.y; }
+  LIBNG_INLINE void operator-= (const Vec2& r) { x -= r.x; y -= r.y; }
+  LIBNG_INLINE void operator*= (const Vec2& r) { x *= r.x; y *= r.y; }
+  LIBNG_INLINE void operator/= (const Vec2& r) { x /= r.x; y /= r.y; }
+
+  LIBNG_INLINE void operator+= (const T& s) { x += s; y += s; }
+  LIBNG_INLINE void operator-= (const T& s) { x -= s; y -= s; }
+  LIBNG_INLINE void operator*= (const T& s) { x *= s; y *= s; }
+  LIBNG_INLINE void operator/= (const T& s) { x /= s; y /= s; }
+
+  LIBNG_INLINE       T& operator[](int i)       { return data[i]; }
+  LIBNG_INLINE const T& operator[](int i) const { return data[i]; }
+
+  bool operator==(const Vec2& r) const { return x == r.x && y == r.y; }
+  bool operator!=(const Vec2& r) const { return x != r.x || y != r.y; }
+
+  Tuple2<T> toTuple()  const { return Tuple2<T>(x,y); }
+
+  operator Tuple2<T>() const { return toTuple(); }
 
   void onFormat(fmt::format_context& ctx) const {
     fmt::format_to(ctx.out(), "({}, {})", x, y);
   }
 };
 
-using Vec2i_Basic = Vec2_Basic<i32>;
-using Vec2f_Basic = Vec2_Basic<f32>;
-using Vec2d_Basic = Vec2_Basic<f64>;
+template<class T, class DATA> LIBNG_INLINE
+bool Vec2_Basic<T, DATA>::equals(const Vec2& r, const T& epsilon) const {
+  return math::equals(x, r.x, epsilon) && 
+         math::equals(y, r.y, epsilon);
+}
+
+template<class T, class DATA> LIBNG_INLINE
+bool Vec2_Basic<T, DATA>::equals0(const T& epsilon) const {
+  return math::equals0(x, epsilon) && 
+         math::equals0(y, epsilon);
+}
+
+using Vec2i_Basic = Vec2_Basic<int>;
+using Vec2f_Basic = Vec2_Basic<float>;
+using Vec2d_Basic = Vec2_Basic<double>;
 
 LIBNG_FORMATTER(math::Vec2i_Basic);
 LIBNG_FORMATTER(math::Vec2f_Basic);
