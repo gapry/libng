@@ -106,7 +106,7 @@ GPUBuffer* RenderSubMesh::vertexBuffer() const {
   return constCast(_vertexBuffer);
 }
 
-GPUBuffer* RenderSubMesh::indextBuffer() const {
+GPUBuffer* RenderSubMesh::indexBuffer() const {
   return constCast(_indexBuffer);
 }
 

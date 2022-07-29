@@ -23,7 +23,7 @@ public:
 
   GPUBuffer* vertexBuffer() const;
 
-  GPUBuffer* indextBuffer() const;
+  GPUBuffer* indexBuffer() const;
 
   size_t vertexCount() const;
 
