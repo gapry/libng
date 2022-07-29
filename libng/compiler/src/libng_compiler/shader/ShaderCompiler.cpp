@@ -19,15 +19,16 @@ ShaderCompiler::~ShaderCompiler() {
 }
 
 void ShaderCompiler::onRun(int argc, char** argv) {
-  if (argc != 2) {
-    LIBNG_ERROR("{}\n", "console arguments aren't correct!");
-  }
+  // if (argc != 2) {
+  //   LIBNG_ERROR("{}\n", "console arguments aren't correct!");
+  // }
 
-  if (argv[1] == nullptr) {
-    LIBNG_ERROR("{}\n", "argv[1] is wrong!");
-  }
+  // if (argv[1] == nullptr) {
+  //   LIBNG_ERROR("{}\n", "argv[1] is wrong!");
+  // }
 
-  _apiType = argv[1];
+  // _apiType = argv[1];
+  _apiType = "DX11";
   LIBNG_LOG("The Graphics API is {}\n", _apiType);
 
   _apiType.clear();
@@ -43,8 +44,8 @@ void ShaderCompiler::onRun(int argc, char** argv) {
     proj->setProjectRoot(path);
   }
 
-  StrView shaderFilename = "Assets/Shaders/test/case02.shader";
-  String outputPath      = Fmt("Assets/LocalTemp/Imported/{}", shaderFilename);
+  StrView shaderFilename = "Shaders/test/case02.shader";
+  String outputPath      = Fmt("LocalTemp/Imported/{}", shaderFilename);
   Directory::create(outputPath);
 
   ShaderInfo info;

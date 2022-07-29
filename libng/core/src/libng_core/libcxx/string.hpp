@@ -118,7 +118,7 @@ LIBNG_INLINE string::proxy::operator char() const {
 LIBNG_INLINE string::info::info(const char* str)
   : ref_cnt(1)
   , is_shared(true) {
-  const int data_size = strlen(str) + 1;
+  const int data_size = static_cast<int>(strlen(str)) + 1;
   data                = new char[data_size];
   strcpy_s(data, data_size, str);
 }

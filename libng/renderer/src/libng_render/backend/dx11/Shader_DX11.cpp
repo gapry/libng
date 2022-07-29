@@ -14,6 +14,7 @@ Shader_DX11::Shader_DX11(StrView filename)
 
   for (size_t i = 0; i < passes_size; i++) {
     FmtTo(passPath, "{}/{}/dx11/pass{}", proj->importedPath(), filename, i);
+    LIBNG_LOG("[{}] {}\n", __LIBNG_PRETTY_FUNCTION__, passPath);
     auto* pass = new ShaderPass_DX11(this, passPath, _info.passes[i]);
     _passes.emplace_back(pass);
   }
@@ -43,6 +44,7 @@ void Shader_DX11::VertexStage_DX11::load(ShaderPass_DX11* pass, //
                 stageMask(), //
                 _bytecode,   //
                 _info);      //
+  LIBNG_LOG("[{}] {}\n", __LIBNG_PRETTY_FUNCTION__, passPath);
 
   auto hr = dev->CreateVertexShader(_bytecode.data(),      //
                                     _bytecode.size(),      //

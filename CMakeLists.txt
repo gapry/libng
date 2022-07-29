@@ -14,6 +14,7 @@ include(${dir_cmake}/helper.cmake)
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}")
 include_directories("game")
+include_directories("externals/natvis")
 
 OPTION(IDE_VSC         "IDE VSC"         OFF)
 OPTION(IDE_VS          "IDE VS"          OFF)

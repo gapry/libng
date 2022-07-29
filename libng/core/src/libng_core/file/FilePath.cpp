@@ -17,7 +17,7 @@ String FilePath::GetAssetsPath() {
 #if LIBNG_IDE_VSC
   path = "\\..\\..\\Assets";
 #elif LIBNG_IDE_VS
-  path  = "/../../../../Assets";
+  path  = "/../../../../../../Assets";
 #endif
   return path;
 }
