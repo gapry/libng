@@ -2,11 +2,14 @@
 
 #include <libng_core/math/Matrix/Mat4_Basic.hpp>
 #include <libng_core/math/Matrix/Mat4_SSE.hpp>
-#include <libng_core/platform/sse.hpp>
 
 namespace libng::math {
 
-#if LIBNG_MATH_SSE
+#ifndef LIBNG_CPU_SSE
+#error
+#elif LIBNG_CPU_SSE
+template<class T>
+using Mat4 = Mat4_SSE<T>;
 #else
 template<class T>
 using Mat4 = Mat4_Basic<T>;

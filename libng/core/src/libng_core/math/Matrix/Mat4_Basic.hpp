@@ -1,440 +1,461 @@
 #pragma once
 
-#include <cassert>
-
+#include <libng_core/libng_common.hpp>
+#include <libng_core/math/Geometry/Rect2.hpp>
 #include <libng_core/math/Vector/Vec3.hpp>
 #include <libng_core/math/Vector/Vec4.hpp>
 
 namespace libng::math {
 
-template<typename T>
-class Mat4_Basic {
-  static constexpr int kCol = 4;
-  static constexpr int kRow = 4;
-  static constexpr int kElm = kCol * kRow;
+// clang-format off
 
-public:
+template<class ELEMENT>
+struct Mat4_Basic_Data {
+  static const size_t kElementCount = 16;
+
+  using Vec4        = Vec4_Basic<ELEMENT>;
+  using ElementType = ELEMENT;
+
   union {
-    struct {
-      Vec4<T> cx, cy, cz, cw;
+    struct { 
+      Vec4 cx, cy, cz, cw; 
     };
-    Vec4<T> col[kCol];
-    T data[kElm];
+    Vec4 _columns[4];
+    ELEMENT _elements[kElementCount];
   };
 
-  ~Mat4_Basic() = default;
+  LIBNG_INLINE Mat4_Basic_Data() = default;
+  LIBNG_INLINE Mat4_Basic_Data(const Vec4& cx_, const Vec4& cy_, const Vec4& cz_, const Vec4& cw_) { set(cx_, cy_, cz_, cw_); }
 
-  Mat4_Basic() = default;
-
-  Mat4_Basic(const Vec4<T>& cx_, const Vec4<T>& cy_, const Vec4<T>& cz_, const Vec4<T>& cw_) {
-    cx = cx_;
-    cy = cy_;
-    cz = cz_;
-    cw = cw_;
+  LIBNG_INLINE void set(const Vec4& cx_, const Vec4& cy_, const Vec4& cz_, const Vec4& cw_) {
+    cx = cx_; cy = cy_; cz = cz_; cw = cw_;
   }
 
-  // clang-format off
-  Mat4_Basic(T xx, T xy, T xz, T xw,
-         T yx, T yy, T yz, T yw,
-         T zx, T zy, T zz, T zw,
-         T wx, T wy, T wz, T ww) {
-    cx.set(xx, xy, xz, xw);
-    cy.set(yx, yy, yz, yw);
-    cz.set(zx, zy, zz, zw);
-    cw.set(wx, wy, wz, ww);
-  }
-  // clang-format on
-
-  // clang-format off
-  void set(T xx, T xy, T xz, T xw,
-           T yx, T yy, T yz, T yw,
-           T zx, T zy, T zz, T zw,
-           T wx, T wy, T wz, T ww) {
-    cx.set(xx, xy, xz, xw);
-    cy.set(yx, yy, yz, yw);
-    cz.set(zx, zy, zz, zw);
-    cw.set(wx, wy, wz, ww);
-  }
-  // clang-format on
-
-  static Mat4_Basic kIdentity() {
-    // clang-format off
-  	return Mat4_Basic(1, 0, 0, 0, 
-  	              0, 1, 0, 0, 
-  	              0, 0, 1, 0, 
-  	              0, 0, 0, 1);
-    // clang-format on
-  }
-
-  void setIdentity() {
-    *this = kIdentity();
-  }
-
-  void translate(T x, T y, T z) {
-    Mat4_Basic m;
-    m.setTranslate(x, y, z);
-    operator*=(m);
-  }
-
-  void setTranslate(T x, T y, T z) {
-    // clang-format off
-    set(1, 0, 0, 0, 
-        0, 1, 0, 0, 
-        0, 0, 1, 0, 
-        x, y, z, 1);
-    // clang-format on
-  }
-
-  void setTranslate(const Vec3<T>& v) {
-    setTranslate(v.x, v.y, v.z);
-  }
-
-  void setRotateX(T rad) {
-    T s, c;
-    getSinAndCos(rad, s, c);
-    // clang-format off
-  	cx.set(1,  0, 0, 0);
-  	cy.set(0,  c, s, 0);
-  	cz.set(0, -s, c, 0);
-  	cw.set(0,  0, 0, 1);
-    // clang-format on
-  }
-
-  void setRotateY(T rad) {
-    T s, c;
-    getSinAndCos(rad, s, c);
-    // clang-format off
-  	cx.set(c, 0, -s, 0);
-  	cy.set(0, 1,  0, 0);
-  	cz.set(s, 0,  c, 0);
-  	cw.set(0, 0,  0, 1);
-    // clang-format on
-  }
-
-  void setRotateZ(T rad) {
-    T s, c;
-    getSinAndCos(rad, s, c);
-    // clang-format off
-  	cx.set( c, s, 0, 0);
-  	cy.set(-s, c, 0, 0);
-  	cz.set(0,  0, 1, 0);
-  	cw.set(0,  0, 0, 1);
-    // clang-format on
-  }
-
-  void setScale(const Vec3<T>& v) {
-    // clang-format off
-  	cx.set(v.x, 0,   0,   0);
-  	cy.set(0,   v.y, 0,   0);
-  	cz.set(0,   0,   v.z, 0);
-  	cw.set(0,   0,   0,   1);
-    // clang-format on
-  }
-
-  void rotateX(T rad) {
-    Mat4_Basic m;
-    m.setRotateX(rad);
-    operator*=(m);
-  }
-
-  void rotateY(T rad) {
-    Mat4_Basic m;
-    m.setRotateY(rad);
-    operator*=(m);
-  }
-
-  void rotateZ(T rad) {
-    Mat4_Basic m;
-    m.setRotateZ(rad);
-    operator*=(m);
-  }
-
-  void setTRS(const Vec3<T>& translate, const Vec3<T>& rotate, const Vec3<T>& scale) {
-    Vec3<T> s, c;
-    getSinAndCos(rotate.x, s.x, c.x);
-    getSinAndCos(rotate.y, s.y, c.y);
-    getSinAndCos(rotate.z, s.z, c.z);
-
-    // clang-format off
-    set(scale.x * (c.y * c.z),				           scale.x * (c.y * s.z),                   scale.x * (-s.y),      0,
-    	  scale.y * (s.x * s.y * c.z - c.x * s.z), scale.y * (c.x * c.z + s.x * s.y * s.z), scale.y * (s.x * c.y), 0,
-    	  scale.z * (s.x * s.z + c.x * s.y * c.z), scale.z * (c.x * s.y * s.z - s.x * c.z), scale.z * (c.x * c.y), 0,
-    	  translate.x,                             translate.y,                             translate.z,           1);
-    // clang-format on
-  }
-
-  void setPerspective(T fovy_rad, T aspect, T zNear, T zFar) {
-    T s, c, deltaZ;
-    T fov = fovy_rad / 2;
-
-    deltaZ = zFar - zNear;
-    s      = sin(fov);
-
-    if ((deltaZ == 0) || (s == 0) || (aspect == 0)) {
-      setIdentity();
-      return;
-    }
-    c = cos(fov) / s;
-
-    // clang-format off
-		cx.set(c / aspect, 0, 0,                          0);
-		cy.set(0,          c, 0,                          0);
-		cz.set(0,          0, -(zFar + zNear) / deltaZ,  -1);
-		cw.set(0,          0, -2 * zNear * zFar / deltaZ, 0);
-    // clang-format on
-  }
-
-  void setOrtho(T left, T right, T bottom, T top, T zNear, T zFar) {
-    T w = right - left;
-    T h = top - bottom;
-    T d = zFar - zNear;
-
-    if (w == 0 || h == 0 || d == 0) {
-      setIdentity();
-    } else {
-      // clang-format off
-  	  set(2 / w,               0,                 0,                   0,
-		      0,                   2 / h,             0,                   0,
-		      0,                   0,                 -2 / d,              0,
-		      -(right + left) / w, -(top+bottom) / h, -(zFar + zNear) / d, 1);
-      // clang-format on
-    }
-  }
-
-  void setLookAt(const Vec3<T>& eye, const Vec3<T>& aim, const Vec3<T>& up) {
-    Vec3<T> f = (aim - eye).normalize();
-    Vec3<T> s = f.cross(up).normalize();
-    Vec3<T> u = s.cross(f);
-
-    Mat4_Basic m;
-    // clang-format off
-  	m.set(s.x, u.x, -f.x, 0.0, 
-  	      s.y, u.y, -f.y, 0.0, 
-  	      s.z, u.z, -f.z, 0.0, 
-  	      0,   0,   0,    1);
-    // clang-format on
-
-    Mat4_Basic t;
-    t.setTranslate(-eye);
-
-    *this = m * t;
-  }
-
-  void operator*=(const Mat4_Basic& r) {
-    *this = *this * r;
-  }
-
-  Mat4_Basic operator*(const Mat4_Basic& r) const {
-    Mat4_Basic o;
-
-    T e0, e1, e2, e3;
-    e0 = cx.x, e1 = cy.x, e2 = cz.x, e3 = cw.x;
-    o.cx.x = e0 * r.cx.x + e1 * r.cx.y + e2 * r.cx.z + e3 * r.cx.w;
-    o.cy.x = e0 * r.cy.x + e1 * r.cy.y + e2 * r.cy.z + e3 * r.cy.w;
-    o.cz.x = e0 * r.cz.x + e1 * r.cz.y + e2 * r.cz.z + e3 * r.cz.w;
-    o.cw.x = e0 * r.cw.x + e1 * r.cw.y + e2 * r.cw.z + e3 * r.cw.w;
-
-    e0 = cx.y, e1 = cy.y, e2 = cz.y, e3 = cw.y;
-    o.cx.y = e0 * r.cx.x + e1 * r.cx.y + e2 * r.cx.z + e3 * r.cx.w;
-    o.cy.y = e0 * r.cy.x + e1 * r.cy.y + e2 * r.cy.z + e3 * r.cy.w;
-    o.cz.y = e0 * r.cz.x + e1 * r.cz.y + e2 * r.cz.z + e3 * r.cz.w;
-    o.cw.y = e0 * r.cw.x + e1 * r.cw.y + e2 * r.cw.z + e3 * r.cw.w;
-
-    e0 = cx.z, e1 = cy.z, e2 = cz.z, e3 = cw.z;
-    o.cx.z = e0 * r.cx.x + e1 * r.cx.y + e2 * r.cx.z + e3 * r.cx.w;
-    o.cy.z = e0 * r.cy.x + e1 * r.cy.y + e2 * r.cy.z + e3 * r.cy.w;
-    o.cz.z = e0 * r.cz.x + e1 * r.cz.y + e2 * r.cz.z + e3 * r.cz.w;
-    o.cw.z = e0 * r.cw.x + e1 * r.cw.y + e2 * r.cw.z + e3 * r.cw.w;
-
-    e0 = cx.w, e1 = cy.w, e2 = cz.w, e3 = cw.w;
-    o.cx.w = e0 * r.cx.x + e1 * r.cx.y + e2 * r.cx.z + e3 * r.cx.w;
-    o.cy.w = e0 * r.cy.x + e1 * r.cy.y + e2 * r.cy.z + e3 * r.cy.w;
-    o.cz.w = e0 * r.cz.x + e1 * r.cz.y + e2 * r.cz.z + e3 * r.cz.w;
-    o.cw.w = e0 * r.cw.x + e1 * r.cw.y + e2 * r.cw.z + e3 * r.cw.w;
-
-    return o;
-  }
-
-  // clang-format off
-  Mat4_Basic inverse() const {
-	  T wtmp[4][8];
-	  T m0, m1, m2, m3, s;
-	  T *r0, *r1, *r2, *r3;
-
-	  r0 = wtmp[0], r1 = wtmp[1], r2 = wtmp[2], r3 = wtmp[3];
-
-	  r0[0] = cx.x;
-	  r0[1] = cx.y;
-	  r0[2] = cx.z;
-	  r0[3] = cx.w;
-	  r0[4] = 1.0;
-	  r0[5] = r0[6] = r0[7] = 0.0;
-
-	  r1[0] = cy.x;
-	  r1[1] = cy.y;
-	  r1[2] = cy.z;
-	  r1[3] = cy.w;
-	  r1[5] = 1.0;
-	  r1[4] = r1[6] = r1[7] = 0.0;
-
-	  r2[0] = cz.x;
-	  r2[1] = cz.y;
-	  r2[2] = cz.z;
-	  r2[3] = cz.w;
-	  r2[6] = 1.0;
-	  r2[4] = r2[5] = r2[7] = 0.0;
-
-	  r3[0] = cw.x;
-	  r3[1] = cw.y;
-	  r3[2] = cw.z;
-	  r3[3] = cw.w;
-	  r3[7] = 1.0;
-	  r3[4] = r3[5] = r3[6] = 0.0;
-
-	  // Pivot
-	  if (std::abs(r3[0]) > std::abs(r2[0])) std::swap(r3, r2);
-	  if (std::abs(r2[0]) > std::abs(r1[0])) std::swap(r2, r1);
-	  if (std::abs(r1[0]) > std::abs(r0[0])) std::swap(r1, r0);
-	  if (0.0 == r0[0]) return kIdentity();
-
-	  // Elimination
-	  m1 = r1[0] / r0[0];
-	  m2 = r2[0] / r0[0];
-	  m3 = r3[0] / r0[0];
-
-	  s = r0[1]; r1[1] -= m1 * s; r2[1] -= m2 * s; r3[1] -= m3 * s;
-	  s = r0[2]; r1[2] -= m1 * s; r2[2] -= m2 * s; r3[2] -= m3 * s;
-	  s = r0[3]; r1[3] -= m1 * s; r2[3] -= m2 * s; r3[3] -= m3 * s;
-	  s = r0[4]; if (s != 0.0) { r1[4] -= m1 * s; r2[4] -= m2 * s; r3[4] -= m3 * s; }
-	  s = r0[5]; if (s != 0.0) { r1[5] -= m1 * s; r2[5] -= m2 * s; r3[5] -= m3 * s; }
-	  s = r0[6]; if (s != 0.0) { r1[6] -= m1 * s; r2[6] -= m2 * s; r3[6] -= m3 * s; }
-	  s = r0[7]; if (s != 0.0) { r1[7] -= m1 * s; r2[7] -= m2 * s; r3[7] -= m3 * s; }
-
-	  // Pivot
-	  if (std::abs(r3[1]) > std::abs(r2[1])) std::swap(r3, r2);
-	  if (std::abs(r2[1]) > std::abs(r1[1])) std::swap(r2, r1);
-	  if (0.0 == r1[1]) {
-	  	assert(false); // [Issue]
-	  	return kIdentity();
-	  }
-
-	  // Elimination 
-	  m2 = r2[1] / r1[1];
-	  m3 = r3[1] / r1[1];
-
-	  r2[2] -= m2 * r1[2];
-	  r3[2] -= m3 * r1[2];
-	  r2[3] -= m2 * r1[3];
-	  r3[3] -= m3 * r1[3];
-
-	  s = r1[4]; if (0.0 != s) { r2[4] -= m2 * s; r3[4] -= m3 * s; }
-	  s = r1[5]; if (0.0 != s) { r2[5] -= m2 * s; r3[5] -= m3 * s; }
-	  s = r1[6]; if (0.0 != s) { r2[6] -= m2 * s; r3[6] -= m3 * s; }
-	  s = r1[7]; if (0.0 != s) { r2[7] -= m2 * s; r3[7] -= m3 * s; }
-
-	  // Pivot
-	  if (std::abs(r3[2]) > std::abs(r2[2])) std::swap(r3, r2);
-	  if (0.0 == r2[2]) return kIdentity();
-
-	  // Elimination
-	  m3 = r3[2] / r2[2];
-
-    r3[3] -= m3 * r2[3];
-    r3[4] -= m3 * r2[4];
-    r3[5] -= m3 * r2[5];
-    r3[6] -= m3 * r2[6];
-    r3[7] -= m3 * r2[7];
-
-    //
-	  if (0.0 == r3[3]) {
-	  	return kIdentity();
-	  }
-
-    // Substitute(Row[3])
-	  s = 1.0f / r3[3]; 
-	  r3[4] *= s; 
-    r3[5] *= s; 
-    r3[6] *= s; 
-    r3[7] *= s;
-
-    // Substitute(Row[2])
-	  m2 = r2[3]; 
-	  s = 1.0f / r2[2];
-	  r2[4] = s * (r2[4] - r3[4] * m2);
-    r2[5] = s * (r2[5] - r3[5] * m2);
-    r2[6] = s * (r2[6] - r3[6] * m2);
-    r2[7] = s * (r2[7] - r3[7] * m2);
-
-	  m1 = r1[3];
-	  r1[4] -= r3[4] * m1;
-	  r1[5] -= r3[5] * m1;
-	  r1[6] -= r3[6] * m1;
-	  r1[7] -= r3[7] * m1;
-
-	  m0 = r0[3];
-	  r0[4] -= r3[4] * m0;
-	  r0[5] -= r3[5] * m0;
-	  r0[6] -= r3[6] * m0;
-	  r0[7] -= r3[7] * m0;
-
-    // Substitute(Row[1])
-	  m1 = r1[2]; 
-	  s = 1.0f / r1[1];
-	  r1[4] = s * (r1[4] - r2[4] * m1);
-	  r1[5] = s * (r1[5] - r2[5] * m1);
-	  r1[6] = s * (r1[6] - r2[6] * m1);
-	  r1[7] = s * (r1[7] - r2[7] * m1);
-
-	  m0 = r0[2];
-	  r0[4] -= r2[4] * m0;
-	  r0[5] -= r2[5] * m0;
-	  r0[6] -= r2[6] * m0;
-	  r0[7] -= r2[7] * m0;
-
-    // Substitute(Row[0])
-	  m0 = r0[1]; 
-	  s = 1.0f / r0[0];
-	  r0[4] = s * (r0[4] - r1[4] * m0);
-	  r0[5] = s * (r0[5] - r1[5] * m0);
-	  r0[6] = s * (r0[6] - r1[6] * m0);
-	  r0[7] = s * (r0[7] - r1[7] * m0);
-
-	  return Mat4_Basic(r0[4], r0[5], r0[6], r0[7],
-	  				      r1[4], r1[5], r1[6], r1[7],
-	  				      r2[4], r2[5], r2[6], r2[7],
-	  				      r3[4], r3[5], r3[6], r3[7]);
-  }
-
-  Vec4<T> mulPoint(const Vec4<T>& v) const {
-    return Vec4<T>(v.x * cx.x + v.y * cy.x + v.z * cz.x + v.w * cw.x,  //
-                   v.x * cx.y + v.y * cy.y + v.z * cz.y + v.w * cw.y,  //
-                   v.x * cx.z + v.y * cy.z + v.z * cz.z + v.w * cw.z,  //
-                   v.x * cx.w + v.y * cy.w + v.z * cz.w + v.w * cw.w); //
-  }
-
-  Vec3<T> mulPoint(const Vec3<T>& v) const {
-    return Vec3<T>(v.x * cx.x + v.y * cy.x + v.z * cz.x + cw.x,  //
-                   v.x * cx.y + v.y * cy.y + v.z * cz.y + cw.y,  //
-                   v.x * cx.z + v.y * cy.z + v.z * cz.z + cw.z); //
-  }
-
-  Vec3<T> mulVector(const Vec3<T>& v) const {
-    return Vec3<T>(v.x * cx.x + v.y * cy.x + v.z * cz.x,  //
-                   v.x * cx.y + v.y * cy.y + v.z * cz.y,  //
-                   v.x * cx.z + v.y * cy.z + v.z * cz.z); //
-  }
-
-  Vec3<T> mulNormal(const Vec3<T>& v) const {
-    auto invM = inverse(); // [Issue] mul the inverse transpose ???
-    return Vec3<T>(v.x * cx.x + v.y * cx.y + v.z * cx.z,  //
-                   v.x * cy.x + v.y * cy.y + v.z * cy.z,  //
-                   v.x * cz.x + v.y * cz.y + v.z * cz.z); //
-  }
-  // clang-format on  
 };
 
-using Mat4f = Mat4_Basic<float>;
+template<class T, class DATA = Mat4_Basic_Data<T> >
+struct Mat4_Basic : public DATA {
+  using Mat4 = Mat4_Basic;
 
-static_assert(sizeof(Mat4f) == sizeof(float) * 16, "");
+  using ElementType = T;
+  using Scalar      = ElementType;
+  using Vec4        = typename DATA::Vec4;
+  using Vec3        = libng::math::Vec3<T>;
+  using Rect2       = libng::math::Rect2<T>;
+
+  using DATA::cx;
+  using DATA::cy;
+  using DATA::cz;
+  using DATA::cw;
+
+  static LIBNG_INLINE const Mat4& s_identity();
+  
+  static LIBNG_INLINE       Mat4  s_translate  (const Vec3& t  );
+  static LIBNG_INLINE       Mat4  s_rotate     (const Vec3& r  );
+  static LIBNG_INLINE       Mat4  s_rotateX    (const T&    rad);
+  static LIBNG_INLINE       Mat4  s_rotateY    (const T&    rad);
+  static LIBNG_INLINE       Mat4  s_rotateZ    (const T&    rad);
+  static LIBNG_INLINE       Mat4  s_scale      (const Vec3& s  );
+  static LIBNG_INLINE       Mat4  s_shear      (const Vec3& v  );
+
+  static LIBNG_INLINE       Mat4  s_TRS        (const Vec3& translate, const Vec3& rotate, const Vec3& scale);
+  static LIBNG_INLINE       Mat4  s_TS         (const Vec3& translate, const Vec3& scale);
+
+  static LIBNG_INLINE       Mat4  s_perspective(T fovy_rad, T aspect, T zNear,  T zFar);
+  static LIBNG_INLINE       Mat4  s_ortho      (T left,     T right,  T bottom, T top, T zNear, T zFar);
+  static LIBNG_INLINE       Mat4  s_lookAt     (const Vec3& eye, const Vec3& aim, const Vec3& up);
+
+  LIBNG_INLINE Mat4_Basic() = default;
+  LIBNG_INLINE Mat4_Basic(const Vec4& cx_, const Vec4& cy_, const Vec4& cz_, const Vec4& cw_): DATA(cx_, cy_, cz_, cw_) {}
+
+  LIBNG_INLINE       Vec4& operator[](int i)       { return _columns[i]; }
+  LIBNG_INLINE const Vec4& operator[](int i) const { return _columns[i]; }
+
+  LIBNG_INLINE Vec4 col(int i) const { return _columns[i]; }
+  LIBNG_INLINE Vec4 row(int i) const { return Vec4(cx[i], cy[i], cz[i], cw[i]); }
+
+  LIBNG_INLINE void setCol(int i, const Vec4& v) { _columns[i] = v; }
+  LIBNG_INLINE void setRow(int i, const Vec4& v) { cx[i] = v.x; cy[i] = v.y; cz[i] = v.z; cw[i] = v.w; }
+
+  LIBNG_INLINE Mat4 transpose() const;
+
+  T determinant3x3() const;
+
+  Mat4 inverse            () const;
+  Mat4 inverse3x3         () const;
+  Mat4 inverse3x3Transpose() const;
+
+  LIBNG_INLINE Mat4 operator*(const Mat4& r) const;
+
+  LIBNG_INLINE Mat4 operator+(const Scalar& s) const { Vec4 v(s, s, s, s); return Mat4(cx + v, cy + v, cz + v, cw + v); }
+  LIBNG_INLINE Mat4 operator-(const Scalar& s) const { Vec4 v(s, s, s, s); return Mat4(cx - v, cy - v, cz - v, cw - v); }
+
+  LIBNG_INLINE Mat4 operator*(const Scalar& s) const { Vec4 v(s, s, s, s); return Mat4(cx * v, cy * v, cz * v, cw * v); }
+  LIBNG_INLINE Mat4 operator/(const Scalar& s) const { Vec4 v(s, s, s, s); return Mat4(cx / v, cy / v, cz / v, cw / v); }
+
+  LIBNG_INLINE void operator+=(const Scalar& s) { Vec4 v(s, s, s, s); cx += v; cy += v; cz += v; cw += v; }
+  LIBNG_INLINE void operator-=(const Scalar& s) { Vec4 v(s, s, s, s); cx -= v; cy -= v; cz -= v; cw -= v; }
+  LIBNG_INLINE void operator*=(const Scalar& s) { Vec4 v(s, s, s, s); cx *= v; cy *= v; cz *= v; cw *= v; }
+  LIBNG_INLINE void operator/=(const Scalar& s) { Vec4 v(s, s, s, s); cx /= v; cy /= v; cz /= v; cw /= v; }
+
+  LIBNG_INLINE bool operator==(const Mat4& r) const { return cx == r.cx && cy == r.cy && cz == r.cz && cw == r.cw; }
+  LIBNG_INLINE bool operator!=(const Mat4& r) const { return cx != r.cx || cy != r.cy || cz != r.cz || cw != r.cw; }
+
+  LIBNG_INLINE Vec4 mulPoint  (const Vec4& v) const { return Vec4(cx * v.x + cy * v.y  + cz * v.z + cw * v.w); }
+
+  // faster than mulPoint but no projection
+  LIBNG_INLINE Vec3 mulPoint4x3(const Vec3& v) const { return mulPoint(Vec4(v, 1)).xyz(); }
+
+  // for vector (direction)
+  LIBNG_INLINE Vec3 mulVector(const Vec3& v) const { return Vec3(cx.xyz() * v.x + cy.xyz() * v.y + cz.xyz() * v.z); }
+
+  // for normal non-uniform scale
+  LIBNG_INLINE Vec3 mulNormal(const Vec3& v) const { return inverse3x3Transpose().mulVector(v); }
+
+  Vec3 unprojectPoint(const Vec3& screenPos, const Rect2& viewport) const {
+    return inverse().unprojectPointFromInv(screenPos, viewport); 
+  }
+
+  Vec3 unprojectPointFromInv(const Vec3& screenPos, const Rect2& viewport) const;
+
+  void onFormat(fmt::format_context& ctx) const {
+    fmt::format_to(ctx.out(), "Mat4(\n  {},\n  {},\n  {},\n  {})", cx, cy, cz, cw);
+  }
+};
+
+using Mat4f_Basic = Mat4_Basic<float >;
+using Mat4d_Basic = Mat4_Basic<double>;
+
+#if 0
+#pragma mark ------------------- static functions -------------------
+#endif
+
+template<class T, class DATA> LIBNG_INLINE
+const Mat4_Basic<T, DATA> & Mat4_Basic<T, DATA>::s_identity() {
+  static Mat4 s({1, 0, 0, 0},
+                {0, 1, 0, 0},
+                {0, 0, 1, 0},
+                {0, 0, 0, 1});
+  return s;
+}
+
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_translate(const Vec3& t) {
+  return Mat4({1,   0,   0,   0},
+              {0,   1,   0,   0},
+              {0,   0,   1,   0},
+              {t.x, t.y, t.z, 1});
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_rotate(const Vec3& rad) {
+  if (rad.equals0()) return s_identity();
+
+  Vec3 s, c;
+  math::sincos(rad.x, s.x, c.x);
+  math::sincos(rad.y, s.y, c.y);
+  math::sincos(rad.z, s.z, c.z);
+
+  return Mat4({( c.y * c.z), (s.x * s.y * c.z - c.x * s.z      ), (s.x * s.z       + c.x * s.y * c.z), 0},
+              {( c.y * s.z), (c.x * c.z       + s.x * s.y * s.z), (c.x * s.y * s.z - s.x * c.z      ), 0},
+              {(-s.y),       (s.x * c.y                        ), (c.x * c.y),                         0},
+              {0,            0,                                   0,                                   1}
+  );
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_rotateX(const T& rad) {
+  if (math::equals0(rad)) return s_identity();
+
+  T s, c;
+  math::sincos(rad, s, c);
+  return Mat4({1,  0, 0, 0},
+              {0,  c, s, 0},
+              {0, -s, c, 0},
+              {0,  0, 0, 1});
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_rotateY(const T& rad) {
+  if (math::equals0(rad)) return s_identity();
+
+  T s, c;
+  math::sincos(rad, s, c);
+  return Mat4({c, 0, -s, 0},
+              {0, 1,  0, 0},
+              {s, 0,  c, 0},
+              {0, 0,  0, 1});
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_rotateZ(const T& rad) {
+  if (math::equals0(rad)) return s_identity();
+
+  T s, c;
+  math::sincos(rad, s, c);
+  return Mat4({ c, s, 0, 0},
+              {-s, c, 0, 0},
+              { 0, 0, 1, 0},
+              { 0, 0, 0, 1});
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_scale(const Vec3& s) {
+  return Mat4({s.x, 0,   0,   0},
+              {0,   s.y, 0,   0},
+              {0,   0,   s.z, 0},
+              {0,   0,   0,   1});
+}
+
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_shear(const Vec3& v) {
+  return Mat4({  1,   0,  0,  0},
+              {v.x,   1,  0,  0},
+              {v.y, v.z,  1,  0},
+              {  0,   0,  0,  1});
+}
+
+template<class T, class DATA> LIBNG_INLINE 
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_TRS(const Vec3& translate, const Vec3& rotate, const Vec3& scale) {
+  Vec3 s, c;
+  math::sincos(rotate.x, s.x, c.x);
+  math::sincos(rotate.y, s.y, c.y);
+  math::sincos(rotate.z, s.z, c.z);
+
+  return Mat4({scale.x * (c.y * c.z                        ), scale.x * (c.y * s.z                        ), scale.x * (-s.y      ), 0},
+              {scale.y * (s.x * s.y * c.z - c.x * s.z      ), scale.y * (c.x * c.z       + s.x * s.y * s.z), scale.y * ( s.x * c.y), 0},
+              {scale.z * (s.x * s.z       + c.x * s.y * c.z), scale.z * (c.x * s.y * s.z - s.x * c.z      ), scale.z * ( c.x * c.y), 0},
+              {translate.x,                                   translate.y,                                   translate.z,            1});
+}
+
+template<class T, class DATA> LIBNG_INLINE 
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_TS(const Vec3& translate, const Vec3& scale) {
+  return Mat4({scale.x,     0,           0,           0},
+              {0,           scale.y,     0,           0},
+              {0,           0,           scale.z,     0},
+              {translate.x, translate.y, translate.z, 1});
+}
+
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_perspective(T fovy_rad, T aspect, T zNear, T zFar) {
+  if (math::equals0(aspect)) {
+    return s_identity();
+  }
+
+  T deltaZ = zFar - zNear;
+  T tf = math::tan(fovy_rad / T(2));
+    
+  return Mat4({1 / (aspect * tf), 0,      0,                           0},
+              {0,                 1 / tf, 0,                           0},
+              {0,                 0,      -(zFar + zNear)   / deltaZ, -1},
+              {0,                 0,      -2 * zNear * zFar / deltaZ,  0});
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_ortho(T left, T right, T bottom, T top, T zNear, T zFar) {
+  T w = right - left;
+  T h = top - bottom;
+  T d = zFar - zNear;
+
+  if(w == 0 || h == 0 || d == 0) {
+    return s_identity();
+  }
+
+  return Mat4({2 / w,               0,                   0,                   0},
+              {0,                   2 / h,               0,                   0},
+              {0,                   0,                   -2 / d,              0},
+              {-(right + left) / w, -(top + bottom) / h, -(zFar + zNear) / d, 1});
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::s_lookAt(const Vec3& eye, const Vec3& aim, const Vec3& up) {
+  auto f = (aim - eye).normalize();
+  auto s = f.cross(up).normalize();
+  auto u = s.cross(f);
+
+  return Mat4({s.x,          u.x,        -f.x,        0},
+              {s.y,          u.y,        -f.y,        0},
+              {s.z,          u.z,        -f.z,        0},
+              {-s.dot(eye), -u.dot(eye),  f.dot(eye), 1}
+  );
+}
+
+#if 0
+#pragma mark ------------------- instance functions -------------------
+#endif
+
+template<class T, class DATA>
+T Mat4_Basic<T, DATA>::determinant3x3() const {
+  return cx.x * (cy.y * cz.z - cz.y * cy.z) - 
+         cy.x * (cx.y * cz.z - cz.y * cx.z) + 
+         cz.x * (cx.y * cy.z - cy.y * cx.z);
+}
+
+template<class T, class DATA>
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::inverse3x3() const {
+  T oneOverDeterminant = T(1) / determinant3x3();
+
+  return Mat4(
+    {
+      (cy.y * cz.z - cz.y * cy.z) *  oneOverDeterminant, // xx
+      (cx.y * cz.z - cz.y * cx.z) * -oneOverDeterminant, // xy
+      (cx.y * cy.z - cy.y * cx.z) *  oneOverDeterminant, // xz
+      0
+    },
+    {
+      (cy.x * cz.z - cz.x * cy.z) * -oneOverDeterminant, // yx
+      (cx.x * cz.z - cz.x * cx.z) *  oneOverDeterminant, // yy
+      (cx.x * cy.z - cy.x * cx.z) * -oneOverDeterminant, // yz
+      0
+    },
+    {
+      (cy.x * cz.y - cz.x * cy.y) *  oneOverDeterminant, // zx
+      (cx.x * cz.y - cz.x * cx.y) * -oneOverDeterminant, // zy
+      (cx.x * cy.y - cy.x * cx.y) *  oneOverDeterminant, // zz
+      0
+    },
+    { 0, 0, 0, 1}
+  );
+}
+
+template<class T, class DATA>
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::inverse3x3Transpose() const {
+  T oneOverDeterminant = T(1) / determinant3x3();
+
+  return Mat4(
+    {
+      (cy.y * cz.z - cz.y * cy.z) *  oneOverDeterminant, // xx
+      (cy.x * cz.z - cz.x * cy.z) * -oneOverDeterminant, // yx
+      (cy.x * cz.y - cz.x * cy.y) *  oneOverDeterminant, // zx
+      0
+    },
+    {
+      (cx.y * cz.z - cz.y * cx.z) * -oneOverDeterminant, // xy
+      (cx.x * cz.z - cz.x * cx.z) *  oneOverDeterminant, // yy
+      (cx.x * cz.y - cz.x * cx.y) * -oneOverDeterminant, // zy
+      0
+    },
+    {
+      (cx.y * cy.z - cy.y * cx.z) *  oneOverDeterminant, // xz
+      (cx.x * cy.z - cy.x * cx.z) * -oneOverDeterminant, // yz
+      (cx.x * cy.y - cy.x * cx.y) *  oneOverDeterminant, // zz
+      0
+    },
+    {0, 0, 0, 1}
+  );
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::inverse() const {
+  T coef00 = cz.z * cw.w - cw.z * cz.w;
+  T coef02 = cy.z * cw.w - cw.z * cy.w;
+  T coef03 = cy.z * cz.w - cz.z * cy.w;
+
+  T coef04 = cz.y * cw.w - cw.y * cz.w;
+  T coef06 = cy.y * cw.w - cw.y * cy.w;
+  T coef07 = cy.y * cz.w - cz.y * cy.w;
+
+  T coef08 = cz.y * cw.z - cw.y * cz.z;
+  T coef10 = cy.y * cw.z - cw.y * cy.z;
+  T coef11 = cy.y * cz.z - cz.y * cy.z;
+
+  T coef12 = cz.x * cw.w - cw.x * cz.w;
+  T coef14 = cy.x * cw.w - cw.x * cy.w;
+  T coef15 = cy.x * cz.w - cz.x * cy.w;
+
+  T coef16 = cz.x * cw.z - cw.x * cz.z;
+  T coef18 = cy.x * cw.z - cw.x * cy.z;
+  T coef19 = cy.x * cz.z - cz.x * cy.z;
+
+  T coef20 = cz.x * cw.y - cw.x * cz.y;
+  T coef22 = cy.x * cw.y - cw.x * cy.y;
+  T coef23 = cy.x * cz.y - cz.x * cy.y;
+
+  Vec4 fac0(coef00, coef00, coef02, coef03);
+  Vec4 fac1(coef04, coef04, coef06, coef07);
+  Vec4 fac2(coef08, coef08, coef10, coef11);
+  Vec4 fac3(coef12, coef12, coef14, coef15);
+  Vec4 fac4(coef16, coef16, coef18, coef19);
+  Vec4 fac5(coef20, coef20, coef22, coef23);
+
+  Vec4 v0(cy.x, cx.x, cx.x, cx.x);
+  Vec4 v1(cy.y, cx.y, cx.y, cx.y);
+  Vec4 v2(cy.z, cx.z, cx.z, cx.z);
+  Vec4 v3(cy.w, cx.w, cx.w, cx.w);
+
+  Vec4 signA(+1, -1, +1, -1);
+  Vec4 signB(-1, +1, -1, +1);
+
+  Vec4 inv0(v1 * fac0 - v2 * fac1 + v3 * fac2);
+  Vec4 inv1(v0 * fac0 - v2 * fac3 + v3 * fac4);
+  Vec4 inv2(v0 * fac1 - v1 * fac3 + v3 * fac5);
+  Vec4 inv3(v0 * fac2 - v1 * fac4 + v2 * fac5);
+
+  Mat4 inv(inv0 * signA,
+           inv1 * signB,
+           inv2 * signA,
+           inv3 * signB);
+
+  Vec4 dot0(cx * inv.row(0));
+  T dot1 = (dot0.x + dot0.y) + (dot0.z + dot0.w);
+  T oneOverDeterminant = T(1) / dot1;
+
+  return inv * oneOverDeterminant;
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::transpose() const {
+  return Mat4({ cx.x, cy.x, cz.x, cw.x },
+              { cx.y, cy.y, cz.y, cw.y },
+              { cx.z, cy.z, cz.z, cw.z },
+              { cx.w, cy.w, cz.w, cw.w });
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Mat4_Basic<T, DATA> Mat4_Basic<T, DATA>::operator*(const Mat4& r) const {
+  Mat4 o;
+  T e0, e1, e2, e3;
+
+  e0 = cx.x, e1 = cy.x, e2 = cz.x, e3 = cw.x;
+  o.cx.x = e0 * r.cx.x + e1 * r.cx.y + e2 * r.cx.z + e3 * r.cx.w;
+  o.cy.x = e0 * r.cy.x + e1 * r.cy.y + e2 * r.cy.z + e3 * r.cy.w;
+  o.cz.x = e0 * r.cz.x + e1 * r.cz.y + e2 * r.cz.z + e3 * r.cz.w;
+  o.cw.x = e0 * r.cw.x + e1 * r.cw.y + e2 * r.cw.z + e3 * r.cw.w;
+
+  e0 = cx.y, e1 = cy.y, e2 = cz.y, e3 = cw.y;
+  o.cx.y = e0 * r.cx.x + e1 * r.cx.y + e2 * r.cx.z + e3 * r.cx.w;
+  o.cy.y = e0 * r.cy.x + e1 * r.cy.y + e2 * r.cy.z + e3 * r.cy.w;
+  o.cz.y = e0 * r.cz.x + e1 * r.cz.y + e2 * r.cz.z + e3 * r.cz.w;
+  o.cw.y = e0 * r.cw.x + e1 * r.cw.y + e2 * r.cw.z + e3 * r.cw.w;
+
+  e0 = cx.z, e1 = cy.z, e2 = cz.z, e3 = cw.z;
+  o.cx.z = e0 * r.cx.x + e1 * r.cx.y + e2 * r.cx.z + e3 * r.cx.w;
+  o.cy.z = e0 * r.cy.x + e1 * r.cy.y + e2 * r.cy.z + e3 * r.cy.w;
+  o.cz.z = e0 * r.cz.x + e1 * r.cz.y + e2 * r.cz.z + e3 * r.cz.w;
+  o.cw.z = e0 * r.cw.x + e1 * r.cw.y + e2 * r.cw.z + e3 * r.cw.w;
+
+  e0 = cx.w, e1 = cy.w, e2 = cz.w, e3 = cw.w;
+  o.cx.w = e0 * r.cx.x + e1 * r.cx.y + e2 * r.cx.z + e3 * r.cx.w;
+  o.cy.w = e0 * r.cy.x + e1 * r.cy.y + e2 * r.cy.z + e3 * r.cy.w;
+  o.cz.w = e0 * r.cz.x + e1 * r.cz.y + e2 * r.cz.z + e3 * r.cz.w;
+  o.cw.w = e0 * r.cw.x + e1 * r.cw.y + e2 * r.cw.z + e3 * r.cw.w;
+
+  return o;
+}
+
+template<class T, class DATA> LIBNG_INLINE
+Vec3<T> Mat4_Basic<T, DATA>::unprojectPointFromInv(const Vec3& screenPos, const Rect2& viewport) const {
+  auto tmp = Vec4(screenPos, 1);
+  tmp.y = viewport.h - tmp.y; // y is down
+
+  tmp.x = (tmp.x - viewport.x) / viewport.w * 2 - 1;
+  tmp.y = (tmp.y - viewport.y) / viewport.h * 2 - 1;
+
+  auto obj = mulPoint(tmp);
+  return obj.toVec3();
+}
 
 }
