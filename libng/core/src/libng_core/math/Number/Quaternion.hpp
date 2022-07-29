@@ -4,6 +4,8 @@
 
 namespace libng::math {
 
+// clang-format off
+
 template<class T>
 class Quat4 {
 public:
