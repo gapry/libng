@@ -6,6 +6,10 @@ namespace libng::math {
 
 template<class T>
 struct Line3 {
+private:
+  using Vec3 = Vec3<T>;
+
+public:
   Line3() = default;
 
   Line3(const Vec3& start_, const Vec3& end_)
