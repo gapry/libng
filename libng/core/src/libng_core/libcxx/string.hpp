@@ -218,6 +218,10 @@ public:
     : Base(view.data(), view.size()) {
   }
 
+  StringT(StringT& rhs)
+    : Base(rhs) {
+  }
+
   StringT(StringT&& str)
     : Base(std::move(str)) {
   }

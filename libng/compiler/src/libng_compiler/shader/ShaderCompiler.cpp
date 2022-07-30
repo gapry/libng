@@ -33,22 +33,23 @@ void ShaderCompiler::onRun(int argc, char** argv) {
 
   _apiType.clear();
 
-  {
-    FilePath::SetAssetsPath("/../../../../../../Assets/"); // Compiler
+  FilePath::SetAssetsPath("/../../../../../../Assets"); // Compiler
 
-    String file       = getExecutableFilename();
-    String path       = FilePath::DirName(file);
-    String assetsPath = FilePath::GetAssetsPath();
-    path.append(assetsPath);
-    Directory::setCurrent(path);
+  String file       = getExecutableFilename();
+  String path       = FilePath::DirName(file);
+  String assetsPath = FilePath::GetAssetsPath();
+  path.append(assetsPath);
+  LIBNG_LOG("path = {}\n", path);
+  Directory::setCurrent(path);
 
-    auto* proj = ProjectSettings::instance();
-    proj->setProjectRoot(path);
-  }
+  auto* proj = ProjectSettings::instance();
+  proj->setProjectRoot(path);
 
   StrView shaderFilename = "Shaders/test/case02.shader";
-  String outputPath      = Fmt("LocalTemp/Imported/{}", shaderFilename);
+  String outputPath      = Fmt("{}/LocalTemp/Imported/{}", path, shaderFilename);
+
   Directory::create(outputPath);
+  LIBNG_LOG("outputPath = {}\n", outputPath);
 
   ShaderInfo info;
   {

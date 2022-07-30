@@ -26,7 +26,7 @@ struct FilePath {
 
   static StrView extension(StrView path);
 
-  static String path;
+  static String _path;
 };
 
 } // namespace libng

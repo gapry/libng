@@ -18,6 +18,6 @@ set build_components=-DBUILD_GAME=ON
 
 call .\scripts\win32\clean.bat
 
-cmake %build_components% -DIDE_VS=ON -G %editor% -B %build_dir% .
+cmake %build_components% -DIDE_VS=ON -DIDE_VSC=OFF -G %editor% -B %build_dir% .
 
 @pause

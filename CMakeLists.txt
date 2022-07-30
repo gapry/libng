@@ -25,10 +25,12 @@ OPTION(BUILD_SERVER    "Build Server"    OFF)
 
 IF(IDE_VSC)
   add_compile_definitions(LIBNG_IDE_VSC=1)
+  add_compile_definitions(LIBNG_IDE_VS=0)
 ENDIF(IDE_VSC)
 
 IF(IDE_VS)
   add_compile_definitions(LIBNG_IDE_VS=1)
+  add_compile_definitions(LIBNG_IDE_VSC=0)
 ENDIF(IDE_VS)
 
 add_subdirectory("${dir_src}/core")
