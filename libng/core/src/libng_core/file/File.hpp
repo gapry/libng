@@ -69,7 +69,7 @@ LIBNG_INLINE void File::_readFile(StrView filename, T& outData) {
   if (size > libng::numeric_limits<size_t>::max()) {
     throw LIBNG_ERROR("{}\n", "file is too large");
   }
-  outData.resize(static_cast<u8>(size));
+  outData.resize(static_cast<size_t>(size));
 
   Span<u8> span(reinterpret_cast<u8*>(outData.data()), outData.size());
   fs.readBytes(span);
