@@ -66,6 +66,6 @@ constexpr ColorType ColorType_make(ColorModel model, ColorCompressType compress)
   E(BC6h,  = ColorType_make(ColorModel::BlockCompression, ColorCompressType::BC6h)) \
   E(BC7,   = ColorType_make(ColorModel::BlockCompression, ColorCompressType::BC7))  \
 //----
-LIBNG_MATH_ENUM_CLASS(ColorType, u16)
+LIBNG_MATH_ENUM_CLASS(ColorType, libng::u16)
 
 } // namespace libng

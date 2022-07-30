@@ -6,6 +6,8 @@ set(dir_vcpkg            "externals/vcpkg")
 set(dir_cmake            "cmake")
 set(CMAKE_TOOLCHAIN_FILE "${dir_vcpkg}/scripts/buildsystems/vcpkg.cmake")
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
 project(${project_name})
 
 include(${dir_cmake}/compiler.cmake)
@@ -14,7 +16,6 @@ include(${dir_cmake}/helper.cmake)
 
 include_directories("${CMAKE_CURRENT_LIST_DIR}")
 include_directories("game")
-include_directories("externals/natvis")
 
 OPTION(IDE_VSC         "IDE VSC"         OFF)
 OPTION(IDE_VS          "IDE VS"          OFF)
@@ -67,3 +68,5 @@ ENDIF(BUILD_BENCHMARK)
 
 IF(BUILD_SERVER)
 ENDIF(BUILD_SERVER)
+
+set_property (DIRECTORY PROPERTY VS_STARTUP_PROJECT libng_game)
