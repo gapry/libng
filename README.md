@@ -19,6 +19,9 @@
   ```
   .\vs2022.bat
   ```
+- [Turn on Natvis diagnostics](https://docs.microsoft.com/en-us/visualstudio/debugger/create-custom-views-of-native-objects?view=vs-2022)
+  - Tools > Options > Debugging > Output Window -> General Output Settings, set Natvis diagnostic messages (C++ only) to Warning
+  - Tools > Options > Debugging > Output Window -> WPF Trace Settings, set Data Binding to Warning
 - Open the Visual Studio Solution
   ```
   .\build\libng-x64-windows\libng.sln 
