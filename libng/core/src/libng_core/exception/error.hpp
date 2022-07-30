@@ -9,7 +9,7 @@
 
 #define LIBNG_SRC_LOC     libng::SrcLoc(__FILE__, __LINE__, __LIBNG_PRETTY_FUNCTION__)
 
-#define LIBNG_ERROR(...)  libng::Error(LIBNG_SRC_LOC, libng::Fmt(__VA_ARGS__))
+#define LIBNG_ERROR(...)  libng::Error(LIBNG_SRC_LOC, Fmt(__VA_ARGS__))
 
 namespace libng {
 

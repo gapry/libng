@@ -79,6 +79,7 @@ LIBNG_INLINE
 void Util_DX11::throwIfError(HRESULT hr) {
   if (!_checkError(hr)) {
     reportError(hr);
+    LIBNG_LOG("hr = {}\n", hr);
     throw LIBNG_ERROR("HRESULT = {}", hr);
   }
 }

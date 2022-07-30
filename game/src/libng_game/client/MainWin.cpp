@@ -10,8 +10,8 @@ void MainWin::onCreate(CreateDesc& desc) {
   _camera.setAim(0, 0, 0);
 
   _InitRenderer();
-  _InitMaterial();
   _InitTexture();
+  _InitMaterial();
   _InitMesh();
 
   VertexLayoutManager::current()->getLayout(VertexPos3f::kType);
@@ -36,6 +36,11 @@ void MainWin::onDraw() {
     _material->setParam("libng_matrix_mvp", mvp);
 
     _material->setParam("libng_camera_pos", _camera.pos());
+
+    _material->setParam("libng_light_pos", math::Vec3f(10, 10, 0));
+    _material->setParam("libng_light_dir", math::Vec3f(-5, -10, -2));
+    _material->setParam("libng_light_power", 4.0f);
+    _material->setParam("libng_light_color", math::Vec3f(1, 1, 1));
   }
 
   _renderContext->setFrameBufferSize(clientRect().size);
